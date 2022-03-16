@@ -12,4 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b9ec95413652e429e43d378d2eb7ff, type: 3}
   m_Name: MeleeUnitStatus 1
   m_EditorClassIdentifier: 
-  hp: 0
+  name: MeleeSoldier
+  hp: 100
+  dmg: 10
+  atkSpd: 1
+  moveSpd: 0.5
+  atkRagne: 1
+  sightRange: 5
+  cost: 1
+  spawnTime: 0.25
