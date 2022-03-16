@@ -20,6 +20,9 @@ public class TestScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            UnitFactory.instance.SpawnMeleeUnit(Vector3.zero);
+        }
     }
 }

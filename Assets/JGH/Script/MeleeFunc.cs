@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MeleeFunc : Units
 {
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +15,6 @@ public class MeleeFunc : Units
     // Update is called once per frame
     void Update()
     {
-        
+        Walk();
     }
 }
