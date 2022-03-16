@@ -30,3 +30,8 @@ Visual Studio 2019
 
 
 
+나 그냥 유티니랑 c# 써보면서 우리 프로젝트에 필요한거 만들어본거 참고할꺼면 하셈
+https://github.com/JeonJohnson/YoungSanTeamProjectTest
+
+
+
