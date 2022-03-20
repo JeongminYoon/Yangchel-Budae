@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeFunc : Units
+public class RangeFunc : Units
 {
+
+
     // Start is called before the first frame update
     void Start()
     {

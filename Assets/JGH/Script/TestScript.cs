@@ -12,7 +12,6 @@ public class TestScript : MonoBehaviour
         //iTemp = Units.instance.GetSetInt;
         //Debug.Log(iTemp);
 
-
         //Units.instance.GetSetInt = 1;
         //Debug.Log(Units.instance.GetSetInt);
     }
@@ -22,7 +21,13 @@ public class TestScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            UnitFactory.instance.SpawnMeleeUnit(Vector3.zero);
+            UnitFactory.instance.SpawnMeleeUnit(new Vector3(0f, 1f, 0f));
         }
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            UnitFactory.instance.SpawnRangeUnit(new Vector3(0f, 1f, 0f));
+        }  
+
     }
 }
