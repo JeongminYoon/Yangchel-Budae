@@ -18,12 +18,15 @@ abstract public class Units : MonoBehaviour
     /// <target>
     protected GameObject targetObj;
     public List<GameObject> listEnemy;
+    public List<GameObject> listTower;
     public float targetDist;
     public Vector3 targetDir;
     public float targetDegAngle;
     /// <target>
 
     private float atkTime = 0f;
+    private float searchTime = 0f;
+
 
     protected void CalcToObj(GameObject obj)
     {
@@ -47,21 +50,15 @@ abstract public class Units : MonoBehaviour
     }
 
 
-    protected void Walk(GameObject _target)
+    protected void Walk()
     {
-        if (_target != null)
+
+        //Vector3 dir = Vector3.Normalize(_target.transform.position - gameObject.transform.position);
+        CalcToObj(targetObj);
+        if (targetDist > scObj.atkRagne)
         {
-            //Vector3 dir = Vector3.Normalize(_target.transform.position - gameObject.transform.position);
-            CalcToObj(targetObj);
-            if (targetDist > scObj.atkRagne)
-            {
-                transform.position += targetDir * scObj.moveSpd * Time.deltaTime;
-                Debug.Log(scObj.moveSpd + "로 걷고 있습니다.");
-            }
-        }
-        else 
-        {
-            transform.position += transform.forward * scObj.moveSpd * Time.deltaTime;    
+            transform.position += targetDir * scObj.moveSpd * Time.deltaTime;
+            Debug.Log(scObj.moveSpd + "로 걷고 있습니다.");
         }
 
     }
@@ -99,6 +96,7 @@ abstract public class Units : MonoBehaviour
         if (tempEnemyList.Count == 0)
         {
             targetObj = null;
+            SearchTower();
         }
         else
         {
@@ -118,14 +116,22 @@ abstract public class Units : MonoBehaviour
                 }
             }
 
+            if (lowDist == -1f)
+            {
+                SearchTower();
+            }
         }
-
     }
 
     protected void SearchTower()
     {
-    
-    
+        if (transform.position.x > 0)
+        {
+            targetObj = TestScript.instance.arrEnemyTower[2];
+        }
+        else {
+            targetObj = TestScript.instance.arrEnemyTower[0];
+        }
     }
 
     public void Hit(int _dmg)
@@ -136,9 +142,11 @@ abstract public class Units : MonoBehaviour
     }
 
     protected virtual void Awake()
-    { 
-    
-    
+    {
+        SearchUnit();
+
+
+
     }
 
     protected virtual void Start()
@@ -152,11 +160,26 @@ abstract public class Units : MonoBehaviour
      //모노비헤이비어가 update 돌릴 때 오버 라이딩된 자식 함수가 돌게되고
      //그때 맨 처음 base.update()로 돌리기
        atkTime += Time.deltaTime;
+          
 
         if (scObj.hp <= 0)
         {
             isDead = true;
         }
+
+
+        SearchUnit();
+
     }
 
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+
+        Gizmos.DrawLine(transform.position, targetObj.transform.position);
+    }
+
+
 }
+
+

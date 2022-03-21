@@ -22,6 +22,8 @@ public class TestScript : MonoBehaviour
     public List<GameObject> listEnemy;
     public List<GameObject> listFriendly;
 
+    public GameObject[] arrEnemyTower = new GameObject[3];
+    public GameObject[] arrFriendlyTower = new GameObject[3];
     
 
 
