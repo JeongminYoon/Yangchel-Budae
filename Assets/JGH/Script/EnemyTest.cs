@@ -9,14 +9,15 @@ public class EnemyTest : Units
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        
+        base.Start();
     }
 
     // Update is called once per frame
     override protected void Update()
     {
-        
+        base.Update();
+
     }
 }

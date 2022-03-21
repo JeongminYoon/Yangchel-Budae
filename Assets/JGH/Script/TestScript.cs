@@ -17,9 +17,12 @@ public class TestScript : MonoBehaviour
 
     public static TestScript instance = null;
 
-    [SerializeField]
-    private List<GameObject> listEnemy;
+    //[SerializeField]
     //아마 이건 게임 매니저에 놔둘 듯 나중에는
+    public List<GameObject> listEnemy;
+    public List<GameObject> listFriendly;
+
+    
 
 
     public List<GameObject> GetEnemyList()
@@ -28,9 +31,23 @@ public class TestScript : MonoBehaviour
         //C#에서 클래스는 call by reference로 됨.
         //List도 결국 클래스형이라서 디폴트가 레퍼
     }
-    
 
-    int iTemp = 0;
+
+    //int iTemp = 0;
+
+    public Vector3 ScreenToWorld()
+    {
+        Vector2 mousePos = new Vector2();
+        Event currentEvent = Event.current;
+        Vector3 worldPos = new Vector3();
+
+        mousePos.x = currentEvent.mousePosition.x;
+        mousePos.y = Camera.main.pixelHeight - currentEvent.mousePosition.y;
+
+        worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane));
+
+        return worldPos;
+    }
 
     private void Awake()
     {
@@ -57,20 +74,17 @@ public class TestScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        
+        if (Input.GetMouseButtonDown(0)) //좌클릭
         {
-            UnitFactory.instance.SpawnMeleeUnit(new Vector3(0f, 1f, -5.5f));
+
+            listFriendly.Add(UnitFactory.instance.SpawnMeleeUnit(new Vector3(2f, 1f, -5.5f)));
+            //listFriendly.Add(UnitFactory.instance.SpawnMeleeUnit(ScreenToWorld()));
         }
 
-        //if (Input.GetKeyDown(KeyCode.Return))
-        //{
-        //    UnitFactory.instance.SpawnRangeUnit(new Vector3(0f, 1f, 0f));
-        //}
-
-
-        if (Input.GetKeyDown(KeyCode.Backspace))
+        if (Input.GetMouseButtonDown(1)) //우클릭
         {
-            listEnemy.Add(UnitFactory.instance.SpawnEnemy(new Vector3(0f, 1f, 6.04f)));
+            listEnemy.Add(UnitFactory.instance.SpawnEnemy(new Vector3(-2f, 1f, 6.04f)));
             //실제로도 적이 생성될때만 추가하기.
         }
     }

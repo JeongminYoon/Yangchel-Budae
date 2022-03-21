@@ -14,25 +14,28 @@ public class UnitFactory : MonoBehaviour
     }
     /// <singletone>
 
-
     public GameObject meleePrefab;
     public GameObject rangePrefab;
     public GameObject enemyPrefab;
 
     public GameObject  SpawnMeleeUnit(Vector3 spawnPos)
     {
-        return Instantiate(meleePrefab,spawnPos,Quaternion.identity);
+        GameObject tempObj = Instantiate(meleePrefab, spawnPos, Quaternion.identity);
+        tempObj.GetComponent<Units>().IsEnemy = false;
+        return tempObj;
     }
 
     public GameObject SpawnRangeUnit(Vector3 spawnPos)
     {
-        GameObject tempObj = Instantiate(rangePrefab, spawnPos, Quaternion.identity); 
+        GameObject tempObj = Instantiate(rangePrefab, spawnPos, Quaternion.identity);
+        tempObj.GetComponent<Units>().IsEnemy = false;
         return tempObj;
     }
 
     public GameObject SpawnEnemy(Vector3 spawnPos)
     {
         GameObject tempObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        tempObj.GetComponent<Units>().IsEnemy = true;
         return tempObj;
     }
 

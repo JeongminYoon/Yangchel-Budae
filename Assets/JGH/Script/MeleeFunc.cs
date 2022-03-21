@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class MeleeFunc : Units
 {
-    // Start is called before the first frame update
-    void Start()
+    protected override void Awake()
     {
-        
+        base.Awake();
+
+    }
+
+    // Start is called before the first frame update
+    override protected void Start()
+    {
+        base.Start();
+
     }
 
     // Update is called once per frame
@@ -15,17 +22,17 @@ public class MeleeFunc : Units
     {
         base.Update();
 
-        Walk(target);
+        Walk(targetObj);
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetKey(KeyCode.Space))
         {
-            Search();
+            SearchUnit();
         }
 
-        if (target != null)
-        { targetDistance = Vector3.Magnitude(this.gameObject.transform.position - target.transform.position); }
+        if (targetObj != null)
+        { targetDist = Vector3.Magnitude(this.gameObject.transform.position - targetObj.transform.position); }
 
 
-        Attack(target);
+        Attack(targetObj);
     }
 }
