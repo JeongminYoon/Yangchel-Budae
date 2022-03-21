@@ -17,18 +17,24 @@ public class UnitFactory : MonoBehaviour
 
     public GameObject meleePrefab;
     public GameObject rangePrefab;
+    public GameObject enemyPrefab;
 
-
-    public void SpawnMeleeUnit(Vector3 spawnPos)
+    public GameObject  SpawnMeleeUnit(Vector3 spawnPos)
     {
-        Instantiate(meleePrefab,spawnPos,Quaternion.identity);
+        return Instantiate(meleePrefab,spawnPos,Quaternion.identity);
     }
 
-    public void SpawnRangeUnit(Vector3 spawnPos)
+    public GameObject SpawnRangeUnit(Vector3 spawnPos)
     {
-        Instantiate(rangePrefab, spawnPos, Quaternion.identity);
+        GameObject tempObj = Instantiate(rangePrefab, spawnPos, Quaternion.identity); 
+        return tempObj;
     }
 
+    public GameObject SpawnEnemy(Vector3 spawnPos)
+    {
+        GameObject tempObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        return tempObj;
+    }
 
     // Start is called before the first frame update
     void Start()

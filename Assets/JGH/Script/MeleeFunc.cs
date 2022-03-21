@@ -11,8 +11,21 @@ public class MeleeFunc : Units
     }
 
     // Update is called once per frame
-    void Update()
+    override protected void Update()
     {
-        Walk();
+        base.Update();
+
+        Walk(target);
+
+        if (Input.GetMouseButton(0))
+        {
+            Search();
+        }
+
+        if (target != null)
+        { targetDistance = Vector3.Magnitude(this.gameObject.transform.position - target.transform.position); }
+
+
+        Attack(target);
     }
 }

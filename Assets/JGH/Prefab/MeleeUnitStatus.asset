@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: MeleeUnitStatus
   m_EditorClassIdentifier: 
   name: MeleeSoldier
-  hp: 100
+  hp: 30
   dmg: 10
   atkSpd: 1
-  moveSpd: 0.5
+  moveSpd: 1
   atkRagne: 1
   sightRange: 5
   cost: 1
