@@ -1,0 +1,105 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 620f2fcb675409b47aeccc2320b03161, type: 3}
+  m_Name: ItemSO
+  m_EditorClassIdentifier: 
+  items:
+  - name: MeleeUnit
+    hp: 1
+    dmg: 1
+    atkSpd: 1
+    moveSpd: 1
+    atkRagne: 1
+    sightRange: 1
+    cost: 1
+    spawnTime: 1
+  - name: RangeUnit
+    hp: 2
+    dmg: 3
+    atkSpd: 2
+    moveSpd: 22
+    atkRagne: 2
+    sightRange: 2
+    cost: 2
+    spawnTime: 2
+  - name: RangeUnit2
+    hp: 3
+    dmg: 3154
+    atkSpd: 13
+    moveSpd: 15
+    atkRagne: 135
+    sightRange: 135
+    cost: 135
+    spawnTime: 53
+  - name: RangeUnit3
+    hp: 3
+    dmg: 3154
+    atkSpd: 13
+    moveSpd: 15
+    atkRagne: 135
+    sightRange: 135
+    cost: 135
+    spawnTime: 53
+  - name: RangeUnit4
+    hp: 3
+    dmg: 3154
+    atkSpd: 13
+    moveSpd: 15
+    atkRagne: 135
+    sightRange: 135
+    cost: 135
+    spawnTime: 53
+  - name: RangeUnit5
+    hp: 3
+    dmg: 3154
+    atkSpd: 13
+    moveSpd: 15
+    atkRagne: 135
+    sightRange: 135
+    cost: 135
+    spawnTime: 53
+  - name: RangeUnit6
+    hp: 3
+    dmg: 3154
+    atkSpd: 13
+    moveSpd: 15
+    atkRagne: 135
+    sightRange: 135
+    cost: 135
+    spawnTime: 53
+  - name: RangeUnit7
+    hp: 3
+    dmg: 3154
+    atkSpd: 13
+    moveSpd: 15
+    atkRagne: 135
+    sightRange: 135
+    cost: 135
+    spawnTime: 53
+  - name: RangeUnit8
+    hp: 3
+    dmg: 3154
+    atkSpd: 13
+    moveSpd: 15
+    atkRagne: 135
+    sightRange: 135
+    cost: 135
+    spawnTime: 53
+  - name: RangeUnit9
+    hp: 3
+    dmg: 3154
+    atkSpd: 13
+    moveSpd: 15
+    atkRagne: 135
+    sightRange: 135
+    cost: 135
+    spawnTime: 53
