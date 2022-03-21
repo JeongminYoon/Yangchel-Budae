@@ -14,21 +14,30 @@ public class UnitFactory : MonoBehaviour
     }
     /// <singletone>
 
-
     public GameObject meleePrefab;
     public GameObject rangePrefab;
+    public GameObject enemyPrefab;
 
-
-    public void SpawnMeleeUnit(Vector3 spawnPos)
+    public GameObject  SpawnMeleeUnit(Vector3 spawnPos)
     {
-        Instantiate(meleePrefab,spawnPos,Quaternion.identity);
+        GameObject tempObj = Instantiate(meleePrefab, spawnPos, Quaternion.identity);
+        tempObj.GetComponent<Units>().IsEnemy = false;
+        return tempObj;
     }
 
-    public void SpawnRangeUnit(Vector3 spawnPos)
+    public GameObject SpawnRangeUnit(Vector3 spawnPos)
     {
-        Instantiate(rangePrefab, spawnPos, Quaternion.identity);
+        GameObject tempObj = Instantiate(rangePrefab, spawnPos, Quaternion.identity);
+        tempObj.GetComponent<Units>().IsEnemy = false;
+        return tempObj;
     }
 
+    public GameObject SpawnEnemy(Vector3 spawnPos)
+    {
+        GameObject tempObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+        tempObj.GetComponent<Units>().IsEnemy = true;
+        return tempObj;
+    }
 
     // Start is called before the first frame update
     void Start()

@@ -4,17 +4,37 @@ using UnityEngine;
 
 public class MeleeFunc : Units
 {
+    protected override void Awake()
+    {
+        base.Awake();
 
+    }
 
     // Start is called before the first frame update
-    void Start()
+    override protected void Start()
     {
-        
+        base.Start();
+
     }
 
     // Update is called once per frame
-    void Update()
+    override protected void Update()
     {
+        base.Update();
+
         Walk();
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            SearchUnit();
+        }
+
+        //if (targetObj != null)
+        //{ targetDist = Vector3.Magnitude(this.gameObject.transform.position - targetObj.transform.position); }
+
+
+        Attack(targetObj);
     }
+
+   
 }
