@@ -60,6 +60,7 @@ public class TestScript : MonoBehaviour
             if (Physics.Raycast(ray, out castHit))
             {
                 worldPos = castHit.point;
+                worldPos.y = 1f;
             }
         }
 
@@ -91,11 +92,17 @@ public class TestScript : MonoBehaviour
         //Debug.Log(Input.mousePosition); //unity는 좌측하단이 0,0
 
         
-        if (Input.GetMouseButtonDown(ConstVariables.leftMouse)) //좌클릭
+        if (Input.GetMouseButtonDown(ConstVariables.leftMouse) && Input.GetKey(KeyCode.None) ) //좌클릭
         {
             //listFriendly.Add(UnitFactory.instance.SpawnMeleeUnit(new Vector3(2f, 1f, -5.5f)));
             listFriendly.Add(UnitFactory.instance.SpawnMeleeUnit(RayToWorld(ConstVariables.leftMouse)));
         }
+
+        if (Input.GetMouseButtonDown(ConstVariables.leftMouse) && Input.GetKey(KeyCode.LeftControl))
+        {
+            listFriendly.Add(UnitFactory.instance.SpawnRangeUnit(RayToWorld(ConstVariables.leftMouse)));
+        }
+
 
         if (Input.GetMouseButtonDown(ConstVariables.rightMouse)) //우클릭
         {

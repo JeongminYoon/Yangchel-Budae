@@ -4,11 +4,25 @@ using UnityEngine;
 
 public class RangeFunc : Units
 {
-	protected override void Attack(GameObject _target)
+
+    public GameObject bulletPrefab;
+
+    
+	protected override bool Attack(GameObject _target)
 	{
-		base.Attack(_target);
+        //피격판정은 콜리더로 하기
+        if (base.Attack(_target))
+        {
+            Transform   gunTr = transform.GetChild(0).transform;
+            Vector3     gunPos = gunTr.position;
+            Quaternion  gunRot = gunTr.rotation;
+            GameObject  bullet = Instantiate(bulletPrefab, gunPos, gunRot);
+            bullet.GetComponent<Bullet>().dmg = (int)unitStatus.dmg;
 
+            return true;
+        }
 
+        return false;
 	}
 
 	protected override void Awake()
@@ -29,7 +43,8 @@ public class RangeFunc : Units
     {
         base.Update();
         Walk();
-
-        
+        if (targetObj != null)
+        { Attack(targetObj); }
+                
     }
 }

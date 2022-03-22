@@ -61,12 +61,12 @@ abstract public class Units : MonoBehaviour
         CalcToObj(targetObj);
         if (targetDist > unitStatus.atkRagne)
         {
-            transform.position += targetDir * unitStatus.moveSpd * Time.deltaTime;
+            transform.position += transform.forward * unitStatus.moveSpd * Time.deltaTime;
             //Debug.Log(unitStatus.moveSpd + "로 걷고 있습니다.");
         }
     }
 
-    protected virtual void Attack(GameObject _target)
+    protected virtual bool Attack(GameObject _target)
     {
         //지금 타워처럼 스케일이 1 이상인 애들도 
         //공격 범위만큼 가까이 가야 때릴 수 있음.
@@ -75,19 +75,24 @@ abstract public class Units : MonoBehaviour
         {
             atkCurTime += Time.deltaTime;
 
-            Debug.Log(unitStatus.atkRagne + "의 범위로\n" + unitStatus.moveSpd + "의 데미지를 줍니다.");
             Units temp = _target.GetComponent<Units>(); //=> null 나옴. 근데 그게 맞지 ㅋㅋ 안넣었으니까 ㅋㅋ
 
             if (atkCurTime >= unitStatus.atkSpd)
             {
+                //추후 각 유닛의 무기에 따라서 콜리더 판정으로 넘기기
+                Debug.Log(unitStatus.atkRagne + "의 범위로\n" + unitStatus.moveSpd + "의 데미지를 줍니다.");
                 temp.Hit((int)unitStatus.dmg);
                 atkCurTime = 0f;
+                return true;
             }
         }
         else if (_target == null && atkCurTime != 0f)
         {
             atkCurTime = 0f;
+            return false;
         }
+
+        return false;
     }
 
     protected void SearchUnit()
@@ -196,6 +201,12 @@ abstract public class Units : MonoBehaviour
         }
         #endregion
 
+        if (targetObj != null)
+        {
+            transform.LookAt(targetObj.transform);
+        }
+
+
         if (unitStatus.hp <= 0f)
         {
             unitStatus.isDead = true;
@@ -204,9 +215,12 @@ abstract public class Units : MonoBehaviour
 
 	void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
+        if (targetObj != null)
+        {
+            Gizmos.color = Color.green;
 
-        Gizmos.DrawLine(transform.position, targetObj.transform.position);
+            Gizmos.DrawLine(transform.position, targetObj.transform.position);
+        }
     }
 
 

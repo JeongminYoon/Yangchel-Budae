@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5089883057828151611}
   - component: {fileID: 5089883057828151610}
   - component: {fileID: 6703757123209175960}
+  - component: {fileID: 9029872318478762745}
   m_Layer: 0
   m_Name: Eenemy
   m_TagString: Enemy
@@ -117,3 +118,19 @@ MonoBehaviour:
   targetDegAngle: 0
   searchTime: 0.5
   searchCurTime: 0
+--- !u!54 &9029872318478762745
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5089883057828151605}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 84
+  m_CollisionDetection: 0
