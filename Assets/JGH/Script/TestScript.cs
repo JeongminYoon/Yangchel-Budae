@@ -11,20 +11,18 @@ public class TestScript : MonoBehaviour
     //Vector3.right -> 사전에 정의되어 있는 (1f, 0f, 0f) 절대값고
     //tr.right -> 현재 Object의 Right방향.(회전값에 떠러 더룸)
 
-    //0321 수업
-
-
 
     public static TestScript instance = null;
 
     //[SerializeField]
-    //아마 이건 게임 매니저에 놔둘 듯 나중에는
-    public List<GameObject> listEnemy;
-    public List<GameObject> listFriendly;
-
+    //아마 얘들은 오브젝트 매니저에 놔둘 듯 나중에는
+    [SerializeField]
+    private List<GameObject> listEnemy;
+    [SerializeField]
+    private List<GameObject> listFriendly;
     public GameObject[] arrEnemyTower = new GameObject[3];
     public GameObject[] arrFriendlyTower = new GameObject[3];
-    
+    //넥서스는 따로 빼주기 타워 배열 2로 줄이고
 
 
     public List<GameObject> GetEnemyList()
@@ -38,7 +36,7 @@ public class TestScript : MonoBehaviour
     //int iTemp = 0;
 
     public Vector3 ScreenToWorld()
-    {
+    {//작동안됨 ㄴㄴㄴㄴ
         Vector2 mousePos = new Vector2();
         Event currentEvent = Event.current;
         Vector3 worldPos = new Vector3();
@@ -47,6 +45,23 @@ public class TestScript : MonoBehaviour
         mousePos.y = Camera.main.pixelHeight - currentEvent.mousePosition.y;
 
         worldPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane));
+
+        return worldPos;
+    }
+
+    public Vector3 RayToWorld(int mouseButton)
+    {
+        Vector3 worldPos = new Vector3();
+
+        if (Input.GetMouseButtonDown(mouseButton))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit castHit;
+            if (Physics.Raycast(ray, out castHit))
+            {
+                worldPos = castHit.point;
+            }
+        }
 
         return worldPos;
     }
@@ -62,9 +77,6 @@ public class TestScript : MonoBehaviour
     void Start()
 
     {
-
-      
-
         listEnemy.Clear();
         //iTemp = Units.instance.GetSetInt;
         //Debug.Log(iTemp);
@@ -76,17 +88,19 @@ public class TestScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        if (Input.GetMouseButtonDown(0)) //좌클릭
-        {
+        //Debug.Log(Input.mousePosition); //unity는 좌측하단이 0,0
 
-            listFriendly.Add(UnitFactory.instance.SpawnMeleeUnit(new Vector3(2f, 1f, -5.5f)));
-            //listFriendly.Add(UnitFactory.instance.SpawnMeleeUnit(ScreenToWorld()));
+        
+        if (Input.GetMouseButtonDown(ConstVariables.leftMouse)) //좌클릭
+        {
+            //listFriendly.Add(UnitFactory.instance.SpawnMeleeUnit(new Vector3(2f, 1f, -5.5f)));
+            listFriendly.Add(UnitFactory.instance.SpawnMeleeUnit(RayToWorld(ConstVariables.leftMouse)));
         }
 
-        if (Input.GetMouseButtonDown(1)) //우클릭
+        if (Input.GetMouseButtonDown(ConstVariables.rightMouse)) //우클릭
         {
-            listEnemy.Add(UnitFactory.instance.SpawnEnemy(new Vector3(-2f, 1f, 6.04f)));
+            //listEnemy.Add(UnitFactory.instance.SpawnEnemy(new Vector3(-2f, 1f, 6.04f)));
+            listEnemy.Add(UnitFactory.instance.SpawnEnemy(RayToWorld(ConstVariables.rightMouse)));
             //실제로도 적이 생성될때만 추가하기.
         }
     }

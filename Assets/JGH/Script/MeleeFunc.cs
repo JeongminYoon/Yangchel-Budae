@@ -24,11 +24,6 @@ public class MeleeFunc : Units
 
         Walk();
 
-        if (Input.GetKey(KeyCode.Space))
-        {
-            SearchUnit();
-        }
-
         //if (targetObj != null)
         //{ targetDist = Vector3.Magnitude(this.gameObject.transform.position - targetObj.transform.position); }
 
