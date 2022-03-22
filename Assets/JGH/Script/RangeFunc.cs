@@ -4,10 +4,21 @@ using UnityEngine;
 
 public class RangeFunc : Units
 {
+	protected override void Attack(GameObject _target)
+	{
+		base.Attack(_target);
 
 
-    // Start is called before the first frame update
-    protected override void Start()
+	}
+
+	protected override void Awake()
+	{
+		base.Awake();
+
+	}
+
+	// Start is called before the first frame update
+	protected override void Start()
     {
         base.Start();
         
@@ -17,6 +28,8 @@ public class RangeFunc : Units
     override protected void Update()
     {
         base.Update();
-       // Walk();
+        Walk();
+
+        
     }
 }

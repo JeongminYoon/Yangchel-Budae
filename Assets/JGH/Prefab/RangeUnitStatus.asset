@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29b9ec95413652e429e43d378d2eb7ff, type: 3}
   m_Name: RangeUnitStatus
   m_EditorClassIdentifier: 
-  name: RangeSoldier
+  unitName: Range
   hp: 75
   dmg: 15
   atkSpd: 1
   moveSpd: 0.25
-  atkRagne: 3
+  atkRagne: 5
   sightRange: 5
   cost: 2
   spawnTime: 0.5
+  unitScale: 0
+  isSplashAtk: 0
+  isDead: 0
