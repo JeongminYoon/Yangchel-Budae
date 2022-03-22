@@ -35,7 +35,7 @@ public class CardManager : MonoBehaviour
 
     void CardAdd()
     {
-        for (int i = 0; i < 8; i++)
+        for (int i = 1; i < 9; i++)
         {
             cardList.Add(i);
             //int a = cardList[i];
@@ -50,9 +50,10 @@ public class CardManager : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             int a = Random.Range(0, 4);
-            print(cardList[a]+ "°¡ »ÌÈû");
-            cardList.RemoveAt(a);
-            cardList.Add(a);
+            int res = cardList[a];
+            print(res + "°¡ »ÌÈû");
+            cardList.Remove(res);
+            cardList.Add(res);
         }
     }
 
