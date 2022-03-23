@@ -5,22 +5,26 @@ using UnityEngine.UI;
 
 public class Card : MonoBehaviour
 {
-    [SerializeField] SpriteRenderer card;
-    [SerializeField] SpriteRenderer character;
-    [SerializeField] int costText;
-    [SerializeField] Sprite cardImg;
+    public UnitStatus status;
+    public Text unitName;
+    public Text unitCost;
 
-    public Item item;
-
-    public void Setup(Item item)
+    private void Awake()
     {
-        this.item = item;
+        
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        unitName = this.gameObject.transform.Find("Name").gameObject.GetComponent<Text>();
+        unitCost = this.gameObject.transform.Find("Cost").gameObject.GetComponent<Text>();
+
+
+        unitName.text = status.unitName;
+        unitCost.text = (status.cost).ToString();
+
     }
 
     // Update is called once per frame
