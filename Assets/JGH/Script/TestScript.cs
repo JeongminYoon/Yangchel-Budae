@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Structs;
+using Enums;
 
 public class TestScript : MonoBehaviour
 {
@@ -16,21 +18,21 @@ public class TestScript : MonoBehaviour
 
     //[SerializeField]
     //아마 얘들은 오브젝트 매니저에 놔둘 듯 나중에는
-    [SerializeField]
-    private List<GameObject> listEnemy;
-    [SerializeField]
-    private List<GameObject> listFriendly;
-    public GameObject[] arrEnemyTower = new GameObject[3];
-    public GameObject[] arrFriendlyTower = new GameObject[3];
+   // [SerializeField]
+   // private List<GameObject> listEnemy;
+   // [SerializeField]
+   // private List<GameObject> listFriendly;
+  //  public GameObject[] arrEnemyTower = new GameObject[3];
+   // public GameObject[] arrFriendlyTower = new GameObject[3];
     //넥서스는 따로 빼주기 타워 배열 2로 줄이고
 
 
-    public List<GameObject> GetEnemyList()
-    {
-        return listEnemy;
-        //C#에서 클래스는 call by reference로 됨.
-        //List도 결국 클래스형이라서 디폴트가 레퍼
-    }
+    //public List<GameObject> GetEnemyList()
+    //{
+    //    return listEnemy;
+    //    //C#에서 클래스는 call by reference로 됨.
+    //    //List도 결국 클래스형이라서 디폴트가 레퍼
+    //}
 
 
     //int iTemp = 0;
@@ -49,23 +51,26 @@ public class TestScript : MonoBehaviour
         return worldPos;
     }
 
-    public Vector3 RayToWorld(int mouseButton)
-    {
-        Vector3 worldPos = new Vector3();
+    //public RayResult RayToWorld()
+    //{
+    //    RayResult rayResult = new RayResult();
 
-        if (Input.GetMouseButtonDown(mouseButton))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit castHit;
-            if (Physics.Raycast(ray, out castHit))
-            {
-                worldPos = castHit.point;
-                worldPos.y = 1f;
-            }
-        }
+    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //    RaycastHit castHit;
 
-        return worldPos;
-    }
+    //    if (Physics.Raycast(ray, out castHit))
+    //    {
+    //        rayResult.hitPosition = castHit.point;
+    //        rayResult.hitPosition.y = 1f;
+    //        rayResult.isHit = true;
+    //    }
+    //    else 
+    //    {
+    //        rayResult.isHit = false;
+    //    }
+
+    //    return rayResult;
+    //}
 
     private void Awake()
     {
@@ -78,7 +83,8 @@ public class TestScript : MonoBehaviour
     void Start()
 
     {
-        listEnemy.Clear();
+       // listEnemy.Clear();
+
         //iTemp = Units.instance.GetSetInt;
         //Debug.Log(iTemp);
 
@@ -91,24 +97,42 @@ public class TestScript : MonoBehaviour
     {
         //Debug.Log(Input.mousePosition); //unity는 좌측하단이 0,0
 
-        
-        if (Input.GetMouseButtonDown(ConstVariables.leftMouse) && Input.GetKey(KeyCode.None) ) //좌클릭
+
+        if (Input.GetMouseButtonDown(Defines.left) && Input.GetKey(KeyCode.LeftShift))
         {
-            //listFriendly.Add(UnitFactory.instance.SpawnMeleeUnit(new Vector3(2f, 1f, -5.5f)));
-            listFriendly.Add(UnitFactory.instance.SpawnMeleeUnit(RayToWorld(ConstVariables.leftMouse)));
+            
+            UnitManager.instance.unitList[Defines.ally].Add(UnitFactory.instance.SpawnUnit(UnitClass.melee, Funcs.RayToWorld().hitPosition));
         }
 
-        if (Input.GetMouseButtonDown(ConstVariables.leftMouse) && Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetMouseButtonDown(Defines.left) && Input.GetKey(KeyCode.LeftControl))
         {
-            listFriendly.Add(UnitFactory.instance.SpawnRangeUnit(RayToWorld(ConstVariables.leftMouse)));
+            UnitManager.instance.unitList[Defines.ally].Add
+                (UnitFactory.instance.SpawnUnit(UnitClass.range, Funcs.RayToWorld().hitPosition));
         }
 
-
-        if (Input.GetMouseButtonDown(ConstVariables.rightMouse)) //우클릭
+        if (Input.GetMouseButtonDown(Defines.right))
         {
-            //listEnemy.Add(UnitFactory.instance.SpawnEnemy(new Vector3(-2f, 1f, 6.04f)));
-            listEnemy.Add(UnitFactory.instance.SpawnEnemy(RayToWorld(ConstVariables.rightMouse)));
-            //실제로도 적이 생성될때만 추가하기.
+            UnitManager.instance.unitList[Defines.enemy].Add
+            (UnitFactory.instance.SpawnUnit(UnitClass.melee, Funcs.RayToWorld().hitPosition, true));
         }
+
+        //if (Input.GetMouseButtonDown(ConstVariables.leftMouse) && Input.GetKey(KeyCode.LeftShift) ) //좌클릭
+        //{
+        //    //listFriendly.Add(UnitFactory.instance.SpawnMeleeUnit(new Vector3(2f, 1f, -5.5f)));
+        //    listFriendly.Add(UnitFactory.instance.SpawnMeleeUnit(RayToWorld(ConstVariables.leftMouse)));
+        //}
+
+        //if (Input.GetMouseButtonDown(ConstVariables.leftMouse) && Input.GetKey(KeyCode.LeftControl))
+        //{
+        //    listFriendly.Add(UnitFactory.instance.SpawnRangeUnit(RayToWorld(ConstVariables.leftMouse)));
+        //}
+
+
+        //if (Input.GetMouseButtonDown(ConstVariables.rightMouse)) //우클릭
+        //{
+        //    //listEnemy.Add(UnitFactory.instance.SpawnEnemy(new Vector3(-2f, 1f, 6.04f)));
+        //    listEnemy.Add(UnitFactory.instance.SpawnEnemy(RayToWorld(ConstVariables.rightMouse)));
+        //    //실제로도 적이 생성될때만 추가하기.
+        //}
     }
 }

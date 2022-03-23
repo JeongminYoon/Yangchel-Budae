@@ -17,10 +17,10 @@ abstract public class Units : MonoBehaviour
 
     /// <target>
     protected GameObject targetObj;
-    public List<GameObject> listTarget;
-    public List<GameObject> listTower;
-    public GameObject nexus;
-    public GameObject[] arrTowers = new GameObject[2]; //0 -> Left, 1 -> Right
+    public List<GameObject> listTarget = new List<GameObject>();
+    //public List<GameObject> listTower;
+    //public GameObject nexus;
+    //public GameObject[] arrTowers = new GameObject[2]; //0 -> Left, 1 -> Right
 
     public float targetDist;
     public Vector3 targetDir;
@@ -104,12 +104,12 @@ abstract public class Units : MonoBehaviour
         //2. 가까운 라인의 상대 타워 유무 파악
         //3. 아직 있을 경우 상대 타워 타겟으로 지정.
         //4. 상대 몬스터 생성되면(에너미 리스트에 존재할 경우) 서치 시작
-                //=> 매 프레임이 아니라 일정 시간마다
+        //=> 매 프레임이 아니라 일정 시간마다
         //5. 가장 가까운 유닛 타겟이 정해지면, 타겟을 바꾼 뒤 그쪽으로 이동
         //6. 사정거리안에 들어오면 공격시작
         //7. 공격 해서 적 몬스터 상태가 isDead == true되면 
-            //objectManager에서 리스트에서도 지우고 
-            //타겟도 취소
+        //objectManager에서 리스트에서도 지우고 
+        //타겟도 취소
         //8. 다시 1번으로 돌아가기
 
         //매 프레임마다 돌리지는 말구 
@@ -121,27 +121,27 @@ abstract public class Units : MonoBehaviour
 
         //Debug.Log(unitStatus.sightRange + "의 범위로 적을 찾고 있습니다.");
 
-        List<GameObject> tempEnemyList = TestScript.instance.GetEnemyList();
+        listTarget = UnitManager.instance.unitList[Funcs.B2I(!isEnemy)]; 
+            
 
-        if (tempEnemyList.Count == 0)
+        if (listTarget.Count == 0)
         {
-            targetObj = null;
             SearchTower();
         }
         else
         {
             float lowDist = -1f;
 
-            for (int i = 0; i < tempEnemyList.Count; ++i)
+            for (int i = 0; i < listTarget.Count; ++i)
             {
-                float dist = Vector3.Magnitude(tempEnemyList[i].transform.position - this.transform.position);
+                float dist = Vector3.Magnitude(listTarget[i].transform.position - this.transform.position);
 
                 if (dist <= unitStatus.sightRange)
                 {
                     if (lowDist > dist || lowDist < 0f)
                     {
                         lowDist = dist;
-                        targetObj = tempEnemyList[i];
+                        targetObj = listTarget[i];
                     }
                 }
             }
@@ -155,14 +155,23 @@ abstract public class Units : MonoBehaviour
 
     protected void SearchTower()
     {//가까운 라인 파악하고 타워 확인하는거.
+        
+        
         if (transform.position.x > 0)
-        {//일단 지금은 간단하게 왼쪽 라인쪽이면 왼쪽 타워
-            targetObj = TestScript.instance.arrEnemyTower[2];
+        {
+            int temp = Funcs.B2I(!isEnemy);
+            targetObj = TowerManager.instance.towerList[Funcs.B2I(!isEnemy), Defines.right];
         }
         else 
         {
-            //오른쪽 라인 위치면 오른쪽 타워
-            targetObj = TestScript.instance.arrEnemyTower[0];
+
+            targetObj = TowerManager.instance.towerList[Funcs.B2I(!isEnemy), Defines.left] ;
+
+            //if (isEnemy)
+            //{
+            //    targetObj = TowerManager.instance.towerList[Defines.ally, Defines.left] ;
+            //}
+            //else { targetObj = TowerManager.instance.towerList[Defines.enemy, Defines.left]; }
         }
     }
 

@@ -66,7 +66,7 @@ public class CardManager : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            Vector3 pos = TestScript.instance.RayToWorld(ConstVariables.leftMouse);
+            Vector3 pos = Funcs.RayToWorld().hitPosition;
             UnitFactory.instance.SpawnMeleeUnit(pos);
         }
 
