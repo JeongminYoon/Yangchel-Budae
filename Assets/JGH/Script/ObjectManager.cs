@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class ObjectManager : MonoBehaviour
 {
+    /// <singletone>
     public static ObjectManager instance = null;
+    /// <singletone>
 
-	void Awake()
+    public List<GameObject> enemyList;
+    public List<GameObject> allyList;
+
+
+    void Awake()
 	{
         if (instance == null)
         {
@@ -14,14 +20,11 @@ public class ObjectManager : MonoBehaviour
         }
 	}
 
-
-	// Start is called before the first frame update
 	void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
