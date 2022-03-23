@@ -17,8 +17,11 @@ abstract public class Units : MonoBehaviour
 
     /// <target>
     protected GameObject targetObj;
-    public List<GameObject> listEnemy;
+    public List<GameObject> listTarget;
     public List<GameObject> listTower;
+    public GameObject nexus;
+    public GameObject[] arrTowers = new GameObject[2]; //0 -> Left, 1 -> Right
+
     public float targetDist;
     public Vector3 targetDir;
     public float targetDegAngle;
