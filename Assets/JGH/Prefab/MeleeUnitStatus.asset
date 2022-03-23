@@ -23,4 +23,4 @@ MonoBehaviour:
   spawnTime: 0.25
   unitScale: 0
   isSplashAtk: 0
-  isDead: 0
+  isDead: 1
