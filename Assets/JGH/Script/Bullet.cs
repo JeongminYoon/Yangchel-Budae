@@ -1,19 +1,19 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    //Ãæµ¹ ¸Þ¼¼Áö¸¦ ¹ß»ýÇÏ´Â°ÍÀº ¸®Áöµå¹ÙµðÀÓÀ¸·Î
-    //Ãæµ¹ ÆÇÁ¤À» ÇÏ±â À§ÇØ¼± ÃÖ¼Ò ÇÏ³ª´Â ¸®Áöµå¹Ùµð °¡Áö°í ÀÖ¾î¾ßÇÔ.      
+    //ì¶©ëŒ ë©”ì„¸ì§€ë¥¼ ë°œìƒí•˜ëŠ”ê²ƒì€ ë¦¬ì§€ë“œë°”ë””ìž„ìœ¼ë¡œ
+    //ì¶©ëŒ íŒì •ì„ í•˜ê¸° ìœ„í•´ì„  ìµœì†Œ í•˜ë‚˜ëŠ” ë¦¬ì§€ë“œë°”ë”” ê°€ì§€ê³  ìžˆì–´ì•¼í•¨.      
 
-    //¶ÇÇÑ µÎ °ÔÀÓ ¿ÀºêÁ§Æ® ÄÝ¸®´õ Áß ÃÖ¼Ò ÇÏ³ª°¡ Æ®¸®°Å ÄÝ¶óÀÌ´õ¸é È£ÃâµÊ
-    //-> ¾çÂÊ ¸ðµÎ¿¡¼­ ÀÏ¾î³².
-    //On Trigger ~ ÇÔ¼ö·Î ½ÇÇàµÊ. ¶ÇÇÑ ±×´ë·Î Åë°ú.
-    //¶ÇÇÑ ColliderÇüÀ» ¹Þ¾Æ¿À´Âµ¥, ¿©±â¼­´Â »ó¼¼ÇÑ Ãæµ¹ Á¤º¸ ¾øÀ½.
+    //ë˜í•œ ë‘ ê²Œìž„ ì˜¤ë¸Œì íŠ¸ ì½œë¦¬ë” ì¤‘ ìµœì†Œ í•˜ë‚˜ê°€ íŠ¸ë¦¬ê±° ì½œë¼ì´ë”ë©´ í˜¸ì¶œë¨
+    //-> ì–‘ìª½ ëª¨ë‘ì—ì„œ ì¼ì–´ë‚¨.
+    //On Trigger ~ í•¨ìˆ˜ë¡œ ì‹¤í–‰ë¨. ë˜í•œ ê·¸ëŒ€ë¡œ í†µê³¼.
+    //ë˜í•œ Colliderí˜•ì„ ë°›ì•„ì˜¤ëŠ”ë°, ì—¬ê¸°ì„œëŠ” ìƒì„¸í•œ ì¶©ëŒ ì •ë³´ ì—†ìŒ.
 
-    //OnCollisionÀº ÀÏ¹Ý Ãæµ¹ ½Ã ¹ß»ý
-    //¶ÇÇÑ ÀÎÀÚ·Î CollisionÇüÀ» ¹Þ¾Æ¿À´Âµ¥, ¿©±â¼­´Â »ó¼¼ÇÑ Ãæµ¹ Á¤º¸ À¯
+    //OnCollisionì€ ì¼ë°˜ ì¶©ëŒ ì‹œ ë°œìƒ
+    //ë˜í•œ ì¸ìžë¡œ Collisioní˜•ì„ ë°›ì•„ì˜¤ëŠ”ë°, ì—¬ê¸°ì„œëŠ” ìƒì„¸í•œ ì¶©ëŒ ì •ë³´ ìœ 
 
     public int dmg;
 

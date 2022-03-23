@@ -29,6 +29,8 @@ public class RangeFunc : Units
 	{
 		base.Awake();
 
+        
+
 	}
 
 	// Start is called before the first frame update
