@@ -101,19 +101,23 @@ public class TestScript : MonoBehaviour
         if (Input.GetMouseButtonDown(Defines.left) && Input.GetKey(KeyCode.LeftShift))
         {
             
-            UnitManager.instance.unitList[Defines.ally].Add(UnitFactory.instance.SpawnUnit(UnitClass.melee, Funcs.RayToWorld().hitPosition));
+            //UnitManager.instance.unitList[Defines.ally].Add()
+                UnitFactory.instance.SpawnUnit(UnitClass.melee, Funcs.RayToWorld().hitPosition);
         }
 
         if (Input.GetMouseButtonDown(Defines.left) && Input.GetKey(KeyCode.LeftControl))
         {
-            UnitManager.instance.unitList[Defines.ally].Add
-                (UnitFactory.instance.SpawnUnit(UnitClass.range, Funcs.RayToWorld().hitPosition));
+            //UnitManager.instance.unitList[Defines.ally].Add()
+                UnitFactory.instance.SpawnUnit(UnitClass.range, Funcs.RayToWorld().hitPosition);
         }
 
         if (Input.GetMouseButtonDown(Defines.right))
         {
-            UnitManager.instance.unitList[Defines.enemy].Add
-            (UnitFactory.instance.SpawnUnit(UnitClass.melee, Funcs.RayToWorld().hitPosition, true));
+
+            GameObject tempEnemy = UnitFactory.instance.SpawnUnit(UnitClass.melee, Funcs.RayToWorld().hitPosition, true);
+                
+           // UnitManager.instance.unitList[Defines.enemy].Add(tempEnemy);
+           
         }
 
         //if (Input.GetMouseButtonDown(ConstVariables.leftMouse) && Input.GetKey(KeyCode.LeftShift) ) //좌클릭

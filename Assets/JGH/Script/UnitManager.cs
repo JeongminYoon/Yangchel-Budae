@@ -10,10 +10,36 @@ public class UnitManager : MonoBehaviour
     /// <singletone>
 
     public List<GameObject>[] unitList = new List<GameObject>[(int)Team.End];
-   
-    //public List<GameObject>[] unitList;
-       //팀 : 0 아군 / 1 적군
 
+    //public List<GameObject>[] unitList;
+    //팀 : 0 아군 / 1 적군
+
+    public void RemoveDeadUnit(GameObject unit)
+    {
+        for (int i = 0; i < unitList.Length; ++i)
+        {
+            for (int k = 0; k < unitList[i].Count; ++k)
+            {
+                unitList[i].Remove(unit);
+            }
+        }
+    }
+
+    public void ResearchTarget_AllUnit(GameObject unit)
+    {
+        for (int i = 0; i < unitList.Length; ++i)
+        {
+            for (int k = 0; k < unitList[i].Count; ++k)
+            {
+                Units temp = unitList[i][k].GetComponent<Units>();
+
+                if (temp != null && temp.targetObj == unit)
+                {
+                    temp.SearchUnit();
+                }
+            }
+        }
+    }
 
     void Awake()
 	{

@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: Tower
   m_EditorClassIdentifier: 
   unitName: Tower
-  hp: 75
+  hp: 750
   dmg: 15
   atkSpd: 1
   moveSpd: 0.25
-  atkRagne: 3
+  atkRange: 0
   sightRange: 5
   cost: 2
   spawnTime: 0.5
+  unitScale: 0
+  isSplashAtk: 0
+  isDead: 0

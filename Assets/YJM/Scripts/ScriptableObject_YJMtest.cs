@@ -10,7 +10,7 @@ public class Item
     public float dmg;
     public float atkSpd;
     public float moveSpd;
-    public float atkRagne;
+    public float atkRange;
     public float sightRange;
     public int cost;
     public float spawnTime;

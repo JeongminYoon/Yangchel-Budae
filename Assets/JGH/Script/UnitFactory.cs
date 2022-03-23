@@ -8,6 +8,7 @@ public class UnitFactory : MonoBehaviour
     /// <singletone>
     public static UnitFactory instance = null;
 
+    public Material enemyMaterial;
     private void Awake()
     {
         if (instance == null)
@@ -73,10 +74,17 @@ public class UnitFactory : MonoBehaviour
         if (spawnObj != null)
         {
             spawnObj.GetComponent<Units>().IsEnemy = isEnemy;
+
+            if (isEnemy)
+            {
+                spawnObj.GetComponent<Renderer>().material.color = Color.red;
+            }
+
+
             UnitManager.instance.unitList[Funcs.B2I(isEnemy)].Add(spawnObj);
         }
-       
-        return spawnObj;
+
+			return spawnObj;
     }
 
     public GameObject  SpawnMeleeUnit(Vector3 spawnPos)

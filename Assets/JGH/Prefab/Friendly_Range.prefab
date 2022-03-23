@@ -370,9 +370,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dae25ca078b5c3439114893f4cd6939, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitStatus: {fileID: 11400000, guid: 2d6b3a3f855a5604696d411fd777dab3, type: 2}
-  listEnemy: []
-  listTower: []
+  unitStatus_Origin: {fileID: 11400000, guid: 2d6b3a3f855a5604696d411fd777dab3, type: 2}
+  listTarget: []
   targetDist: 0
   targetDir: {x: 0, y: 0, z: 0}
   targetDegAngle: 0

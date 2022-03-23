@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: RangeUnitStatus
   m_EditorClassIdentifier: 
   unitName: Range
-  hp: 75
+  hp: 70
   dmg: 15
   atkSpd: 1
-  moveSpd: 0.25
-  atkRagne: 5
+  moveSpd: 0.5
+  atkRange: 4
   sightRange: 5
   cost: 2
   spawnTime: 0.5

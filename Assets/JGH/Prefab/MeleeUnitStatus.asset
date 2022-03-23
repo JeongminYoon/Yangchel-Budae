@@ -17,10 +17,10 @@ MonoBehaviour:
   dmg: 10
   atkSpd: 1
   moveSpd: 1
-  atkRagne: 1
+  atkRange: 1
   sightRange: 5
   cost: 1
   spawnTime: 0.25
   unitScale: 0
   isSplashAtk: 0
-  isDead: 1
+  isDead: 0

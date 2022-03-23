@@ -4,8 +4,11 @@ using UnityEngine;
 
 abstract public class Units : MonoBehaviour
 {
-    [SerializeField]
-    protected UnitStatus unitStatus;
+    public UnitStatus   unitStatus_Origin; //스크립터블 오브젝트 원본
+
+    //[SerializeField]
+    protected UnitStatus unitStatus; //스크립터블 오브젝트 원본을 복사한, 코드내에서 실제로 변경될 스텟
+
 
     protected bool isEnemy;
     public bool IsEnemy
@@ -16,7 +19,7 @@ abstract public class Units : MonoBehaviour
     //protected bool isDead = false;
 
     /// <target>
-    protected GameObject targetObj;
+    public GameObject targetObj;
     public List<GameObject> listTarget = new List<GameObject>();
     //public List<GameObject> listTower;
     //public GameObject nexus;
@@ -32,6 +35,8 @@ abstract public class Units : MonoBehaviour
     public float searchTime = 0.5f;
     public float searchCurTime = 0f;
 
+    public delegate void HandlerDeath(GameObject unit);
+    HandlerDeath handlerDeath;
 
     protected void CalcToObj(GameObject obj)
     {
@@ -47,9 +52,16 @@ abstract public class Units : MonoBehaviour
 		//이것이 ㄹㅇ 찐 각도
 	}
 
-	protected void Death()
+	protected void Death(HandlerDeath handler)
     {
-        Destroy(gameObject);
+        if (unitStatus.hp <= 0f)
+        {
+            unitStatus.isDead = true;
+            handler(this.gameObject);
+            Destroy(this.gameObject);
+        }
+
+        //Destroy(gameObject);
         //이 유닛 참조하고 있는 다른 놈들에 대해서도 예외처리 필요.
         //또 이거 쓰면 그 머다냐 메모리 릭 생긴다는 얘기도 있음.
         //일단 사용 ㄴㄴㄴ
@@ -62,7 +74,7 @@ abstract public class Units : MonoBehaviour
 
         //Vector3 dir = Vector3.Normalize(_target.transform.position - gameObject.transform.position);
         CalcToObj(targetObj);
-        if (targetDist > unitStatus.atkRagne)
+        if (targetDist > unitStatus.atkRange)
         {
             transform.position += transform.forward * unitStatus.moveSpd * Time.deltaTime;
             //Debug.Log(unitStatus.moveSpd + "로 걷고 있습니다.");
@@ -74,7 +86,7 @@ abstract public class Units : MonoBehaviour
         //지금 타워처럼 스케일이 1 이상인 애들도 
         //공격 범위만큼 가까이 가야 때릴 수 있음.
         // 추후 콜리더 범위로 수정 해야함.
-        if (_target != null && targetDist <= unitStatus.atkRagne)
+        if (_target != null && targetDist <= unitStatus.atkRange)
         {
             atkCurTime += Time.deltaTime;
 
@@ -83,7 +95,7 @@ abstract public class Units : MonoBehaviour
             if (atkCurTime >= unitStatus.atkSpd)
             {
                 //추후 각 유닛의 무기에 따라서 콜리더 판정으로 넘기기
-                Debug.Log(unitStatus.atkRagne + "의 범위로\n" + unitStatus.moveSpd + "의 데미지를 줍니다.");
+                Debug.Log(unitStatus.atkRange + "의 범위로\n" + unitStatus.moveSpd + "의 데미지를 줍니다.");
                 temp.Hit((int)unitStatus.dmg);
                 atkCurTime = 0f;
                 return true;
@@ -98,7 +110,7 @@ abstract public class Units : MonoBehaviour
         return false;
     }
 
-    protected void SearchUnit()
+    public void SearchUnit()
     {
         //1. 소환 됐을 때 가까운 라인 파악.
         //2. 가까운 라인의 상대 타워 유무 파악
@@ -155,8 +167,6 @@ abstract public class Units : MonoBehaviour
 
     protected void SearchTower()
     {//가까운 라인 파악하고 타워 확인하는거.
-        
-        
         if (transform.position.x > 0)
         {
             int temp = Funcs.B2I(!isEnemy);
@@ -184,17 +194,22 @@ abstract public class Units : MonoBehaviour
 
     protected virtual void Awake()
     {
-        SearchUnit();
-
+        //SearchUnit();
+       
 
 
     }
 
     protected virtual void Start()
-    { 
-    
+    {
+        handlerDeath = new HandlerDeath(UnitManager.instance.RemoveDeadUnit);
+        handlerDeath += UnitManager.instance.ResearchTarget_AllUnit;
 
+        //unitStatus = unitStatus_Origin; 얕은 복사 Shallow
+        unitStatus = ScriptableObject.CreateInstance<UnitStatus>();
+        unitStatus.DeepCopy(unitStatus_Origin);
 
+        SearchUnit();
     }
     protected virtual void Update()
     {//가상함수로 만들면
@@ -219,10 +234,9 @@ abstract public class Units : MonoBehaviour
         }
 
 
-        if (unitStatus.hp <= 0f)
-        {
-            unitStatus.isDead = true;
-        }
+        
+        Death(handlerDeath);
+        
     }
 
 	void OnDrawGizmos()
