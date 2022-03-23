@@ -12,17 +12,26 @@ public class DelegateTest : MonoBehaviour
 	//콜백함수들과 반환형, 인자 같게 만들어야함.
     public delegate bool TestHandler(GameObject unit);
 
-	bool DeathDelegate(GameObject unit)
+
+	public void TestRealFunc(TestHandler handler)
 	{
-		return false;
+		//델리게이트 실행시킬 함수에서는 인자로 해당 델리게이트 받아와야함.
+		Debug.Log("Death");
+
+
+		handler(this.gameObject);
+		//델리게이트 함수처럼 호출 하면 됨.
 	}
+
 
 	TestHandler handler;
 
 	private void Start()
 	{
 		handler = new TestHandler(DeathDelegate);
-		handler += CallBack1;
+		//이런 +/-연산으로 콜백함수 추가, 삭제가능.
+		//추가된 콜백함수들은 순서대로 실행됨.
+		handler += CallBack1; 
 		handler += CallBack2;
 		handler += CallBack3;
 	}
@@ -35,12 +44,10 @@ public class DelegateTest : MonoBehaviour
 		}
 	}
 
-	public void TestRealFunc(TestHandler handler)
+	//delegate와 반환형, 인자 똑같게
+	bool DeathDelegate(GameObject unit)
 	{
-		Debug.Log("Death");
-
-
-		handler(this.gameObject);
+		return false;
 	}
 
 	public bool CallBack1(GameObject unit)
