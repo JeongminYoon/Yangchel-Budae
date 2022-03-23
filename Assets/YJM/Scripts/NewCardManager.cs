@@ -16,6 +16,8 @@ public class NewCardManager : MonoBehaviour
 
     public List<UnitStatus> asdf;
 
+    Vector3 pos1;
+
     //1. 준비된 덱 섞기(셔플 알고리즘)
     //2. 섞인 덱중 윗 4장을 myHand로 넘겨주기
     //3. 카드사용하면 그 카드를 grave로 보내기
@@ -33,18 +35,17 @@ public class NewCardManager : MonoBehaviour
         //}
         //allDeck = ShuffleArray(allDeck);
         #endregion
+
+        pos1 = this.gameObject.transform.Find("pos1").gameObject.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.W))
         {
-            GameObject tempCard =  Instantiate(cardPrefab,uiCanvas.transform);
+            GameObject tempCard =  Instantiate(cardPrefab,pos1,Quaternion.identity,uiCanvas.transform);
             Card card = tempCard.GetComponent<Card>();
-
-
-
 
 
             card.status = asdf[0];
