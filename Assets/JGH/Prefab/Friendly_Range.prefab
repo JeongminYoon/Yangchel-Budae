@@ -371,6 +371,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitStatus_Origin: {fileID: 11400000, guid: 2d6b3a3f855a5604696d411fd777dab3, type: 2}
+  targetObj: {fileID: 0}
   listTarget: []
   targetDist: 0
   targetDir: {x: 0, y: 0, z: 0}

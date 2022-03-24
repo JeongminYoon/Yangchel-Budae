@@ -78,6 +78,7 @@ public class UnitFactory : MonoBehaviour
             if (isEnemy)
             {
                 spawnObj.GetComponent<Renderer>().material.color = Color.red;
+                spawnObj.tag = "Enemy";
             }
 
 

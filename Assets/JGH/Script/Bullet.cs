@@ -41,9 +41,14 @@ public class Bullet : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
+
+       
+
         if (other.tag == "Enemy")
         {
-           Units temp =  other.gameObject.GetComponent<Units>();
+            Debug.Log("ㅇㅇ");
+
+            Units temp =  other.gameObject.GetComponent<Units>();
 
             if (temp != null)
             {
@@ -52,5 +57,11 @@ public class Bullet : MonoBehaviour
 
             Destroy(this.gameObject);
         }
+	}
+
+
+	private void OnCollisionEnter(Collision collision)
+	{
+        Debug.Log("Collision On");
 	}
 }

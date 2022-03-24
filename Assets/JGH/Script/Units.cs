@@ -95,8 +95,8 @@ abstract public class Units : MonoBehaviour
             if (atkCurTime >= unitStatus.atkSpd)
             {
                 //추후 각 유닛의 무기에 따라서 콜리더 판정으로 넘기기
-                Debug.Log(unitStatus.atkRange + "의 범위로\n" + unitStatus.moveSpd + "의 데미지를 줍니다.");
-                temp.Hit((int)unitStatus.dmg);
+                //Debug.Log(unitStatus.atkRange + "의 범위로\n" + unitStatus.moveSpd + "의 데미지를 줍니다.");
+               // temp.Hit((int)unitStatus.dmg);
                 atkCurTime = 0f;
                 return true;
             }
