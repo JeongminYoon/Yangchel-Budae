@@ -10,7 +10,7 @@ abstract public class Units : MonoBehaviour
     protected UnitStatus unitStatus; //스크립터블 오브젝트 원본을 복사한, 코드내에서 실제로 변경될 스텟
 
 
-    protected bool isEnemy;
+    public bool isEnemy;
     public bool IsEnemy
     {
         get { return isEnemy; }
@@ -36,7 +36,7 @@ abstract public class Units : MonoBehaviour
     public float searchCurTime = 0f;
 
     public delegate void HandlerDeath(GameObject unit);
-    HandlerDeath handlerDeath;
+    public HandlerDeath handlerDeath;
 
     protected void CalcToObj(GameObject obj)
     {
@@ -52,7 +52,7 @@ abstract public class Units : MonoBehaviour
 		//이것이 ㄹㅇ 찐 각도
 	}
 
-	protected void Death(HandlerDeath handler)
+	public virtual void Death(HandlerDeath handler)
     {
         if (unitStatus.hp <= 0f)
         {
@@ -62,26 +62,33 @@ abstract public class Units : MonoBehaviour
         }
 
         //Destroy(gameObject);
-        //이 유닛 참조하고 있는 다른 놈들에 대해서도 예외처리 필요.
+        //이 유닛 참조하고 있는 다른 놈들에 대해서도 예외처리 필요. => 0324 Unit Manager로 처리 완료
         //또 이거 쓰면 그 머다냐 메모리 릭 생긴다는 얘기도 있음.
         //일단 사용 ㄴㄴㄴ
     }
 
 
     protected void Walk()
-    {
+	{
         //지금은 그냥 타겟 있을때만 그쪽으로 걸어가는 방식.
 
         //Vector3 dir = Vector3.Normalize(_target.transform.position - gameObject.transform.position);
-        CalcToObj(targetObj);
-        if (targetDist > unitStatus.atkRange)
+        if (targetObj != null)
         {
-            transform.position += transform.forward * unitStatus.moveSpd * Time.deltaTime;
-            //Debug.Log(unitStatus.moveSpd + "로 걷고 있습니다.");
+            CalcToObj(targetObj);
+            if (targetDist > unitStatus.atkRange)
+            {
+                transform.position += transform.forward * unitStatus.moveSpd * Time.deltaTime;
+                //Debug.Log(unitStatus.moveSpd + "로 걷고 있습니다.");
+            }
         }
-    }
+        else 
+        {
+            SearchUnit();
+        }
+	}
 
-    protected virtual bool Attack(GameObject _target)
+	public virtual bool Attack(GameObject _target)
     {
         //지금 타워처럼 스케일이 1 이상인 애들도 
         //공격 범위만큼 가까이 가야 때릴 수 있음.
@@ -90,7 +97,7 @@ abstract public class Units : MonoBehaviour
         {
             atkCurTime += Time.deltaTime;
 
-            Units temp = _target.GetComponent<Units>(); //=> null 나옴. 근데 그게 맞지 ㅋㅋ 안넣었으니까 ㅋㅋ
+            //Units temp = _target.GetComponent<Units>(); //=> null 나옴. 근데 그게 맞지 ㅋㅋ 안넣었으니까 ㅋㅋ
 
             if (atkCurTime >= unitStatus.atkSpd)
             {
@@ -110,7 +117,7 @@ abstract public class Units : MonoBehaviour
         return false;
     }
 
-    public void SearchUnit()
+    public virtual void SearchUnit()
     {
         //1. 소환 됐을 때 가까운 라인 파악.
         //2. 가까운 라인의 상대 타워 유무 파악
@@ -166,10 +173,12 @@ abstract public class Units : MonoBehaviour
     }
 
     protected void SearchTower()
-    {//가까운 라인 파악하고 타워 확인하는거.
+    {
+        //For only unit
+        //가까운 라인 파악하고 타워 확인하는거.
         if (transform.position.x > 0)
         {
-            int temp = Funcs.B2I(!isEnemy);
+            //int temp = Funcs.B2I(!isEnemy);
             targetObj = TowerManager.instance.towerList[Funcs.B2I(!isEnemy), Defines.right];
         }
         else 
@@ -183,6 +192,11 @@ abstract public class Units : MonoBehaviour
             //}
             //else { targetObj = TowerManager.instance.towerList[Defines.enemy, Defines.left]; }
         }
+
+        if (targetObj == null)
+        {
+            targetObj = TowerManager.instance.nexusList[Funcs.B2I(!isEnemy)];
+        }
     }
 
     public void Hit(int _dmg)
@@ -190,6 +204,18 @@ abstract public class Units : MonoBehaviour
         float temp = unitStatus.hp;
         unitStatus.hp -= _dmg;
         Debug.Log(_dmg + "의 데미지를 받아\n" + temp + "에서" + unitStatus.hp + "가 되었습니다");
+    }
+
+    public void ScriptableObj_DeepCopy()
+    {
+        unitStatus = ScriptableObject.CreateInstance<UnitStatus>();
+        unitStatus.DeepCopy(unitStatus_Origin);
+    }
+
+    public virtual void DeathEvent()
+    {
+        handlerDeath = new HandlerDeath(UnitManager.instance.RemoveDeadUnit);
+        handlerDeath += UnitManager.instance.ResearchTarget_AllUnit;
     }
 
     protected virtual void Awake()
@@ -202,12 +228,10 @@ abstract public class Units : MonoBehaviour
 
     protected virtual void Start()
     {
-        handlerDeath = new HandlerDeath(UnitManager.instance.RemoveDeadUnit);
-        handlerDeath += UnitManager.instance.ResearchTarget_AllUnit;
+        DeathEvent();
 
         //unitStatus = unitStatus_Origin; 얕은 복사 Shallow
-        unitStatus = ScriptableObject.CreateInstance<UnitStatus>();
-        unitStatus.DeepCopy(unitStatus_Origin);
+        ScriptableObj_DeepCopy(); //깊은 복사
 
         SearchUnit();
     }
@@ -243,7 +267,7 @@ abstract public class Units : MonoBehaviour
     {
         if (targetObj != null)
         {
-            Gizmos.color = Color.green;
+            Gizmos.color = Color.red;
 
             Gizmos.DrawLine(transform.position, targetObj.transform.position);
         }

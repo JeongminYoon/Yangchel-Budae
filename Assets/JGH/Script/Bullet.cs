@@ -41,11 +41,9 @@ public class Bullet : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-
-       
-
-        if (other.tag == "Enemy")
-        {
+        if (other.tag == "Enemy" || other.tag == "Tower")
+        {//나중에 타워용 총알 따로 만들어서 나눠야함 일단 이렇게
+                //=> 지금 이거 땜시 총알 좀 뒤쪽으로 쏘면 지가 쳐맞고 뒤짐 ㅋㅋ;
             Debug.Log("ㅇㅇ");
 
             Units temp =  other.gameObject.GetComponent<Units>();

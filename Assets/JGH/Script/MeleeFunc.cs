@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class MeleeFunc : Units
 {
+
+    public override void SearchUnit()
+    {
+        base.SearchUnit();
+    }
+
+
+
     protected override void Awake()
     {
         base.Awake();
@@ -11,7 +19,7 @@ public class MeleeFunc : Units
     }
 
     // Start is called before the first frame update
-    override protected void Start()
+     protected override void Start()
     {
         base.Start();
 
