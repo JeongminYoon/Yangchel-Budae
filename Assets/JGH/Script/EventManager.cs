@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class EventManager: MonoBehaviour
 {
+
+
+    public delegate void HandlerDeath(GameObject unit);
+    HandlerDeath handlerDeath;
+
+
     // Start is called before the first frame update
     void Start()
     {

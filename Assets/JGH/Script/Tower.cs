@@ -12,8 +12,6 @@ public class Tower : Units
 
 	public GameObject bulletPrefab;
 
-	
-
 
 	public override bool Attack(GameObject _target)
 	{
@@ -73,20 +71,29 @@ public class Tower : Units
 		}
 	}
 
-	//public override void Death(HandlerDeath handler)
-	//{
-	//	if (unitStatus.hp <= 0f)
-	//	{
-	//		unitStatus.isDead = true;
-	//		handler(this.gameObject);
-	//		Destroy(this.gameObject);
-	//	}
+	public override void DeathEvent()
+	{
+		//base.DeathEvent();
 
-	//	//Destroy(gameObject);
-	//	//이 유닛 참조하고 있는 다른 놈들에 대해서도 예외처리 필요.
-	//	//또 이거 쓰면 그 머다냐 메모리 릭 생긴다는 얘기도 있음.
-	//	//일단 사용 ㄴㄴㄴ
-	//}
+		handlerDeath = new HandlerDeath(TowerManager.instance.RemoveDeadTower);
+		//handlerDeath += UnitManager.instance.ResearchTarget_AllUnit;
+
+	}
+
+	public override void Death(HandlerDeath handler)
+	{
+		if (unitStatus.hp <= 0f)
+		{
+			unitStatus.isDead = true;
+			handler(this.gameObject);
+			Destroy(this.gameObject);
+		}
+
+		//Destroy(gameObject);
+		//이 유닛 참조하고 있는 다른 놈들에 대해서도 예외처리 필요.
+		//또 이거 쓰면 그 머다냐 메모리 릭 생긴다는 얘기도 있음.
+		//일단 사용 ㄴㄴㄴ
+	}
 
 	//기본 3종 Cycle 함수도 부모꺼 호출 금지
 	protected override void Awake()
@@ -96,6 +103,8 @@ public class Tower : Units
 
 	protected override void Start()
 	{
+		DeathEvent();
+
 		ScriptableObj_DeepCopy();
 
 		searchTime = 0.25f;
@@ -119,6 +128,8 @@ public class Tower : Units
 		if (targetObj != null)
 		{ Attack(targetObj); }
 
+
+		Death(handlerDeath);
 	}
 
 }

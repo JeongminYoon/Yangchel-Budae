@@ -36,7 +36,7 @@ abstract public class Units : MonoBehaviour
     public float searchCurTime = 0f;
 
     public delegate void HandlerDeath(GameObject unit);
-    HandlerDeath handlerDeath;
+    public HandlerDeath handlerDeath;
 
     protected void CalcToObj(GameObject obj)
     {
@@ -69,19 +69,26 @@ abstract public class Units : MonoBehaviour
 
 
     protected void Walk()
-    {
+	{
         //지금은 그냥 타겟 있을때만 그쪽으로 걸어가는 방식.
 
         //Vector3 dir = Vector3.Normalize(_target.transform.position - gameObject.transform.position);
-        CalcToObj(targetObj);
-        if (targetDist > unitStatus.atkRange)
+        if (targetObj != null)
         {
-            transform.position += transform.forward * unitStatus.moveSpd * Time.deltaTime;
-            //Debug.Log(unitStatus.moveSpd + "로 걷고 있습니다.");
+            CalcToObj(targetObj);
+            if (targetDist > unitStatus.atkRange)
+            {
+                transform.position += transform.forward * unitStatus.moveSpd * Time.deltaTime;
+                //Debug.Log(unitStatus.moveSpd + "로 걷고 있습니다.");
+            }
         }
-    }
+        else 
+        {
+            SearchUnit();
+        }
+	}
 
-    public virtual bool Attack(GameObject _target)
+	public virtual bool Attack(GameObject _target)
     {
         //지금 타워처럼 스케일이 1 이상인 애들도 
         //공격 범위만큼 가까이 가야 때릴 수 있음.
@@ -185,6 +192,11 @@ abstract public class Units : MonoBehaviour
             //}
             //else { targetObj = TowerManager.instance.towerList[Defines.enemy, Defines.left]; }
         }
+
+        if (targetObj == null)
+        {
+            targetObj = TowerManager.instance.nexusList[Funcs.B2I(!isEnemy)];
+        }
     }
 
     public void Hit(int _dmg)
@@ -200,6 +212,12 @@ abstract public class Units : MonoBehaviour
         unitStatus.DeepCopy(unitStatus_Origin);
     }
 
+    public virtual void DeathEvent()
+    {
+        handlerDeath = new HandlerDeath(UnitManager.instance.RemoveDeadUnit);
+        handlerDeath += UnitManager.instance.ResearchTarget_AllUnit;
+    }
+
     protected virtual void Awake()
     {
         //SearchUnit();
@@ -210,8 +228,7 @@ abstract public class Units : MonoBehaviour
 
     protected virtual void Start()
     {
-        handlerDeath = new HandlerDeath(UnitManager.instance.RemoveDeadUnit);
-        handlerDeath += UnitManager.instance.ResearchTarget_AllUnit;
+        DeathEvent();
 
         //unitStatus = unitStatus_Origin; 얕은 복사 Shallow
         ScriptableObj_DeepCopy(); //깊은 복사

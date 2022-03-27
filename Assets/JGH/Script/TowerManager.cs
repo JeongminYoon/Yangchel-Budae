@@ -18,6 +18,17 @@ public class TowerManager : MonoBehaviour
                                                            //위치 : 0 Left / 1 Right
 
 
+    public void RemoveDeadTower(GameObject tower)
+    {
+        for (int i = 0; i < towerList.GetLength(0); ++i)
+        {
+            for (int k = 0; k < towerList.GetLength(1); ++k)
+            {
+                towerList[i,k] = null;
+            }
+        }
+    }
+
     public GameObject TowerIsEnemySetting(GameObject enemyTower)
     {
         Units script = enemyTower.GetComponent<Units>();

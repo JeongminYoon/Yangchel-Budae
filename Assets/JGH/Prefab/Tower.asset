@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tower
   m_EditorClassIdentifier: 
   unitName: Tower
-  hp: 750
+  hp: 10
   dmg: 30
   atkSpd: 1
   moveSpd: 0

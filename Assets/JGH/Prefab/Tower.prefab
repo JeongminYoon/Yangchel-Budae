@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8720584736224281193}
   - component: {fileID: 3308791058023157452}
   - component: {fileID: 1569550830101378608}
+  - component: {fileID: -8793654809184259731}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Tower
@@ -110,6 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitStatus_Origin: {fileID: 11400000, guid: b0e57d01f54650d45a5ded9467c4d898, type: 2}
+  isEnemy: 0
   targetObj: {fileID: 0}
   listTarget: []
   targetDist: 0
@@ -118,6 +120,22 @@ MonoBehaviour:
   searchTime: 0.5
   searchCurTime: 0
   bulletPrefab: {fileID: 7913876894923688215, guid: d3b4b6feec78fa647b16e891890615c6, type: 3}
+--- !u!54 &-8793654809184259731
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379233259289261239}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8177539853560481318
 GameObject:
   m_ObjectHideFlags: 0
