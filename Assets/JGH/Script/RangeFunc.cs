@@ -25,7 +25,12 @@ public class RangeFunc : Units
         return false;
 	}
 
-	protected override void Awake()
+    public override void SearchUnit()
+    {
+        base.SearchUnit();
+    }
+
+    protected override void Awake()
 	{
 		base.Awake();
 

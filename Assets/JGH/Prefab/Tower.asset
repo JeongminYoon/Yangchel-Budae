@@ -17,8 +17,8 @@ MonoBehaviour:
   dmg: 30
   atkSpd: 1
   moveSpd: 0
-  atkRange: 0
-  sightRange: 5
+  atkRange: 10
+  sightRange: 10
   cost: 2
   spawnTime: 0.5
   unitScale: 0

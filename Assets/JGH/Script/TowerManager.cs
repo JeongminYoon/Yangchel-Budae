@@ -9,19 +9,13 @@ public class TowerManager : MonoBehaviour
 
     public GameObject towerPrefab;
     public GameObject nexusPrefab;
-
     public GameObject[] towerParent = new GameObject[(int)Team.End];
 
-    //Vector3(0,2.5,-13.6700001) ally Nexus Pos
-    //Vector3(4.5,2.5,-8) ally Right Tower Pos
 
-    //Vector3(0,2.5,13.6700001) enemy Nexus Pos
-    //Vector3(-4.5,2.5,8) enemy left tower Pos
-
-    public GameObject[,] towerList = new GameObject[2, 2]; //[팀, 위치]
-                                                        //팀 : 0 아군 / 1 적군
-                                                        //위치 : 0 Left / 1 Right
     public GameObject[] nexusList = new GameObject[(int)Team.End];
+    public GameObject[,] towerList = new GameObject[2, 2]; //[팀, 위치]
+                                                           //팀 : 0 아군 / 1 적군
+                                                           //위치 : 0 Left / 1 Right
 
 
     public GameObject TowerIsEnemySetting(GameObject enemyTower)
