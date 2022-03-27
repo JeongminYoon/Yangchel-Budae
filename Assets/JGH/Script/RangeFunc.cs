@@ -8,10 +8,10 @@ public class RangeFunc : Units
     public GameObject bulletPrefab;
 
     
-	protected override bool Attack(GameObject _target)
+	public override bool Attack(GameObject _target)
 	{
         //피격판정은 콜리더로 하기
-        if (base.Attack(_target))
+        if (base.Attack(_target)) //실제 Unit쪽에서 공격 성공하고 나서 총알 생성
         {
             Transform   gunTr = transform.GetChild(0).transform;
             Vector3     gunPos = gunTr.position;

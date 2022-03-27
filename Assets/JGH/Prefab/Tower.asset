@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Tower
   hp: 750
-  dmg: 15
+  dmg: 30
   atkSpd: 1
-  moveSpd: 0.25
+  moveSpd: 0
   atkRange: 0
   sightRange: 5
   cost: 2

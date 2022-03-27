@@ -81,7 +81,7 @@ abstract public class Units : MonoBehaviour
         }
     }
 
-    protected virtual bool Attack(GameObject _target)
+    public virtual bool Attack(GameObject _target)
     {
         //지금 타워처럼 스케일이 1 이상인 애들도 
         //공격 범위만큼 가까이 가야 때릴 수 있음.
@@ -90,7 +90,7 @@ abstract public class Units : MonoBehaviour
         {
             atkCurTime += Time.deltaTime;
 
-            Units temp = _target.GetComponent<Units>(); //=> null 나옴. 근데 그게 맞지 ㅋㅋ 안넣었으니까 ㅋㅋ
+            //Units temp = _target.GetComponent<Units>(); //=> null 나옴. 근데 그게 맞지 ㅋㅋ 안넣었으니까 ㅋㅋ
 
             if (atkCurTime >= unitStatus.atkSpd)
             {
@@ -166,10 +166,12 @@ abstract public class Units : MonoBehaviour
     }
 
     protected void SearchTower()
-    {//가까운 라인 파악하고 타워 확인하는거.
+    {
+        //For only unit
+        //가까운 라인 파악하고 타워 확인하는거.
         if (transform.position.x > 0)
         {
-            int temp = Funcs.B2I(!isEnemy);
+            //int temp = Funcs.B2I(!isEnemy);
             targetObj = TowerManager.instance.towerList[Funcs.B2I(!isEnemy), Defines.right];
         }
         else 
@@ -192,6 +194,12 @@ abstract public class Units : MonoBehaviour
         Debug.Log(_dmg + "의 데미지를 받아\n" + temp + "에서" + unitStatus.hp + "가 되었습니다");
     }
 
+    public void ScriptableObj_DeepCopy()
+    {
+        unitStatus = ScriptableObject.CreateInstance<UnitStatus>();
+        unitStatus.DeepCopy(unitStatus_Origin);
+    }
+
     protected virtual void Awake()
     {
         //SearchUnit();
@@ -206,8 +214,7 @@ abstract public class Units : MonoBehaviour
         handlerDeath += UnitManager.instance.ResearchTarget_AllUnit;
 
         //unitStatus = unitStatus_Origin; 얕은 복사 Shallow
-        unitStatus = ScriptableObject.CreateInstance<UnitStatus>();
-        unitStatus.DeepCopy(unitStatus_Origin);
+        ScriptableObj_DeepCopy(); //깊은 복사
 
         SearchUnit();
     }
@@ -243,7 +250,7 @@ abstract public class Units : MonoBehaviour
     {
         if (targetObj != null)
         {
-            Gizmos.color = Color.green;
+            Gizmos.color = Color.red;
 
             Gizmos.DrawLine(transform.position, targetObj.transform.position);
         }
