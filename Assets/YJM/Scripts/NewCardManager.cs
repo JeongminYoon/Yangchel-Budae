@@ -6,37 +6,30 @@ public class NewCardManager : MonoBehaviour
 {
     //1. 진짜 모든 카드 덱 -> 8장
     //2. 손패 ->4장
-    //3. 패 묘지 
-    public Canvas uiCanvas;
+    public GameObject uiCanvas;
     public GameObject cardPrefab;
+    public GameObject Pos1, Pos2, Pos3, Pos4;
+    RectTransform tr;
 
-    int[] deck = new int[8];
-    int[] myHand = new int[4];
-    //List<int> grave = new List<int>();
+    int[] deck;
+    List<int> deckList;
 
     public List<UnitStatus> asdf;
 
-    Vector3 pos1;
-
-    //1. 준비된 덱 섞기(셔플 알고리즘)
-    //2. 섞인 덱중 윗 4장을 myHand로 넘겨주기
-    //3. 카드사용하면 그 카드를 grave로 보내기
-    //4. 덱에있는 맨 위의 카드를 myHand로 보내기
-    //5. 덱에 카드가 없을경우 grave에서 가져오기(선입선출 주의)
-
-    //public static int a ,b ,c ,d;
-
     void Start()
     {
-        #region Test
-        //for (int i = 0; i < 8; i++)
-        //{
-        //    allDeck[i] = i+1;
-        //}
-        //allDeck = ShuffleArray(allDeck);
-        #endregion
 
-        pos1 = this.gameObject.transform.Find("pos1").gameObject.transform.position;
+        //처음 덱 섞기
+        deck = new int[asdf.Count];
+        CardAdd();
+        ShuffleArray(deck);
+
+        deckList = new List<int>();
+        for (int i = 0; i < deck.Length; i++)
+        {
+            deckList.Add(deck[i]);
+        }
+
     }
 
     // Update is called once per frame
@@ -44,13 +37,37 @@ public class NewCardManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W))
         {
-            GameObject tempCard =  Instantiate(cardPrefab,pos1,Quaternion.identity,uiCanvas.transform);
-            Card card = tempCard.GetComponent<Card>();
-
-
-            card.status = asdf[0];
-
+            print(deckList[0]);
+            SpawnCard();
         }
+
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+        }
+    }
+
+    void CardAdd()
+    {
+        for (int i = 0; i < deck.Length; i++)
+        {
+            deck[i] = i;
+        }
+    }
+
+
+    void SpawnCard()
+    {
+        int i = 0;
+
+        GameObject tempCard = Instantiate(cardPrefab, uiCanvas.transform);
+        GameObject RectPos = Pos1;
+        tr = RectPos.GetComponent<RectTransform>();
+        tempCard.transform.position = tr.position;
+        Card card = tempCard.GetComponent<Card>();
+        card.status = asdf[deckList[0]];
+
+        deckList.Insert(deck.Length, deckList[0]);
+        deckList.RemoveAt(deckList[0]);
     }
 
     private T[] ShuffleArray<T>(T[] array)

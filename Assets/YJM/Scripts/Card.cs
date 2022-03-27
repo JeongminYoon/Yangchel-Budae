@@ -9,9 +9,11 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     public UnitStatus status;
     public Text unitName;
     public Text unitCost;
+    public int cardDeskPos;
     Vector3 cardPos;
-    float currentPos = 0f;
-
+    Vector3 cardRtPos;
+    RectTransform tr;
+    float cardSize;
 
     private void Awake()
     {
@@ -29,15 +31,16 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         unitName.text = status.unitName;
         unitCost.text = (status.cost).ToString();
 
+        tr = GetComponent<RectTransform>();
+        cardRtPos = tr.localPosition;
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentPos = transform.position.y - cardPos.y;
-        
-        print(currentPos);
-        
+        Vector3 size = (tr.localPosition - cardRtPos).normalized;
+        tr.localScale = new Vector3(1 * size.x, 1 * size.y, 1);
+        print(size);
     }
 
 
