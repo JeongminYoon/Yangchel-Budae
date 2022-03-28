@@ -282,8 +282,22 @@ abstract public class Units : MonoBehaviour
     {
         if (targetObj != null)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, targetObj.transform.position);
+            if (this.gameObject.tag == "Tower")
+            {
+                Gizmos.color = Color.blue;
+            }
+            else if (this.gameObject.tag == "Enemy")
+            { 
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(transform.position, targetObj.transform.position);
+            }
+            else
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawLine(transform.position, targetObj.transform.position);
+            }
+
+            
         }
     }
 
