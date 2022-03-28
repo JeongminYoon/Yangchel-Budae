@@ -40,9 +40,13 @@ abstract public class Units : MonoBehaviour
 
     protected void CalcToObj(GameObject obj)
     {
-		Vector3 toTargetVector = obj.transform.position - this.transform.position;
+        Vector3 targetPos = obj.transform.position;
+        targetPos.y = this.gameObject.transform.position.y;
 
-		targetDist = toTargetVector.magnitude;
+        Vector3 toTargetVector = targetPos - this.transform.position;
+        //Vector3 toTargetVector = obj.transform.position - this.transform.position;
+
+        targetDist = toTargetVector.magnitude;
 		targetDir = toTargetVector.normalized;
 		float dotProduct = Vector3.Dot(obj.transform.position, this.transform.position);
 		//dot, 즉 내적의 결과값 => Cos @ 값 (-1~1값 /0보다 크면 내 앞, 작으면 내 뒤)
@@ -84,9 +88,11 @@ abstract public class Units : MonoBehaviour
         if (targetObj != null)
         {
             CalcToObj(targetObj);
+
             if (targetDist > unitStatus.atkRange)
             {
-                transform.position += transform.forward * unitStatus.moveSpd * Time.deltaTime;
+                //transform.Translate(targetDir * unitStatus.moveSpd * Time.deltaTime);
+                transform.position += targetDir * unitStatus.moveSpd * Time.deltaTime;
                 //Debug.Log(unitStatus.moveSpd + "로 걷고 있습니다.");
             }
         }
@@ -276,7 +282,6 @@ abstract public class Units : MonoBehaviour
         if (targetObj != null)
         {
             Gizmos.color = Color.red;
-
             Gizmos.DrawLine(transform.position, targetObj.transform.position);
         }
     }
