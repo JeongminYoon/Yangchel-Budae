@@ -50,6 +50,14 @@ abstract public class Units : MonoBehaviour
 		//역 코사인 걸면 라디안 값 
 		targetDegAngle = RadAngle * Mathf.Deg2Rad;
 		//이것이 ㄹㅇ 찐 각도
+
+        //포워드 벡터와 사이벡터 내적 결과값
+        //0-> 수직
+        //1-> 0도
+        //음수 -> 뒤
+        //양수 -> 앞
+        // 시야각/2 보다 크면 시야내에 있음
+
 	}
 
 	public virtual void Death(HandlerDeath handler)
@@ -64,7 +72,7 @@ abstract public class Units : MonoBehaviour
         //Destroy(gameObject);
         //이 유닛 참조하고 있는 다른 놈들에 대해서도 예외처리 필요. => 0324 Unit Manager로 처리 완료
         //또 이거 쓰면 그 머다냐 메모리 릭 생긴다는 얘기도 있음.
-        //일단 사용 ㄴㄴㄴ
+
     }
 
 
