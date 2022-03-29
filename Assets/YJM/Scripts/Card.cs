@@ -13,7 +13,6 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     Vector3 cardPos;
     Vector3 cardRtPos;
     RectTransform tr;
-    float cardSize;
 
     private void Awake()
     {
@@ -38,9 +37,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     // Update is called once per frame
     void Update()
     {
-        Vector3 size = (tr.localPosition - cardRtPos).normalized;
-        tr.localScale = new Vector3(1 * size.x, 1 * size.y, 1);
-        print(size);
+ 
     }
 
 
