@@ -8,7 +8,7 @@ public class Tower : Units
 	//타워클래스는 앵간하면 부모함수(base.Func()) 콜 하지말고
 	//부모 가상 함수 재정의(override)해서 쓰거나 함수 새로 만들어서 쓸 예정.
 			//그대로 쓰기엔 조금 다른 부분들 유
-	//외부에서 타워 함수 부를때도 GetComponent<Units>() as Tower으로 불러서 함수 호출하삼
+	//외부에서 타워 함수 호출 할 일있으면 GetComponent<Units>() as Tower으로 불러서 함수 호출 해주삼
 
 	public GameObject bulletPrefab;
 

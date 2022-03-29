@@ -38,11 +38,17 @@ abstract public class Units : MonoBehaviour
     public delegate void HandlerDeath(GameObject unit);
     public HandlerDeath handlerDeath;
 
+
+
     protected void CalcToObj(GameObject obj)
     {
-		Vector3 toTargetVector = obj.transform.position - this.transform.position;
+        Vector3 targetPos = obj.transform.position;
+        targetPos.y = this.gameObject.transform.position.y;
 
-		targetDist = toTargetVector.magnitude;
+        Vector3 toTargetVector = targetPos - this.transform.position;
+        //Vector3 toTargetVector = obj.transform.position - this.transform.position;
+
+        targetDist = toTargetVector.magnitude;
 		targetDir = toTargetVector.normalized;
 		float dotProduct = Vector3.Dot(obj.transform.position, this.transform.position);
 		//dot, 즉 내적의 결과값 => Cos @ 값 (-1~1값 /0보다 크면 내 앞, 작으면 내 뒤)
@@ -50,6 +56,14 @@ abstract public class Units : MonoBehaviour
 		//역 코사인 걸면 라디안 값 
 		targetDegAngle = RadAngle * Mathf.Deg2Rad;
 		//이것이 ㄹㅇ 찐 각도
+
+        //포워드 벡터와 사이벡터 내적 결과값 (cos @)
+        //0-> 수직
+        //1-> 평행
+        //음수 -> 뒤
+        //양수 -> 앞
+        // 시야각/2 보다 크면 시야내에 있음
+
 	}
 
 	public virtual void Death(HandlerDeath handler)
@@ -64,7 +78,6 @@ abstract public class Units : MonoBehaviour
         //Destroy(gameObject);
         //이 유닛 참조하고 있는 다른 놈들에 대해서도 예외처리 필요. => 0324 Unit Manager로 처리 완료
         //또 이거 쓰면 그 머다냐 메모리 릭 생긴다는 얘기도 있음.
-        //일단 사용 ㄴㄴㄴ
     }
 
 
@@ -76,9 +89,11 @@ abstract public class Units : MonoBehaviour
         if (targetObj != null)
         {
             CalcToObj(targetObj);
+
             if (targetDist > unitStatus.atkRange)
             {
-                transform.position += transform.forward * unitStatus.moveSpd * Time.deltaTime;
+                //transform.Translate(targetDir * unitStatus.moveSpd * Time.deltaTime);
+                transform.position += targetDir * unitStatus.moveSpd * Time.deltaTime;
                 //Debug.Log(unitStatus.moveSpd + "로 걷고 있습니다.");
             }
         }
@@ -267,9 +282,22 @@ abstract public class Units : MonoBehaviour
     {
         if (targetObj != null)
         {
-            Gizmos.color = Color.red;
+            if (this.gameObject.tag == "Tower")
+            {
+                Gizmos.color = Color.blue;
+            }
+            else if (this.gameObject.tag == "Enemy")
+            { 
+                Gizmos.color = Color.red;
+                Gizmos.DrawLine(transform.position, targetObj.transform.position);
+            }
+            else
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawLine(transform.position, targetObj.transform.position);
+            }
 
-            Gizmos.DrawLine(transform.position, targetObj.transform.position);
+            
         }
     }
 
