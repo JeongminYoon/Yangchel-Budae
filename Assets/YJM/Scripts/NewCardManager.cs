@@ -23,7 +23,6 @@ public class NewCardManager : MonoBehaviour
     GameObject[] deck; //로비에서 넘어와서 셔플 할 용도로 사용할 배열
     public GameObject[] myHand = new GameObject[4];
     List<GameObject> grave = new List<GameObject>();
-    ///int rnd;
 
     public List<UnitStatus> unitDataList;
 
