@@ -19,7 +19,7 @@ public static class Funcs
 	{
 		//이걸 그냥 충돌한 놈이 그라운드 일때만 리턴하게?
 		//아니면 소환하는 곳에서 충돌된 놈이 그라운드가 아니면 그 새기 크기 판단해서 옆에 생성되게?
-			
+
 		Structs.RayResult rayResult = new Structs.RayResult();
 
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
