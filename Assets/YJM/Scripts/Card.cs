@@ -76,6 +76,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         else
         {
             UnitFactory.instance.SpawnMeleeUnit(pos);
+            
             Destroy(gameObject);
         }
 

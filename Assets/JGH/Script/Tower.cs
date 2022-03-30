@@ -12,7 +12,6 @@ public class Tower : Units
 
 	public GameObject bulletPrefab;
 
-
 	public override bool Attack(GameObject _target)
 	{
 		//피격판정은 콜리더로 하기
