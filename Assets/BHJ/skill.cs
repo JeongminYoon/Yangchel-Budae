@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class skill : MonoBehaviour
 {
-   public bool pb = false;
+   public bool pb = true;
 
     public GameObject bulletPrefab;
 
@@ -27,10 +27,6 @@ public class skill : MonoBehaviour
     {
        
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            pb = true;
-        }
 
     
         if (pb == true)
