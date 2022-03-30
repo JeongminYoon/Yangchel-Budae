@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class RangeFunc : Units
 {
-
     public GameObject bulletPrefab;
-
     
 	public override bool Attack(GameObject _target)
 	{
@@ -25,10 +23,7 @@ public class RangeFunc : Units
         return false;
 	}
 
-    public override void SearchUnit()
-    {
-        base.SearchUnit();
-    }
+    
 
     protected override void Awake()
 	{

@@ -2,21 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealerFunc : Units
+public class MedicFunc : Units
 {
 	public override bool Attack(GameObject _target)
 	{
-		return base.Attack(_target);
+
+		return true;
 	}
 
-	public override void Death(HandlerDeath handler)
-	{
-		base.Death(handler);
-	}
 
 	public override void SearchUnit()
-	{
-		base.SearchUnit();
+	{//아군 유닛만 타겟으로 잡도록.
+		
 	}
 
 	protected override void Awake()

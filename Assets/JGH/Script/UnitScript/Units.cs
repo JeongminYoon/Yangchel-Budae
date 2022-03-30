@@ -4,10 +4,19 @@ using UnityEngine;
 
 abstract public class Units : MonoBehaviour
 {
+    //C#에서 가상함수(virtual 키워드)는
+    //딱히 자식 클래스에서 재정의(override) 안해도
+    //자동적으로 불러와짐
+        //abstract 함수로 선언하면 무조건 적으로 자식 클래스에서 override 해줘야함
+                //=> 애초에 abstract 함수 선언하면 본문 정의 불가능.
+                //=> 그리고 무조건 override키워드로 재정의 해야함
+                        //=>virtual 함수는 new 키워드로 재정의 가능.
+
     public UnitStatus   unitStatus_Origin; //스크립터블 오브젝트 원본
 
     //[SerializeField]
-    protected UnitStatus unitStatus; //스크립터블 오브젝트 원본을 복사한, 코드내에서 실제로 변경될 스텟
+    [HideInInspector]
+    public UnitStatus unitStatus; //스크립터블 오브젝트 원본을 복사한, 코드내에서 실제로 변경될 스텟
 
    
     public bool isEnemy;
@@ -37,9 +46,6 @@ abstract public class Units : MonoBehaviour
 
     public delegate void HandlerDeath(GameObject unit);
     public HandlerDeath handlerDeath;
-
-
-
     protected void CalcToObj(GameObject obj)
     {
         Vector3 targetPos = obj.transform.position;
@@ -81,7 +87,7 @@ abstract public class Units : MonoBehaviour
     }
 
 
-    protected virtual void Walk()
+    public virtual void Walk()
 	{
         //지금은 그냥 타겟 있을때만 그쪽으로 걸어가는 방식.
 
@@ -228,7 +234,7 @@ abstract public class Units : MonoBehaviour
         unitStatus.DeepCopy(unitStatus_Origin);
     }
 
-    public virtual void DeathEvent()
+    public virtual void DeathEventSetting()
     {
         handlerDeath = new HandlerDeath(UnitManager.instance.RemoveDeadUnit);
         handlerDeath += UnitManager.instance.ResearchTarget_AllUnit;
@@ -244,7 +250,7 @@ abstract public class Units : MonoBehaviour
 
     protected virtual void Start()
     {
-        DeathEvent();
+        DeathEventSetting();
 
         //unitStatus = unitStatus_Origin; 얕은 복사 Shallow
         ScriptableObj_DeepCopy(); //깊은 복사
@@ -272,11 +278,8 @@ abstract public class Units : MonoBehaviour
         {
             transform.LookAt(targetObj.transform);
         }
-
-
         
         Death(handlerDeath);
-        
     }
 
 	void OnDrawGizmos()
