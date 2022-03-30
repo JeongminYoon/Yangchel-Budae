@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 102581625729056508}
   m_Layer: 0
   m_Name: Nexus
-  m_TagString: Untagged
+  m_TagString: Nexus
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

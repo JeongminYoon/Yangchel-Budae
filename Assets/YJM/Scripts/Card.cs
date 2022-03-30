@@ -76,9 +76,19 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         }
         else
         {   //¥Í¿Œ∞˜¿Ã ∂•¿Ã∏È ¿Ø¥÷ º“»Ø
-            //UnitFactory.instance.SpawnMeleeUnit(temp.hitPosition);
-            NewCardManager.instance.SpawnCard(this.gameObject, 4);
-            NewCardManager.instance.CardUse(this.gameObject);
+            
+            if (temp.hitObj.tag == "Tower" || temp.hitObj.tag == "Nexus")
+            { 
+                transform.position = cardPos;
+            }
+            else 
+            {
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)status.unitNum,temp.hitPosition);
+
+                NewCardManager.instance.SpawnCard(this.gameObject, 4);
+                NewCardManager.instance.CardUse(this.gameObject);
+            }
+            
 
         }
 

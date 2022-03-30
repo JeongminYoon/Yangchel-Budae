@@ -8,16 +8,13 @@ public class TankerFunc : Units
 	{
 		return base.Attack(_target);
 	}
-
 	public override void Death(HandlerDeath handler)
 	{
 		base.Death(handler);
 	}
-
 	protected override void Walk()
 	{
 		base.Walk();
-
 	}
 
 	public override void SearchUnit()

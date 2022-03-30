@@ -97,26 +97,26 @@ public class UnitFactory : MonoBehaviour
 			return spawnObj;
     }
 
-    public GameObject  SpawnMeleeUnit(Vector3 spawnPos)
-    {
-        GameObject tempObj = Instantiate(meleePrefab, spawnPos, Quaternion.identity);
-        tempObj.GetComponent<Units>().IsEnemy = false;
-        return tempObj;
-    }
+    //public GameObject  SpawnMeleeUnit(Vector3 spawnPos)
+    //{
+    //    GameObject tempObj = Instantiate(meleePrefab, spawnPos, Quaternion.identity);
+    //    tempObj.GetComponent<Units>().IsEnemy = false;
+    //    return tempObj;
+    //}
 
-    public GameObject SpawnRangeUnit(Vector3 spawnPos)
-    {
-        GameObject tempObj = Instantiate(rangePrefab, spawnPos, Quaternion.identity);
-        tempObj.GetComponent<Units>().IsEnemy = false;
-        return tempObj;
-    }
+    //public GameObject SpawnRangeUnit(Vector3 spawnPos)
+    //{
+    //    GameObject tempObj = Instantiate(rangePrefab, spawnPos, Quaternion.identity);
+    //    tempObj.GetComponent<Units>().IsEnemy = false;
+    //    return tempObj;
+    //}
 
-    public GameObject SpawnEnemy(Vector3 spawnPos)
-    {
-        GameObject tempObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-        tempObj.GetComponent<Units>().IsEnemy = true;
-        return tempObj;
-    }
+    //public GameObject SpawnEnemy(Vector3 spawnPos)
+    //{
+    //    GameObject tempObj = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+    //    tempObj.GetComponent<Units>().IsEnemy = true;
+    //    return tempObj;
+    //}
 
     // Start is called before the first frame update
     void Start()
