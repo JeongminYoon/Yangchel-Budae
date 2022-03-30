@@ -76,9 +76,10 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         }
         else
         {   //¥Í¿Œ∞˜¿Ã ∂•¿Ã∏È ¿Ø¥÷ º“»Ø
-            UnitFactory.instance.SpawnMeleeUnit(temp.hitPosition);
-            //NewCardManager.instance.CardUse();
-            Destroy(gameObject);
+            //UnitFactory.instance.SpawnMeleeUnit(temp.hitPosition);
+            NewCardManager.instance.SpawnCard(this.gameObject, 4);
+            NewCardManager.instance.CardUse(this.gameObject);
+
         }
 
     }
