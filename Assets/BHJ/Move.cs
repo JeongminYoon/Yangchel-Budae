@@ -6,7 +6,18 @@ public class Move : MonoBehaviour
 {
     float speed = 10.0f;
 
-    // Start is called before the first frame update
+    
+
+    private void OnTriggerEnter(Collider other)
+    {
+
+
+        Destroy(gameObject);
+                
+        
+        
+
+    }
     void Start()
     {
         
@@ -15,7 +26,7 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += speed * Vector3.down * Time.deltaTime;
+        //transform.position += speed * Vector3.down * Time.deltaTime;
 
     }
 }
