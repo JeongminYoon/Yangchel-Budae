@@ -116,7 +116,7 @@ public class Tower : Units
 
 		if (UnitManager.instance.unitList[Funcs.B2I(!isEnemy)].Count != 0)
 		{
-			searchCurTime += Time.deltaTime;
+			searchCurTime +=	Time.deltaTime;
 
 			if (searchCurTime >= searchTime)
 			{
