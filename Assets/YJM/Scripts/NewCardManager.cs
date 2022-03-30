@@ -8,7 +8,6 @@ public class NewCardManager : MonoBehaviour
     static public NewCardManager instance = null;
     /// <singletone>
 
-
     //할것
     //1. deckList, myHand 스크립터블 오브젝트 만들기
     //2. 
@@ -17,7 +16,7 @@ public class NewCardManager : MonoBehaviour
     //2. 손패 ->4장
     public GameObject uiCanvas;
     public GameObject cardPrefab;
-    public GameObject[] Pos = new GameObject[4];
+    public GameObject[] Pos = new GameObject[5];
     public Queue<GameObject> deckqueue;
     //RectTransform tr;
 
@@ -59,16 +58,22 @@ public class NewCardManager : MonoBehaviour
             SpawnCard(myHand[i],i); // 손패에 들어온 데이터4개
         }
 
-        
-
+        for (int i = 0; i < 4; i++)
+        {
+            grave.Add(deck[i+4]);
+        }
         //즉 이때 손패 카드4개가 뿌려진거임
+
+        HandCheck();
+        DeckCheck();
+        GraveCheck();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        CardLoop();
+        //CardLoop();
     }
 
     void CardAdd()
@@ -76,6 +81,7 @@ public class NewCardManager : MonoBehaviour
         for (int i = 0; i < deck.Length; i++)
         {
             deck[i] = Instantiate(cardPrefab,uiCanvas.transform);
+            deck[i].transform.position = Pos[4].transform.position;
             deck[i].GetComponent<Card>().status = ScriptableObject.CreateInstance<UnitStatus>();
             deck[i].GetComponent<Card>().status.DeepCopy(unitDataList[i]);
         }
@@ -83,7 +89,7 @@ public class NewCardManager : MonoBehaviour
 
 
 
-    void SpawnCard(GameObject _card, int index)
+    public void SpawnCard(GameObject _card, int index)
     {
         GameObject RectPos = Pos[index];
         RectTransform tr = RectPos.GetComponent<RectTransform>();
@@ -110,9 +116,20 @@ public class NewCardManager : MonoBehaviour
     }
 
 
-    public void CardUse(int card)
+    public void CardUse(GameObject card)
     {
-        //사용한 Card 오브젝트의  
+        for (int i = 0;i < 4; ++i)
+        {
+            if (myHand[i] == card)
+            {
+                grave.Add(myHand[i]);
+                myHand[i] = null;
+            }
+        }
+        CardLoop();
+        HandCheck();
+        DeckCheck();
+        GraveCheck();
     }
 
     void CardLoop()
@@ -121,15 +138,35 @@ public class NewCardManager : MonoBehaviour
         {
             if (myHand[i] == null)
             {
-                if (grave.Count < 4)
-                {
-                    myHand[i] = deck[0];
-                }
-                else
-                {
-                    myHand[i] = grave[i];
-                }
+                SpawnCard(grave[0], i);
+                    myHand[i] = grave[0];
+                    grave.RemoveAt(0);
+                    
             }
+        }
+    }
+
+    void HandCheck()
+    {
+        for (int i = 0; i < myHand.Length; i++)
+        {
+            print("myHand : " + myHand[i].GetComponent<Card>().status.unitName);
+        }
+    }
+
+    void DeckCheck()
+    {
+        for (int i = 0; i < deck.Length; i++)
+        {
+            print("deck : " + deck[i].GetComponent<Card>().status.unitName);
+        }
+    }
+
+    void GraveCheck()
+    {
+        for (int i = 0; i < grave.Count; i++)
+        {
+            print("grave : " + grave[i].GetComponent<Card>().status.unitName);
         }
     }
 
