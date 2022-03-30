@@ -81,7 +81,7 @@ abstract public class Units : MonoBehaviour
     }
 
 
-    protected void Walk()
+    protected virtual void Walk()
 	{
         //지금은 그냥 타겟 있을때만 그쪽으로 걸어가는 방식.
 

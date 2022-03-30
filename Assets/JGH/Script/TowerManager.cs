@@ -7,17 +7,16 @@ public class TowerManager : MonoBehaviour
 {
     public static TowerManager instance = null;
 
-    public GameObject towerPrefab;
-    public GameObject nexusPrefab;
-    public GameObject[] towerParent = new GameObject[(int)Team.End];
+    public GameObject       towerPrefab;
+    public GameObject       nexusPrefab;
+    public GameObject[]     towerParent = new GameObject[(int)Team.End];
 
 
-    public GameObject[] nexusList = new GameObject[(int)Team.End];
-    public GameObject[,] towerList = new GameObject[2, 2]; //[팀, 위치]
+    public GameObject[]     nexusList = new GameObject[(int)Team.End];
+    public GameObject[,]    towerList = new GameObject[2, 2]; //[팀, 위치]
                                                            //팀 : 0 아군 / 1 적군
                                                            //위치 : 0 Left / 1 Right
-
-
+    
     public void RemoveDeadTower(GameObject tower)
     {
         for (int i = 0; i < towerList.GetLength(0); ++i)
@@ -90,6 +89,15 @@ public class TowerManager : MonoBehaviour
             }
         }
     }
+
+    //public GameObject SpawnTower(Vector3 pos, bool isEnemy)
+    //{
+        
+
+        
+    //}
+
+    
 
     private void Awake()
     {

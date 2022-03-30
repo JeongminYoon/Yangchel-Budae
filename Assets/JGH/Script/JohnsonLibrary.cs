@@ -17,6 +17,9 @@ public static class Funcs
 
 	public static Structs.RayResult RayToWorld()
 	{
+		//이걸 그냥 충돌한 놈이 그라운드 일때만 리턴하게?
+		//아니면 소환하는 곳에서 충돌된 놈이 그라운드가 아니면 그 새기 크기 판단해서 옆에 생성되게?
+			
 		Structs.RayResult rayResult = new Structs.RayResult();
 
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -26,6 +29,7 @@ public static class Funcs
 		{
 			rayResult.hitPosition = castHit.point;
 			rayResult.hitPosition.y = 1f;
+			rayResult.hitObj = castHit.transform.gameObject;
 			rayResult.isHit = true;
 		}
 		else
@@ -93,6 +97,7 @@ namespace Structs
 	{
 		public bool isHit;
 		public Vector3 hitPosition;
+		public GameObject hitObj;
 	}
 
 }
