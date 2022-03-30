@@ -39,7 +39,18 @@ public class UnitFactory : MonoBehaviour
                 }
                 break;
 
+            case UnitClass.melee2:
+                {
+                    spawnObj = Instantiate(meleePrefab, spawnPos, Quaternion.identity);
+                }
+                break;
+
             case UnitClass.range:
+                {
+                    spawnObj = Instantiate(rangePrefab, spawnPos, Quaternion.identity);
+                }
+                break;
+            case UnitClass.range2:
                 {
                     spawnObj = Instantiate(rangePrefab, spawnPos, Quaternion.identity);
                 }

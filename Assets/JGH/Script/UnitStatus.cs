@@ -10,6 +10,7 @@ public class UnitStatus : ScriptableObject
     public void DeepCopy(UnitStatus origin)
 	{
         unitName = String.Copy(origin.unitName);
+        unitNum = origin.unitNum;
         hp = origin.hp;
         dmg = origin.dmg;
         atkSpd = origin.atkSpd;
@@ -28,6 +29,7 @@ public class UnitStatus : ScriptableObject
 
     //[SerializeField] //접근지정자가 private라도 인스펙터 창에 뜨게 하는거
     public string   unitName;
+    public int      unitNum;
     public float    hp;
     public float    dmg;
     public float    atkSpd;

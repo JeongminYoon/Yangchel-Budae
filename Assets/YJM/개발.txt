@@ -21,3 +21,6 @@ CubeLocation = pos?.transform.position 을 해주고싶음 여기서 pos + ? 을
 
 2.쓴 자리를 99를 채워줘서 표시하는건 됬는데 이 카드가 사용됬다는건 어떻게 감지하지?
 ㄴ FindGameObject를 프레임마다 돌려야하나..? 
+
+
+myhand 빈자리 찾아서 넣어주기 deck에서 다 넣어줬으면, cardgrave에서 끌어다 채워주기

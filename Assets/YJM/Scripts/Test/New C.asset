@@ -9,19 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29b9ec95413652e429e43d378d2eb7ff, type: 3}
-  m_Name: RangeUnitStatus
+  m_Script: {fileID: 11500000, guid: 77403256d8d11b349a9601fcaafb2e31, type: 3}
+  m_Name: New C
   m_EditorClassIdentifier: 
-  unitName: Range
-  unitNum: 2
-  hp: 70
-  dmg: 15
-  atkSpd: 1
-  moveSpd: 0.5
-  atkRange: 4
-  sightRange: 5
-  cost: 2
-  spawnTime: 0.5
-  unitScale: 0
-  isSplashAtk: 0
-  isDead: 0
+  cState: 1
+  A: 1
+  damage: 0
+  cost: 0
+  hp: 0

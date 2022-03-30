@@ -9,7 +9,7 @@ abstract public class Units : MonoBehaviour
     //[SerializeField]
     protected UnitStatus unitStatus; //스크립터블 오브젝트 원본을 복사한, 코드내에서 실제로 변경될 스텟
 
-
+   
     public bool isEnemy;
     public bool IsEnemy
     {
@@ -223,6 +223,7 @@ abstract public class Units : MonoBehaviour
 
     public void ScriptableObj_DeepCopy()
     {
+        //unitStatus = unitStatus_Origin; //shallow copy -> 얕은 복사
         unitStatus = ScriptableObject.CreateInstance<UnitStatus>();
         unitStatus.DeepCopy(unitStatus_Origin);
     }

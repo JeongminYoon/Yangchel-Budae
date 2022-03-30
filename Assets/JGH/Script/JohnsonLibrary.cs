@@ -69,10 +69,13 @@ namespace Enums
 	public enum UnitClass
 	{
 		melee,
+		melee2,
 		range,
+		range2,
 		tanker,
 		healer,
 		skill,
+		skill2,
 		End
 	}
 
@@ -91,5 +94,6 @@ namespace Structs
 		public bool isHit;
 		public Vector3 hitPosition;
 	}
+
 }
 
