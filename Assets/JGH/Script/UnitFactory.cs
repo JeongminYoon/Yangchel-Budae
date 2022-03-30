@@ -91,8 +91,6 @@ public class UnitFactory : MonoBehaviour
                 spawnObj.GetComponent<Renderer>().material.color = Color.red;
                 spawnObj.tag = "Enemy";
             }
-
-
             UnitManager.instance.unitList[Funcs.B2I(isEnemy)].Add(spawnObj);
         }
 
