@@ -12,7 +12,6 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     public Text unitCost;
     public int cardDeskPos;
     Vector3 cardPos;
-    Transform tr;
 
     public int value;
 
@@ -32,8 +31,6 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
 
         unitName.text = status.unitName;
         unitCost.text = (status.cost).ToString();
-
-        tr = GetComponent<RectTransform>();
     }
 
     RectTransform rt1;
@@ -56,7 +53,6 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         transform.position = currentPos;
         //카드 애니메이션 재생
         CardAnim();
-        print(CostManager.instance.currentCost);
     }
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
