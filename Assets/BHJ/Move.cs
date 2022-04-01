@@ -6,15 +6,15 @@ public class Move : MonoBehaviour
 {
     float speed = 10.0f;
 
-    
+    public GameObject boomPrefab;
 
     private void OnTriggerEnter(Collider other)
     {
 
 
         Destroy(gameObject);
-                
-        
+
+        Instantiate(boomPrefab, transform.position, Quaternion.identity);
         
 
     }
