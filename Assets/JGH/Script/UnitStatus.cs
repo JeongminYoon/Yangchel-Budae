@@ -29,7 +29,10 @@ public class UnitStatus : ScriptableObject
 
     //[SerializeField] //접근지정자가 private라도 인스펙터 창에 뜨게 하는거
     public string   unitName;
-    public int      unitNum;
+    
+    public int      unitNum;//생성등에서 Enum형으로 편하게 쓸용도
+    public int      unitTier;
+
     public float    hp;
     public float    dmg;
     public float    atkSpd;

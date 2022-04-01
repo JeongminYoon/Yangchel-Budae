@@ -8,6 +8,7 @@ TagManager:
   - Friendly
   - Tower
   - Mapdata
+  - Nexus
   layers:
   - Default
   - TransparentFX

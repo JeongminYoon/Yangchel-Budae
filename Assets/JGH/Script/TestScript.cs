@@ -51,27 +51,6 @@ public class TestScript : MonoBehaviour
         return worldPos;
     }
 
-    //public RayResult RayToWorld()
-    //{
-    //    RayResult rayResult = new RayResult();
-
-    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-    //    RaycastHit castHit;
-
-    //    if (Physics.Raycast(ray, out castHit))
-    //    {
-    //        rayResult.hitPosition = castHit.point;
-    //        rayResult.hitPosition.y = 1f;
-    //        rayResult.isHit = true;
-    //    }
-    //    else 
-    //    {
-    //        rayResult.isHit = false;
-    //    }
-
-    //    return rayResult;
-    //}
-
     private void Awake()
     {
         if (instance == null)
@@ -81,15 +60,8 @@ public class TestScript : MonoBehaviour
     }
     // Start is called before the first frame update
     void Start()
-
     {
-       // listEnemy.Clear();
 
-        //iTemp = Units.instance.GetSetInt;
-        //Debug.Log(iTemp);
-
-        //Units.instance.GetSetInt = 1;
-        //Debug.Log(Units.instance.GetSetInt);
     }
 
     // Update is called once per frame
@@ -97,46 +69,29 @@ public class TestScript : MonoBehaviour
     {
         //Debug.Log(Input.mousePosition); //unity는 좌측하단이 0,0
 
-
-        if (Input.GetMouseButtonDown(Defines.left) && Input.GetKey(KeyCode.LeftShift))
+        //alpha1 == 49
+        for (int i = (int)KeyCode.Alpha1; i < (int)KeyCode.Alpha9; ++i)
         {
-            
-            //UnitManager.instance.unitList[Defines.ally].Add()
-                UnitFactory.instance.SpawnUnit(UnitClass.melee, Funcs.RayToWorld().hitPosition);
+            if (Input.GetMouseButtonDown(Defines.left) && Input.GetKey((KeyCode)i))
+            {
+                Structs.RayResult rayResult = Funcs.RayToWorld();
+
+                if (rayResult.isHit && rayResult.hitObj.tag != "Tower" && rayResult.hitObj.tag != "Nexus")
+                {
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)i - 49, rayResult.hitPosition);
+                }
+
+            }
+            else if (Input.GetMouseButtonDown(Defines.right) && Input.GetKey((KeyCode)i))
+            {
+                Structs.RayResult rayResult = Funcs.RayToWorld();
+
+                if (rayResult.isHit && rayResult.hitObj.tag != "Tower" && rayResult.hitObj.tag != "Nexus")
+                {
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)i - 49, rayResult.hitPosition,true);
+                }
+            }
+
         }
-
-        if (Input.GetMouseButtonDown(Defines.left) && Input.GetKey(KeyCode.LeftControl))
-        {
-            //UnitManager.instance.unitList[Defines.ally].Add()
-                UnitFactory.instance.SpawnUnit(UnitClass.range, Funcs.RayToWorld().hitPosition);
-        }
-
-        if (Input.GetMouseButtonDown(Defines.right))
-        {
-
-            GameObject tempEnemy = UnitFactory.instance.SpawnUnit(UnitClass.melee, Funcs.RayToWorld().hitPosition, true);
-                
-           // UnitManager.instance.unitList[Defines.enemy].Add(tempEnemy);
-           
-        }
-
-        //if (Input.GetMouseButtonDown(ConstVariables.leftMouse) && Input.GetKey(KeyCode.LeftShift) ) //좌클릭
-        //{
-        //    //listFriendly.Add(UnitFactory.instance.SpawnMeleeUnit(new Vector3(2f, 1f, -5.5f)));
-        //    listFriendly.Add(UnitFactory.instance.SpawnMeleeUnit(RayToWorld(ConstVariables.leftMouse)));
-        //}
-
-        //if (Input.GetMouseButtonDown(ConstVariables.leftMouse) && Input.GetKey(KeyCode.LeftControl))
-        //{
-        //    listFriendly.Add(UnitFactory.instance.SpawnRangeUnit(RayToWorld(ConstVariables.leftMouse)));
-        //}
-
-
-        //if (Input.GetMouseButtonDown(ConstVariables.rightMouse)) //우클릭
-        //{
-        //    //listEnemy.Add(UnitFactory.instance.SpawnEnemy(new Vector3(-2f, 1f, 6.04f)));
-        //    listEnemy.Add(UnitFactory.instance.SpawnEnemy(RayToWorld(ConstVariables.rightMouse)));
-        //    //실제로도 적이 생성될때만 추가하기.
-        //}
     }
 }

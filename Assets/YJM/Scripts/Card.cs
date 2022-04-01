@@ -12,8 +12,6 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     public Text unitCost;
     public int cardDeskPos;
     Vector3 cardPos;
-    Vector3 cardRtPos;
-    RectTransform tr;
 
     public int value;
 
@@ -33,40 +31,32 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
 
         unitName.text = status.unitName;
         unitCost.text = (status.cost).ToString();
-
-        tr = GetComponent<RectTransform>();
-        cardRtPos = tr.localPosition;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        //UnitStatus 를 찾는 for 문을 돌려서 ex)MeleeUnitStatus = 0 RangeUnitStatus = 1 이 카드의 UnitStatus 번호를 NewCardManager.CardUse()에 넣어주면 되나?  
-        //Unit Status에서 번호를 찾아서 그 번호를
-        //더 자세히 구현하려면 UnitStatus Scriptable Object를 기획에 맞게 다 만들어야함(지금은 2개밖에 없는거 돌려써서 UnitStatus 명으로 찾으면 백퍼 오류남)
-
-        
-
-
-    }
-
-    
-
-
+    RectTransform rt1;
+    RectTransform rt2;
+    Vector3 Rt1;
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
-    {//클릭해서 드래그 시작 했을때
+    {//드래그 시작 했을때
         //카드의 처음위치 cardPos를 정해줌
         cardPos = transform.position;
+
+        //카드 애니메이션 변수 선언
+        rt1 = GetComponent<RectTransform>();
+        rt2 = GetComponent<RectTransform>();
+        Rt1 = rt1.anchoredPosition;
     }
 
     void IDragHandler.OnDrag(PointerEventData eventData)
     {//드래그 중
         Vector3 currentPos = eventData.position;
         transform.position = currentPos;
+        //카드 애니메이션 재생
+        CardAnim();
     }
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
-    {//드롭할때 => 땅이면 소환하고 아니면 시마이.
+    {//드롭할때
         RayResult temp = Funcs.RayToWorld();
 
         if (temp.isHit == false)
@@ -76,12 +66,34 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         }
         else
         {   //닿인곳이 땅이면 유닛 소환
-            //UnitFactory.instance.SpawnMeleeUnit(temp.hitPosition);
-            NewCardManager.instance.SpawnCard(this.gameObject, 4);
-            NewCardManager.instance.CardUse(this.gameObject);
-
+            
+            if (temp.hitObj.tag == "Tower" || temp.hitObj.tag == "Nexus" || float.Parse(unitCost.text) > CostManager.instance.currentCost)
+            { //닿인곳이 타워,넥서스면 소환 취소
+                transform.position = cardPos;
+            }
+            else 
+            {
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)status.unitNum,temp.hitPosition);
+                NewCardManager.instance.SpawnCard(this.gameObject, 4);
+                NewCardManager.instance.CardUse(this.gameObject);
+                CostManager.instance.currentCost -= float.Parse(unitCost.text);
+            }
         }
-
+        //카드 애니메이션 초기화
+        transform.localScale = new Vector3(1, 1, 1);
     }
 
+    void CardAnim()
+    {
+        float h = (rt2.anchoredPosition.y - Rt1.y) / 219;
+        if (h >= 1)
+        {
+            h = 1;
+        }
+        if (h <= 0)
+        {
+            h = 0;
+        }
+        transform.localScale = new Vector3(1 - h, 1 - h, 1);
+    }
 }

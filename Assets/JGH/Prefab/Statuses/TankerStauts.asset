@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29b9ec95413652e429e43d378d2eb7ff, type: 3}
-  m_Name: HealerUnitStauts 1
+  m_Name: TankerStauts
   m_EditorClassIdentifier: 
-  unitName: Healer
-  unitNum: 5
-  hp: 70
-  dmg: 15
+  unitName: Tanker
+  unitNum: 4
+  unitTier: 0
+  hp: 250
+  dmg: 10
   atkSpd: 1
   moveSpd: 0.5
   atkRange: 4

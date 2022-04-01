@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NewCardManager : MonoBehaviour
 {
@@ -8,23 +9,23 @@ public class NewCardManager : MonoBehaviour
     static public NewCardManager instance = null;
     /// <singletone>
 
-    //할것
-    //1. deckList, myHand 스크립터블 오브젝트 만들기
-    //2. 
-
     //1. 진짜 모든 카드 덱 -> 8장
     //2. 손패 ->4장
     public GameObject uiCanvas;
     public GameObject cardPrefab;
+    public GameObject nextCard;
     public GameObject[] Pos = new GameObject[5];
     public Queue<GameObject> deckqueue;
-    //RectTransform tr;
 
     GameObject[] deck; //로비에서 넘어와서 셔플 할 용도로 사용할 배열
     public GameObject[] myHand = new GameObject[4];
     List<GameObject> grave = new List<GameObject>();
 
     public List<UnitStatus> unitDataList;
+
+    public UnitStatus nextCardStatus;
+    Text nextUnitName;
+    Text nextUnitCost;
 
     private void Awake()
     {
@@ -42,14 +43,6 @@ public class NewCardManager : MonoBehaviour
         CardAdd();
         ShuffleArray(deck);
 
-        //for (int i = 0; i < deck.Length; ++i)
-        //{
-        //    print(i + " : " + deck[i].GetComponent<Card>().status.unitName);
-           
-        //}
-        //까지 start up
-
-        //처음 for문 돌려서 list 덱의 값을 hand안에 다 넣어준다
         for (int i = 0; i < 4; i++)
         {
             myHand[i] = deck[i];
@@ -62,17 +55,15 @@ public class NewCardManager : MonoBehaviour
             grave.Add(deck[i+4]);
         }
         //즉 이때 손패 카드4개가 뿌려진거임
-
-        HandCheck();
-        DeckCheck();
-        GraveCheck();
-
+        //HandCheck();
+        //DeckCheck();
+        //GraveCheck();
+        nextCardUpdate();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //CardLoop();
+        
     }
 
     void CardAdd()
@@ -114,6 +105,15 @@ public class NewCardManager : MonoBehaviour
         return array;
     }
 
+    public UnitStatus d0;
+    void nextCardUpdate()
+    {
+        nextUnitName = nextCard.gameObject.transform.Find("Name").gameObject.GetComponent<Text>();
+        nextUnitCost = nextCard.gameObject.transform.Find("Cost").gameObject.GetComponent<Text>();
+        d0 = grave[0].GetComponent<Card>().status;
+        nextUnitName.text = grave[0].GetComponent<Card>().status.unitName.ToString();
+        nextUnitCost.text = grave[0].GetComponent<Card>().status.cost.ToString();
+    }
 
     public void CardUse(GameObject card)
     {
@@ -126,9 +126,10 @@ public class NewCardManager : MonoBehaviour
             }
         }
         CardLoop();
-        HandCheck();
-        DeckCheck();
-        GraveCheck();
+        nextCardUpdate();
+        //HandCheck();
+        //DeckCheck();
+        //GraveCheck();
     }
 
     void CardLoop()
@@ -139,8 +140,7 @@ public class NewCardManager : MonoBehaviour
             {
                 SpawnCard(grave[0], i);
                     myHand[i] = grave[0];
-                    grave.RemoveAt(0);
-                    
+                    grave.RemoveAt(0); 
             }
         }
     }

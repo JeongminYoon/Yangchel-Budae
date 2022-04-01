@@ -72,14 +72,14 @@ namespace Enums
 { 
 	public enum UnitClass
 	{
-		melee,
-		melee2,
-		range,
-		range2,
-		tanker,
-		healer,
-		skill,
-		skill2,
+		melee1, //0
+		melee2, //1
+		range1, //2
+		range2, //3
+		tanker, //4
+		medic, //5
+		skill_1,
+		Skill_2,
 		End
 	}
 

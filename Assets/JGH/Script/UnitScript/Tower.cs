@@ -70,7 +70,7 @@ public class Tower : Units
 		}
 	}
 
-	public override void DeathEvent()
+	public override void DeathEventSetting()
 	{
 		//base.DeathEvent();
 
@@ -102,7 +102,7 @@ public class Tower : Units
 
 	protected override void Start()
 	{
-		DeathEvent();
+		DeathEventSetting();
 
 		ScriptableObj_DeepCopy();
 

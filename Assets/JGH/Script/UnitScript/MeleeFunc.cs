@@ -5,12 +5,6 @@ using UnityEngine;
 public class MeleeFunc : Units
 {
 
-    public override void SearchUnit()
-    {
-        base.SearchUnit();
-    }
-
-
 
     protected override void Awake()
     {
