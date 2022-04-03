@@ -243,8 +243,8 @@ abstract public class Units : MonoBehaviour
     protected virtual void Awake()
     {
         //SearchUnit();
-       
 
+        ScriptableObj_DeepCopy(); //깊은 복사
 
     }
 
@@ -253,7 +253,7 @@ abstract public class Units : MonoBehaviour
         DeathEventSetting();
 
         //unitStatus = unitStatus_Origin; 얕은 복사 Shallow
-        ScriptableObj_DeepCopy(); //깊은 복사
+        //ScriptableObj_DeepCopy(); //깊은 복사
 
         SearchUnit();
     }

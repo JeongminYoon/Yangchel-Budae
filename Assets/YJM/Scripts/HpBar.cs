@@ -43,7 +43,7 @@ public class HpBar : MonoBehaviour
             //SearchUnit();
             if (unitStatusList[0] != null)
             { 
-            print(unitStatusList[0].hp);
+                print(unitStatusList[0].hp);
             }
         }
     }
@@ -59,7 +59,6 @@ public class HpBar : MonoBehaviour
             unitList.Add(fieldUnit[i]);
             GameObject hpBar = Instantiate(hpBarPrefab, fieldUnit[i].transform.position, Quaternion.identity, transform);
             hpBarList.Add(hpBar);
-
             unitStatusList.Add(unitList[i].GetComponent<Units>().unitStatus); //unitStatusList에 유닛리스트의 스테이터스값을 넣고싶음
         }
     }

@@ -30,7 +30,7 @@ public class UnitFactory : MonoBehaviour
 
 
         spawnObj = Instantiate(unitPrefabs[(int)unitClass], spawnPos, Quaternion.identity);
-
+       
         #region switchCaseSpawn_DontUse
         //switch (unitClass)
         //{
