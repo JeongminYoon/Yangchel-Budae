@@ -73,10 +73,22 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
             }
             else 
             {
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)status.unitNum,temp.hitPosition);
-                NewCardManager.instance.SpawnCard(this.gameObject, 4);
-                NewCardManager.instance.CardUse(this.gameObject);
-                CostManager.instance.currentCost -= float.Parse(unitCost.text);
+                if (this.status.unitName.Contains("Skill")) //사용한 카드가 스킬이면
+                {
+                    print("스킬번호 " + status.unitNum + "번 " + status.unitName + " 사용");
+                    Instantiate(UnitFactory.instance.unitPrefabs[status.unitNum]);
+                    NewCardManager.instance.SpawnCard(this.gameObject, 4);
+                    NewCardManager.instance.CardUse(this.gameObject);
+                    CostManager.instance.currentCost -= float.Parse(unitCost.text);
+                }
+                else                                       //사용한 카드가 유닛이면
+                {
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)status.unitNum, temp.hitPosition);
+                    HpBar.instance.SearchUnit();
+                    NewCardManager.instance.SpawnCard(this.gameObject, 4);
+                    NewCardManager.instance.CardUse(this.gameObject);
+                    CostManager.instance.currentCost -= float.Parse(unitCost.text);
+                }
             }
         }
         //카드 애니메이션 초기화
