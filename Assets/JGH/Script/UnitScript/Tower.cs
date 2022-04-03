@@ -87,24 +87,19 @@ public class Tower : Units
 			handler(this.gameObject);
 			Destroy(this.gameObject);
 		}
-
-		//Destroy(gameObject);
-		//이 유닛 참조하고 있는 다른 놈들에 대해서도 예외처리 필요.
-		//또 이거 쓰면 그 머다냐 메모리 릭 생긴다는 얘기도 있음.
-		//일단 사용 ㄴㄴㄴ
 	}
 
 	//기본 3종 Cycle 함수도 부모꺼 호출 금지
 	protected override void Awake()
 	{
-
+		base.Awake();
 	}
 
 	protected override void Start()
 	{
 		DeathEventSetting();
 
-		ScriptableObj_DeepCopy();
+		//ScriptableObj_DeepCopy();
 
 		searchTime = 0.25f;
 
