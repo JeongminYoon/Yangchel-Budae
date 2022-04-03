@@ -161,8 +161,18 @@ abstract public class Units : MonoBehaviour
 
         //Debug.Log(unitStatus.sightRange + "의 범위로 적을 찾고 있습니다.");
 
-        listTarget = UnitManager.instance.unitList[Funcs.B2I(!isEnemy)]; 
-            
+        if (unitStatus.unitName == "Medic")
+        {//메딕 본인도 가져와버림.
+            listTarget = UnitManager.instance.unitList[Funcs.B2I(isEnemy)];
+
+            listTarget.Remove(this.gameObject);
+        }
+        else 
+        {
+            listTarget = UnitManager.instance.unitList[Funcs.B2I(!isEnemy)];
+        }
+
+
 
         if (listTarget.Count == 0)
         {
@@ -195,6 +205,8 @@ abstract public class Units : MonoBehaviour
 
     protected void SearchTower()
     {
+        //나중에 스킬2 완성되면 스킬2 타워도 찾는걸로 바꾸기
+
         //For only unit
         //가까운 라인 파악하고 타워 확인하는거.
         if (transform.position.x > 0)

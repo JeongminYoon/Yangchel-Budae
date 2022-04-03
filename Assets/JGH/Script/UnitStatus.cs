@@ -11,7 +11,12 @@ public class UnitStatus : ScriptableObject
 	{
         unitName = String.Copy(origin.unitName);
         unitNum = origin.unitNum;
+
+        fullHp = origin.fullHp;
+        curHp = origin.curHp;
         hp = origin.hp;
+
+
         dmg = origin.dmg;
         atkSpd = origin.atkSpd;
         moveSpd = origin.moveSpd;
@@ -33,7 +38,10 @@ public class UnitStatus : ScriptableObject
     public int      unitNum;//생성등에서 Enum형으로 편하게 쓸용도
     public int      unitTier;
 
+    public float fullHp;
+    public float curHp;
     public float    hp;
+
     public float    dmg;
     public float    atkSpd;
     public float    moveSpd;
