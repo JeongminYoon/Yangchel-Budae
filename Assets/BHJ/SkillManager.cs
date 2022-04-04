@@ -11,19 +11,35 @@ public class SkillManager : MonoBehaviour
     public GameObject skill1Prefab;
     public GameObject skill2Prefab;
 
+    public GameObject skill1;
+    public GameObject skill2;
+
+
+    public bool isSkill2Live = false;
 
 
 
     public void UseSkill1()
     { 
-        Instantiate(skill1Prefab);
+       skill1 = Instantiate(skill1Prefab);
+
+       
+
     }
 
 
     public void UseSkill2()
     {
 
-        Instantiate(skill2Prefab);
+        skill2 = Instantiate(skill2Prefab);
+
+        isSkill2Live = true;
+                       
+       
+
+    
+
+
 
     }
   
@@ -45,9 +61,10 @@ public class SkillManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ////if (Input.GetKeyDown(KeyCode.Space))
-        ////{
-        //    UseSkill1();
-        //}
+        
+
+
+
+
     }
 }

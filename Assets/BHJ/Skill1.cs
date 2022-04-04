@@ -10,7 +10,7 @@ public class Skill1 : MonoBehaviour
 
 
     public GameObject airplanPrefab;
-    public GameObject skillManager;
+   
   
     // Start is called before the first frame update
     void Start()

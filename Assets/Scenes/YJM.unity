@@ -226,7 +226,7 @@ MonoBehaviour:
   - {fileID: 8037538996643193483, guid: b0aae01902f8d8d469ccaf253390c7f8, type: 3}
   - {fileID: 2035657809442337194, guid: b5f0efb4370839b4aa484dc7ddd52f16, type: 3}
   - {fileID: 4667199152954949758, guid: 3c58b32dd47deaf43868f7b16ef36f68, type: 3}
-  - {fileID: 0}
+  - {fileID: 8442221887539947438, guid: fa712159b8c989b4dbb9b36ae16d5e53, type: 3}
 --- !u!4 &104895803
 Transform:
   m_ObjectHideFlags: 0
@@ -1242,6 +1242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skill1Prefab: {fileID: 4667199152954949758, guid: 3c58b32dd47deaf43868f7b16ef36f68, type: 3}
+  skill2Prefab: {fileID: 0}
 --- !u!4 &1511452678
 Transform:
   m_ObjectHideFlags: 0
