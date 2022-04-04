@@ -75,8 +75,8 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
             {
                 if (this.status.unitName.Contains("Skill")) //사용한 카드가 스킬이면
                 {
-                    print("스킬번호 " + status.unitNum + "번 " + status.unitName + " 사용");
-                    Instantiate(UnitFactory.instance.unitPrefabs[status.unitNum]);
+                    print("스킬번호 " + status.unitNum + "번 " + status.unitName + " 사용"); //debug
+                    SpawnSkill();
                     NewCardManager.instance.SpawnCard(this.gameObject, 4);
                     NewCardManager.instance.CardUse(this.gameObject);
                     CostManager.instance.currentCost -= float.Parse(unitCost.text);
@@ -107,5 +107,21 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
             h = 0;
         }
         transform.localScale = new Vector3(1 - h, 1 - h, 1);
+    }
+
+    void SpawnSkill()
+    {
+        //Instantiate(UnitFactory.instance.unitPrefabs[status.unitNum]);
+        if (this.status.unitNum == 6)
+        {
+            SkillManager.instance.UseSkill1();
+        }
+        else if (this.status.unitNum == 7)
+        {
+            if (SkillManager.isSkill2Live == false)
+            {
+                SkillManager.instance.UseSkill2();
+            }
+        }
     }
 }

@@ -18,7 +18,6 @@ public class SkillManager : MonoBehaviour
     public bool isSkill2Live = false;
 
 
-
     public void UseSkill1()
     { 
        skill1 = Instantiate(skill1Prefab);
