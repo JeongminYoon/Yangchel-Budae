@@ -13,11 +13,7 @@ MonoBehaviour:
   m_Name: TowerStatus
   m_EditorClassIdentifier: 
   unitName: Tower
-<<<<<<< HEAD
-  unitNum: 0
-=======
   unitNum: -1
->>>>>>> f68ff8f9cdadd206e6ebe145f926d56366f45b64
   unitTier: 0
   fullHp: 100
   curHp: 100

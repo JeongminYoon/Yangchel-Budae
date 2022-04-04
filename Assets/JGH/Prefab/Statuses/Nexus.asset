@@ -24,10 +24,6 @@ MonoBehaviour:
   sightRange: 5
   cost: 0
   spawnTime: 0
-<<<<<<< HEAD
-  unitScale: 0
-=======
   unitColScale: {x: 0, y: 0, z: 0}
->>>>>>> f68ff8f9cdadd206e6ebe145f926d56366f45b64
   isSplashAtk: 0
   isDead: 0

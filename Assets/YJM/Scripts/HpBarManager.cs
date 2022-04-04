@@ -35,9 +35,6 @@ public class HpBarManager : MonoBehaviour
     void Update()
     {
         HpBarWork();    
-<<<<<<< HEAD:Assets/YJM/Scripts/HpBarManager.cs
- 
-=======
         if (Input.GetMouseButtonDown(1)) // 리프레쉬 < 이걸 유닛 소환됬을때, 파괴됬을떄 리프레쉬 되게 바꾸면 됨
         {//소환됬을때에는 Card.cs에 트리거, 파괴됬을때에는 Hp바 구현하면서 유닛에게서 상속받은 hp값이 0이 되면 호출시키게 하면 되겠네
             //SearchUnit();
@@ -46,7 +43,6 @@ public class HpBarManager : MonoBehaviour
                 print(unitStatusList[0].curHp);
             }
         }
->>>>>>> f68ff8f9cdadd206e6ebe145f926d56366f45b64:Assets/YJM/Scripts/HpBar.cs
     }
 
     public void SearchUnit()
@@ -74,11 +70,7 @@ public class HpBarManager : MonoBehaviour
         for (int i = 0; i < unitList.Count; i++)
         {
             hpBarList[i].transform.position = cam.WorldToScreenPoint(unitList[i].transform.position + new Vector3(0f, 1.2f, 0f));
-<<<<<<< HEAD:Assets/YJM/Scripts/HpBarManager.cs
             hpBarList[i].GetComponent<Image>().fillAmount = unitStatusList[i].curHp / unitStatusList[i].fullHp;
-=======
-            hpBarList[i].GetComponent<Image>().fillAmount = unitStatusList[i].curHp / 100f; // 문제가있음. unitStatusList[i].hp 값을 0~1로 표현해야 하는데 어떻게하지? 스크립터블 오브젝트에서 불러와야하나 아님 최초hp값을 어디 따로 저장해야하나
->>>>>>> f68ff8f9cdadd206e6ebe145f926d56366f45b64:Assets/YJM/Scripts/HpBar.cs
             if (unitStatusList[i].curHp <= 0f)
             {
                 SearchUnit();
