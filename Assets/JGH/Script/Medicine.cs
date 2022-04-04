@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,7 +35,7 @@ public class Medicine : MonoBehaviour
         
         transform.rotation = Quaternion.Euler(rotate);
 
-        //°è¼Ó Å¸°Ù Obj À§Ä¡ ÆÇ´ÜÇØ¼­ ¿òÁ÷ÀÌ´Â°É·ç´Ù°¡?
+        //ê³„ì† íƒ€ê²Ÿ Obj ìœ„ì¹˜ íŒë‹¨í•´ì„œ ì›€ì§ì´ëŠ”ê±¸ë£¨ë‹¤ê°€?
 
         
     }
