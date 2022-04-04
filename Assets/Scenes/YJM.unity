@@ -226,7 +226,7 @@ MonoBehaviour:
   - {fileID: 8037538996643193483, guid: b0aae01902f8d8d469ccaf253390c7f8, type: 3}
   - {fileID: 2035657809442337194, guid: b5f0efb4370839b4aa484dc7ddd52f16, type: 3}
   - {fileID: 4667199152954949758, guid: 3c58b32dd47deaf43868f7b16ef36f68, type: 3}
-  - {fileID: 0}
+  - {fileID: 8442221887539947438, guid: fa712159b8c989b4dbb9b36ae16d5e53, type: 3}
 --- !u!4 &104895803
 Transform:
   m_ObjectHideFlags: 0
@@ -1242,6 +1242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skill1Prefab: {fileID: 4667199152954949758, guid: 3c58b32dd47deaf43868f7b16ef36f68, type: 3}
+  skill2Prefab: {fileID: 0}
 --- !u!4 &1511452678
 Transform:
   m_ObjectHideFlags: 0
@@ -1339,7 +1340,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6734a1e899d75e47a5a790d6b6ebb39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpBarPrefab: {fileID: 7106862216928521803, guid: 30b07f7f1c683664fbeebc4086c509b4, type: 3}
+  hpBarPrefab: {fileID: 6471002686493777905, guid: 30b07f7f1c683664fbeebc4086c509b4, type: 3}
 --- !u!1 &1747276853
 GameObject:
   m_ObjectHideFlags: 0

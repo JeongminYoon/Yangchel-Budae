@@ -17,6 +17,8 @@ public class HpBarManager : MonoBehaviour
 
     Camera cam = null;
 
+    Text hpText;
+
     private void Awake()
     {
         if (instance == null)
@@ -71,6 +73,8 @@ public class HpBarManager : MonoBehaviour
         {
             hpBarList[i].transform.position = cam.WorldToScreenPoint(unitList[i].transform.position + new Vector3(0f, 1.2f, 0f));
             hpBarList[i].GetComponent<Image>().fillAmount = unitStatusList[i].curHp / unitStatusList[i].fullHp;
+            hpText = hpBarList[i].gameObject.transform.Find("HpText").gameObject.GetComponent<Text>();
+            hpText.text = (unitStatusList[i].curHp + "/" + unitStatusList[i].fullHp).ToString();
             if (unitStatusList[i].curHp <= 0f)
             {
                 SearchUnit();
