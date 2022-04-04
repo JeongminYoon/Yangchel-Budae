@@ -49,6 +49,7 @@ abstract public class Units : MonoBehaviour
 
     public delegate void HandlerDeath(GameObject unit);
     public HandlerDeath handlerDeath;
+
     protected void CalcToObj(GameObject obj)
     {
         Vector3 targetPos = obj.transform.position;
@@ -172,7 +173,7 @@ abstract public class Units : MonoBehaviour
         }
         else 
         {
-            listTarget = UnitManager.instance.unitList[Funcs.B2I(!isEnemy)];
+            listTarget = UnitManager.instance.unitList[Funcs.B2I(!isEnemy)].ToList<GameObject>();
         }
 
 
