@@ -14,7 +14,7 @@ public class UnitStatus : ScriptableObject
 
         fullHp = origin.fullHp;
         curHp = origin.curHp;
-        hp = origin.hp;
+        //hp = origin.hp;
 
         dmg = origin.dmg;
         atkSpd = origin.atkSpd;
@@ -39,7 +39,7 @@ public class UnitStatus : ScriptableObject
 
     public float fullHp;
     public float curHp;
-    public float    hp;
+    //public float    hp;
 
     public float    dmg;
     public float    atkSpd;

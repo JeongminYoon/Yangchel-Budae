@@ -49,8 +49,8 @@ public class Medicine : MonoBehaviour
             if (hitObj != null)
             {
                 
-                hitObj.unitStatus.hp += healAmount;
-                Debug.Log(hitObj.unitStatus.hp);
+                hitObj.unitStatus.curHp += healAmount;
+                Debug.Log(hitObj.unitStatus.curHp);
                 Destroy(this.gameObject);
             }
 		

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 abstract public class Units : MonoBehaviour
 {
     //C#에서 가상함수(virtual 키워드)는
@@ -77,7 +77,7 @@ abstract public class Units : MonoBehaviour
 
 	public virtual void Death(HandlerDeath handler)
     {
-        if (unitStatus.hp <= 0f)
+        if (unitStatus.curHp <= 0f)
         {
             unitStatus.isDead = true;
             handler(this.gameObject);
@@ -166,7 +166,7 @@ abstract public class Units : MonoBehaviour
 
         if (unitStatus.unitName == "Medic")
         {//메딕 본인도 가져와버림.
-            listTarget = UnitManager.instance.unitList[Funcs.B2I(isEnemy)];
+            listTarget = UnitManager.instance.unitList[Funcs.B2I(isEnemy)].ToList<GameObject>();
 
             listTarget.Remove(this.gameObject);
         }
@@ -237,9 +237,9 @@ abstract public class Units : MonoBehaviour
 
     public void Hit(int _dmg)
     {
-        float temp = unitStatus.hp;
-        unitStatus.hp -= _dmg;
-        Debug.Log(_dmg + "의 데미지를 받아\n" + temp + "에서" + unitStatus.hp + "가 되었습니다");
+        float temp = unitStatus.curHp;
+        unitStatus.curHp -= _dmg;
+        Debug.Log(_dmg + "의 데미지를 받아\n" + temp + "에서" + unitStatus.curHp + "가 되었습니다");
     }
 
     public void ScriptableObj_DeepCopy()

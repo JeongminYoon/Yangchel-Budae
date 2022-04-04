@@ -40,7 +40,7 @@ public class HpBar : MonoBehaviour
             //SearchUnit();
             if (unitStatusList[0] != null)
             { 
-                print(unitStatusList[0].hp);
+                print(unitStatusList[0].curHp);
             }
         }
     }
@@ -65,8 +65,8 @@ public class HpBar : MonoBehaviour
         for (int i = 0; i < unitList.Count; i++)
         {
             hpBarList[i].transform.position = cam.WorldToScreenPoint(unitList[i].transform.position + new Vector3(0f, 1.2f, 0f));
-            hpBarList[i].GetComponent<Image>().fillAmount = unitStatusList[i].hp / 100f; // 문제가있음. unitStatusList[i].hp 값을 0~1로 표현해야 하는데 어떻게하지? 스크립터블 오브젝트에서 불러와야하나 아님 최초hp값을 어디 따로 저장해야하나
-            if (unitStatusList[i].hp <= 0f)
+            hpBarList[i].GetComponent<Image>().fillAmount = unitStatusList[i].curHp / 100f; // 문제가있음. unitStatusList[i].hp 값을 0~1로 표현해야 하는데 어떻게하지? 스크립터블 오브젝트에서 불러와야하나 아님 최초hp값을 어디 따로 저장해야하나
+            if (unitStatusList[i].curHp <= 0f)
             {
                 SearchUnit();
             }

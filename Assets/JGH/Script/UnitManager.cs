@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Enums;
 
@@ -13,6 +14,15 @@ public class UnitManager : MonoBehaviour
 
     //public List<GameObject>[] unitList;
     //팀 : 0 아군 / 1 적군
+
+    public List<GameObject> GetUnitList_Val(int team = Defines.ally)
+    {
+        return unitList[team].ToList<GameObject>();
+    }
+    public List<GameObject> GetUnitList_Ref(int team = Defines.ally)
+    {
+        return unitList[team];
+    }
 
     public void RemoveDeadUnit(GameObject deadUnit)
     {
