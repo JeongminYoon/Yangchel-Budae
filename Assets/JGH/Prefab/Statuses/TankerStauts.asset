@@ -15,7 +15,8 @@ MonoBehaviour:
   unitName: Tanker
   unitNum: 4
   unitTier: 0
-  hp: 250
+  fullHp: 100
+  curHp: 100
   dmg: 10
   atkSpd: 1
   moveSpd: 0.5
@@ -23,6 +24,6 @@ MonoBehaviour:
   sightRange: 5
   cost: 2
   spawnTime: 0.5
-  unitScale: 0
+  unitColScale: {x: 0, y: 0, z: 0}
   isSplashAtk: 0
   isDead: 0

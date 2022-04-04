@@ -13,7 +13,7 @@ public class UnitStatus : ScriptableObject
         unitNum = origin.unitNum;
 
         fullHp = origin.fullHp;
-        curHp = origin.curHp;
+        curHp = fullHp;
         //hp = origin.hp;
 
         dmg = origin.dmg;

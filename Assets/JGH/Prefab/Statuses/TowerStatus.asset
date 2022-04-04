@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: TowerStatus
   m_EditorClassIdentifier: 
   unitName: Tower
-  hp: 10
+  unitNum: -1
+  unitTier: 0
+  fullHp: 100
+  curHp: 100
   dmg: 30
   atkSpd: 1
   moveSpd: 0
@@ -21,6 +24,6 @@ MonoBehaviour:
   sightRange: 10
   cost: 2
   spawnTime: 0.5
-  unitScale: 0
+  unitColScale: {x: 0, y: 0, z: 0}
   isSplashAtk: 0
   isDead: 0
