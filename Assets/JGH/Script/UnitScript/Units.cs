@@ -52,6 +52,11 @@ abstract public class Units : MonoBehaviour
 
     protected void CalcToObj(GameObject obj)
     {
+        
+
+        float targetColSize = obj.GetComponent<Units>().unitStatus.unitColScale.x;
+        float myColSize = this.gameObject.GetComponent<Units>().unitStatus.unitColScale.x;
+
         Vector3 targetPos = obj.transform.position;
         targetPos.y = this.gameObject.transform.position.y;
 
@@ -59,13 +64,15 @@ abstract public class Units : MonoBehaviour
         //Vector3 toTargetVector = obj.transform.position - this.transform.position;
 
         targetDist = toTargetVector.magnitude;
+        //targetDist -= (targetColSize/2f + myColSize/2f);
+
 		targetDir = toTargetVector.normalized;
 		float dotProduct = Vector3.Dot(obj.transform.position, this.transform.position);
 		//dot, 즉 내적의 결과값 => Cos @ 값 (-1~1값 /0보다 크면 내 앞, 작으면 내 뒤)
 		float RadAngle = Mathf.Acos(dotProduct);
 		//역 코사인 걸면 라디안 값 
 		targetDegAngle = RadAngle * Mathf.Deg2Rad;
-		//이것이 ㄹㅇ 찐 각도
+        //이것이 ㄹㅇ 찐 각도
 
         //포워드 벡터와 사이벡터 내적 결과값 (cos @)
         //0-> 수직
@@ -74,9 +81,42 @@ abstract public class Units : MonoBehaviour
         //양수 -> 앞
         // 시야각/2 보다 크면 시야내에 있음
 
-	}
 
-	public virtual void Death(HandlerDeath handler)
+
+        #region 차후 수정 요망
+        //if (obj.GetComponent<Units>() != null)
+        //{
+        //    float targetColSize = obj.GetComponent<Units>().unitStatus.unitColScale.x;
+        //    float myColSize = this.gameObject.GetComponent<Units>().unitStatus.unitColScale.x;
+
+        //    Vector3 targetPos = obj.transform.position;
+        //    targetPos.y = this.gameObject.transform.position.y;
+
+        //    Vector3 toTargetVector = targetPos - this.transform.position;
+        //    //Vector3 toTargetVector = obj.transform.position - this.transform.position;
+
+        //    targetDist = toTargetVector.magnitude;
+        //    targetDist -= (targetColSize / 2f + myColSize / 2f);
+
+        //    targetDir = toTargetVector.normalized;
+        //    float dotProduct = Vector3.Dot(obj.transform.position, this.transform.position);
+        //    //dot, 즉 내적의 결과값 => Cos @ 값 (-1~1값 /0보다 크면 내 앞, 작으면 내 뒤)
+        //    float RadAngle = Mathf.Acos(dotProduct);
+        //    //역 코사인 걸면 라디안 값 
+        //    targetDegAngle = RadAngle * Mathf.Deg2Rad;
+        //    //이것이 ㄹㅇ 찐 각도
+
+        //    //포워드 벡터와 사이벡터 내적 결과값 (cos @)
+        //    //0-> 수직
+        //    //1-> 평행
+        //    //음수 -> 뒤
+        //    //양수 -> 앞
+        //    // 시야각/2 보다 크면 시야내에 있음
+        //}
+        #endregion
+    }
+
+    public virtual void Death(HandlerDeath handler)
     {
         if (unitStatus.curHp <= 0f)
         {
@@ -258,6 +298,9 @@ abstract public class Units : MonoBehaviour
 
     public void ColliderSetting()
     {
+
+        //Unit 말고 걍 깡통 옵줵 두 캡슐 콜라이더, 박스 콜라이더 가지고 있는 애들로 테스트 해보자.
+
         unitCol = this.gameObject.GetComponent<Collider>();
 
         Vector3 tempSize = new Vector3();
@@ -266,14 +309,16 @@ abstract public class Units : MonoBehaviour
         {
             if (unitCol as CapsuleCollider != null)
             {
-                tempSize.x = (unitCol as CapsuleCollider).radius;
+                tempSize.x = (unitCol as CapsuleCollider).radius * this.gameObject.transform.localScale.x;
                 tempSize.z = tempSize.x;
 
-                tempSize.y = (unitCol as CapsuleCollider).height;
+                tempSize.y = (unitCol as CapsuleCollider).height * this.gameObject.transform.localScale.y;
             }
             else if (unitCol as BoxCollider != null)
             {
-                tempSize = (unitCol as BoxCollider).size;
+                tempSize.x = (unitCol as BoxCollider).size.x * this.gameObject.transform.localScale.x;
+                tempSize.y = (unitCol as BoxCollider).size.y * this.gameObject.transform.localScale.y;
+                tempSize.x = (unitCol as BoxCollider).size.z * this.gameObject.transform.localScale.z;
             }
         }
 
