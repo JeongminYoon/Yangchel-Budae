@@ -9,6 +9,9 @@ public class SkillManager : MonoBehaviour
     public static SkillManager instance = null;
     /// <singletone>
     public GameObject skill1Prefab;
+    public GameObject skill2Prefab;
+
+
 
 
     public void UseSkill1()
@@ -16,6 +19,14 @@ public class SkillManager : MonoBehaviour
         Instantiate(skill1Prefab);
     }
 
+
+    public void UseSkill2()
+    {
+
+        Instantiate(skill2Prefab);
+
+    }
+  
 
     
     private void Awake()
@@ -34,9 +45,9 @@ public class SkillManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            UseSkill1();
-        }
+        ////if (Input.GetKeyDown(KeyCode.Space))
+        ////{
+        //    UseSkill1();
+        //}
     }
 }
