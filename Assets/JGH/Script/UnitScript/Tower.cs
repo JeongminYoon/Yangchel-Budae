@@ -81,7 +81,7 @@ public class Tower : Units
 
 	public override void Death(HandlerDeath handler)
 	{
-		if (unitStatus.hp <= 0f)
+		if (unitStatus.curHp <= 0f)
 		{
 			unitStatus.isDead = true;
 			handler(this.gameObject);

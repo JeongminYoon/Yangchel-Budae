@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HpBar : MonoBehaviour
+public class HpBarManager : MonoBehaviour
 {
-    static public HpBar instance = null;
+    static public HpBarManager instance = null;
 
     [SerializeField] GameObject hpBarPrefab;
     List<Transform> fieldUnitLocation = new List<Transform>();
@@ -35,23 +35,21 @@ public class HpBar : MonoBehaviour
     void Update()
     {
         HpBarWork();    
-        if (Input.GetMouseButtonDown(1)) // 리프레쉬 < 이걸 유닛 소환됬을때, 파괴됬을떄 리프레쉬 되게 바꾸면 됨
-        {//소환됬을때에는 Card.cs에 트리거, 파괴됬을때에는 Hp바 구현하면서 유닛에게서 상속받은 hp값이 0이 되면 호출시키게 하면 되겠네
-            //SearchUnit();
-            if (unitStatusList[0] != null)
-            { 
-                print(unitStatusList[0].hp);
-            }
-        }
+ 
     }
 
-    public void SearchUnit() 
+    public void SearchUnit()
     {
         unitList.Clear();
         unitStatusList.Clear();
-        GameObject[] fieldUnit = GameObject.FindGameObjectsWithTag("Friendly");
-        
-        for (int i = 0; i < fieldUnit.Length;i++)
+        List<GameObject> fieldUnit = UnitManager.instance.unitList[(int)Enums.Team.ally];
+        List<GameObject> enemyfieldUnit = UnitManager.instance.unitList[(int)Enums.Team.enemy];
+        for (int i = 0; i < enemyfieldUnit.Count; i++)
+        {
+            fieldUnit.Add(enemyfieldUnit[i]);
+        }
+
+        for (int i = 0; i < fieldUnit.Count; i++)
         {
             unitList.Add(fieldUnit[i]);
             GameObject hpBar = Instantiate(hpBarPrefab, fieldUnit[i].transform.position, Quaternion.identity, transform);
@@ -65,8 +63,8 @@ public class HpBar : MonoBehaviour
         for (int i = 0; i < unitList.Count; i++)
         {
             hpBarList[i].transform.position = cam.WorldToScreenPoint(unitList[i].transform.position + new Vector3(0f, 1.2f, 0f));
-            hpBarList[i].GetComponent<Image>().fillAmount = unitStatusList[i].hp / 100f; // 문제가있음. unitStatusList[i].hp 값을 0~1로 표현해야 하는데 어떻게하지? 스크립터블 오브젝트에서 불러와야하나 아님 최초hp값을 어디 따로 저장해야하나
-            if (unitStatusList[i].hp <= 0f)
+            hpBarList[i].GetComponent<Image>().fillAmount = unitStatusList[i].curHp / unitStatusList[i].fullHp;
+            if (unitStatusList[i].curHp <= 0f)
             {
                 SearchUnit();
             }

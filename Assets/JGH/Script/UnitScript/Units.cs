@@ -74,7 +74,7 @@ abstract public class Units : MonoBehaviour
 
 	public virtual void Death(HandlerDeath handler)
     {
-        if (unitStatus.hp <= 0f)
+        if (unitStatus.curHp <= 0f)
         {
             unitStatus.isDead = true;
             handler(this.gameObject);
@@ -234,9 +234,9 @@ abstract public class Units : MonoBehaviour
 
     public void Hit(int _dmg)
     {
-        float temp = unitStatus.hp;
-        unitStatus.hp -= _dmg;
-        Debug.Log(_dmg + "의 데미지를 받아\n" + temp + "에서" + unitStatus.hp + "가 되었습니다");
+        float temp = unitStatus.curHp;
+        unitStatus.curHp -= _dmg;
+        Debug.Log(_dmg + "의 데미지를 받아\n" + temp + "에서" + unitStatus.curHp + "가 되었습니다");
     }
 
     public void ScriptableObj_DeepCopy()

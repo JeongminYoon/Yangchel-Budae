@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: TowerStatus
   m_EditorClassIdentifier: 
   unitName: Tower
-  hp: 10
+  unitNum: 0
+  unitTier: 0
+  fullHp: 100
+  curHp: 100
   dmg: 30
   atkSpd: 1
   moveSpd: 0

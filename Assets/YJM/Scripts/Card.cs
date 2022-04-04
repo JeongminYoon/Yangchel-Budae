@@ -84,7 +84,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                 else                                       //사용한 카드가 유닛이면
                 {
                     UnitFactory.instance.SpawnUnit((Enums.UnitClass)status.unitNum, temp.hitPosition);
-                    HpBar.instance.SearchUnit();
+                    HpBarManager.instance.SearchUnit();
                     NewCardManager.instance.SpawnCard(this.gameObject, 4);
                     NewCardManager.instance.CardUse(this.gameObject);
                     CostManager.instance.currentCost -= float.Parse(unitCost.text);

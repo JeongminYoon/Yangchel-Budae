@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Melee1Status
   m_EditorClassIdentifier: 
   unitName: Melee
-  hp: 100
+  unitNum: 0
+  unitTier: 0
+  fullHp: 100
+  curHp: 100
   dmg: 10
   atkSpd: 1
   moveSpd: 1

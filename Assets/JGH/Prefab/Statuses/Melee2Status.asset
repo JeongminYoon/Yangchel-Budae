@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Melee2
   unitNum: 1
-  hp: 100
+  unitTier: 0
+  fullHp: 100
+  curHp: 100
   dmg: 10
   atkSpd: 1
   moveSpd: 1

@@ -15,7 +15,8 @@ MonoBehaviour:
   unitName: Medic
   unitNum: 5
   unitTier: 0
-  hp: 70
+  fullHp: 100
+  curHp: 100
   dmg: 15
   atkSpd: 1
   moveSpd: 0.5

@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: Range
   unitNum: 2
-  hp: 70
+  unitTier: 0
+  fullHp: 100
+  curHp: 100
   dmg: 15
   atkSpd: 1
   moveSpd: 0.5

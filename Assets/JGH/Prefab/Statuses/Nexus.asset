@@ -13,11 +13,17 @@ MonoBehaviour:
   m_Name: Nexus
   m_EditorClassIdentifier: 
   unitName: Nexus
-  hp: 1000
+  unitNum: 0
+  unitTier: 0
+  fullHp: 100
+  curHp: 100
   dmg: 0
   atkSpd: 1
   moveSpd: 0
-  atkRagne: 5
+  atkRange: 0
   sightRange: 5
   cost: 0
   spawnTime: 0
+  unitScale: 0
+  isSplashAtk: 0
+  isDead: 0
