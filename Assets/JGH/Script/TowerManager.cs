@@ -23,7 +23,10 @@ public class TowerManager : MonoBehaviour
         {
             for (int k = 0; k < towerList.GetLength(1); ++k)
             {
-                towerList[i,k] = null;
+                if (towerList[i, k] == tower)
+                {
+                    towerList[i, k] = null;
+                }
             }
         }
     }

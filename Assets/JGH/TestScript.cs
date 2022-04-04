@@ -18,12 +18,12 @@ public class TestScript : MonoBehaviour
 
     //[SerializeField]
     //아마 얘들은 오브젝트 매니저에 놔둘 듯 나중에는
-   // [SerializeField]
-   // private List<GameObject> listEnemy;
-   // [SerializeField]
-   // private List<GameObject> listFriendly;
-  //  public GameObject[] arrEnemyTower = new GameObject[3];
-   // public GameObject[] arrFriendlyTower = new GameObject[3];
+    // [SerializeField]
+    // private List<GameObject> listEnemy;
+    // [SerializeField]
+    // private List<GameObject> listFriendly;
+    //  public GameObject[] arrEnemyTower = new GameObject[3];
+    // public GameObject[] arrFriendlyTower = new GameObject[3];
     //넥서스는 따로 빼주기 타워 배열 2로 줄이고
 
 
@@ -36,6 +36,16 @@ public class TestScript : MonoBehaviour
 
 
     //int iTemp = 0;
+
+    public GameObject[] unitPrefab = new GameObject[2];
+    public GameObject[] unit = new GameObject[2];
+    public Vector3[] dir = new Vector3[2];
+    public float distance;
+    public float[] unitScale = new float[2];
+    public float[] unitColScale = new float[2];
+
+    public float colSizeSum;
+
 
     public Vector3 ScreenToWorld()
     {//작동안됨 ㄴㄴㄴㄴ
@@ -51,6 +61,50 @@ public class TestScript : MonoBehaviour
         return worldPos;
     }
 
+
+    public void ObjColScale()
+    {
+        for (int i = 0; i < unitScale.Length; ++i)
+        {
+            unitScale[i] = unit[i].transform.localScale.x;
+            unitColScale[i] = unit[i].GetComponent<CapsuleCollider>().radius;
+
+            colSizeSum += unitScale[i] * unitColScale[i];
+        }
+
+        
+    }
+
+
+    public void ObjSetting()
+    {
+        for (int i = 0; i < unitPrefab.Length; ++i)
+        {
+            unit[i] = Instantiate(unitPrefab[i], new Vector3(0, 0, i * 30), Quaternion.identity);
+        }
+    }
+    public void ObjMove()
+    {
+        dir[0] = unit[1].transform.position - unit[0].transform.position;
+        dir[1] = unit[0].transform.position - unit[1].transform.position;
+
+        distance = dir[0].magnitude;
+
+        dir[0] = dir[0].normalized;
+        dir[1] = dir[1].normalized;
+
+        Debug.Log(distance);
+
+        for (int i = 0; i < unit.Length; ++i)
+        {
+            if (distance > colSizeSum)
+            { 
+                unit[i].transform.position += dir[i] * 1f * Time.deltaTime;
+            }
+        }
+
+    }
+
     private void Awake()
     {
         if (instance == null)
@@ -61,6 +115,10 @@ public class TestScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ObjSetting();
+        ObjColScale();
+
+        
 
     }
 
@@ -93,5 +151,8 @@ public class TestScript : MonoBehaviour
             }
 
         }
+
+
+        ObjMove();
     }
 }

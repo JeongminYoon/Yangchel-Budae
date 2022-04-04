@@ -24,6 +24,6 @@ MonoBehaviour:
   sightRange: 5
   cost: 2
   spawnTime: 0.5
-  unitScale: 0
+  unitColScale: {x: 0, y: 0, z: 0}
   isSplashAtk: 0
   isDead: 0

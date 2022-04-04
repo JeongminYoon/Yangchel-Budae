@@ -98,7 +98,7 @@ public class Tower : Units
 	protected override void Start()
 	{
 		DeathEventSetting();
-
+		ColliderSetting();
 		//ScriptableObj_DeepCopy();
 
 		searchTime = 0.25f;
