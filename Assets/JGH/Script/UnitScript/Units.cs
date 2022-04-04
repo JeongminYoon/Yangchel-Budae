@@ -39,6 +39,9 @@ abstract public class Units : MonoBehaviour
     public float targetDegAngle;
     /// <target>
 
+
+    public Collider unitCol;
+
     private float atkCurTime = 0f;
 
     public float searchTime = 0.5f;
@@ -252,6 +255,31 @@ abstract public class Units : MonoBehaviour
         handlerDeath += UnitManager.instance.ResearchTarget_AllUnit;
     }
 
+    public void ColliderSetting()
+    {
+        unitCol = this.gameObject.GetComponent<Collider>();
+
+        Vector3 tempSize = new Vector3();
+
+        if (unitCol != null)
+        {
+            if (unitCol as CapsuleCollider != null)
+            {
+                tempSize.x = (unitCol as CapsuleCollider).radius;
+                tempSize.z = tempSize.x;
+
+                tempSize.y = (unitCol as CapsuleCollider).height;
+            }
+            else if (unitCol as BoxCollider != null)
+            {
+                tempSize = (unitCol as BoxCollider).size;
+            }
+        }
+
+        unitStatus.unitColScale = tempSize;
+
+    }
+
     protected virtual void Awake()
     {
         //SearchUnit();
@@ -268,6 +296,8 @@ abstract public class Units : MonoBehaviour
         //ScriptableObj_DeepCopy(); //깊은 복사
 
         SearchUnit();
+
+        ColliderSetting();
     }
     protected virtual void Update()
     {//가상함수로 만들면

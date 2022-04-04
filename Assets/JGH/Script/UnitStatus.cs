@@ -16,7 +16,6 @@ public class UnitStatus : ScriptableObject
         curHp = origin.curHp;
         hp = origin.hp;
 
-
         dmg = origin.dmg;
         atkSpd = origin.atkSpd;
         moveSpd = origin.moveSpd;
@@ -25,7 +24,7 @@ public class UnitStatus : ScriptableObject
         cost = origin.cost;
         spawnTime = origin.spawnTime;
 
-        unitScale = origin.unitScale;
+        unitColScale = origin.unitColScale;
 
         isSplashAtk = origin.isSplashAtk;
         isDead = origin.isDead;
@@ -50,7 +49,7 @@ public class UnitStatus : ScriptableObject
     public int      cost;
     public float    spawnTime;
 
-    public float    unitScale;
+    public Vector3    unitColScale;
 
     public bool     isSplashAtk;
     public bool     isDead;
