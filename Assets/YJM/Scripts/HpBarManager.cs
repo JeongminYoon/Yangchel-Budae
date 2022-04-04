@@ -45,6 +45,8 @@ public class HpBarManager : MonoBehaviour
                 print(unitStatusList[0].curHp);
             }
         }
+
+        print(SkillManager.instance.isSkill2Live);
     }
 
     public void SearchUnit()
@@ -53,6 +55,8 @@ public class HpBarManager : MonoBehaviour
         unitStatusList.Clear();
         List<GameObject> fieldUnit = UnitManager.instance.unitList[(int)Enums.Team.ally];
         List<GameObject> enemyfieldUnit = UnitManager.instance.unitList[(int)Enums.Team.enemy];
+        loadUnitList(fieldUnit);
+
         for (int i = 0; i < enemyfieldUnit.Count; i++)
         {
             fieldUnit.Add(enemyfieldUnit[i]);
@@ -67,6 +71,15 @@ public class HpBarManager : MonoBehaviour
         }
     }
 
+    void loadUnitList(List<GameObject> a)
+    {
+        a.Add(TowerManager.instance.towerList[0, 0]);
+        a.Add(TowerManager.instance.towerList[0, 1]);
+        a.Add(TowerManager.instance.towerList[1, 0]);
+        a.Add(TowerManager.instance.towerList[1, 1]);
+        a.Add(TowerManager.instance.nexusList[0]);
+        a.Add(TowerManager.instance.nexusList[1]);
+    }
     void HpBarWork()
     {
         for (int i = 0; i < unitList.Count; i++)

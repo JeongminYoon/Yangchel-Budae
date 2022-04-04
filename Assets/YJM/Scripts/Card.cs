@@ -118,7 +118,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         }
         else if (this.status.unitNum == 7)
         {
-            if (SkillManager.isSkill2Live == false)
+            if (SkillManager.instance.isSkill2Live == false)
             {
                 SkillManager.instance.UseSkill2();
             }
