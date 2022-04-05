@@ -93,15 +93,6 @@ public class TowerManager : MonoBehaviour
         }
     }
 
-    //public GameObject SpawnTower(Vector3 pos, bool isEnemy)
-    //{
-        
-
-        
-    //}
-
-    
-
     private void Awake()
     {
         if (instance == null)

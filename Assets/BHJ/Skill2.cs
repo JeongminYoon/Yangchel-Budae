@@ -9,7 +9,7 @@ public class Skill2 : MonoBehaviour
     
     public GameObject towerPrefab;
     
-    GameObject tower;
+    public GameObject tower;
 
     float currentTime = 0.0f;
 

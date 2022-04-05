@@ -115,8 +115,8 @@ public class TestScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ObjSetting();
-        ObjColScale();
+        //ObjSetting();
+        //ObjColScale();
 
         
 
@@ -153,6 +153,6 @@ public class TestScript : MonoBehaviour
         }
 
 
-        ObjMove();
+        //ObjMove();
     }
 }

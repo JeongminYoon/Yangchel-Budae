@@ -15,7 +15,7 @@ public class SkillManager : MonoBehaviour
     public GameObject skill2;
 
 
-    public bool isSkill2Live = false;
+    public bool isSkill2Live = false; //true면 타워 스킬 사용 중
 
 
     public void UseSkill1()

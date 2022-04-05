@@ -37,8 +37,10 @@ abstract public class Units : MonoBehaviour
     public float targetDist;
     public Vector3 targetDir;
     public float targetDegAngle;
+    public float targetColSize;
     /// <target>
 
+    
 
     public Collider unitCol;
 
@@ -52,10 +54,20 @@ abstract public class Units : MonoBehaviour
 
     protected void CalcToObj(GameObject obj)
     {
-        
+        //float targetColSize = obj.GetComponent<Units>().unitStatus.unitColScale.x;
+        //float myColSize = this.gameObject.GetComponent<Units>().unitStatus.unitColScale.x;
 
-        float targetColSize = obj.GetComponent<Units>().unitStatus.unitColScale.x;
-        float myColSize = this.gameObject.GetComponent<Units>().unitStatus.unitColScale.x;
+        Units temp = obj.GetComponent<Units>();
+
+        if (temp != null)
+        {
+            targetColSize = temp.unitStatus.unitColScale.x;
+        }
+        else 
+        {
+            targetColSize = 0f;
+        }
+
 
         Vector3 targetPos = obj.transform.position;
         targetPos.y = this.gameObject.transform.position.y;
@@ -80,8 +92,6 @@ abstract public class Units : MonoBehaviour
         //음수 -> 뒤
         //양수 -> 앞
         // 시야각/2 보다 크면 시야내에 있음
-
-
 
         #region 차후 수정 요망
         //if (obj.GetComponent<Units>() != null)
@@ -139,8 +149,9 @@ abstract public class Units : MonoBehaviour
         if (targetObj != null)
         {
             CalcToObj(targetObj);
+            
 
-            if (targetDist > unitStatus.atkRange)
+            if (targetDist > unitStatus.atkRange + targetColSize + unitStatus.unitColScale.x)
             {
                 //transform.Translate(targetDir * unitStatus.moveSpd * Time.deltaTime);
                 transform.position += targetDir * unitStatus.moveSpd * Time.deltaTime;
@@ -158,7 +169,7 @@ abstract public class Units : MonoBehaviour
         //지금 타워처럼 스케일이 1 이상인 애들도 
         //공격 범위만큼 가까이 가야 때릴 수 있음.
         // 추후 콜리더 범위로 수정 해야함.
-        if (_target != null && targetDist <= unitStatus.atkRange)
+        if (_target != null && targetDist <= unitStatus.atkRange + targetColSize + unitStatus.unitColScale.x)
         {
             atkCurTime += Time.deltaTime;
 
@@ -167,7 +178,7 @@ abstract public class Units : MonoBehaviour
             if (atkCurTime >= unitStatus.atkSpd)
             {
                 //추후 각 유닛의 무기에 따라서 콜리더 판정으로 넘기기
-                //Debug.Log(unitStatus.atkRange + "의 범위로\n" + unitStatus.moveSpd + "의 데미지를 줍니다.");
+                Debug.Log(unitStatus.atkRange + "의 범위로\n" + unitStatus.dmg + "의 데미지를 줍니다.");
                // temp.Hit((int)unitStatus.dmg);
                 atkCurTime = 0f;
                 return true;
@@ -216,8 +227,6 @@ abstract public class Units : MonoBehaviour
             listTarget = UnitManager.instance.unitList[Funcs.B2I(!isEnemy)].ToList<GameObject>();
         }
 
-
-
         if (listTarget.Count == 0)
         {
             SearchTower();
@@ -255,24 +264,36 @@ abstract public class Units : MonoBehaviour
         //가까운 라인 파악하고 타워 확인하는거.
         if (transform.position.x > 0)
         {
-            //int temp = Funcs.B2I(!isEnemy);
             targetObj = TowerManager.instance.towerList[Funcs.B2I(!isEnemy), Defines.right];
         }
-        else 
+
+        if(transform.position.x <= 0)
         {
-
             targetObj = TowerManager.instance.towerList[Funcs.B2I(!isEnemy), Defines.left] ;
-
-            //if (isEnemy)
-            //{
-            //    targetObj = TowerManager.instance.towerList[Defines.ally, Defines.left] ;
-            //}
-            //else { targetObj = TowerManager.instance.towerList[Defines.enemy, Defines.left]; }
         }
 
-        if (targetObj == null)
+
+
+        if (targetObj == null )
         {
-            targetObj = TowerManager.instance.nexusList[Funcs.B2I(!isEnemy)];
+            if (transform.position.x > 0)
+            { targetObj = TowerManager.instance.towerList[Funcs.B2I(!isEnemy), Defines.left]; }
+            else
+            { targetObj = TowerManager.instance.towerList[Funcs.B2I(!isEnemy), Defines.right]; }
+
+            
+            if (targetObj == null)
+            {
+                if (SkillManager.instance.isSkill2Live)
+                {
+                    targetObj = SkillManager.instance.skill2.GetComponent<Skill2>().tower;
+                }
+                else
+                {
+                    targetObj = TowerManager.instance.nexusList[Funcs.B2I(!isEnemy)];
+				}
+                
+            }
         }
     }
 
@@ -298,9 +319,7 @@ abstract public class Units : MonoBehaviour
 
     public void ColliderSetting()
     {
-
         //Unit 말고 걍 깡통 옵줵 두 캡슐 콜라이더, 박스 콜라이더 가지고 있는 애들로 테스트 해보자.
-
         unitCol = this.gameObject.GetComponent<Collider>();
 
         Vector3 tempSize = new Vector3();
@@ -309,10 +328,14 @@ abstract public class Units : MonoBehaviour
         {
             if (unitCol as CapsuleCollider != null)
             {
-                tempSize.x = (unitCol as CapsuleCollider).radius * this.gameObject.transform.localScale.x;
+                tempSize.x = (unitCol as CapsuleCollider).radius;
+                tempSize.x *= transform.localScale.x;
+                
                 tempSize.z = tempSize.x;
-
-                tempSize.y = (unitCol as CapsuleCollider).height * this.gameObject.transform.localScale.y;
+                tempSize.z *= transform.localScale.z;
+                
+                tempSize.y = (unitCol as CapsuleCollider).height;
+                tempSize.y *= transform.localScale.y;
             }
             else if (unitCol as BoxCollider != null)
             {

@@ -17,10 +17,10 @@ MonoBehaviour:
   unitTier: 0
   fullHp: 100
   curHp: 100
-  dmg: 10
+  dmg: 100
   atkSpd: 1
   moveSpd: 1
-  atkRange: 1
+  atkRange: 1.5
   sightRange: 5
   cost: 1
   spawnTime: 0.25
