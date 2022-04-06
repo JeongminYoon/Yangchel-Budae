@@ -32,7 +32,7 @@ public class DamageUIManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A)) //테스트값. 나중에 행님에게 값 변수 받기.
         {
             PlayHpEffect(unitDamageTest, unitPositionTest);
         }
@@ -48,4 +48,5 @@ public class DamageUIManager : MonoBehaviour
 
         return hpEffect;
     }
+
 }

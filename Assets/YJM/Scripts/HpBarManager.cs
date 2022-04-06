@@ -54,45 +54,50 @@ public class HpBarManager : MonoBehaviour
         unitList.Clear();
         unitStatusList.Clear();
         List<GameObject> fieldUnit = UnitManager.instance.unitList[(int)Enums.Team.ally];
+        AddUnitList(fieldUnit, (int)Enums.Team.ally);
         List<GameObject> enemyfieldUnit = UnitManager.instance.unitList[(int)Enums.Team.enemy];
-        //loadUnitList(fieldUnit);
+        AddUnitList(enemyfieldUnit, (int)Enums.Team.enemy);
+        AddTowerList(unitList);
 
-        for (int i = 0; i < enemyfieldUnit.Count; i++)
+        for (int i = 0; i < unitList.Count; i++)
         {
-            fieldUnit.Add(enemyfieldUnit[i]);
-        }
-
-        for (int i = 0; i < fieldUnit.Count; i++)
-        {
-            unitList.Add(fieldUnit[i]);
-            GameObject hpBar = Instantiate(hpBarPrefab, fieldUnit[i].transform.position, Quaternion.identity, transform);
+            GameObject hpBar = Instantiate(hpBarPrefab, unitList[i].transform.position, Quaternion.identity, transform);
             hpBarList.Add(hpBar);
-            unitStatusList.Add(unitList[i].GetComponent<Units>().unitStatus); //unitStatusList에 유닛리스트의 스테이터스값을 넣고싶음
+            unitStatusList.Add(unitList[i].GetComponent<Units>().unitStatus);
         }
     }
 
-    void loadUnitList(List<GameObject> a)
+    void AddUnitList(List<GameObject> a, int b)
     {
-        a.Add(TowerManager.instance.towerList[0, 0]);
-        a.Add(TowerManager.instance.towerList[0, 1]);
-        a.Add(TowerManager.instance.towerList[1, 0]);
-        a.Add(TowerManager.instance.towerList[1, 1]);
-        a.Add(TowerManager.instance.nexusList[0]);
-        a.Add(TowerManager.instance.nexusList[1]);
+        a = UnitManager.instance.unitList[b];
+        for (int i = 0; i < a.Count; i++)
+        {
+            unitList.Add(a[i]);
+        }
+
+    }
+    void AddTowerList(List<GameObject> a)
+    {
+        a.Add(TowerManager.instance.towerList[(int)Enums.Team.ally,0]);
+        a.Add(TowerManager.instance.towerList[(int)Enums.Team.ally,1]);
+        a.Add(TowerManager.instance.towerList[(int)Enums.Team.enemy, 0]);
+        a.Add(TowerManager.instance.towerList[(int)Enums.Team.enemy, 1]);
+        //a.Add(TowerManager.instance.nexusList[(int)Enums.Team.ally]);  //이거는 추가하면 에러뜸. 왜지????
+        //a.Add(TowerManager.instance.nexusList[(int)Enums.Team.enemy]);
     }
     void HpBarWork()
     {
-        for (int i = 0; i < unitList.Count; i++)
+        for (int i = 0; i < unitList.Count; i++) // 오류: HpBar가 참조하고있던 유닛이 뒤지면 오류남. 
         {
-            hpBarList[i].transform.position = cam.WorldToScreenPoint(unitList[i].transform.position + new Vector3(0f, 1.2f, 0f));
-            hpBarList[i].GetComponent<Image>().fillAmount = unitStatusList[i].curHp / unitStatusList[i].fullHp;
-            hpText = hpBarList[i].gameObject.transform.Find("HpText").gameObject.GetComponent<Text>();
-            hpText.text = (unitStatusList[i].curHp + "/" + unitStatusList[i].fullHp).ToString();
-            if (unitStatusList[i].curHp <= 0f)
+            if (unitStatusList[i].isDead != true) // 일단 예외문줘서 크리티컬한 오류뜨는건 막음
             {
-                SearchUnit();
+                hpBarList[i].transform.position = cam.WorldToScreenPoint(unitList[i].transform.position + new Vector3(0f, 1.2f, 0f));
+                hpBarList[i].GetComponent<Image>().fillAmount = unitStatusList[i].curHp / unitStatusList[i].fullHp;
+                hpText = hpBarList[i].gameObject.transform.Find("HpText").gameObject.GetComponent<Text>();
+                hpText.text = (unitStatusList[i].curHp + "/" + unitStatusList[i].fullHp).ToString();
             }
-
+            //근데 isDead값을 불러와서 true이면 SearchUnit() 돌려서 맵상 유닛 리스트 초기화해 줄라 그랬는데
+            //1.isDead값을 불러올 유닛이 안남아있음 2.혹은 isDead값 받아서 SearchUnit() 돌렸을때 서순이 꼬여서 유닛이 isDead값만 실행해줬고 살아있음   둘중 한가지 이유로 에러뜸. 음... 디버그 할줄 몰르는데 큰났네.
         }
     }
 
