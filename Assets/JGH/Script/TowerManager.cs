@@ -14,9 +14,14 @@ public class TowerManager : MonoBehaviour
 
     public GameObject[]     nexusList = new GameObject[(int)Team.End];
     public GameObject[,]    towerList = new GameObject[2, 2]; //[팀, 위치]
-                                                           //팀 : 0 아군 / 1 적군
-                                                           //위치 : 0 Left / 1 Right
-    
+                                                              //팀 : 0 아군 / 1 적군
+                                                              //위치 : 0 Left / 1 Right
+
+    public Mesh towerMesh;
+
+    public Texture[] towerTexture = new Texture[(int)Team.End];
+    public Material[] towerMaterial = new Material[(int)Team.End];
+
     public void RemoveDeadTower(GameObject tower)
     {
         for (int i = 0; i < towerList.GetLength(0); ++i)
@@ -52,6 +57,18 @@ public class TowerManager : MonoBehaviour
 
         GameObject tower = Instantiate(towerPrefab, pos, rotation, parent.transform);
 
+        tower.GetComponent<MeshFilter>().mesh = towerMesh;
+
+        //머테리얼 바꾸는거
+
+        //Material[] asdf = tower.GetComponent<MeshRenderer>().materials;
+        //Material firstMat = asdf[0];
+        ////firstMat.SetTexture("_MainTex", towerTexture[Funcs.B2I(isEnemy)]);
+
+        //(tower.GetComponent<MeshRenderer>().materials)[0] = towerMaterial[0];
+
+
+        //.SetTexture("_MainTex", towerTexture[Funcs.B2I(isEnemy)])
         if (isEnemy)
         {
             TowerIsEnemySetting(tower);
