@@ -771,7 +771,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2143041035}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1243,6 +1243,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skill1Prefab: {fileID: 4667199152954949758, guid: 3c58b32dd47deaf43868f7b16ef36f68, type: 3}
   skill2Prefab: {fileID: 0}
+  skill1: {fileID: 0}
+  skill2: {fileID: 0}
+  isSkill2Live: 0
 --- !u!4 &1511452678
 Transform:
   m_ObjectHideFlags: 0
@@ -1262,36 +1265,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3700376182148137509, guid: ae0211bedb0fb9140b0e588332180b30, type: 3}
   m_PrefabInstance: {fileID: 212627009}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1575310318
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1575310319}
-  m_Layer: 0
-  m_Name: pos1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1575310319
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1575310318}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -198, y: -749, z: 0}
-  m_LocalScale: {x: 2.7763495, y: 2.7763495, z: 2.7763495}
-  m_Children: []
-  m_Father: {fileID: 2143041035}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1728142395
 GameObject:
   m_ObjectHideFlags: 0
@@ -1321,7 +1294,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2143041035}
-  m_RootOrder: 7
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1544,6 +1517,55 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c5602e1ce833d24fb7f247d4a973752, type: 3}
+--- !u!1 &1987646783
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1987646784}
+  - component: {fileID: 1987646785}
+  m_Layer: 5
+  m_Name: HpEffectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1987646784
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987646783}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2143041035}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1987646785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1987646783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fec9de6d692e9df43a15cae7a8eced4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpEffectPrefab: {fileID: 5457017854606198645, guid: a03272f95555dfb42816296f908fee16, type: 3}
 --- !u!1 &1991477864
 GameObject:
   m_ObjectHideFlags: 0
@@ -1752,10 +1774,10 @@ RectTransform:
   - {fileID: 480293791}
   - {fileID: 1991477865}
   - {fileID: 145839480}
-  - {fileID: 1575310319}
   - {fileID: 523895822}
-  - {fileID: 713568298}
   - {fileID: 1728142396}
+  - {fileID: 713568298}
+  - {fileID: 1987646784}
   m_Father: {fileID: 1891614675}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

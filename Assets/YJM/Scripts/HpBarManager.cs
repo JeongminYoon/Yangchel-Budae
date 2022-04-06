@@ -55,7 +55,7 @@ public class HpBarManager : MonoBehaviour
         unitStatusList.Clear();
         List<GameObject> fieldUnit = UnitManager.instance.unitList[(int)Enums.Team.ally];
         List<GameObject> enemyfieldUnit = UnitManager.instance.unitList[(int)Enums.Team.enemy];
-        loadUnitList(fieldUnit);
+        //loadUnitList(fieldUnit);
 
         for (int i = 0; i < enemyfieldUnit.Count; i++)
         {
