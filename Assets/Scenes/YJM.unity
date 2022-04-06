@@ -888,6 +888,13 @@ MonoBehaviour:
   nexusList:
   - {fileID: 0}
   - {fileID: 0}
+  towerMesh: {fileID: 4300000, guid: 13f18f82a8e2a4e47a9b3f79101cfd95, type: 3}
+  towerTexture:
+  - {fileID: 0}
+  - {fileID: 0}
+  towerMaterial:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &708717615
 Transform:
   m_ObjectHideFlags: 0
