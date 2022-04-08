@@ -47,6 +47,11 @@ public class TestScript : MonoBehaviour
     public float colSizeSum;
 
 
+
+    public GameObject testTower;
+    public Material enemyMat;
+    
+
     public Vector3 ScreenToWorld()
     {//작동안됨 ㄴㄴㄴㄴ
         Vector2 mousePos = new Vector2();
@@ -151,6 +156,18 @@ public class TestScript : MonoBehaviour
             }
 
         }
+
+
+        //if (Input.GetMouseButtonDown(Defines.right))
+        //{
+        //    //머테리얼 넣어줄때 렌더러의 머테리얼즈 배열을 가져와서
+        //    //거기의 첫번째 (오브젝트의 머테리얼이 한개라면)
+        //        //머테리얼을 바꿔주고
+        //   //다시 그 배열을 렌더러의 머테리얼로 넣어줘야함
+        //    Material[] temp = testTower.GetComponent<MeshRenderer>().materials;
+        //    temp[0] = enemyMat;
+        //    testTower.GetComponent<MeshRenderer>().materials = temp;
+        //}
 
 
         //ObjMove();

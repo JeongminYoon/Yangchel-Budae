@@ -17,10 +17,11 @@ public class TowerManager : MonoBehaviour
                                                               //팀 : 0 아군 / 1 적군
                                                               //위치 : 0 Left / 1 Right
 
-    public Mesh towerMesh;
+    //public Mesh towerMesh;
+    //public Mesh nexusMesh;
 
-    public Texture[] towerTexture = new Texture[(int)Team.End];
-    public Material[] towerMaterial = new Material[(int)Team.End];
+    public Material enemyTowerMat;
+    public Material enemyNexusMat;
 
     public void RemoveDeadTower(GameObject tower)
     {
@@ -36,45 +37,60 @@ public class TowerManager : MonoBehaviour
         }
     }
 
-    public GameObject TowerIsEnemySetting(GameObject enemyTower)
+    public GameObject BuildingIsEnemySetting(GameObject enemyBuilding, bool isTower  = true )
     {
-        Units script = enemyTower.GetComponent<Units>();
+        Units script = enemyBuilding.GetComponent<Units>();
 
         if (script != null)
         {
             script.IsEnemy = true;
         }
 
-        return enemyTower;
+        if (isTower)
+        {
+            if (enemyTowerMat != null)
+            {
+                Material[] matTemp = enemyBuilding.GetComponent<Renderer>().materials;
+                matTemp[0] = enemyTowerMat;
+                enemyBuilding.GetComponent<Renderer>().materials = matTemp;
+
+            }
+        }
+        else
+        {
+            if (enemyNexusMat != null)
+            {
+                Material[] matTemp = enemyBuilding.GetComponent<Renderer>().materials;
+                matTemp[0] = enemyNexusMat;
+                enemyBuilding.GetComponent<Renderer>().materials = matTemp;
+            }
+        }
+
+
+        return enemyBuilding;
     }
 
-    public GameObject InstantiateTower(GameObject towerPrefab, GameObject parent, Vector3 pos, bool isEnemy = false)
+    public GameObject InstantiateBuilding(GameObject towerPrefab, GameObject parent, Vector3 pos, bool isTower  = true ,bool isEnemy = false)
     {
         Quaternion rotation = Quaternion.identity;
 
         if (isEnemy)
         { rotation = Quaternion.Euler(0f, 180f, 0f); }
 
-        GameObject tower = Instantiate(towerPrefab, pos, rotation, parent.transform);
+        GameObject building = Instantiate(towerPrefab, pos, rotation, parent.transform);
 
-        tower.GetComponent<MeshFilter>().mesh = towerMesh;
+        ////머테리얼 바꾸는거
+        //렌더러의 머테리얼즈(배열) 받아와서 수정한 뒤에 
+        //다시 렌더러의 머테리얼즈(배열)에 삽입해야함.
 
-        //머테리얼 바꾸는거
+        
 
-        //Material[] asdf = tower.GetComponent<MeshRenderer>().materials;
-        //Material firstMat = asdf[0];
-        ////firstMat.SetTexture("_MainTex", towerTexture[Funcs.B2I(isEnemy)]);
-
-        //(tower.GetComponent<MeshRenderer>().materials)[0] = towerMaterial[0];
-
-
-        //.SetTexture("_MainTex", towerTexture[Funcs.B2I(isEnemy)])
         if (isEnemy)
         {
-            TowerIsEnemySetting(tower);
+            BuildingIsEnemySetting(building, isTower);
         }
 
-        return tower;
+        return building;
     }
     public void TowerSetting()
     {
@@ -82,7 +98,7 @@ public class TowerManager : MonoBehaviour
         GameObject temp;
         GameObject parentObj;
         GameObject prefab;
-
+        bool isTower;
         for (int i = 0; i < Defines.towersPos.GetLength(0); ++i) //팀
         {
             for (int k = 0; k < Defines.towersPos.GetLength(1); ++k)//0,1=타워 / 2=넥서스
@@ -93,19 +109,25 @@ public class TowerManager : MonoBehaviour
                 if (k != 2)
                 {//tower 
                     prefab = towerPrefab;
+                    isTower = true;
                 }
                 else
                 {//Nexus
                     prefab = nexusPrefab;
+                    isTower = false;
                 }
 
-                temp = InstantiateTower(prefab, parentObj, Defines.towersPos[i, k], isEnemy);
+                temp = InstantiateBuilding(prefab, parentObj, Defines.towersPos[i, k], isTower, isEnemy);
+                                
 
                 if (k != 2)
-                {
+                {//타워
                     towerList[i, k] = temp;
                 }
-                else { nexusList[i] = temp; }
+                else 
+                { //넥서스
+                    nexusList[i] = temp;
+                }
             }
         }
     }
