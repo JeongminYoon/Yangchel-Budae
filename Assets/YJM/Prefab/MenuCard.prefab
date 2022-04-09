@@ -252,3 +252,5 @@ MonoBehaviour:
   unitName: {fileID: 0}
   unitCost: {fileID: 0}
   cardDeskPos: 0
+  isSelect: 0
+  cardGO: {fileID: 0}

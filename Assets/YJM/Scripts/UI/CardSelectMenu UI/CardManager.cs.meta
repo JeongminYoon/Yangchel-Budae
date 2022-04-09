@@ -3,7 +3,12 @@ guid: 612e01912a461264891075a103032c38
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - deckContainer: {fileID: 11400000, guid: 07ebc1b696f12ec4c99889354fc24019, type: 2}
+  - cardPrefab: {instanceID: 0}
+  - allCardPos: {instanceID: 0}
+  - myCardPos: {instanceID: 0}
+  - uiCanvas: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

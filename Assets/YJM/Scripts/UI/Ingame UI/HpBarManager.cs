@@ -86,7 +86,6 @@ public class HpBarManager : MonoBehaviour
         {
             unitList.Add(unit[i]);
         }
-
     }
     void AddTowerList(List<GameObject> a)
     {
@@ -94,8 +93,8 @@ public class HpBarManager : MonoBehaviour
         a.Add(TowerManager.instance.towerList[(int)Enums.Team.ally,1]);
         a.Add(TowerManager.instance.towerList[(int)Enums.Team.enemy, 0]);
         a.Add(TowerManager.instance.towerList[(int)Enums.Team.enemy, 1]);
-        //a.Add(TowerManager.instance.nexusList[(int)Enums.Team.ally]); //넥서스의 유닛스크립트 미구현. 추가되면 주석지울것
-        //a.Add(TowerManager.instance.nexusList[(int)Enums.Team.enemy]);
+        a.Add(TowerManager.instance.nexusList[(int)Enums.Team.ally]);
+        a.Add(TowerManager.instance.nexusList[(int)Enums.Team.enemy]);
     }
     void HpBarWork()
     {

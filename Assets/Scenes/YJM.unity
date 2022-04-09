@@ -880,21 +880,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e82f8e0d00232f64d99239ff3be4934b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 379233259289261239, guid: 93d3f9fc781d8a2498bc3e27d545526b, type: 3}
-  nexusPrefab: {fileID: 7942363501706562076, guid: eaecf5211b99cf446ade67c92a9cecff, type: 3}
+  towerPrefab: {fileID: 1603715253580354, guid: ffa74903f1f45ba41a4cb523cc2cb049, type: 3}
+  nexusPrefab: {fileID: 1499905421087518, guid: 0799cc479c3a9694cb84e1c51a50d1a9, type: 3}
   towerParent:
   - {fileID: 11695563}
   - {fileID: 1753278919}
   nexusList:
   - {fileID: 0}
   - {fileID: 0}
-  towerMesh: {fileID: 4300000, guid: 13f18f82a8e2a4e47a9b3f79101cfd95, type: 3}
-  towerTexture:
-  - {fileID: 0}
-  - {fileID: 0}
-  towerMaterial:
-  - {fileID: 0}
-  - {fileID: 0}
+  enemyTowerMat: {fileID: 0}
+  enemyNexusMat: {fileID: 0}
 --- !u!4 &708717615
 Transform:
   m_ObjectHideFlags: 0
