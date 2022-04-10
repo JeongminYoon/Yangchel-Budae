@@ -1136,17 +1136,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  unitDataList:
-  - {fileID: 11400000, guid: f9190162612e561409b0053595267456, type: 2}
-  - {fileID: 11400000, guid: e8231cb4d9dc92e40b2784e75b1ecde4, type: 2}
-  - {fileID: 11400000, guid: 2d6b3a3f855a5604696d411fd777dab3, type: 2}
-  - {fileID: 11400000, guid: 82d0e6e206eb45547a6a38f9707fed7b, type: 2}
-  - {fileID: 11400000, guid: 4cac7d866f8a5bb4fb302da876337f7b, type: 2}
-  - {fileID: 11400000, guid: f7a41dd3ac862ce449ca5128123704b6, type: 2}
-  - {fileID: 11400000, guid: b8493942b5971e34fa26e78f3a77f698, type: 2}
-  - {fileID: 11400000, guid: a149fe1dfed059c42b1f18003c36d208, type: 2}
   nextCardStatus: {fileID: 0}
-  d0: {fileID: 0}
 --- !u!1 &1268658975
 GameObject:
   m_ObjectHideFlags: 0

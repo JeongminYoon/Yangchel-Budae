@@ -5,17 +5,21 @@ using UnityEngine;
 public class EnemyUintCall : MonoBehaviour
 {
     // Start is called before the first frame update
-
-
-    float currentTime = 0.0f;
+    private float timeLeft = 10.0f;
+    private float nextTime = 0.0f;
    
-
 
     void Start()
     {
+      
 
 
-        Invoke("EnemyRandom", 3.0f);
+        
+
+
+
+         
+
 
 
 
@@ -24,7 +28,7 @@ public class EnemyUintCall : MonoBehaviour
 
 
 
-    void EnemyRandom()
+   public void EnemyRandom()
     {
 
 
@@ -57,11 +61,14 @@ public class EnemyUintCall : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
-
-
         
+      
+
+            EnemyRandom();
+
+            
+        
+
 
 
 
