@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class CardManager : MonoBehaviour
 {
     /// <singletone>
@@ -48,16 +48,15 @@ public class CardManager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))   //Save(씬 탈출할때 여기 내용물 실행시킬것)
         {
-            deckContainer.deckCardList.Clear();
+                GameManager.MyHandsList.Clear();
             for (int i = 0; i < myCard.Length; i++)
             {
                 if (myCard[i] != null)
                 {
-                    UnitStatus stat = myCard[0].GetComponent<CardPrefab>().status; // 왜 null값이 들어가지??? 밑에 print로 찍어보면 분명 stat에 UnitStatus형식의 값이 잘 들어갔는데??
-                    deckContainer.deckCardList.Add(stat);
+                    GameManager.MyHandsList.Add(myCard[i].GetComponent<CardPrefab>().status);
                 }
             }
-            print(myCard[0].GetComponent<CardPrefab>().status.unitName);
+            SceneManager.LoadScene(0);
         }
 
         for (int i = 0; i < AllCard.Count; i++)
@@ -117,7 +116,7 @@ public class CardManager : MonoBehaviour
     }
 
 
-    void SortCard(GameObject gameObject, GameObject deckPos ,int cardNum) //카드옵젝, 전체카드or핸드 0/1, 몇번째 위치에 둘지
+    void SortCard(GameObject gameObject, GameObject deckPos ,int cardNum) //카드옵젝, 전체카드or핸드, 몇번째 위치에 둘지
     {
         RectTransform CardRt = gameObject.GetComponent<RectTransform>();
         CardRt.anchoredPosition = SortCardVec(deckPos, cardNum);

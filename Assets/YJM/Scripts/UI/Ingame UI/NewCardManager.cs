@@ -21,7 +21,7 @@ public class NewCardManager : MonoBehaviour
     public GameObject[] myHand = new GameObject[4];
     List<GameObject> grave = new List<GameObject>();
 
-    public List<UnitStatus> unitDataList;
+    List<UnitStatus> unitDataList = GameManager.MyHandsList;
 
     public UnitStatus nextCardStatus;
     Text nextUnitName;
@@ -50,7 +50,7 @@ public class NewCardManager : MonoBehaviour
             SpawnCard(myHand[i],i); // 손패에 들어온 데이터4개
         }
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < unitDataList.Count - 4; i++)
         {
             grave.Add(deck[i+4]);
         }
@@ -58,12 +58,23 @@ public class NewCardManager : MonoBehaviour
         //HandCheck();
         //DeckCheck();
         //GraveCheck();
-        nextCardUpdate();
+            nextCardUpdate();
+            if(unitDataList.Count <=4)
+            {
+             GameObject.Find("NextCard").SetActive(false);
+            }
     }
 
     void Update()
     {
-        
+        //if (Input.GetMouseButtonDown(1))   //Save(씬 탈출할때 여기 내용물 실행시킬것)
+        //{
+        //    for (int i = 0; i > GameManager.MyHandsList.Count; i++)
+        //    {
+        //        print(GameManager.MyHandsList[i].unitName);
+        //        print("a");
+        //    }
+        //}
     }
 
     void CardAdd()
@@ -105,14 +116,15 @@ public class NewCardManager : MonoBehaviour
         return array;
     }
 
-    public UnitStatus d0;
     void nextCardUpdate()
     {
-        nextUnitName = nextCard.gameObject.transform.Find("Name").gameObject.GetComponent<Text>();
-        nextUnitCost = nextCard.gameObject.transform.Find("Cost").gameObject.GetComponent<Text>();
-        d0 = grave[0].GetComponent<Card>().status;
-        nextUnitName.text = grave[0].GetComponent<Card>().status.unitName.ToString();
-        nextUnitCost.text = grave[0].GetComponent<Card>().status.cost.ToString();
+        if (unitDataList.Count > 4)
+        {
+            nextUnitName = nextCard.gameObject.transform.Find("Name").gameObject.GetComponent<Text>();
+            nextUnitCost = nextCard.gameObject.transform.Find("Cost").gameObject.GetComponent<Text>();
+            nextUnitName.text = grave[0].GetComponent<Card>().status.unitName.ToString();
+            nextUnitCost.text = grave[0].GetComponent<Card>().status.cost.ToString();
+        }
     }
 
     public void CardUse(GameObject card)
