@@ -315,6 +315,49 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &303497454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 303497456}
+  - component: {fileID: 303497455}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &303497455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303497454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3237963248446ad4ba880bdfc7b911df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &303497456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 303497454}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 20.843801, y: 14.56136, z: -0.08100891}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &372794261
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,7 +924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 612e01912a461264891075a103032c38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deckContainer: {fileID: 0}
+  deckContainer: {fileID: 11400000, guid: 07ebc1b696f12ec4c99889354fc24019, type: 2}
   allUnitStatus:
   - {fileID: 11400000, guid: f9190162612e561409b0053595267456, type: 2}
   - {fileID: 11400000, guid: e8231cb4d9dc92e40b2784e75b1ecde4, type: 2}

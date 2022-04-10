@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class CardManager : MonoBehaviour
 {
     /// <singletone>
@@ -34,7 +34,7 @@ public class CardManager : MonoBehaviour
     void Start()
     {
         unitStatusList = allUnitStatus;
-        for (int i = 0; i < unitStatusList.Count; i++) // Ã³À½ ½ÃÀÛ¶§ ¸ðµçÄ«µåµéÀ» ¹ØÀ¸·Î Ç¥½Ã
+        for (int i = 0; i < unitStatusList.Count; i++) // Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½Û¶ï¿½ ï¿½ï¿½ï¿½Ä«ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
         {
             AllCard.Add(Instantiate(cardPrefab, uiCanvas.transform));
             AllCard[i].GetComponent<CardPrefab>().status = ScriptableObject.CreateInstance<UnitStatus>();
@@ -46,19 +46,17 @@ public class CardManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))   //Save(¾À Å»ÃâÇÒ¶§ ¿©±â ³»¿ë¹° ½ÇÇà½ÃÅ³°Í)
+        if (Input.GetMouseButtonDown(1))   //Save(ï¿½ï¿½ Å»ï¿½ï¿½ï¿½Ò¶ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ë¹° ï¿½ï¿½ï¿½ï¿½ï¿½Å³ï¿½ï¿½)
         {
-            deckContainer.deckCardList.Clear();
-
+                GameManager.MyHandsList.Clear();
             for (int i = 0; i < myCard.Length; i++)
             {
                 if (myCard[i] != null)
                 {
-                    UnitStatus stat = myCard[0].GetComponent<CardPrefab>().status; // ¿Ö null°ªÀÌ µé¾î°¡Áö??? ¹Ø¿¡ print·Î Âï¾îº¸¸é ºÐ¸í stat¿¡ UnitStatusÇü½ÄÀÇ °ªÀÌ Àß µé¾î°¬´Âµ¥??
-                    deckContainer.deckCardList.Add(stat);
+                    GameManager.MyHandsList.Add(myCard[i].GetComponent<CardPrefab>().status);
                 }
             }
-            print(myCard[0].GetComponent<CardPrefab>().status.unitName);
+            SceneManager.LoadScene(0);
         }
 
         for (int i = 0; i < AllCard.Count; i++)
@@ -78,7 +76,7 @@ public class CardManager : MonoBehaviour
             {
                 if (myCard[i].GetComponent<CardPrefab>().isSelect == true)
                 {
-                    print("µ¦¿¡¼­ Ä«µå¸ñ·ÏÀ¸·Î: " + myCard[i].GetComponent<CardPrefab>().unitName.text);
+                    print("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½: " + myCard[i].GetComponent<CardPrefab>().unitName.text);
                     myCard[i].GetComponent<CardPrefab>().isSelect = false;
                     MyCardToAllCard(i);
                 }
@@ -96,14 +94,14 @@ public class CardManager : MonoBehaviour
             {
                 if (swt == false)
                 {
-                    myCard[i] = AllCard[clickedCardNum]; // ÀÌºÎºÐ myCard[?]À» ºó °ø°£À» Ã£¾Æ¼­ ³Ö¾îÁÖ°Ô ¸¸µé±â, AllCard[?]´Â Å¬¸¯ÇÑ Ä«µå¸¦ ÀÎ½ÄÇØ¼­ ³Ö¾îÁÖ±â
+                    myCard[i] = AllCard[clickedCardNum]; // ï¿½ÌºÎºï¿½ myCard[?]ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Æ¼ï¿½ ï¿½Ö¾ï¿½ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½, AllCard[?]ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½å¸¦ ï¿½Î½ï¿½ï¿½Ø¼ï¿½ ï¿½Ö¾ï¿½ï¿½Ö±ï¿½
                     SortCard(myCard[i], myCardPos, i);
                     swt = true;
                 }
             }
         }
         swt = false;
-        AllCard.RemoveAt(clickedCardNum); //AllCard[?]´Â Å¬¸¯ÇÑ Ä«µå¸¦ ÀÎ½ÄÇØ¼­ Áö¿öÁÖ±â
+        AllCard.RemoveAt(clickedCardNum); //AllCard[?]ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½å¸¦ ï¿½Î½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½
         for (int i = 0; i < AllCard.Count; i++)
         {
             SortCard(AllCard[i], allCardPos, i);
@@ -118,7 +116,7 @@ public class CardManager : MonoBehaviour
     }
 
 
-    void SortCard(GameObject gameObject, GameObject deckPos, int cardNum) //Ä«µå¿ÉÁ§, ÀüÃ¼Ä«µåorÇÚµå 0/1, ¸î¹øÂ° À§Ä¡¿¡ µÑÁö
+    void SortCard(GameObject gameObject, GameObject deckPos ,int cardNum) //Ä«ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Ã¼Ä«ï¿½ï¿½orï¿½Úµï¿½, ï¿½ï¿½ï¿½Â° ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         RectTransform CardRt = gameObject.GetComponent<RectTransform>();
         CardRt.anchoredPosition = SortCardVec(deckPos, cardNum);
@@ -156,11 +154,11 @@ public class CardManager : MonoBehaviour
 
 
 
-    //    myCard[0] = AllCard[0]; // µ¦¿¡¼­ ÀüÃ¼Ä«µå·Î º¸³¾¶§ ÀÌ°Å º¯¼ö¸í¸¸ ¹Ù²ã¼­ ³Ö±â
+    //    myCard[0] = AllCard[0]; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼Ä«ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ã¼­ ï¿½Ö±ï¿½
     //            AllCard.RemoveAt(0);
     //            for (int i = 0; i<AllCard.Count; i++)
     //            {
-    //                SortCard(AllCard[i], allCardPos, i); //AllCard.Lengh ·Î ¸Ç ¸¶Áö¸·¿¡ ³Ö±â
+    //                SortCard(AllCard[i], allCardPos, i); //AllCard.Lengh ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±ï¿½
     //}
     //SortCard(myCard[0], myCardPos, 0);
 
