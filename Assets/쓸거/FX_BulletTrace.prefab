@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23428287555575316}
   - component: {fileID: 95822774495869806}
   m_Layer: 0
-  m_Name: FX_Bullet_Trail
+  m_Name: FX_BulletTrace
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

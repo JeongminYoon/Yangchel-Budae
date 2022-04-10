@@ -66,7 +66,7 @@ public class DelegateTest : MonoBehaviour
 		return false;
 	}
 
-
-
+	
+	
 
 }

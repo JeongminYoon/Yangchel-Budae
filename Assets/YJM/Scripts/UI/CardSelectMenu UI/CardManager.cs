@@ -10,8 +10,8 @@ public class CardManager : MonoBehaviour
 
     public DeckContainer deckContainer;
 
-    public List<UnitStatus> allUnitStatus = new List <UnitStatus>();
-    List<UnitStatus> unitStatusList = new List <UnitStatus>();
+    public List<UnitStatus> allUnitStatus = new List<UnitStatus>();
+    List<UnitStatus> unitStatusList = new List<UnitStatus>();
 
     List<GameObject> AllCard = new List<GameObject>();
     int AllCardLengh;
@@ -30,7 +30,7 @@ public class CardManager : MonoBehaviour
             instance = this;
         }
     }
-    
+
     void Start()
     {
         unitStatusList = allUnitStatus;
@@ -49,6 +49,7 @@ public class CardManager : MonoBehaviour
         if (Input.GetMouseButtonDown(1))   //Save(씬 탈출할때 여기 내용물 실행시킬것)
         {
             deckContainer.deckCardList.Clear();
+
             for (int i = 0; i < myCard.Length; i++)
             {
                 if (myCard[i] != null)
@@ -117,7 +118,7 @@ public class CardManager : MonoBehaviour
     }
 
 
-    void SortCard(GameObject gameObject, GameObject deckPos ,int cardNum) //카드옵젝, 전체카드or핸드 0/1, 몇번째 위치에 둘지
+    void SortCard(GameObject gameObject, GameObject deckPos, int cardNum) //카드옵젝, 전체카드or핸드 0/1, 몇번째 위치에 둘지
     {
         RectTransform CardRt = gameObject.GetComponent<RectTransform>();
         CardRt.anchoredPosition = SortCardVec(deckPos, cardNum);
@@ -126,11 +127,11 @@ public class CardManager : MonoBehaviour
     Vector2 SortCardVec(GameObject Pos, int i)
     {
         int num = i + 1;
-        int w=0;
+        int w = 0;
         int h = Mathf.Abs(i / 4);
         if (num > 4)
         {
-            w = num - 4*h;
+            w = num - 4 * h;
         }
         else
         {
@@ -155,15 +156,13 @@ public class CardManager : MonoBehaviour
 
 
 
-//    myCard[0] = AllCard[0]; // 덱에서 전체카드로 보낼때 이거 변수명만 바꿔서 넣기
-//            AllCard.RemoveAt(0);
-//            for (int i = 0; i<AllCard.Count; i++)
-//            {
-//                SortCard(AllCard[i], allCardPos, i); //AllCard.Lengh 로 맨 마지막에 넣기
-//}
-//SortCard(myCard[0], myCardPos, 0);
-
-
+    //    myCard[0] = AllCard[0]; // 덱에서 전체카드로 보낼때 이거 변수명만 바꿔서 넣기
+    //            AllCard.RemoveAt(0);
+    //            for (int i = 0; i<AllCard.Count; i++)
+    //            {
+    //                SortCard(AllCard[i], allCardPos, i); //AllCard.Lengh 로 맨 마지막에 넣기
+    //}
+    //SortCard(myCard[0], myCardPos, 0);
 
 }
 
