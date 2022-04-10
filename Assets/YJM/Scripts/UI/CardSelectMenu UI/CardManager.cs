@@ -46,7 +46,7 @@ public class CardManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))   //Save(�� Ż���Ҷ� ���� ���빰 �����ų��)
+        if (Input.GetMouseButtonDown(1))   //Save(�� Ż���Ҷ� ���� ���빰 �����ų��?
         {
                 GameManager.MyHandsList.Clear();
             for (int i = 0; i < myCard.Length; i++)
@@ -94,7 +94,7 @@ public class CardManager : MonoBehaviour
             {
                 if (swt == false)
                 {
-                    myCard[i] = AllCard[clickedCardNum]; // �̺κ� myCard[?]�� �� ������ ã�Ƽ� �־��ְ� �����, AllCard[?]�� Ŭ���� ī�带 �ν��ؼ� �־��ֱ�
+                    myCard[i] = AllCard[clickedCardNum]; // �̺κ� myCard[?]�� �� ������ ã�Ƽ� �־��ְ� �����? AllCard[?]�� Ŭ���� ī�带 �ν��ؼ� �־��ֱ�
                     SortCard(myCard[i], myCardPos, i);
                     swt = true;
                 }
@@ -116,7 +116,7 @@ public class CardManager : MonoBehaviour
     }
 
 
-    void SortCard(GameObject gameObject, GameObject deckPos ,int cardNum) //ī�����, ��üī��or�ڵ�, ���° ��ġ�� ����
+    void SortCard(GameObject gameObject, GameObject deckPos ,int cardNum) //ī�����? ��üī��or�ڵ�, ����?��ġ�� ����
     {
         RectTransform CardRt = gameObject.GetComponent<RectTransform>();
         CardRt.anchoredPosition = SortCardVec(deckPos, cardNum);
@@ -154,7 +154,7 @@ public class CardManager : MonoBehaviour
 
 
 
-    //    myCard[0] = AllCard[0]; // ������ ��üī��� ������ �̰� �������� �ٲ㼭 �ֱ�
+    //    myCard[0] = AllCard[0]; // ������ ��üī���?������ �̰� �������� �ٲ㼭 �ֱ�
     //            AllCard.RemoveAt(0);
     //            for (int i = 0; i<AllCard.Count; i++)
     //            {
