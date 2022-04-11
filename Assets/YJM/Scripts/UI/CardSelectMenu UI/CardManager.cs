@@ -11,7 +11,7 @@ public class CardManager : MonoBehaviour
     public DeckContainer deckContainer;
 
     public List<UnitStatus> allUnitStatus = new List<UnitStatus>();
-    List<UnitStatus> unitStatusList = new List<UnitStatus>();
+    public List<UnitStatus> unitStatusList = new List<UnitStatus>();
 
     List<GameObject> AllCard = new List<GameObject>();
     int AllCardLengh;
