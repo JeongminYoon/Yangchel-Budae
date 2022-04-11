@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
 
     static public List<UnitStatus> MyHandsList = new List<UnitStatus>();
 
-
     private void Awake()
     {
         if (instance == null)

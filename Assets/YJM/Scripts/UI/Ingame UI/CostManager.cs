@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class CostManager : MonoBehaviour
 {
+
+
+    
+
     /// <singletone>
     static public CostManager instance = null;
     /// <singletone>
@@ -24,7 +28,7 @@ public class CostManager : MonoBehaviour
     void Start()
     {
         currentCost = 0f;
-
+        
         this.gameObject.transform.SetAsLastSibling(); //코스트바 draw 위치 맨위로 초기화
         costBar = GetComponent<Image>();
         costTextValue = costText.gameObject.GetComponent<Text>();
