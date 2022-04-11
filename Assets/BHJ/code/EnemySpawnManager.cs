@@ -58,7 +58,7 @@ public class EnemySpawnManager : MonoBehaviour
             currentCost -= unitStatus[rand].cost;
             print(unitStatus[rand].unitName + "이" + new Vector3(0, 0, 0) + "위치에 소환됨");
             UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, new Vector3(0, 0, 0), true); //여기에 Vector3값도 랜덤한 위치로 정해줄것
-            rand = Random.Range(0, 6); //랜덤유닛 초기화
+          
     }
 
 }

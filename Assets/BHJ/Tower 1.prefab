@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3308791058023157452}
   - component: {fileID: 1569550830101378608}
   - component: {fileID: -8793654809184259731}
+  - component: {fileID: -1846146770367847136}
   m_Layer: 0
   m_Name: Tower 1
   m_TagString: Tower
@@ -118,6 +119,7 @@ MonoBehaviour:
   targetDist: 0
   targetDir: {x: 0, y: 0, z: 0}
   targetDegAngle: 0
+  targetColSize: 0
   unitCol: {fileID: 0}
   searchTime: 0.5
   searchCurTime: 0
@@ -138,6 +140,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-1846146770367847136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 379233259289261239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 083409f95d2ec2746878876ab7877290, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skill1Prefab: {fileID: 0}
+  skill2Prefab: {fileID: 0}
+  skill1: {fileID: 0}
+  skill2: {fileID: 0}
+  isSkill2Live: 0
 --- !u!1 &8177539853560481318
 GameObject:
   m_ObjectHideFlags: 0
