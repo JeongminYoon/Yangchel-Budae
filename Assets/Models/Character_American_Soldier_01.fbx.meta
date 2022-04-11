@@ -762,7 +762,7 @@ ModelImporter:
     - name: Clavicle_L
       parentName: Spine_03
       position: {x: -5.8011727, y: -4.1914477, z: -7.447154}
-      rotation: {x: 0.549019, y: -0.59847736, z: 0.39792958, w: 0.42667928}
+      rotation: {x: 0.5490189, y: -0.5984773, z: 0.39792952, w: 0.42667922}
       scale: {x: 1.0000006, y: 1.0000002, z: 1.0000007}
     - name: Shoulder_L
       parentName: Clavicle_L
@@ -792,7 +792,7 @@ ModelImporter:
     - name: Finger_03
       parentName: Finger_02
       position: {x: -3.5133274, y: -3.00324e-14, z: 3.7747583e-15}
-      rotation: {x: -0.018261613, y: -0.023077976, z: 0.029865285, w: 0.9991206}
+      rotation: {x: -0.018261615, y: -0.023077976, z: 0.029865287, w: 0.9991206}
       scale: {x: 1, y: 0.99999976, z: 1.0000004}
     - name: Finger_04
       parentName: Finger_03
@@ -807,7 +807,7 @@ ModelImporter:
     - name: IndexFinger_02
       parentName: IndexFinger_01
       position: {x: -4.0936317, y: -1.5276409e-16, z: 2.4424907e-15}
-      rotation: {x: -0.0011587286, y: -0.004198972, z: 0.038435236, w: 0.9992516}
+      rotation: {x: -0.0011587287, y: -0.004198972, z: 0.03843524, w: 0.9992516}
       scale: {x: 1.0000002, y: 1, z: 1.0000001}
     - name: IndexFinger_03
       parentName: IndexFinger_02
@@ -822,12 +822,12 @@ ModelImporter:
     - name: Thumb_01
       parentName: Hand_L
       position: {x: -3.5140479, y: -1.1706916, z: 4.5055394}
-      rotation: {x: 0.009149863, y: 0.29994553, z: 0.04401796, w: 0.95289624}
+      rotation: {x: 0.009149864, y: 0.29994556, z: 0.044017963, w: 0.9528963}
       scale: {x: 1, y: 1.0000002, z: 0.99999976}
     - name: Thumb_02
       parentName: Thumb_01
       position: {x: -6.370214, y: -6.1062266e-16, z: 4.440892e-16}
-      rotation: {x: -0.04061409, y: -0.021913432, z: 0.02633723, w: 0.9985874}
+      rotation: {x: -0.040614087, y: -0.021913432, z: 0.026337227, w: 0.9985874}
       scale: {x: 1.0000001, y: 1.0000002, z: 1.0000001}
     - name: Thumb_03
       parentName: Thumb_02
@@ -867,7 +867,7 @@ ModelImporter:
     - name: Finger_03 1
       parentName: Finger_02 1
       position: {x: 3.5133245, y: -0.00001997848, z: 0.0000014853608}
-      rotation: {x: -0.018262146, y: -0.023068195, z: 0.029845683, w: 0.9991215}
+      rotation: {x: -0.018262144, y: -0.023068195, z: 0.02984568, w: 0.9991215}
       scale: {x: 0.9999998, y: 1.0000006, z: 1.0000004}
     - name: Finger_04 1
       parentName: Finger_03 1

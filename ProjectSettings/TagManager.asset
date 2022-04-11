@@ -4,11 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Enemy
-  - Friendly
+  - Unit
   - Tower
-  - Mapdata
   - Nexus
+  - MapData
+  - Weapon
   layers:
   - Default
   - TransparentFX

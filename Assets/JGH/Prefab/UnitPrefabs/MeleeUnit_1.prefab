@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7863440605463941909}
   m_Layer: 0
   m_Name: MeleeUnit_1
-  m_TagString: Friendly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -111,11 +111,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitStatus_Origin: {fileID: 11400000, guid: f9190162612e561409b0053595267456, type: 2}
+  unitStatus: {fileID: 0}
+  isEnemy: 0
   targetObj: {fileID: 0}
   listTarget: []
   targetDist: 0
   targetDir: {x: 0, y: 0, z: 0}
   targetDegAngle: 0
+  targetColSize: 0
+  unitCol: {fileID: 0}
   searchTime: 0.5
   searchCurTime: 0
 --- !u!54 &7863440605463941909

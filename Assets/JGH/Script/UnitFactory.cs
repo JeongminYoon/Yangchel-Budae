@@ -16,20 +16,20 @@ public class UnitFactory : MonoBehaviour
     }
     /// <singletone>
 
-    //public GameObject enemyPrefab;
 
-    public GameObject[] unitPrefabs = new GameObject[(int)Enums.UnitClass.End];
+    public GameObject[] allyUnitPrefabs = new GameObject[(int)Enums.UnitClass.End];
+    public GameObject[] enemyUnitPrefabs = new GameObject[(int)Enums.UnitClass.End];
 
-    //public GameObject melee1Prefab;
-    //public GameObject melee2Prefab;
-    //public GameObject range1Prefab;
+    [HideInInspector]
+    public GameObject[,] unitPrefabs = new GameObject[(int)Enums.Team.End, (int)Enums.UnitClass.End];
+
 
     public GameObject SpawnUnit(UnitClass unitClass, Vector3 spawnPos, bool isEnemy = false)
     {
         GameObject spawnObj = null;
 
 
-        spawnObj = Instantiate(unitPrefabs[(int)unitClass], spawnPos, Quaternion.identity);
+        spawnObj = Instantiate(unitPrefabs[Funcs.B2I(isEnemy),(int)unitClass], spawnPos, Quaternion.identity);
        
         #region switchCaseSpawn_DontUse
         //switch (unitClass)
@@ -77,13 +77,16 @@ public class UnitFactory : MonoBehaviour
 
         if (spawnObj != null)
         {
-            spawnObj.GetComponent<Units>().IsEnemy = isEnemy;
+            spawnObj.GetComponent<Units>().isEnemy = isEnemy;
 
-            if (isEnemy)
-            {
-                spawnObj.GetComponent<Renderer>().material.color = Color.red;
-                spawnObj.tag = "Enemy";
-            }
+            //if (isEnemy)
+            //{
+            //    //spawnObj.GetComponent<Renderer>().material.color = Color.red;
+            //    spawnObj.tag = "Enemy";
+            //}
+
+            spawnObj.tag = "Unit";
+
             UnitManager.instance.unitList[Funcs.B2I(isEnemy)].Add(spawnObj);
         }
 
@@ -117,6 +120,11 @@ public class UnitFactory : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        for (int i = 0; i < allyUnitPrefabs.Length; ++i)
+        {
+            unitPrefabs[(int)Enums.Team.ally,i] = allyUnitPrefabs[i];
+            unitPrefabs[(int)Enums.Team.enemy, i] = enemyUnitPrefabs[i];
+        }
         
     }
 

@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Linq;
 abstract public class Units : MonoBehaviour
 {
+
+    
     //C#에서 가상함수(virtual 키워드)는
     //딱히 자식 클래스에서 재정의(override) 안해도
     //자동적으로 불러와짐
@@ -40,7 +42,8 @@ abstract public class Units : MonoBehaviour
     public float targetColSize;
     /// <target>
 
-    
+
+    public GameObject weapon;
 
     public Collider unitCol;
 
@@ -48,6 +51,8 @@ abstract public class Units : MonoBehaviour
 
     public float searchTime = 0.5f;
     public float searchCurTime = 0f;
+
+    public Animator animController;
 
     public delegate void HandlerDeath(GameObject unit);
     public HandlerDeath handlerDeath;
@@ -348,7 +353,10 @@ abstract public class Units : MonoBehaviour
         unitStatus.unitColScale = tempSize;
 
     }
-
+    public void FindWeaponObject()
+    {
+        weapon = Funcs.FindGameObjectInChildrenByTag(this.gameObject, "Weapon");
+    }
     protected virtual void Awake()
     {
         //SearchUnit();
@@ -364,6 +372,9 @@ abstract public class Units : MonoBehaviour
         //unitStatus = unitStatus_Origin; 얕은 복사 Shallow
         //ScriptableObj_DeepCopy(); //깊은 복사
 
+        FindWeaponObject();
+        animController = this.gameObject.GetComponent<Animator>();
+
         SearchUnit();
 
         ColliderSetting();
@@ -373,7 +384,6 @@ abstract public class Units : MonoBehaviour
      //모노비헤이비어가 update 돌릴 때 오버 라이딩된 자식 함수가 돌게되고
      //그때 맨 처음 base.update()로 돌리기
         //Attack();
-
 
         #region Search
         searchCurTime += Time.deltaTime;

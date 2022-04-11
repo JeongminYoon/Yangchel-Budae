@@ -28,7 +28,7 @@ public static class Funcs
 		if (Physics.Raycast(ray, out castHit))
 		{
 			rayResult.hitPosition = castHit.point;
-			rayResult.hitPosition.y = 1f;
+			rayResult.hitPosition.y = 0f;
 			rayResult.hitObj = castHit.transform.gameObject;
 			rayResult.isHit = true;
 		}
@@ -49,6 +49,70 @@ public static class Funcs
 			tempFilter.mesh = mesh;
 		}
 
+	}
+
+	public static GameObject FindGameObjectInChildrenByName(GameObject Parent, string ObjName)
+	{
+		int childrenCount = Parent.transform.childCount;
+
+		GameObject[] findObjs = new GameObject[childrenCount];
+
+		if (Parent.name == ObjName)
+		{
+			return Parent;
+		}
+
+		if (childrenCount == 0)
+		{
+			return null;
+		}
+		else 
+		{
+			for (int i = 0; i < childrenCount; ++i)
+			{
+				findObjs[i] = FindGameObjectInChildrenByName(Parent.transform.GetChild(i).gameObject, ObjName);
+
+				if (findObjs[i] != null && findObjs[i].name == ObjName)
+				{
+					return findObjs[i];
+				}
+			}
+
+			return null;
+		}
+	}
+
+
+	public static GameObject FindGameObjectInChildrenByTag(GameObject Parent, string ObjTag)
+	{
+		int childrenCount = Parent.transform.childCount;
+
+		GameObject[] findObjs = new GameObject[childrenCount];
+
+		if (Parent.CompareTag(ObjTag))
+		{
+			return Parent;
+		}
+
+		if (childrenCount == 0)
+		{
+			return null;
+		}
+		else
+		{
+			for (int i = 0; i < childrenCount; ++i)
+			{
+				findObjs[i] = FindGameObjectInChildrenByTag(Parent.transform.GetChild(i).gameObject, ObjTag);
+
+				
+				if (findObjs[i]!= null && findObjs[i].CompareTag(ObjTag))
+				{
+					return findObjs[i];
+				}
+			}
+
+			return null;
+		}
 	}
 }
 

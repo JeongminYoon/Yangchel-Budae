@@ -118,14 +118,16 @@ public class TowerManager : MonoBehaviour
                 }
 
                 temp = InstantiateBuilding(prefab, parentObj, Defines.towersPos[i, k], isTower, isEnemy);
-                                
+                temp.GetComponent<Units>().isEnemy = isEnemy;
 
                 if (k != 2)
                 {//타워
+                    temp.tag = "Tower";
                     towerList[i, k] = temp;
                 }
                 else 
                 { //넥서스
+                    temp.tag = "Nexus";
                     nexusList[i] = temp;
                 }
             }

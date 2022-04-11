@@ -28,7 +28,7 @@ public class Tower : Units
 			////추후에는 타워용 총알 따로 놔둘꺼고 되게 빠르게 할꺼임 
 			////총알 자체도 손좀 많이 봐야하고
 
-			bullet.GetComponent<Bullet>().dmg = (int)unitStatus.dmg;
+			bullet.GetComponent<UnitBullet>().dmg = (int)unitStatus.dmg;
 
 			return true;
 		}

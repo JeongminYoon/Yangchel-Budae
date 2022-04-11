@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5118181963550814005}
   m_Layer: 0
   m_Name: Medic
-  m_TagString: Friendly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,6 +134,8 @@ MonoBehaviour:
   targetDist: 0
   targetDir: {x: 0, y: 0, z: 0}
   targetDegAngle: 0
+  targetColSize: 0
+  unitCol: {fileID: 0}
   searchTime: 0.5
   searchCurTime: 0
   medicinePrefab: {fileID: 635517412318582183, guid: 6d18ab4f9e4b6174697c9a964b93f5d6, type: 3}

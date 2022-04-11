@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: -1521622319801236634}
   m_Layer: 0
   m_Name: RangeUnit_1
-  m_TagString: Friendly
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -371,14 +371,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitStatus_Origin: {fileID: 11400000, guid: 2d6b3a3f855a5604696d411fd777dab3, type: 2}
+  unitStatus: {fileID: 0}
+  isEnemy: 0
   targetObj: {fileID: 0}
   listTarget: []
   targetDist: 0
   targetDir: {x: 0, y: 0, z: 0}
   targetDegAngle: 0
+  targetColSize: 0
+  unitCol: {fileID: 0}
   searchTime: 0.5
   searchCurTime: 0
   bulletPrefab: {fileID: 7913876894923688215, guid: d3b4b6feec78fa647b16e891890615c6, type: 3}
+  gun: {fileID: 0}
 --- !u!54 &-1521622319801236634
 Rigidbody:
   m_ObjectHideFlags: 0
