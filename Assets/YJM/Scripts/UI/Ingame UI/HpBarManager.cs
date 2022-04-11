@@ -7,8 +7,9 @@ public class HpBarManager : MonoBehaviour
 {
     //작동원리:
     //1.현재 맵상의 유닛/타워를 찾아서(SearchUnit) 리스트로 정리하고(unitList) 그 리스트의 숫자만큼 Hp바가 생성된 리스트도 만들어준다(hpBarList)
-    //2.hpBarList[i] 번째에 unitList[i]의 체력을 가져와 표시해준다
-    //3.만약 unitList[i].isDead가 활성화 된다면(i 번쨰 유닛 사망) 모든 리스트를(unitList, hpBarList) 초기화 해주고(SearchUnit) 1번으로 돌아간다
+    //2.hpBarList[i]번째를 유닛리스트의 unitList[i] 위치에 뿌려준다
+    //3.hpBarList[i] 번째에 unitList[i]의 체력을 가져와 표시해준다
+    //4.만약 unitList[i].isDead가 활성화 된다면(i 번쨰 유닛 사망) 모든 리스트를(unitList, hpBarList) 초기화 해주고(SearchUnit) 1번으로 돌아간다
 
     //문제점:
     //1.unitList[i].isDead를 값을 받을수 없음. 이미 죽은 오브젝트를 참조하기 떄문. isDead값을 이 스크립트가 받는것보다 유닛이 사라지는게 더 빠른거같음.

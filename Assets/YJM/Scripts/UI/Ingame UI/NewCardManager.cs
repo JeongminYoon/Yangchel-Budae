@@ -21,7 +21,8 @@ public class NewCardManager : MonoBehaviour
     public GameObject[] myHand = new GameObject[4];
     List<GameObject> grave = new List<GameObject>();
 
-    List<UnitStatus> unitDataList = GameManager.MyHandsList;
+    List<UnitStatus> unitDataList;
+    public List<UnitStatus> debugUnitDataList; // 카드 선택창을 거치지 않고 인게임씬 진입시 사용할 덱리스트
 
     public UnitStatus nextCardStatus;
     Text nextUnitName;
@@ -33,6 +34,16 @@ public class NewCardManager : MonoBehaviour
         {
             instance = this;
         }
+
+        if (GameManager.MyHandsList.Count != 0)
+        {
+            print("a");
+            unitDataList = GameManager.MyHandsList;
+        }
+        else
+        {
+            unitDataList = debugUnitDataList;
+        }
     }
 
     void Start()
@@ -42,6 +53,7 @@ public class NewCardManager : MonoBehaviour
         deck = new GameObject[unitDataList.Count];
         CardAdd();
         ShuffleArray(deck);
+        
 
         for (int i = 0; i < 4; i++)
         {
