@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -34,7 +34,7 @@ public class CardManager : MonoBehaviour
     void Start()
     {
         unitStatusList = allUnitStatus;
-        for (int i = 0; i < unitStatusList.Count; i++) // ó�� ���۶� ���ī����� ������ ǥ��
+        for (int i = 0; i < unitStatusList.Count; i++) // 유닛리스트만큼 카드를 추가해주고 정렬함
         {
             AllCard.Add(Instantiate(cardPrefab, uiCanvas.transform));
             AllCard[i].GetComponent<CardPrefab>().status = ScriptableObject.CreateInstance<UnitStatus>();
@@ -46,7 +46,7 @@ public class CardManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))   //Save(�� Ż���Ҷ� ���� ���빰 �����ų��?
+        if (Input.GetMouseButtonDown(1))   //Save(게임매니저에 선택한 카드값을 넘겨줌. 씬 나갈때 실행시킬것)
         {
                 GameManager.MyHandsList.Clear();
             for (int i = 0; i < myCard.Length; i++)
@@ -76,13 +76,12 @@ public class CardManager : MonoBehaviour
             {
                 if (myCard[i].GetComponent<CardPrefab>().isSelect == true)
                 {
-                    print("������ ī��������: " + myCard[i].GetComponent<CardPrefab>().unitName.text);
+                    print("선택카드 : " + myCard[i].GetComponent<CardPrefab>().unitName.text);
                     myCard[i].GetComponent<CardPrefab>().isSelect = false;
                     MyCardToAllCard(i);
                 }
             }
         }
-        //print(AllCard.Count);
     }
 
     void AllCardToMyCard(int clickedCardNum)
@@ -94,14 +93,14 @@ public class CardManager : MonoBehaviour
             {
                 if (swt == false)
                 {
-                    myCard[i] = AllCard[clickedCardNum]; // �̺κ� myCard[?]�� �� ������ ã�Ƽ� �־��ְ� �����? AllCard[?]�� Ŭ���� ī�带 �ν��ؼ� �־��ֱ�
+                    myCard[i] = AllCard[clickedCardNum]; // myCard[?]위치가 null인지 스캔해서 빈 위치에 선택한 AllCard 카드를 넣어줌
                     SortCard(myCard[i], myCardPos, i);
                     swt = true;
                 }
             }
         }
         swt = false;
-        AllCard.RemoveAt(clickedCardNum); //AllCard[?]�� Ŭ���� ī�带 �ν��ؼ� �����ֱ�
+        AllCard.RemoveAt(clickedCardNum); //선택한 AllCard[?]를 지워줌
         for (int i = 0; i < AllCard.Count; i++)
         {
             SortCard(AllCard[i], allCardPos, i);
@@ -116,10 +115,10 @@ public class CardManager : MonoBehaviour
     }
 
 
-    void SortCard(GameObject gameObject, GameObject deckPos ,int cardNum) //ī�����? ��üī��or�ڵ�, ����?��ġ�� ����
+    void SortCard(GameObject gameObject, GameObject deckPos ,int cardNum) //UI라서 RectTransform 값으로 위치를 잡아줌. 한줄당 4카드로 정렬시키기
     {
-        RectTransform CardRt = gameObject.GetComponent<RectTransform>();
-        CardRt.anchoredPosition = SortCardVec(deckPos, cardNum);
+        RectTransform cardRt = gameObject.GetComponent<RectTransform>();
+        cardRt.anchoredPosition = SortCardVec(deckPos, cardNum);
     }
 
     Vector2 SortCardVec(GameObject Pos, int i)
@@ -154,11 +153,11 @@ public class CardManager : MonoBehaviour
 
 
 
-    //    myCard[0] = AllCard[0]; // ������ ��üī���?������ �̰� �������� �ٲ㼭 �ֱ�
+    //    myCard[0] = AllCard[0]; // 占쏙옙占쏙옙占쏙옙 占쏙옙체카占쏙옙占?占쏙옙占쏙옙占쏙옙 占싱곤옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쌕꿔서 占쌍깍옙
     //            AllCard.RemoveAt(0);
     //            for (int i = 0; i<AllCard.Count; i++)
     //            {
-    //                SortCard(AllCard[i], allCardPos, i); //AllCard.Lengh �� �� �������� �ֱ�
+    //                SortCard(AllCard[i], allCardPos, i); //AllCard.Lengh 占쏙옙 占쏙옙 占쏙옙占쏙옙占쏙옙占쏙옙 占쌍깍옙
     //}
     //SortCard(myCard[0], myCardPos, 0);
 
