@@ -114,7 +114,7 @@ public class HpBarManager : MonoBehaviour
                 {
                     UnitStatus status = unitList[i].GetComponent<Units>().unitStatus;
                     status = unitList[i].GetComponent<Units>().unitStatus;
-                        hpBarList[i].transform.position = cam.WorldToScreenPoint(unitList[i].transform.position + new Vector3(0f, 1.2f, 0f));
+                        hpBarList[i].transform.position = cam.WorldToScreenPoint(unitList[i].transform.position + new Vector3(0f, 3.2f, 0f));
                         hpBarList[i].GetComponent<Image>().fillAmount = status.curHp / status.fullHp;
                         hpText = hpBarList[i].gameObject.transform.Find("HpText").gameObject.GetComponent<Text>();
                         hpText.text = (status.curHp + "/" + status.fullHp).ToString();

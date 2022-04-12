@@ -218,15 +218,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyMaterial: {fileID: 0}
-  unitPrefabs:
-  - {fileID: 5935961508300328895, guid: 5c5602e1ce833d24fb7f247d4a973752, type: 3}
-  - {fileID: 6766877941700802936, guid: 20d8ba6539ccc1b4bb6d4e6b0b54a9b0, type: 3}
-  - {fileID: 8736872047403480676, guid: a87aa9c5c5b99f148ad72a6395cbcf1f, type: 3}
-  - {fileID: 5064226132904792670, guid: 41131262393068f4ea6dc3df0667248c, type: 3}
-  - {fileID: 8037538996643193483, guid: b0aae01902f8d8d469ccaf253390c7f8, type: 3}
-  - {fileID: 2035657809442337194, guid: b5f0efb4370839b4aa484dc7ddd52f16, type: 3}
-  - {fileID: 4667199152954949758, guid: 3c58b32dd47deaf43868f7b16ef36f68, type: 3}
-  - {fileID: 8442221887539947438, guid: fa712159b8c989b4dbb9b36ae16d5e53, type: 3}
+  allyUnitPrefabs:
+  - {fileID: 1211111090650002, guid: 275932b0b09f1be418bfe6fba83e419b, type: 3}
+  - {fileID: 1737705246820700, guid: 770abe3ec40715b4bbbccb4461bee467, type: 3}
+  - {fileID: 1781282677531552, guid: 2c81141989e90ac40b3160aa53a0a1d4, type: 3}
+  - {fileID: 1897805527876310, guid: ebb52c458f9619b408656cda00cbfb60, type: 3}
+  - {fileID: 1049186450765084, guid: 6671c74bf406c8a42a24a8d0817ccdf7, type: 3}
+  - {fileID: 1629728649629216, guid: 000ca8cb8b9d7ee439b3be55c31ad099, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  enemyUnitPrefabs:
+  - {fileID: 1627494121139354, guid: a9753aefc9676494fbcceffbcad34901, type: 3}
+  - {fileID: 1197667299770256, guid: 0edf176b910a11a46a86f0bcd74b88a9, type: 3}
+  - {fileID: 1549187452460714, guid: 5c9c53d08bb61f44ea6cd59f7a7db2fe, type: 3}
+  - {fileID: 1728604139815428, guid: 77191033f7741344e9ff659c1847e174, type: 3}
+  - {fileID: 1050495971138050, guid: f5a261fa3eb072c4e971b1ae28015f78, type: 3}
+  - {fileID: 1744425378757870, guid: 98b4527cfc37a4c4dbe04d69dfdb7eca, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &104895803
 Transform:
   m_ObjectHideFlags: 0

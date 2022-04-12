@@ -42,6 +42,7 @@ public class NewCardManager : MonoBehaviour
         }
         else
         {
+            print("Load Debug UnitList...");
             unitDataList = debugUnitDataList;
         }
     }
@@ -150,7 +151,7 @@ public class NewCardManager : MonoBehaviour
             }
         }
         CardLoop();
-        nextCardUpdate();
+        nextCardUpdate(); //04.12 버그: NextCard 위치가 가변해상도 반영이 안되어있음.
         //HandCheck();
         //DeckCheck();
         //GraveCheck();
