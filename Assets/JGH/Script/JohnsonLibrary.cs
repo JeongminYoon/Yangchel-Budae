@@ -82,7 +82,6 @@ public static class Funcs
 		}
 	}
 
-
 	public static GameObject FindGameObjectInChildrenByTag(GameObject Parent, string ObjTag)
 	{
 		int childrenCount = Parent.transform.childCount;
@@ -103,7 +102,6 @@ public static class Funcs
 			for (int i = 0; i < childrenCount; ++i)
 			{
 				findObjs[i] = FindGameObjectInChildrenByTag(Parent.transform.GetChild(i).gameObject, ObjTag);
-
 				
 				if (findObjs[i]!= null && findObjs[i].CompareTag(ObjTag))
 				{
