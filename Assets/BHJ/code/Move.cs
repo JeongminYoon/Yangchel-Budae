@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
-    float speed = 10.0f;
+   
 
     public GameObject boomPrefab;
 
