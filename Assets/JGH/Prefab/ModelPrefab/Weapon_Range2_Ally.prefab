@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 33604061837044546}
   - component: {fileID: 23473510597142418}
   - component: {fileID: 64898594290592644}
+  - component: {fileID: 4937313397932606481}
   m_Layer: 0
   m_Name: Weapon_Range2_Ally
   m_TagString: Weapon
@@ -100,6 +101,23 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 43198477031179476, guid: 5dac9b959ac0dfe4cb7ddd0f9dc4da8e, type: 2}
+--- !u!114 &4937313397932606481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312551688009478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e899015aa2e964cbd7d4765c0bae78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 0
+  isEnemy: 0
+  targetObj: {fileID: 0}
+  bulletPrefab: {fileID: 1003485616670832, guid: 3b1207bea6600a641b7d721763fc2369, type: 3}
+  muzzle: {fileID: 0}
 --- !u!1 &1374345723876968
 GameObject:
   m_ObjectHideFlags: 0

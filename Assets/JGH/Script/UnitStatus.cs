@@ -39,7 +39,7 @@ public class UnitStatus : ScriptableObject
     public float fullHp;
     public float curHp;
 
-    public float    dmg;
+    public int    dmg;
     public float    atkSpd;
     public float    moveSpd;
     public float    atkRange;

@@ -9,11 +9,7 @@ public class UnitFactory : MonoBehaviour
     public static UnitFactory instance = null;
 
     public Material enemyMaterial;
-    private void Awake()
-    {
-        if (instance == null)
-        { instance = this; }
-    }
+
     /// <singletone>
 
 
@@ -117,14 +113,26 @@ public class UnitFactory : MonoBehaviour
 
     #endregion
 
+    private void Awake()
+    {
+        if (instance == null)
+        { instance = this; }
+
+        for (int i = 0; i < allyUnitPrefabs.Length; ++i)
+        {
+            unitPrefabs[(int)Enums.Team.ally, i] = allyUnitPrefabs[i];
+            unitPrefabs[(int)Enums.Team.enemy, i] = enemyUnitPrefabs[i];
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < allyUnitPrefabs.Length; ++i)
-        {
-            unitPrefabs[(int)Enums.Team.ally,i] = allyUnitPrefabs[i];
-            unitPrefabs[(int)Enums.Team.enemy, i] = enemyUnitPrefabs[i];
-        }
+        //for (int i = 0; i < allyUnitPrefabs.Length; ++i)
+        //{
+        //    unitPrefabs[(int)Enums.Team.ally,i] = allyUnitPrefabs[i];
+        //    unitPrefabs[(int)Enums.Team.enemy, i] = enemyUnitPrefabs[i];
+        //}
         
     }
 

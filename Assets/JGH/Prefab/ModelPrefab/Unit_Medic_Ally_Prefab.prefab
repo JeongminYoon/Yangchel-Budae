@@ -1166,6 +1166,7 @@ GameObject:
   - component: {fileID: 4803373380695630}
   - component: {fileID: 95601168698307150}
   - component: {fileID: 8057369100783097577}
+  - component: {fileID: 3378460791011432500}
   m_Layer: 0
   m_Name: Unit_Medic_Ally_Prefab
   m_TagString: Untagged
@@ -1202,7 +1203,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: e4e3ef324cf8e1c40b6e250a1f84e783, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -1235,6 +1236,24 @@ MonoBehaviour:
   searchCurTime: 0
   animController: {fileID: 0}
   medicinePrefab: {fileID: 635517412318582183, guid: 6d18ab4f9e4b6174697c9a964b93f5d6, type: 3}
+--- !u!143 &3378460791011432500
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629728649629216}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0.15}
 --- !u!1 &1634606147487116
 GameObject:
   m_ObjectHideFlags: 0

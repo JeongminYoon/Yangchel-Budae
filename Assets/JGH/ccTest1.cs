@@ -30,6 +30,7 @@ public class ccTest1 : MonoBehaviour
     {
         Vector3 dir = -transform.forward;
         //Character Controller의 움직이는 함수 Move 와 simple Move
+
         //Move(방향 * 속도 * DeltaTime) => 중력값을 따로 계산 안함.
         //=> 따로 우리가 중력값을 곱해줘야함.
         //=> 점프처리 따로 하기 위해서

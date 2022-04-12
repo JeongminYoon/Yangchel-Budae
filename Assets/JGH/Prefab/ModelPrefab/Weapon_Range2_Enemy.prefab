@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4520277303017558}
   - component: {fileID: 33475729916722918}
   - component: {fileID: 23678474962398896}
+  - component: {fileID: 1658000719226592553}
   m_Layer: 0
   m_Name: Weapon_Range2_Enemy
   m_TagString: Weapon
@@ -86,6 +87,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1658000719226592553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1103976567916202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e899015aa2e964cbd7d4765c0bae78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 0
+  isEnemy: 0
+  targetObj: {fileID: 0}
+  bulletPrefab: {fileID: 1003485616670832, guid: 3b1207bea6600a641b7d721763fc2369, type: 3}
+  muzzle: {fileID: 0}
 --- !u!1 &1302507904426538
 GameObject:
   m_ObjectHideFlags: 0

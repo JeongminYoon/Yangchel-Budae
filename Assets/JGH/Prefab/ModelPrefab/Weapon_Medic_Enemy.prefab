@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: 4934703905309724}
   - component: {fileID: 33910642537882654}
   - component: {fileID: 23070362525493966}
+  - component: {fileID: -8628217203662429708}
   m_Layer: 0
   m_Name: Weapon_Medic_Enemy
   m_TagString: Weapon
@@ -247,6 +248,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &-8628217203662429708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546503584098144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e899015aa2e964cbd7d4765c0bae78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 0
+  isEnemy: 0
+  targetObj: {fileID: 0}
+  bulletPrefab: {fileID: 1003485616670832, guid: 3b1207bea6600a641b7d721763fc2369, type: 3}
+  muzzle: {fileID: 0}
 --- !u!1 &1579082131653890
 GameObject:
   m_ObjectHideFlags: 0

@@ -1382,6 +1382,7 @@ GameObject:
   - component: {fileID: 4239986016271562}
   - component: {fileID: 95913212701893084}
   - component: {fileID: 1436168959337741771}
+  - component: {fileID: 7512407338878663269}
   m_Layer: 0
   m_Name: Unit_Medic_Enemy_Prefab
   m_TagString: Untagged
@@ -1445,10 +1446,30 @@ MonoBehaviour:
   targetDir: {x: 0, y: 0, z: 0}
   targetDegAngle: 0
   targetColSize: 0
+  weapon: {fileID: 0}
   unitCol: {fileID: 0}
   searchTime: 0.5
   searchCurTime: 0
+  animController: {fileID: 0}
   medicinePrefab: {fileID: 635517412318582183, guid: 6d18ab4f9e4b6174697c9a964b93f5d6, type: 3}
+--- !u!143 &7512407338878663269
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744425378757870}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0.15}
 --- !u!1 &1766900047630092
 GameObject:
   m_ObjectHideFlags: 0

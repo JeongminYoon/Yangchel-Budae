@@ -118,10 +118,13 @@ MonoBehaviour:
   targetDir: {x: 0, y: 0, z: 0}
   targetDegAngle: 0
   targetColSize: 0
+  weapon: {fileID: 0}
   unitCol: {fileID: 0}
   searchTime: 0.5
   searchCurTime: 0
-  bulletPrefab: {fileID: 7913876894923688215, guid: d3b4b6feec78fa647b16e891890615c6, type: 3}
+  animController: {fileID: 0}
+  charContoller: {fileID: 0}
+  bulletPrefab: {fileID: 1003485616670832, guid: 3b1207bea6600a641b7d721763fc2369, type: 3}
 --- !u!1 &1950669865050126
 GameObject:
   m_ObjectHideFlags: 0

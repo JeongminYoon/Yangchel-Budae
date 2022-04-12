@@ -2553,6 +2553,7 @@ GameObject:
   - component: {fileID: 4745477599569020}
   - component: {fileID: 95850368184892206}
   - component: {fileID: 1706301550332722368}
+  - component: {fileID: 3289799289884657338}
   m_Layer: 0
   m_Name: Unit_Range2_Ally_Prefab
   m_TagString: Untagged
@@ -2616,10 +2617,31 @@ MonoBehaviour:
   targetDir: {x: 0, y: 0, z: 0}
   targetDegAngle: 0
   targetColSize: 0
+  weapon: {fileID: 0}
   unitCol: {fileID: 0}
   searchTime: 0.5
   searchCurTime: 0
+  animController: {fileID: 0}
   bulletPrefab: {fileID: 1003485616670832, guid: 3b1207bea6600a641b7d721763fc2369, type: 3}
+  muzzle: {fileID: 0}
+--- !u!143 &3289799289884657338
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897805527876310}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0.15}
 --- !u!1 &1903574182374756
 GameObject:
   m_ObjectHideFlags: 0

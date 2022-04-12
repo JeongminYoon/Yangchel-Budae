@@ -9,6 +9,7 @@ TagManager:
   - Nexus
   - MapData
   - Weapon
+  - Bullet
   layers:
   - Default
   - TransparentFX

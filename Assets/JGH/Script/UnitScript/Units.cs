@@ -43,7 +43,8 @@ abstract public class Units : MonoBehaviour
     /// <target>
 
 
-    public GameObject weapon;
+    public GameObject weapon = null;
+    public Weapon       weaponScript;
 
     public Collider unitCol;
 
@@ -52,7 +53,10 @@ abstract public class Units : MonoBehaviour
     public float searchTime = 0.5f;
     public float searchCurTime = 0f;
 
+
     public Animator animController;
+    public CharacterController charContoller;
+
 
     public delegate void HandlerDeath(GameObject unit);
     public HandlerDeath handlerDeath;
@@ -153,13 +157,23 @@ abstract public class Units : MonoBehaviour
         if (targetObj != null)
         {
             CalcToObj(targetObj);
-            
 
-            if (targetDist > unitStatus.atkRange + targetColSize + unitStatus.unitColScale.x)
+
+            //if (targetDist > unitStatus.atkRange + targetColSize + unitStatus.unitColScale.x)
+            //{
+            //    //transform.Translate(targetDir * unitStatus.moveSpd * Time.deltaTime);
+            //    transform.position += targetDir * unitStatus.moveSpd * Time.deltaTime;
+            //    //Debug.Log(unitStatus.moveSpd + "로 걷고 있습니다.");
+            //}
+
+            if (targetDist > unitStatus.atkRange)
             {
-                //transform.Translate(targetDir * unitStatus.moveSpd * Time.deltaTime);
-                transform.position += targetDir * unitStatus.moveSpd * Time.deltaTime;
-                //Debug.Log(unitStatus.moveSpd + "로 걷고 있습니다.");
+                animController.SetBool("bWalk", true);
+                charContoller.Move(targetDir * unitStatus.moveSpd * Time.deltaTime);
+            }
+            else
+            {
+                animController.SetBool("bWalk", false);
             }
         }
         else 
@@ -173,26 +187,27 @@ abstract public class Units : MonoBehaviour
         //지금 타워처럼 스케일이 1 이상인 애들도 
         //공격 범위만큼 가까이 가야 때릴 수 있음.
         // 추후 콜리더 범위로 수정 해야함.
-        if (_target != null && targetDist <= unitStatus.atkRange + targetColSize + unitStatus.unitColScale.x)
+        //if (_target != null && targetDist <= unitStatus.atkRange + targetColSize + unitStatus.unitColScale.x)
+
+        if(_target != null && targetDist <= unitStatus.atkRange)
         {
             atkCurTime += Time.deltaTime;
 
             //Units temp = _target.GetComponent<Units>(); //=> null 나옴. 근데 그게 맞지 ㅋㅋ 안넣었으니까 ㅋㅋ
-
             if (atkCurTime >= unitStatus.atkSpd)
             {
                 //추후 각 유닛의 무기에 따라서 콜리더 판정으로 넘기기
-                Debug.Log(unitStatus.atkRange + "의 범위로\n" + unitStatus.dmg + "의 데미지를 줍니다.");
-               // temp.Hit((int)unitStatus.dmg);
+                //Debug.Log(unitStatus.atkRange + "의 범위로\n" + unitStatus.dmg + "의 데미지를 줍니다.");
+                //temp.Hit((int)unitStatus.dmg);
                 atkCurTime = 0f;
                 return true;
             }
         }
-        else if (_target == null && atkCurTime != 0f)
-        {
-            atkCurTime = 0f;
-            return false;
-        }
+        //else if (_target == null && atkCurTime != 0f)
+        //{
+        //    atkCurTime = 0f;
+        //    return false;
+        //}
 
         return false;
     }
@@ -290,7 +305,11 @@ abstract public class Units : MonoBehaviour
             {
                 if (SkillManager.instance.isSkill2Live)
                 {
-                    targetObj = SkillManager.instance.skill2.GetComponent<Skill2>().tower;
+                    Skill2 tempSkill2 = SkillManager.instance.skill2.GetComponent<Skill2>();
+
+                    if (tempSkill2 != null)
+                    { targetObj = tempSkill2.tower; }
+                    
                 }
                 else
                 {
@@ -352,9 +371,17 @@ abstract public class Units : MonoBehaviour
         unitStatus.unitColScale = tempSize;
 
     }
-    public void FindWeaponObject()
+    public void WeaponSetting()
     {
-        weapon = Funcs.FindGameObjectInChildrenByTag(this.gameObject, "Weapon");
+        if (weapon == null)
+        {
+            weapon = Funcs.FindGameObjectInChildrenByTag(this.gameObject, "Weapon");
+        }
+
+        weaponScript = weapon.GetComponent<Weapon>();
+
+        weaponScript.dmg = unitStatus.dmg;
+        weaponScript.isEnemy = isEnemy;
     }
     protected virtual void Awake()
     {
@@ -371,8 +398,10 @@ abstract public class Units : MonoBehaviour
         //unitStatus = unitStatus_Origin; 얕은 복사 Shallow
         //ScriptableObj_DeepCopy(); //깊은 복사
 
-        FindWeaponObject();
+        WeaponSetting();
+        
         animController = this.gameObject.GetComponent<Animator>();
+        charContoller = this.gameObject.GetComponent<CharacterController>();
 
         SearchUnit();
 

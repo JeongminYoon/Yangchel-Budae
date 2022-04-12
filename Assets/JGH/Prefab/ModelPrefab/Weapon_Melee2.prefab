@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4497579699716354}
   - component: {fileID: 33835652267613136}
   - component: {fileID: 23190277572509232}
-  - component: {fileID: 64138330889574942}
   - component: {fileID: 5699506427538217802}
+  - component: {fileID: 132399993894135721}
   m_Layer: 0
   m_Name: Weapon_Melee2
   m_TagString: Weapon
@@ -83,20 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &64138330889574942
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1287696629626222}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 43528685544751430, guid: f7cddcdcac57a8843b73f4aa5fd603e7, type: 2}
 --- !u!65 &5699506427538217802
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -106,7 +92,24 @@ BoxCollider:
   m_GameObject: {fileID: 1287696629626222}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 0.02282422, y: 0.046035755, z: 0.47652966}
   m_Center: {x: 0, y: -0.00055722706, z: 0.17674184}
+--- !u!114 &132399993894135721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287696629626222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58e899015aa2e964cbd7d4765c0bae78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 0
+  isEnemy: 0
+  targetObj: {fileID: 0}
+  bulletPrefab: {fileID: 0}
+  muzzle: {fileID: 0}

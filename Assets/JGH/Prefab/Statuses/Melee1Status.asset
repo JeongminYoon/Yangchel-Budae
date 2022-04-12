@@ -17,8 +17,8 @@ MonoBehaviour:
   unitTier: 0
   fullHp: 100
   curHp: 100
-  dmg: 100
-  atkSpd: 1
+  dmg: 20
+  atkSpd: 1.5
   moveSpd: 1
   atkRange: 1.5
   sightRange: 5
