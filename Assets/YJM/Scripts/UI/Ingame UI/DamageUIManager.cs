@@ -41,7 +41,7 @@ public class DamageUIManager : MonoBehaviour
 
     public GameObject PlayHpEffect(int damage, Vector3 worldPos)
     {
-        GameObject hpEffect = Instantiate(hpEffectPrefab, unitPositionTest, Quaternion.identity, transform);
+        GameObject hpEffect = Instantiate(hpEffectPrefab, worldPos, Quaternion.identity, transform);
         hpEffect.transform.position = cam.WorldToScreenPoint(worldPos);
         hpText = hpEffect.GetComponent<Text>();
         hpText.text = damage.ToString();
