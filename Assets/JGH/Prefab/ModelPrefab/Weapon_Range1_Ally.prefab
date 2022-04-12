@@ -181,7 +181,7 @@ MonoBehaviour:
   dmg: 0
   isEnemy: 0
   targetObj: {fileID: 0}
-  bulletPrefab: {fileID: 0}
+  bulletPrefab: {fileID: 1003485616670832, guid: 3b1207bea6600a641b7d721763fc2369, type: 3}
   muzzle: {fileID: 0}
 --- !u!1 &1107845022839168
 GameObject:

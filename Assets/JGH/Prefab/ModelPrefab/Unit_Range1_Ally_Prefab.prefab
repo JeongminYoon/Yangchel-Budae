@@ -2356,7 +2356,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 0ccfa8a7991d55845a9369e7003727dc, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -2384,12 +2384,13 @@ MonoBehaviour:
   targetDegAngle: 0
   targetColSize: 0
   weapon: {fileID: 0}
+  weaponScript: {fileID: 0}
   unitCol: {fileID: 0}
   searchTime: 0.5
   searchCurTime: 0
   animController: {fileID: 0}
+  charContoller: {fileID: 0}
   bulletPrefab: {fileID: 1003485616670832, guid: 3b1207bea6600a641b7d721763fc2369, type: 3}
-  muzzle: {fileID: 0}
 --- !u!143 &9012132178115534226
 CharacterController:
   m_ObjectHideFlags: 0

@@ -11,12 +11,14 @@ public class TowerManager : MonoBehaviour
     public GameObject       nexusPrefab;
     public GameObject[]     towerParent = new GameObject[(int)Team.End];
 
+    public GameObject[] towerWeaponPrefab = new GameObject[(int)Team.End];
+
 
     public GameObject[]     nexusList = new GameObject[(int)Team.End];
     public GameObject[,]    towerList = new GameObject[2, 2]; //[팀, 위치]
                                                               //팀 : 0 아군 / 1 적군
                                                               //위치 : 0 Left / 1 Right
-
+    
     //public Mesh towerMesh;
     //public Mesh nexusMesh;
 

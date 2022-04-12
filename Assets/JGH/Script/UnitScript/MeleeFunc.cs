@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -69,24 +69,36 @@ public class MeleeFunc : Units
 	private void OnTriggerEnter(Collider other)
 	{
         //if (other.CompareTag("Weapon"))
-        //{//±ÙÁ¢ °ø°İ
-        // //=> ¹«±â °´Ã¼ÀÇ ÁÖÀÎÀÎ °ÔÀÓ¿ÀºêÁ§Æ®ÀÇ
-        // //Units Å¬·¡½º °¡Á®¿Í¼­
-        // //¾Æ±ºÀÎÁö ÀûÀÎÁö ÆÇº°.(ÇöÀç À¯´ÖÀÇ isEnemy¿Í)
-        // //°ø°İÀÌ ¾Æ±ºÀÌ¸é µ¥¹ÌÁö ¾ÈÁÖ°í Àû±ºÀÌ¸é µ¥¹ÌÁö ÁÖ±â
-        // //=> °ø°İ ÇÑ³ğÇÑÅ×¸¸ µé¾î°¡°Ô ÇÏ±â ÇØ¾ßÇÏ´Âµğ...
+        //{//ê·¼ì ‘ ê³µê²©
+        // //=> ë¬´ê¸° ê°ì²´ì˜ ì£¼ì¸ì¸ ê²Œì„ì˜¤ë¸Œì íŠ¸ì˜
+        // //Units í´ë˜ìŠ¤ ê°€ì ¸ì™€ì„œ
+        // //ì•„êµ°ì¸ì§€ ì ì¸ì§€ íŒë³„.(í˜„ì¬ ìœ ë‹›ì˜ isEnemyì™€)
+        // //ê³µê²©ì´ ì•„êµ°ì´ë©´ ë°ë¯¸ì§€ ì•ˆì£¼ê³  ì êµ°ì´ë©´ ë°ë¯¸ì§€ ì£¼ê¸°
+        // //=> ê³µê²© í•œë†ˆí•œí…Œë§Œ ë“¤ì–´ê°€ê²Œ í•˜ê¸° í•´ì•¼í•˜ëŠ”ë””...
         //}
         //else if(other.CompareTag("Bullet"))
-        //{//ÃÑ¾Ë (À¯´ÖÀÌ´ø, Å¸¿ö´ø)
-        // //ÃÑ¾Ë »ı¼ºÇÏ´Â ¸ğµç °÷¿¡ ÀÚ±â isEnemy º¯¼ö ´øÁ®ÁÖ°í
-        // //Ãæµ¹ÇÑ ³ğÀº ºÒ¸´ÀÇ isEnemy º¯¼ö ÆÇº°ÇØ¼­
-        // //¾Æ±ºÀÌ¸é µ¥¹ÌÁö ¾ÈÁÖ°í Àû±ºÀÌ¸é µ¥¹ÌÁö ÁÖ±â
+        //{//ì´ì•Œ (ìœ ë‹›ì´ë˜, íƒ€ì›Œë˜)
+        // //ì´ì•Œ ìƒì„±í•˜ëŠ” ëª¨ë“  ê³³ì— ìê¸° isEnemy ë³€ìˆ˜ ë˜ì ¸ì£¼ê³ 
+        // //ì¶©ëŒí•œ ë†ˆì€ ë¶ˆë¦¿ì˜ isEnemy ë³€ìˆ˜ íŒë³„í•´ì„œ
+        // //ì•„êµ°ì´ë©´ ë°ë¯¸ì§€ ì•ˆì£¼ê³  ì êµ°ì´ë©´ ë°ë¯¸ì§€ ì£¼ê¸°
         //}
         //Units[] temp = other.transform.GetComponentsInParent<Units>();
 
 
-        //=> ±×³É ±ÙÁ¢¹«±â È¤Àº ÃÑ¾Ë ÂÊ¿¡¼­
-        //Å¸°Ù ¿ÀºêÁ§Æ®¶û µ¿ÀÏÇÑÁö È®ÀÎ ÇÑµÚ Ã³¸® ÇØÁÖÀÚ!
+        //=> ê·¸ëƒ¥ ê·¼ì ‘ë¬´ê¸° í˜¹ì€ ì´ì•Œ ìª½ì—ì„œ
+        //íƒ€ê²Ÿ ì˜¤ë¸Œì íŠ¸ë‘ ë™ì¼í•œì§€ í™•ì¸ í•œë’¤ ì²˜ë¦¬ í•´ì£¼ì!
     }
 
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    { 
+        if (hit.gameObject.CompareTag("Tower") || hit.gameObject.CompareTag("Nexus"))
+		{
+            if (targetObj.CompareTag("Tower") || targetObj.CompareTag("Nexus"))
+            {
+                animController.SetTrigger("tAttack");
+                weaponScript.targetObj = targetObj;
+            }
+            
+        }
+    }
 }

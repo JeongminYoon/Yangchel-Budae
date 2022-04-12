@@ -41,6 +41,7 @@ abstract public class Units : MonoBehaviour
     public float targetDegAngle;
     public float targetColSize;
     /// <target>
+    public bool isLookTarget = true;
 
 
     public GameObject weapon = null;
@@ -168,12 +169,12 @@ abstract public class Units : MonoBehaviour
 
             if (targetDist > unitStatus.atkRange)
             {
-                animController.SetBool("bWalk", true);
+                //animController.SetBool("bWalk", true);
                 charContoller.Move(targetDir * unitStatus.moveSpd * Time.deltaTime);
             }
             else
             {
-                animController.SetBool("bWalk", false);
+                //animController.SetBool("bWalk", false);
             }
         }
         else 
@@ -293,7 +294,7 @@ abstract public class Units : MonoBehaviour
 
 
 
-        if (targetObj == null )
+        if (targetObj == null)
         {
             if (transform.position.x > 0)
             { targetObj = TowerManager.instance.towerList[Funcs.B2I(!isEnemy), Defines.left]; }
@@ -423,7 +424,7 @@ abstract public class Units : MonoBehaviour
         }
         #endregion
 
-        if (targetObj != null)
+        if (targetObj != null && isLookTarget)
         {
             transform.LookAt(targetObj.transform);
         }

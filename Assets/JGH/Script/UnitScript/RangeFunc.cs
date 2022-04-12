@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,14 +6,45 @@ public class RangeFunc : Units
 {
     public GameObject bulletPrefab;
     //public GameObject muzzle = null;
-    
+
+
+    public void MuzzleToTarget()
+    { 
+        
+
+
+    }
+
 	public override bool Attack(GameObject _target)
 	{
-        //ÇÇ°İÆÇÁ¤Àº Äİ¸®´õ·Î ÇÏ±â
-        if (base.Attack(_target)) //½ÇÁ¦ UnitÂÊ¿¡¼­ °ø°İ ¼º°øÇÏ°í ³ª¼­ ÃÑ¾Ë »ı¼º
+        //í”¼ê²©íŒì •ì€ ì½œë¦¬ë”ë¡œ í•˜ê¸°
+        if (base.Attack(_target)) //ì‹¤ì œ Unitìª½ì—ì„œ ê³µê²© ì„±ê³µí•˜ê³  ë‚˜ì„œ ì´ì•Œ ìƒì„±
         {
-            //¾Ö´Ï¸ŞÀÌ¼Ç ³ÖÀ¸¸é ÃÑ±¸ ¹æÇâ ÀûÂÊÀ¸·Î ¸ÂÃç µ¹¸®´Â°Å
-            //À¯´Ö ÀÚÃ¼µµ µ¹¸®±âµµ ÇÊ¿äÇÒµí 
+            //ì• ë‹ˆë©”ì´ì…˜ ë„£ìœ¼ë©´ ì´êµ¬ ë°©í–¥ ì ìª½ìœ¼ë¡œ ë§ì¶° ëŒë¦¬ëŠ”ê±°
+            //45ë„ ëŒë ¤ì£¼ë©´ ëŒ
+            //ìœ ë‹› ìì²´ë„ ëŒë¦¬ê¸°ë„ í•„ìš”í• ë“¯ 
+
+            //ì¼ë‹¨ ê¸‰í•˜ê²Œ ì´ë ‡ê²Œ ëŒë¦¬ê³ 
+            //ì°¨í›„ ë¨¸ì¦ê³¼ ìºë¦­í„° forward dir ì™¸ì ê°’ êµ¬í•´ì„œ lerpë¡œ ìŠ¤ë¥´ë¥µ
+            
+            if (isLookTarget)
+            {
+                gameObject.transform.Rotate(new Vector3(0f, 45f, 0f));
+            }
+
+            isLookTarget = false;
+
+
+            if (animController.GetCurrentAnimatorStateInfo(0).IsName("Range_Attack_01"))
+            {
+                animController.Play("Range_Attack_01",-1,0f);
+            }
+            else 
+            {
+                animController.SetTrigger("tAttack");
+            }
+            
+            weaponScript.targetObj = _target;
 
             //Vector3     muzzlePos = muzzle.transform.position;
             //Quaternion  weaponRot = weapon.transform.rotation;
@@ -27,6 +58,18 @@ public class RangeFunc : Units
         return false;
 	}
 
+    public void Fire()
+	{
+        if (weapon != null)
+        {
+            weaponScript.Fire();
+        }
+	}
+
+    public void LookState(int lookState)
+    {
+        isLookTarget = Funcs.I2B(lookState);
+    }
     
 
     protected override void Awake()
@@ -42,7 +85,10 @@ public class RangeFunc : Units
     {
         base.Start();
 
-
+        if (weapon != null)
+        {
+            weaponScript.FindMuzzle();         
+        }
       
     }
 

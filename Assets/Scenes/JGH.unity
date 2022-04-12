@@ -1214,6 +1214,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1560954904149011616, guid: ae0211bedb0fb9140b0e588332180b30, type: 3}
+      propertyPath: m_TagString
+      value: MapData
+      objectReference: {fileID: 0}
     - target: {fileID: 3700376182148137509, guid: ae0211bedb0fb9140b0e588332180b30, type: 3}
       propertyPath: m_RootOrder
       value: 4

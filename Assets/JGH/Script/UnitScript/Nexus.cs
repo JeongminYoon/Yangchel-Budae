@@ -4,15 +4,22 @@ using UnityEngine;
 
 public class Nexus : Tower
 {
-	// Start is called before the first frame update
+
+	protected override void Awake()
+	{
+		base.Awake();
+	}
+
 	protected override void Start()
 	{
-		
+		//DeathEventSetting();
 	}
 
 	// Update is called once per frame
 	protected override void Update()
 	{
-        
-    }
+		//base.Update();
+
+		//Death(handlerDeath);
+	}
 }

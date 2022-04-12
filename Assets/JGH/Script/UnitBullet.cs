@@ -16,7 +16,9 @@ public class UnitBullet : MonoBehaviour
     //또한 인자로 Collision형을 받아오는데, 여기서는 상세한 충돌 정보 유
 
     public int dmg;
+    public float bulletSpd = 10f;
 
+    public GameObject targetObj;
     public float aliveTime = 0f;
     
     // Start is called before the first frame update
@@ -36,23 +38,38 @@ public class UnitBullet : MonoBehaviour
             Destroy(this.gameObject);
         }
 
-        transform.position += transform.forward * 5f * Time.deltaTime;
+        transform.position += transform.forward * bulletSpd * Time.deltaTime;
     }
 
 	private void OnTriggerEnter(Collider other)
 	{
-        if (other.tag == "Enemy" || other.tag == "Tower")
-        {//나중에 타워용 총알 따로 만들어서 나눠야함 일단 이렇게
-                //=> 지금 이거 땜시 총알 좀 뒤쪽으로 쏘면 지가 쳐맞고 뒤짐 ㅋㅋ;
-            Debug.Log("ㅇㅇ");
+        //if (other.tag == "Enemy" || other.tag == "Tower")
+        //{//나중에 타워용 총알 따로 만들어서 나눠야함 일단 이렇게
+        //        //=> 지금 이거 땜시 총알 좀 뒤쪽으로 쏘면 지가 쳐맞고 뒤짐 ㅋㅋ;
+        //    Debug.Log("ㅇㅇ");
 
-            Units temp =  other.gameObject.GetComponent<Units>();
+        //    Units temp =  other.gameObject.GetComponent<Units>();
+
+        //    if (temp != null)
+        //    {
+        //        temp.Hit(dmg);
+        //    }
+
+        //    Destroy(this.gameObject);
+        //}
+
+        if (other.gameObject == targetObj)
+        {
+            Units temp = other.gameObject.GetComponent<Units>();
 
             if (temp != null)
             {
                 temp.Hit(dmg);
+                Destroy(this.gameObject);
             }
-
+        }
+        else if(other.gameObject.CompareTag("MapData"))
+        {
             Destroy(this.gameObject);
         }
 	}
