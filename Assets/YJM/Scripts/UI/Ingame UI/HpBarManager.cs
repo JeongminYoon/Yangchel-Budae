@@ -36,12 +36,10 @@ public class HpBarManager : MonoBehaviour
             instance = this;
         }
     }
-    int allUnitList;
     void Start()
     {
         cam = Camera.main;
 
-        allUnitList = 0;
         SearchUnit();
     }
 
