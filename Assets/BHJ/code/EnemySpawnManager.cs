@@ -33,8 +33,8 @@ public class EnemySpawnManager : MonoBehaviour
         #endregion
         rand = Random.Range(0, 6); //랜덤 적 유닛 지정
     }
-
-
+    int randomSpawn;
+    
     // Update is called once per frame
     void Update()
     {
@@ -49,16 +49,165 @@ public class EnemySpawnManager : MonoBehaviour
             EnemyRandom(rand); //적 소환, 현재코스트 - 사용된 유닛 코스트
             rand = Random.Range(0, 6); //랜덤 적 유닛 재지정
             HpBarManager.instance.SearchUnit(); // HpBar생성 (정확히는 맵상 유닛이 뭐있는지 찾는거임)
+
+          
+
+
         }
+
+        //if (Input.GetKeyDown(KeyCode.F1))
+        //{
+
+        //    TowerManager.instance.towerList[1, 0].GetComponent<Units>().unitStatus.curHp = 0;
+
+
+
+
+        //}
+
+
+        //if (Input.GetKeyDown(KeyCode.F2))
+        //{
+
+        //    TowerManager.instance.towerList[1, 1].GetComponent<Units>().unitStatus.curHp = 0;
+
+        //}
+
+        //Destroy(TowerManager.instance.towerList[1, 0]);
+
+        //Destroy(TowerManager.instance.towerList[1, 1]);
+
     }
 
+
+    GameObject leftTower;
+   
+    
 
     public void EnemyRandom(int rand)
     {
-            currentCost -= unitStatus[rand].cost;
-            print(unitStatus[rand].unitName + "이" + new Vector3(0, 0, 0) + "위치에 소환됨");
-            UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, new Vector3(0, 0, 0), true); //여기에 Vector3값도 랜덤한 위치로 정해줄것
-          
+
+     
+
+       
+
+
+        currentCost -= unitStatus[rand].cost;
+        print(unitStatus[rand].unitName + "이" + new Vector3(0, 0, 0) + "위치에 소환됨");
+
+
+
+
+
+
+        if (TowerManager.instance.towerList[1, 0] == null && TowerManager.instance.towerList[1, 1] == null)
+        {
+            //둘다 없을때
+
+
+            UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, new Vector3(0, 0, 10), true);
+
+        }
+
+
+
+
+
+        if (TowerManager.instance.towerList[1, 0]== null && TowerManager.instance.towerList[1, 1] )
+        {
+            //적 왼쪽타워가 없고 오른쪽 타워만 존재할때
+            randomSpawn = Random.Range(0, 2);
+
+
+            if(randomSpawn == 0)
+            {
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, new Vector3(4, 0, 4), true);
+
+
+            }
+            else if(randomSpawn == 1)
+            {
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, new Vector3(0, 0, 10), true);
+
+
+
+            }
+
+        
+        }
+
+        if (TowerManager.instance.towerList[1, 0] && TowerManager.instance.towerList[1, 1] == null)
+        {
+            //적 오른쪽 타워가 없고 왼쪽 타워만 존재할때
+            randomSpawn = Random.Range(0, 2);
+            if(randomSpawn == 0)
+            {
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, new Vector3(-4, 0, 4), true);
+
+
+            }
+            else if (randomSpawn == 1)
+            {
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, new Vector3(0, 0, 10), true);
+            }
+            
+       
+        }
+
+        
+
+
+
+
+        if (TowerManager.instance.towerList[1, 0] && TowerManager.instance.towerList[1, 1])
+        {
+            //적 양쪽 타워가 다 존재할때
+            randomSpawn = Random.Range(0, 3);
+
+
+            if (randomSpawn == 0)
+            {
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, new Vector3(-4, 0, 4), true);
+
+            }
+            else if (randomSpawn == 1)
+            {
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, new Vector3(4, 0, 4), true);
+            }
+            else if (randomSpawn == 2)
+            {
+
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, new Vector3(0, 0, 10), true);
+
+
+
+
+            }
+
+        }
+
+
+
+
+
+
+
     }
 
-}
+
+
+        
+        
+
+    }
+    
+         
+          
+    
+
+

@@ -5,8 +5,8 @@ using UnityEngine;
 public class EnemyUintCall : MonoBehaviour
 {
     // Start is called before the first frame update
-    private float timeLeft = 10.0f;
-    private float nextTime = 0.0f;
+    //private float timeLeft = 10.0f;
+    //private float nextTime = 0.0f;
    
 
     void Start()
