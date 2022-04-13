@@ -6,10 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Personal_Folder/YJM/YJM.unity
-    guid: d8c7341f3d8e1a149827fb133330a76f
+    path: Assets/Personal_Folder/JGH/Scene1.unity
+    guid: e58fa8602eee90c4d98ef3fa1d937805
   - enabled: 1
-    path: Assets/Personal_Folder/YJM/Scene/JYM_MainScene.unity
-    guid: 67c563edc83074446b1fba94f7af8872
+    path: Assets/Personal_Folder/JGH/Scene2.unity
+    guid: 7e3347f496ad36643b6e1fd22a80f595
+  - enabled: 1
+    path: Assets/Personal_Folder/JGH/Scene3.unity
+    guid: 7245934e7cf54f241a6d42ece43d463a
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: fb192b551d4cfdf4cbaaa89ebb2d54f0, type: 2}
