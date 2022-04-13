@@ -10,7 +10,6 @@ public class CardManager : MonoBehaviour
 
     public DeckContainer deckContainer;
 
-    public List<UnitStatus> allUnitStatus = new List<UnitStatus>();
     public List<UnitStatus> unitStatusList = new List<UnitStatus>();
 
     List<GameObject> AllCard = new List<GameObject>();
@@ -33,7 +32,6 @@ public class CardManager : MonoBehaviour
 
     void Start()
     {
-        unitStatusList = allUnitStatus;
         for (int i = 0; i < unitStatusList.Count; i++) // 유닛리스트만큼 카드를 추가해주고 정렬함
         {
             AllCard.Add(Instantiate(cardPrefab, uiCanvas.transform));
@@ -46,18 +44,6 @@ public class CardManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))   //Save(게임매니저에 선택한 카드값을 넘겨줌. 씬 나갈때 실행시킬것)
-        {
-                GameManager.MyHandsList.Clear();
-            for (int i = 0; i < myCard.Length; i++)
-            {
-                if (myCard[i] != null)
-                {
-                    GameManager.MyHandsList.Add(myCard[i].GetComponent<CardPrefab>().status);
-                }
-            }
-            SceneManager.LoadScene(0);
-        }
 
         for (int i = 0; i < AllCard.Count; i++)
         {
@@ -138,7 +124,19 @@ public class CardManager : MonoBehaviour
         return result;
     }
 
+    public void GoToInGameScene()
+    {
+        GameManager.MyHandsList.Clear();
+        for (int i = 0; i < myCard.Length; i++)
+        {
+            if (myCard[i] != null)
+            {
+                GameManager.MyHandsList.Add(myCard[i].GetComponent<CardPrefab>().status);
+            }
+        }
 
+        GameManager.instance.SceneChange(Enums.SceneNum.InGame);
+    }
 
 
     //unitStatusList = allUnitStatus;
