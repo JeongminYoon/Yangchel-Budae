@@ -11,7 +11,9 @@ public class SkillManager : MonoBehaviour
     public GameObject skill1Prefab;
     public GameObject skill2Prefab;
 
+    [HideInInspector]
     public GameObject skill1;
+    [HideInInspector]
     public GameObject skill2;
 
 

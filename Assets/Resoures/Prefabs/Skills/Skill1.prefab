@@ -44,5 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillStatus_Origin: {fileID: 11400000, guid: 03b3850059f339b4f88fb0513a7b04e2, type: 2}
-  airplanPrefab: {fileID: 4713173174459150756, guid: f6a10c0f3acb4314ba9ffe556930d1cf, type: 3}
-  skillManager: {fileID: 0}
+  airplanPrefab: {fileID: 1895020966332892, guid: e103a93a5acd2c14ebfb4eef009ebdc9, type: 3}

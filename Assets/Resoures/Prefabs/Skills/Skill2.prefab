@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillStatus_Origin: {fileID: 11400000, guid: 7af5104389cc25f4f93832f8ace39e83, type: 2}
-  towerPrefab: {fileID: 379233259289261239, guid: 94ddedd0ebe2d0d49845a0fcc5197923, type: 3}
-  skillManager: {fileID: 0}
+  towerPrefab: {fileID: 1337826535127648, guid: 0db1e4f91e814cd4981dcebea9343a63, type: 3}
+  tower: {fileID: 0}
