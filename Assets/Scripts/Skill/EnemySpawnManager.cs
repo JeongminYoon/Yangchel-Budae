@@ -8,7 +8,6 @@ public class EnemySpawnManager : MonoBehaviour
     /// <singletone>
     static public EnemySpawnManager instance = null;
     /// <singletone>
-    /// 
 
     private void Awake()
     {
@@ -53,7 +52,6 @@ public class EnemySpawnManager : MonoBehaviour
         {
             EnemyRandom(rand); //적 소환, 현재코스트 - 사용된 유닛 코스트
             rand = Random.Range(0, 6); //랜덤 적 유닛 재지정
-            HpBarManager.instance.SearchUnit(); // HpBar생성 (정확히는 맵상 유닛이 뭐있는지 찾는거임)
         }
 
         //if (Input.GetKeyDown(KeyCode.F1))
