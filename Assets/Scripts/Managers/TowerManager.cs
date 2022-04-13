@@ -19,9 +19,6 @@ public class TowerManager : MonoBehaviour
                                                               //팀 : 0 아군 / 1 적군
                                                               //위치 : 0 Left / 1 Right
     
-    //public Mesh towerMesh;
-    //public Mesh nexusMesh;
-
     public Material enemyTowerMat;
     public Material enemyNexusMat;
 

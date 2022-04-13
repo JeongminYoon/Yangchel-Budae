@@ -20,6 +20,7 @@ public class HpBarManager : MonoBehaviour
     //ㅅㅂ 레퍼런스 없이 만드니까 힘들다. 유튭 강좌 봐야하나
 
     static public HpBarManager instance = null;
+    public GameObject canvas;
 
     [SerializeField] GameObject hpBarPrefab;
 
@@ -47,6 +48,7 @@ public class HpBarManager : MonoBehaviour
     void Update()
     {
         HpBarWork();
+       
         if (Input.GetMouseButtonDown(1)) // 리프레쉬 < 이걸 유닛 소환됬을때, 파괴됬을떄 리프레쉬 되게 바꾸면 됨
         {
             SearchUnit(null);
@@ -56,17 +58,17 @@ public class HpBarManager : MonoBehaviour
     public void SearchUnit(GameObject obj =null)
     {
         ClearhpBarList();
-        List<GameObject> fieldUnit = UnitManager.instance.unitList[(int)Enums.Team.ally];
-        AddUnitList(fieldUnit, (int)Enums.Team.ally);
-        List<GameObject> enemyfieldUnit = UnitManager.instance.unitList[(int)Enums.Team.enemy];
-        AddUnitList(enemyfieldUnit, (int)Enums.Team.enemy);
+        //List<GameObject> fieldUnit = UnitManager.instance.unitList[(int)Enums.Team.ally];
+        AddUnitList(/*UnitManager.instance.unitList[(int)Enums.Team.ally],*/ (int)Enums.Team.ally);
+        //List<GameObject> enemyfieldUnit = UnitManager.instance.unitList[(int)Enums.Team.enemy];
+        AddUnitList(/*enemyfieldUnit, */(int)Enums.Team.enemy);
         AddTowerList(unitList);
 
         for (int i = 0; i < unitList.Count; i++)
         {
             if (unitList[i] != null)
             {
-                GameObject hpBar = Instantiate(hpBarPrefab, unitList[i].transform.position, Quaternion.identity, transform);
+                GameObject hpBar = Instantiate(hpBarPrefab, unitList[i].transform.position, Quaternion.identity, canvas.transform);
                 hpBarList.Add(hpBar);
             }
         }
@@ -82,9 +84,10 @@ public class HpBarManager : MonoBehaviour
         hpBarList.Clear();
     }
 
-    void AddUnitList(List<GameObject> unit, int team)
+    void AddUnitList(/*List<GameObject> unit, */int team)
     {
-        unit = UnitManager.instance.unitList[team];
+        List<GameObject>  unit = UnitManager.instance.unitList[team];
+
         for (int i = 0; i < unit.Count; i++)
         {
             unitList.Add(unit[i]);

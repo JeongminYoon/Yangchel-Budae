@@ -5,13 +5,42 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-
-
     /// <singletone>
     static public GameManager instance = null;
     /// <singletone>
 
     static public List<UnitStatus> MyHandsList = new List<UnitStatus>();
+
+    static GameObject Card2;
+
+    public enum Scenes
+    { 
+        MainMenu = 0,
+        CardSelect,
+        InGame,
+        GameResult
+    }
+
+    public Scenes curScene;
+    public Scenes nextScene;
+
+    public void InGameSceneSetting()
+    { 
+        //-> ¸Ê ±ò±â
+        //-> Å¸¿ö±ò±â
+        //-> À¯´Ö ¸Å´ÏÀú ¼¼ÆÃ
+        //-> ´Ù¸¥ ¸Å´ÏÀú ¼¼ÆÃ
+        //-> hp bar manager ¼¼ÆÃ
+    }
+
+    public void SceneChange(int sceneNum)
+    {
+
+        //¾ÀÀÌ ¹Ù²î´ÂÄÚµå
+        curScene = (Scenes)sceneNum;
+        
+    }
+     
 
     private void Awake()
     {
@@ -19,13 +48,45 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
+
         DontDestroyOnLoad(gameObject);
     }
 
 
     void Start()
     {
-        
+
+        switch (curScene)
+        {
+            case Scenes.MainMenu:
+                { 
+                    
+                }
+                break;
+            case Scenes.CardSelect:
+                {
+                    
+                }
+                break;
+            case Scenes.InGame:
+                {
+                    InGameSceneSetting();
+                }
+                break;
+            case Scenes.GameResult:
+                { 
+                
+                }
+                break;
+            default:
+                break;
+        }
+
+        //if (curScene == Scenes.InGame)
+        //{
+        //    InGameSceneSetting();
+        //}
+
     }
 
     // Update is called once per frame
