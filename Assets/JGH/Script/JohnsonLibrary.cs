@@ -124,13 +124,13 @@ public static class Defines
 
 	#region towerPos
 	public static Vector3 enemyTower_Rot = new Vector3(0f, 180f, 0f);
-	public static Vector3 enemyTower_RightPos = new Vector3(4.5f, 0f, 8);
-	public static Vector3 enemyTower_LeftPos = new Vector3(-4.5f, 0f, 8);
-	public static Vector3 enemyNexusPos = new Vector3(0, 0f, 13.67f);
+	public static Vector3 enemyTower_RightPos = new Vector3(5f, 0f, 11.5f);
+	public static Vector3 enemyTower_LeftPos = new Vector3(-5f, 0f,	11.5f);
+	public static Vector3 enemyNexusPos = new Vector3(0, 0f, 17f);
 
-	public static Vector3 allyTower_RightPos = new Vector3(4.5f, 0f, -8);
-	public static Vector3 allyTower_LeftPos = new Vector3(-4.5f, 0f, -8);
-	public static Vector3 allyNexusPos = new Vector3(0, 0f, -13.67f);
+	public static Vector3 allyTower_RightPos = new Vector3(5f, 0f, -11.5f);
+	public static Vector3 allyTower_LeftPos = new Vector3(-5f, 0f, -11.5f);
+	public static Vector3 allyNexusPos = new Vector3(0, 0f, -17f);
 
 	public static Vector3[,] towersPos = { { allyTower_LeftPos ,
 												allyTower_RightPos,

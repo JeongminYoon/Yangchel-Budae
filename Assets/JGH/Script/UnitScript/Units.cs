@@ -326,6 +326,8 @@ abstract public class Units : MonoBehaviour
         float temp = unitStatus.curHp;
         unitStatus.curHp -= _dmg;
         Debug.Log(_dmg + "의 데미지를 받아\n" + temp + "에서" + unitStatus.curHp + "가 되었습니다");
+
+        DamageUIManager.instance.PlayHpEffect(_dmg, this.gameObject.transform.position + new Vector3(0f, 3.2f, 0f));
     }
 
     public void ScriptableObj_DeepCopy()
@@ -339,6 +341,7 @@ abstract public class Units : MonoBehaviour
     {
         handlerDeath = new HandlerDeath(UnitManager.instance.RemoveDeadUnit);
         handlerDeath += UnitManager.instance.ResearchTarget_AllUnit;
+        handlerDeath += HpBarManager.instance.SearchUnit;
     }
 
     public void ColliderSetting()

@@ -15,7 +15,8 @@ public class HpBarManager : MonoBehaviour
     //1.unitList[i].isDead를 값을 받을수 없음. 이미 죽은 오브젝트를 참조하기 떄문. isDead값을 이 스크립트가 받는것보다 유닛이 사라지는게 더 빠른거같음.
     //ㄴ 다른방법으로는 업데이트마다 unitList숫자를 체크해줘야하는데 클래스에서 유닛리스트를 받아온다는점에서 최적화가 골로가버릴것 같은 느낌이 들어서 못하겠음.
     //ㄴㄴ 04-11 isDead값을 참조하지많고 직접 유닛 게임오브젝트의 체력값을 받아와서 서순 해결함.
-    //2.유닛이 죽을때마다 모든 리스트를 초기화해준다. 즉 모든 hp바를 제거했다가 다시 만들기 떄문에 깜빡임이 발생함. 이건 죽은유닛을 인식해서 (unitList의 null값 불러오기) hpBarList만 초기화 하지 말고 갯수맞춰 관리해야하는데 어렵다.. 공부 더해야함
+    //2.유닛이 죽을때마다 모든 리스트를 초기화해준다. 즉 모든 hp바를 제거했다가 다시 만들기 떄문에 깜빡임이 발생함.
+          //이건 죽은유닛을 인식해서 (unitList의 null값 불러오기) hpBarList만 초기화 하지 말고 갯수맞춰 관리해야하는데 어렵다.. 공부 더해야함
     //ㅅㅂ 레퍼런스 없이 만드니까 힘들다. 유튭 강좌 봐야하나
 
     static public HpBarManager instance = null;
@@ -40,7 +41,7 @@ public class HpBarManager : MonoBehaviour
     {
         cam = Camera.main;
 
-        SearchUnit();
+        SearchUnit(null);
     }
 
     void Update()
@@ -48,11 +49,11 @@ public class HpBarManager : MonoBehaviour
         HpBarWork();
         if (Input.GetMouseButtonDown(1)) // 리프레쉬 < 이걸 유닛 소환됬을때, 파괴됬을떄 리프레쉬 되게 바꾸면 됨
         {
-            SearchUnit();
+            SearchUnit(null);
         }
     }
 
-    public void SearchUnit()
+    public void SearchUnit(GameObject obj =null)
     {
         ClearhpBarList();
         List<GameObject> fieldUnit = UnitManager.instance.unitList[(int)Enums.Team.ally];
@@ -97,6 +98,8 @@ public class HpBarManager : MonoBehaviour
         a.Add(TowerManager.instance.towerList[(int)Enums.Team.enemy, 1]);
         a.Add(TowerManager.instance.nexusList[(int)Enums.Team.ally]);
         a.Add(TowerManager.instance.nexusList[(int)Enums.Team.enemy]);
+
+        a.Remove(null);
     }
     void HpBarWork()
     {
@@ -112,14 +115,17 @@ public class HpBarManager : MonoBehaviour
                 {
                     UnitStatus status = unitList[i].GetComponent<Units>().unitStatus;
                     status = unitList[i].GetComponent<Units>().unitStatus;
-                        hpBarList[i].transform.position = cam.WorldToScreenPoint(unitList[i].transform.position + new Vector3(0f, 3.2f, 0f));
-                        hpBarList[i].GetComponent<Image>().fillAmount = status.curHp / status.fullHp;
-                        hpText = hpBarList[i].gameObject.transform.Find("HpText").gameObject.GetComponent<Text>();
-                        hpText.text = (status.curHp + "/" + status.fullHp).ToString();
-                if (status.curHp <= 0)
-                {
-                    SearchUnit();
-                }
+                    
+                    hpBarList[i].transform.position = cam.WorldToScreenPoint(unitList[i].transform.position + new Vector3(0f, 3.2f, 0f));
+                    hpBarList[i].GetComponent<Image>().fillAmount = status.curHp / status.fullHp;
+                  
+                    hpText = hpBarList[i].gameObject.transform.Find("HpText").gameObject.GetComponent<Text>();
+                    hpText.text = (status.curHp + "/" + status.fullHp).ToString();
+
+                       if (status.curHp <= 0)
+                       {
+                          SearchUnit(null);
+                       }
 
                 }
             //}
