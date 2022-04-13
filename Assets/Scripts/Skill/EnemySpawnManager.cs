@@ -8,7 +8,6 @@ public class EnemySpawnManager : MonoBehaviour
     /// <singletone>
     static public EnemySpawnManager instance = null;
     /// <singletone>
-    /// 
 
     private void Awake()
     {
@@ -53,7 +52,6 @@ public class EnemySpawnManager : MonoBehaviour
         {
             EnemyRandom(rand); //적 소환, 현재코스트 - 사용된 유닛 코스트
             rand = Random.Range(0, 6); //랜덤 적 유닛 재지정
-            HpBarManager.instance.SearchUnit(); // HpBar생성 (정확히는 맵상 유닛이 뭐있는지 찾는거임)
         }
 
         //if (Input.GetKeyDown(KeyCode.F1))
@@ -81,16 +79,23 @@ public class EnemySpawnManager : MonoBehaviour
     }
 
 
-    GameObject leftTower;
-   
+    Vector3 leftTowerPos;
+    Vector3 rightTowerPos;
+    Vector3 nexusTowerPos;
     
 
     public void EnemyRandom(int rand)
     {
+        // 적 타워 밑 넥서스 포지션 받아옴
 
-     
 
-       
+        leftTowerPos = Defines.enemyTower_LeftPos +new Vector3(0, 0, -4);
+
+        rightTowerPos = Defines.enemyTower_RightPos + new Vector3(0, 0, -4);
+
+        nexusTowerPos = Defines.enemyNexusPos + new Vector3(0, 0, -4);
+
+        
 
 
         currentCost -= unitStatus[rand].cost;
@@ -106,7 +111,7 @@ public class EnemySpawnManager : MonoBehaviour
             //둘다 없을때
 
 
-            UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, new Vector3(0, 0, 10), true);
+            UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand,nexusTowerPos , true);
 
         }
 
@@ -122,14 +127,14 @@ public class EnemySpawnManager : MonoBehaviour
 
             if(randomSpawn == 0)
             {
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, new Vector3(4, 0, 4), true);
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos , true);
 
 
             }
             else if(randomSpawn == 1)
             {
 
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, new Vector3(0, 0, 10), true);
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
 
 
 
@@ -144,14 +149,14 @@ public class EnemySpawnManager : MonoBehaviour
             randomSpawn = Random.Range(0, 2);
             if(randomSpawn == 0)
             {
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, new Vector3(-4, 0, 4), true);
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
 
 
             }
             else if (randomSpawn == 1)
             {
 
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, new Vector3(0, 0, 10), true);
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand,nexusTowerPos, true);
             }
             
        
@@ -171,19 +176,19 @@ public class EnemySpawnManager : MonoBehaviour
             if (randomSpawn == 0)
             {
 
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, new Vector3(-4, 0, 4), true);
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand,leftTowerPos, true);
 
             }
             else if (randomSpawn == 1)
             {
 
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, new Vector3(4, 0, 4), true);
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
             }
             else if (randomSpawn == 2)
             {
 
 
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, new Vector3(0, 0, 10), true);
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
 
 
 

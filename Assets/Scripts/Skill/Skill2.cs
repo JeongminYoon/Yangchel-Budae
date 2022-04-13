@@ -14,13 +14,16 @@ public class Skill2 : MonoBehaviour
     float currentTime = 0.0f;
 
 
-    
+
+    Vector3 allyNexusPos;
 
 
     void Start()
-    {//
+    {
+        allyNexusPos = Defines.allyNexusPos + new Vector3(0, 0, +2);
 
-        Vector3 towerPos = new Vector3(0.0f, 1.0f, -7.0f);
+
+        Vector3 towerPos = allyNexusPos;
 
 
         skillStatus = ScriptableObject.CreateInstance<UnitStatus>();

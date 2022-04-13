@@ -341,7 +341,6 @@ abstract public class Units : MonoBehaviour
     {
         handlerDeath = new HandlerDeath(UnitManager.instance.RemoveDeadUnit);
         handlerDeath += UnitManager.instance.ResearchTarget_AllUnit;
-        handlerDeath += HpBarManager.instance.SearchUnit;
     }
 
     public void ColliderSetting()
