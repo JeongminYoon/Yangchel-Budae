@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Personal_Folder/JGH/Scene1.unity
-    guid: e58fa8602eee90c4d98ef3fa1d937805
+    path: Assets/Scenes/MainMenu.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Personal_Folder/JGH/Scene2.unity
-    guid: 7e3347f496ad36643b6e1fd22a80f595
+    path: Assets/Scenes/CardSelect.unity
+    guid: cbc0697d6f9d5fb40b80f44d96eebad8
   - enabled: 1
-    path: Assets/Personal_Folder/JGH/Scene3.unity
-    guid: 7245934e7cf54f241a6d42ece43d463a
+    path: Assets/Scenes/InGame.unity
+    guid: 748baecb69410e44db0412f32efcf61a
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: fb192b551d4cfdf4cbaaa89ebb2d54f0, type: 2}

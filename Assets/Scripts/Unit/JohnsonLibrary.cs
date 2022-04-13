@@ -142,7 +142,15 @@ public static class Defines
 }
 
 namespace Enums
-{ 
+{
+	public enum SceneNum
+	{ 
+		MainMenu,
+		CardSelect,
+		InGame,
+		Result,
+		SceneEnd
+	}
 	public enum UnitClass
 	{
 		melee1, //0

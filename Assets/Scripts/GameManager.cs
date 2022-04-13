@@ -1,46 +1,74 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Enums;
 
 public class GameManager : MonoBehaviour
 {
+    //GameManager ê²¸ SceneManager
+
+
     /// <singletone>
     static public GameManager instance = null;
     /// <singletone>
 
+
+
     static public List<UnitStatus> MyHandsList = new List<UnitStatus>();
+    //For Selected Cards, from CardSelectScene To InGame
+    
 
     static GameObject Card2;
 
-    public enum Scenes
-    { 
-        MainMenu = 0,
-        CardSelect,
-        InGame,
-        GameResult
-    }
 
-    public Scenes curScene;
-    public Scenes nextScene;
+    public SceneNum curScene = SceneNum.SceneEnd;
+    public SceneNum pastScene = SceneNum.SceneEnd;
+    public SceneNum nextScene = SceneNum.SceneEnd;
+
 
     public void InGameSceneSetting()
     { 
-        //-> ¸Ê ±ò±â
-        //-> Å¸¿ö±ò±â
-        //-> À¯´Ö ¸Å´ÏÀú ¼¼ÆÃ
-        //-> ´Ù¸¥ ¸Å´ÏÀú ¼¼ÆÃ
-        //-> hp bar manager ¼¼ÆÃ
+        //-> ë§µ ê¹”ê¸°
+        //-> íƒ€ì›Œê¹”ê¸°
+        //-> ìœ ë‹› ë§¤ë‹ˆì € ì„¸íŒ…
+        //-> ë‹¤ë¥¸ ë§¤ë‹ˆì € ì„¸íŒ…
+        //-> hp bar manager ì„¸íŒ…
     }
 
-    public void SceneChange(int sceneNum)
+    public void SceneChange(SceneNum sceneNum)
     {
+        //Debug.Log(sceneNum + "ìœ¼ë¡œ ì‹  ë°”ê¾¸ë¼ëŠ” ëª…ë ¹");
+        nextScene = sceneNum;
 
-        //¾ÀÀÌ ¹Ù²î´ÂÄÚµå
-        curScene = (Scenes)sceneNum;
-        
+        if (curScene != nextScene && nextScene != SceneNum.SceneEnd)
+        {
+            pastScene = curScene;
+            curScene = sceneNum;
+            nextScene = SceneNum.SceneEnd;
+           //Debug.Log(sceneNum + "ìœ¼ë¡œ ì‹  ë°”ê¾¸ê¸° ì„±ê³µ");
+            SceneManager.LoadScene((int)sceneNum);
+        }
+        else
+        {
+            //Debug.Log(sceneNum + "ìœ¼ë¡œ ì‹  ë°”ê¾¸ê¸° ì‹¤íŒ¨");
+            return;
+        }
     }
-     
+
+    public void GameStart()
+    {
+        SceneChange(SceneNum.CardSelect);
+    }
+
+    public void GameQuit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit(); //ê²œ í”„ë¡œê·¸ë¨ ì‹œë§ˆì´
+#endif
+    }
 
     private void Awake()
     {
@@ -48,51 +76,20 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
-
         DontDestroyOnLoad(gameObject);
+        curScene = (SceneNum)SceneManager.GetActiveScene().buildIndex;
     }
-
 
     void Start()
     {
-
-        switch (curScene)
-        {
-            case Scenes.MainMenu:
-                { 
-                    
-                }
-                break;
-            case Scenes.CardSelect:
-                {
-                    
-                }
-                break;
-            case Scenes.InGame:
-                {
-                    InGameSceneSetting();
-                }
-                break;
-            case Scenes.GameResult:
-                { 
-                
-                }
-                break;
-            default:
-                break;
-        }
-
-        //if (curScene == Scenes.InGame)
-        //{
-        //    InGameSceneSetting();
-        //}
+               
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))   //Save(¾À Å»ÃâÇÒ¶§ ¿©±â ³»¿ë¹° ½ÇÇà½ÃÅ³°Í)
+        if (Input.GetMouseButtonDown(1))   //Save(ì”¬ íƒˆì¶œí• ë•Œ ì—¬ê¸° ë‚´ìš©ë¬¼ ì‹¤í–‰ì‹œí‚¬ê²ƒ)
         {
             print(MyHandsList.Count);
         }
