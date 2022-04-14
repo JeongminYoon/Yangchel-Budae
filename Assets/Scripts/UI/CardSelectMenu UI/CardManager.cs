@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class CardManager : MonoBehaviour
 {
     /// <singletone>
@@ -14,13 +15,14 @@ public class CardManager : MonoBehaviour
 
     List<GameObject> AllCard = new List<GameObject>();
     int AllCardLengh;
-    public GameObject[] myCard = new GameObject[8];
+    public GameObject[] myCard = new GameObject[6];
 
     public GameObject cardPrefab;
     public GameObject allCardPos;
     public GameObject myCardPos;
 
     public GameObject uiCanvas;
+    public GameObject costText;
 
     private void Awake()
     {
@@ -37,14 +39,14 @@ public class CardManager : MonoBehaviour
             AllCard.Add(Instantiate(cardPrefab, uiCanvas.transform));
             AllCard[i].GetComponent<CardPrefab>().status = ScriptableObject.CreateInstance<UnitStatus>();
             AllCard[i].GetComponent<CardPrefab>().status.DeepCopy(unitStatusList[i]);
-            SortCard(AllCard[i], allCardPos, i);
+            SortCard(AllCard[i], allCardPos, i, 4);
         }
         AllCardLengh = AllCard.Count;
+        SetCostText();
     }
 
     void Update()
     {
-
         for (int i = 0; i < AllCard.Count; i++)
         {
             if (AllCard[i] != null)
@@ -52,7 +54,11 @@ public class CardManager : MonoBehaviour
                 if (AllCard[i].GetComponent<CardPrefab>().isSelect == true)
                 {
                     AllCard[i].GetComponent<CardPrefab>().isSelect = false;
-                    AllCardToMyCard(i);
+                    if (AllCard.Count > (unitStatusList.Count - myCard.Length))
+                    { 
+                        AllCardToMyCard(i);
+                        SetCostText();
+                    }
                 }
             }
         }
@@ -65,6 +71,7 @@ public class CardManager : MonoBehaviour
                     print("선택카드 : " + myCard[i].GetComponent<CardPrefab>().unitName.text);
                     myCard[i].GetComponent<CardPrefab>().isSelect = false;
                     MyCardToAllCard(i);
+                    SetCostText();
                 }
             }
         }
@@ -80,7 +87,7 @@ public class CardManager : MonoBehaviour
                 if (swt == false)
                 {
                     myCard[i] = AllCard[clickedCardNum]; // myCard[?]위치가 null인지 스캔해서 빈 위치에 선택한 AllCard 카드를 넣어줌
-                    SortCard(myCard[i], myCardPos, i);
+                    SortCard(myCard[i], myCardPos, i, 3);
                     swt = true;
                 }
             }
@@ -89,7 +96,7 @@ public class CardManager : MonoBehaviour
         AllCard.RemoveAt(clickedCardNum); //선택한 AllCard[?]를 지워줌
         for (int i = 0; i < AllCard.Count; i++)
         {
-            SortCard(AllCard[i], allCardPos, i);
+            SortCard(AllCard[i], allCardPos, i, 4);
         }
     }
 
@@ -97,30 +104,40 @@ public class CardManager : MonoBehaviour
     {
         AllCard.Add(myCard[clickedCardNum]);
         myCard[clickedCardNum] = null;
-        SortCard(AllCard[AllCard.Count - 1], allCardPos, AllCard.Count - 1);
+        SortCard(AllCard[AllCard.Count - 1], allCardPos, AllCard.Count - 1, 4);
     }
 
 
-    void SortCard(GameObject gameObject, GameObject deckPos ,int cardNum) //UI라서 RectTransform 값으로 위치를 잡아줌. 한줄당 4카드로 정렬시키기
+    void SortCard(GameObject gameObject, GameObject deckPos ,int cardNum, int cardW) //UI라서 RectTransform 값으로 위치를 잡아줌. 한줄당 4카드로 정렬시키기
     {
         RectTransform cardRt = gameObject.GetComponent<RectTransform>();
-        cardRt.anchoredPosition = SortCardVec(deckPos, cardNum);
+        cardRt.anchoredPosition = SortCardVec(deckPos, cardNum, cardW);
     }
 
-    Vector2 SortCardVec(GameObject Pos, int i)
+    Vector2 SortCardVec(GameObject Pos, int cardNum, int cardW)
     {
-        int num = i + 1;
+        int num = cardNum + 1;
         int w = 0;
-        int h = Mathf.Abs(i / 4);
-        if (num > 4)
+        int cardWsize;
+        if (cardW == 4)
         {
-            w = num - 4 * h;
+            cardWsize = 260;
+        }
+        else
+        {
+            cardWsize = 350;
+        }
+
+        int h = Mathf.Abs(cardNum / cardW);
+        if (num > cardW)
+        {
+            w = num - cardW * h;
         }
         else
         {
             w = num;
         }
-        Vector2 result = Pos.GetComponent<RectTransform>().anchoredPosition + new Vector2(w * 260 - 260, 0 - h * 390);
+        Vector2 result = Pos.GetComponent<RectTransform>().anchoredPosition + new Vector2(w * cardWsize - cardWsize, 0 - h * 330);
         return result;
     }
 
@@ -138,6 +155,20 @@ public class CardManager : MonoBehaviour
         GameManager.instance.SceneChange(Enums.SceneNum.InGame);
     }
 
+    void SetCostText()
+    {
+        int totalCost = 0;
+        for (int i = 0; i < myCard.Length; i++)
+        {
+            if (myCard[i] != null)
+            {
+                totalCost += myCard[i].GetComponent<CardPrefab>().status.cost;
+                print(myCard[i].GetComponent<CardPrefab>().status.cost);
+            }
+        }
+        Text text = costText.GetComponent<Text>();
+        text.text = ":" + totalCost.ToString();
+    }
 
     //unitStatusList = allUnitStatus;
     //    myCard = new GameObject[unitStatusList.Count];
