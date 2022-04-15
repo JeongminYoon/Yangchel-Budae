@@ -5,24 +5,10 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class CardManager : MonoBehaviour
 {
+    #region singletone
     /// <singletone>
     static public CardManager instance = null;
     /// <singletone>
-
-    public DeckContainer deckContainer;
-
-    public List<UnitStatus> unitStatusList = new List<UnitStatus>();
-
-    List<GameObject> AllCard = new List<GameObject>();
-    int AllCardLengh;
-    public GameObject[] myCard = new GameObject[6];
-
-    public GameObject cardPrefab;
-    public GameObject allCardPos;
-    public GameObject myCardPos;
-
-    public GameObject uiCanvas;
-    public GameObject costText;
 
     private void Awake()
     {
@@ -31,6 +17,21 @@ public class CardManager : MonoBehaviour
             instance = this;
         }
     }
+    #endregion
+    public DeckContainer deckContainer;
+
+    public List<UnitStatus> unitStatusList = new List<UnitStatus>();
+
+    List<GameObject> AllCard = new List<GameObject>();
+    public GameObject[] myCard = new GameObject[6];
+
+    public GameObject cardPrefab;
+    public GameObject allCardPos;
+    public GameObject myCardPos;
+
+    public GameObject uiCanvas;
+    public GameObject costText;
+    public GameObject infoText;
 
     void Start()
     {
@@ -41,8 +42,8 @@ public class CardManager : MonoBehaviour
             AllCard[i].GetComponent<CardPrefab>().status.DeepCopy(unitStatusList[i]);
             SortCard(AllCard[i], allCardPos, i, 4);
         }
-        AllCardLengh = AllCard.Count;
         SetCostText();
+        SetInfoMessage();
     }
 
     void Update()
@@ -58,6 +59,7 @@ public class CardManager : MonoBehaviour
                     { 
                         AllCardToMyCard(i);
                         SetCostText();
+                        SetInfoMessage(); 
                     }
                 }
             }
@@ -72,6 +74,7 @@ public class CardManager : MonoBehaviour
                     myCard[i].GetComponent<CardPrefab>().isSelect = false;
                     MyCardToAllCard(i);
                     SetCostText();
+                    SetInfoMessage();
                 }
             }
         }
@@ -143,16 +146,19 @@ public class CardManager : MonoBehaviour
 
     public void GoToInGameScene()
     {
-        GameManager.MyHandsList.Clear();
-        for (int i = 0; i < myCard.Length; i++)
+        if (isReady == true)
         {
-            if (myCard[i] != null)
+            GameManager.MyHandsList.Clear();
+            for (int i = 0; i < myCard.Length; i++)
             {
-                GameManager.MyHandsList.Add(myCard[i].GetComponent<CardPrefab>().status);
+                if (myCard[i] != null)
+                {
+                    GameManager.MyHandsList.Add(myCard[i].GetComponent<CardPrefab>().status);
+                }
             }
-        }
 
-        GameManager.instance.SceneChange(Enums.SceneNum.InGame);
+            GameManager.instance.SceneChange(Enums.SceneNum.InGame);
+        }
     }
 
     void SetCostText()
@@ -168,6 +174,34 @@ public class CardManager : MonoBehaviour
         }
         Text text = costText.GetComponent<Text>();
         text.text = ":" + totalCost.ToString();
+    }
+
+    public bool isReady = false;
+    void SetInfoMessage()
+    {
+        int cardNum = 0;
+        {
+            for (int i = 0; i < myCard.Length; i++)
+            {
+                if (myCard[i] != null)
+                {
+                    cardNum += 1;
+                }
+            }
+        }
+        Text text = infoText.GetComponent<Text>();
+        if (cardNum < 4)
+        {
+            text.text = "<color=#930500>" + "최소 " + (4 - cardNum).ToString() + "명이 더 필요합니다" + "</color>";
+            Button.instance.ChangeButtonColor(0);
+            isReady = false;
+        }
+        else
+        {
+            text.text = "<color=#009304>" + "출동준비 완료!" + "</color>";
+            Button.instance.ChangeButtonColor(1);
+            isReady = true;
+        }    
     }
 
     //unitStatusList = allUnitStatus;
