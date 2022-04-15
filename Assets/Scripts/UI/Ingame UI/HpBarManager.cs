@@ -9,10 +9,12 @@ public class HpBarManager : MonoBehaviour
     public GameObject hpBarPrefab;
     public GameObject canvas;
 
+    #region debug Value
     GameObject debugUnit;
-    float debugCurHp = 100;
-    int debugFulHp = 100;
+    float debugCurHp = 100f;
+    float debugFulHp = 100f;
     Vector3 debugPos;
+    #endregion
 
     private void Awake()
     {
@@ -24,14 +26,32 @@ public class HpBarManager : MonoBehaviour
 
     void Start()
     {
-        debugUnit = HpBarInstrate();
+        //debugUnit = HpBarInstrate(); // 디버그 소환용도
     }
-
+    float time = 0f;
     void Update()
     {
-        debugCurHp -= Time.deltaTime;
-        debugPos = new Vector3(Random.Range(0, 3), 0f, 0f);
-        debugUnit.GetComponent<HpBar>().HpBarSetting((int)debugCurHp, debugFulHp, debugPos);
+        //DebugHpBarSet();     // 디버그용도. 실제 사용시 HpBarSetting(CurHp, FulHp, UnitPos, bool isEnemy)를 유닛에 넣어주면됨
+        time += Time.deltaTime;
+        if (time >= 5f)
+        {
+            debugCurHp -= 30f;
+            time = -50;
+        }
+    }
+
+    void DebugHpBarSet()
+    {
+        if (debugCurHp > 0f)
+        {
+            //debugCurHp -= Time.deltaTime * 10;
+            debugPos = new Vector3(Random.Range(0, 0), 0f, 0f);
+            debugUnit.GetComponent<HpBar>().HpBarSetting(debugCurHp, debugFulHp, debugPos);
+        }
+        else
+        {
+            Destroy(debugUnit);
+        }
     }
 
     public GameObject HpBarInstrate()
