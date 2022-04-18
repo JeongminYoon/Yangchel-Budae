@@ -1575,7 +1575,8 @@ MonoBehaviour:
   bulletPrefab: {fileID: 4765107870980840271, guid: 65a0def903decdb4aa2b4217135374ce, type: 3}
   speed: 6
   bulletCreateTime: 1
-  spwanPos: []
+  spwanPos:
+  - {fileID: 0}
 --- !u!1 &1966640124558694
 GameObject:
   m_ObjectHideFlags: 0

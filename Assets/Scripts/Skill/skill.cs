@@ -13,6 +13,7 @@ public class skill : MonoBehaviour
     public float bulletCreateTime = 1.0f;
 
     public GameObject[] spwanPos /*= new GameObject[3]*/;
+    public Transform spawnPosLoc;
     void Start()
     {
 
@@ -43,9 +44,14 @@ public class skill : MonoBehaviour
                 // bullet.transform.position = transform.position;
                 //  bullet.transform.position = new Vector3(Random.Range(0.0f, 16.0f) - 8.0f, 5.0f, Random.Range(0.0f, 30.0f)-15.0f);
 
+                for (int i = 0; i < spwanPos.Length; i++)
+                {
+                    spawnPosLoc.position = transform.position;
+                }
+
                 int nRand = Random.Range(0, spwanPos.Length);
                 bullet.transform.position =  spwanPos[nRand].transform.position;
-               
+
 
               currentTime = 0.0f;
             }
