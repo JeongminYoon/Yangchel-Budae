@@ -184,7 +184,7 @@ Visual Studio 2019
 				=> 거리 조절 편하게하기 위해서
 			네비매쉬, 네비에이젼트 설정 => walk 재단장
 			탱커 간단한 애니메이션 상태머신 세팅
-			힐러 재단장
+			힐러 재단장 + 길막고 있으면 비키는 것도 
 			https://assetstore.unity.com/packages/3d/props/potions-115115
 
 		
