@@ -18,9 +18,9 @@ MonoBehaviour:
   fullHp: 150
   curHp: 150
   dmg: 10
-  atkSpd: 1
+  atkSpd: 2
   moveSpd: 0.5
-  atkRange: 4
+  atkRange: 3
   sightRange: 5
   cost: 2
   spawnTime: 0.5

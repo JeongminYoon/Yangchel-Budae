@@ -29,7 +29,7 @@ public class MeleeFunc : Units
     }
 
     public void Slash(int colState)
-    {
+    {//애니메이션 동작에 맞춰서 이거 틀어줄꺼임.
         if (weapon != null)
         {
             weaponScript.WeaponColState(colState);
