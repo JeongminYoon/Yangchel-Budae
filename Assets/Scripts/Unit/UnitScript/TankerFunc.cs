@@ -32,7 +32,8 @@ public class TankerFunc : Units
 			if (targetDist > unitStatus.atkRange)
 			{
 				transform.position += targetDir * unitStatus.moveSpd * Time.deltaTime;
-				//Debug.Log(unitStatus.moveSpd + "로 걷고 있습니다.");
+				
+				transform.LookAt(targetObj.transform);
 			}
 		}
 		else
@@ -53,8 +54,8 @@ public class TankerFunc : Units
 
 		ScriptableObj_DeepCopy(); //깊은 복사
 
-
 		WeaponSetting();
+		CenterSetting();
 
 		animController = this.gameObject.GetComponent<Animator>();
 		charContoller = this.gameObject.GetComponent<CharacterController>();
@@ -65,8 +66,6 @@ public class TankerFunc : Units
 	protected override void Update()
 	{
 		//base.Update();
-
-
 
 		if (targetObj == null)
 		{
@@ -80,10 +79,11 @@ public class TankerFunc : Units
 			}
 		}
 
-		if (targetObj != null && isLookTarget)
+		if (targetObj != null)
 		{
 			transform.LookAt(targetObj.transform);
 		}
+
 		Walk();
 		Attack(targetObj);
 

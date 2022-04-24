@@ -5,14 +5,15 @@ using System.Linq;
 abstract public class Units : MonoBehaviour
 {
 
-    
+    public float DotTestAngle;
+    public float DotTestAngle2;
     //C#에서 가상함수(virtual 키워드)는
     //딱히 자식 클래스에서 재정의(override) 안해도
     //자동적으로 불러와짐
-        //abstract 함수로 선언하면 무조건 적으로 자식 클래스에서 override 해줘야함
-                //=> 애초에 abstract 함수 선언하면 본문 정의 불가능.
-                //=> 그리고 무조건 override키워드로 재정의 해야함
-                        //=>virtual 함수는 new 키워드로 재정의 가능.
+    //abstract 함수로 선언하면 무조건 적으로 자식 클래스에서 override 해줘야함
+    //=> 애초에 abstract 함수 선언하면 본문 정의 불가능.
+    //=> 그리고 무조건 override키워드로 재정의 해야함
+    //=>virtual 함수는 new 키워드로 재정의 가능.
 
     public UnitStatus   unitStatus_Origin; //스크립터블 오브젝트 원본
 
@@ -41,8 +42,10 @@ abstract public class Units : MonoBehaviour
     public float targetDegAngle;
     public float targetColSize;
     /// <target>
-    public bool isLookTarget = true;
+    //public bool isLookTarget = true;
 
+
+    public GameObject center = null;
 
     public GameObject weapon = null;
     public Weapon       weaponScript;
@@ -171,6 +174,11 @@ abstract public class Units : MonoBehaviour
             {
                 //animController.SetBool("bWalk", true);
                 charContoller.Move(targetDir * unitStatus.moveSpd * Time.deltaTime);
+                
+                //if (targetObj != null && isLookTarget)
+                //{
+                    //transform.LookAt(targetObj.transform);
+                //}
             }
             else
             {
@@ -236,16 +244,16 @@ abstract public class Units : MonoBehaviour
 
         //Debug.Log(unitStatus.sightRange + "의 범위로 적을 찾고 있습니다.");
 
-        if (unitStatus.unitName == "Medic")
-        {//메딕 본인도 가져와버림.
-            listTarget = UnitManager.instance.unitList[Funcs.B2I(isEnemy)].ToList<GameObject>();
+        //if (unitStatus.unitName == "Medic")
+        //{//메딕 본인도 가져와버림.
+        //    listTarget = UnitManager.instance.unitList[Funcs.B2I(isEnemy)].ToList<GameObject>();
 
-            listTarget.Remove(this.gameObject);
-        }
-        else 
-        {
+        //    listTarget.Remove(this.gameObject);
+        //}
+        //else 
+        //{
             listTarget = UnitManager.instance.unitList[Funcs.B2I(!isEnemy)].ToList<GameObject>();
-        }
+        //}
 
         if (listTarget.Count == 0)
         {
@@ -327,7 +335,22 @@ abstract public class Units : MonoBehaviour
         unitStatus.curHp -= _dmg;
         Debug.Log(_dmg + "의 데미지를 받아\n" + temp + "에서" + unitStatus.curHp + "가 되었습니다");
 
-        DamageUIManager.instance.PlayHpEffect(_dmg, this.gameObject.transform.position + new Vector3(0f, 3.2f, 0f));
+        //DamageUIManager.instance.PlayHpEffect(_dmg, this.gameObject.transform.position + new Vector3(0f, 3.2f, 0f));
+    }
+
+    public void Cure(int _healAmount)
+    {
+        float temp = unitStatus.curHp;
+        unitStatus.curHp += _healAmount;
+        Debug.Log(_healAmount + "의 힐링을 받아\n" + temp + "에서" + unitStatus.curHp + "가 되었습니다");
+
+        if (unitStatus.curHp > unitStatus.fullHp)
+        {
+            
+            unitStatus.curHp = unitStatus.fullHp;
+        }
+
+
     }
 
     public void ScriptableObj_DeepCopy()
@@ -386,6 +409,42 @@ abstract public class Units : MonoBehaviour
         weaponScript.dmg = unitStatus.dmg;
         weaponScript.isEnemy = isEnemy;
     }
+
+    public void CenterSetting()
+    {
+        if (center == null)
+        {
+            center = Funcs.FindGameObjectInChildrenByName(this.gameObject, "Center");
+        }
+    }
+
+    public float MuzzleToTarget()
+    {
+        //지금 사용 안됨 ㄴㄴㄴ
+        if(weaponScript.muzzle != null) 
+        {
+			Vector3 muzzleForward = weaponScript.muzzle.transform.forward.normalized;
+            Vector3 dir = (targetObj.transform.position - weaponScript.muzzle.transform.position).normalized;
+			
+			float muzzleToTargetAngle = Vector3.Dot(muzzleForward, dir);
+
+            muzzleToTargetAngle = Mathf.Acos(muzzleToTargetAngle);
+            muzzleToTargetAngle *= Mathf.Rad2Deg;
+            
+            DotTestAngle = muzzleToTargetAngle;
+
+
+            Vector3 dir2 = targetObj.transform.position - transform.position;
+            DotTestAngle2 = Vector3.SignedAngle(transform.up, weaponScript.muzzle.transform.position.normalized, dir.normalized);
+
+
+            return muzzleToTargetAngle;
+        }
+
+        return 0f;
+    }
+
+
     protected virtual void Awake()
     {
         //SearchUnit();
@@ -402,7 +461,7 @@ abstract public class Units : MonoBehaviour
         //ScriptableObj_DeepCopy(); //깊은 복사
 
         WeaponSetting();
-        
+        CenterSetting();
         animController = this.gameObject.GetComponent<Animator>();
         charContoller = this.gameObject.GetComponent<CharacterController>();
 
@@ -424,14 +483,16 @@ abstract public class Units : MonoBehaviour
             SearchUnit();
             searchCurTime = 0f;
         }
-        #endregion
+		#endregion
 
-        if (targetObj != null && isLookTarget)
-        {
-            transform.LookAt(targetObj.transform);
+		if (targetObj != null /*&& isLookTarget*/)
+		{
+			transform.LookAt(targetObj.transform);
         }
         
         Death(handlerDeath);
+
+        //MuzzleToTarget();
     }
 
 	void OnDrawGizmos()

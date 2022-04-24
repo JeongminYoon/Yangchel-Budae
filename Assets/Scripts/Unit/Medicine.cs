@@ -10,14 +10,14 @@ public class Medicine : MonoBehaviour
 
     public GameObject medic;
     public GameObject targetObj;
-    
-
 
 	public void Move()
 	{
-        Vector3 dir = targetObj.transform.position - this.gameObject.transform.position;
+        //아군 타겟 유닛이 죽어서 Destory될 경우 예외 처리 해줘야함.
+        Vector3 centerPos = targetObj.GetComponent<Units>().center.transform.position;
+        Vector3 dir = centerPos - this.gameObject.transform.position;
 
-        transform.position +=  dir * 3.5f * Time.deltaTime;
+        transform.position += dir.normalized * 5f * Time.deltaTime;
     }
 
 	// Start is called before the first frame update
@@ -33,10 +33,10 @@ public class Medicine : MonoBehaviour
         Move();
         rotate += new Vector3(5, 0, 0);
         
-        transform.rotation = Quaternion.Euler(rotate);
+        //transform.rotation = Quaternion.Euler(rotate);
 
         //계속 타겟 Obj 위치 판단해서 움직이는걸루다가?
-
+        
         
     }
 
@@ -44,16 +44,19 @@ public class Medicine : MonoBehaviour
     {
         if (other.gameObject != medic)
         {
-            Units hitObj = other.gameObject.GetComponent<Units>();
 
-            if (hitObj != null)
+            if (targetObj == other.gameObject)
             {
+                Units hitObj = other.gameObject.GetComponent<Units>();
+                //hitObj.unitStatus.curHp += healAmount;
+                hitObj.Cure(healAmount);
                 
-                hitObj.unitStatus.curHp += healAmount;
-                Debug.Log(hitObj.unitStatus.curHp);
                 Destroy(this.gameObject);
             }
-		
+            else if(other.CompareTag("MapData"))
+            {
+                Destroy(this.gameObject);
+            }
         }
 
 	}

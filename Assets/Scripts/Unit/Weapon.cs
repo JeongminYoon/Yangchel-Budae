@@ -12,13 +12,13 @@ public class Weapon : MonoBehaviour
     public GameObject bulletPrefab;
     public GameObject muzzle = null;
 
-    public void Fire()
+    public void Fire(Quaternion ObjRot)
     { //원거리 무기일때 총알 소환 할 함수
 	  //=> 애니메이션 이벤트에서 관리
 		Vector3 muzzlePos = muzzle.transform.position;
-		Quaternion weaponRot = transform.rotation;
+		//Quaternion weaponRot = transform.rotation;
 
-		GameObject bullet = Instantiate(bulletPrefab, muzzlePos, weaponRot);
+		GameObject bullet = Instantiate(bulletPrefab, muzzlePos, ObjRot);
 		UnitBullet bulletScript = bullet.GetComponent<UnitBullet>();
 
         if (bulletScript != null)
@@ -28,6 +28,23 @@ public class Weapon : MonoBehaviour
         }
 
 	}
+
+    public void Fire()
+    { //원거리 무기일때 총알 소환 할 함수
+      //=> 애니메이션 이벤트에서 관리
+        Vector3 muzzlePos = muzzle.transform.position;
+        Quaternion weaponRot = transform.rotation;
+
+        GameObject bullet = Instantiate(bulletPrefab, muzzlePos, weaponRot);
+        UnitBullet bulletScript = bullet.GetComponent<UnitBullet>();
+
+        if (bulletScript != null)
+        {
+            bulletScript.dmg = dmg;
+            bulletScript.targetObj = targetObj;
+        }
+
+    }
 
     public void WeaponColState(int colState)
     { //근거리 무기 콜라이더 껏다 켰다할 함수

@@ -1,6 +1,7 @@
 ﻿//using System.Collections;
 //using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class Funcs
@@ -112,6 +113,53 @@ public static class Funcs
 			return null;
 		}
 	}
+
+	public static GameObject FindClosestUnit(GameObject me, List<GameObject> objList)
+	{
+		float lowDist = -1f;
+		//float searchRange = me.GetComponent<Units>().unitStatus.sightRange;
+		GameObject closestObj = null;
+
+		foreach (GameObject obj in objList)
+		{
+			float dist = Vector3.Magnitude(obj.transform.position - me.transform.position);
+
+			if (lowDist > dist || lowDist < 0f)
+			{
+				lowDist = dist;
+				closestObj = obj;
+			}
+		}
+
+		return closestObj;
+	}
+
+	public static List<GameObject> FindUnitsInSightRange(GameObject me, List<GameObject> objList)
+	{
+		List<GameObject> unitsInRange = new List<GameObject>();
+		unitsInRange.Clear();
+
+		Units temp = me.GetComponent<Units>();
+		float searchRange = 0f;
+
+		if (temp != null)
+		{ 
+			searchRange = temp.unitStatus.sightRange;
+		}
+
+		foreach (GameObject obj in objList)
+		{
+			float dist = Vector3.Magnitude(obj.transform.position - me.transform.position);
+
+			if (dist <= searchRange)
+			{
+				unitsInRange.Add(obj);
+			}
+		}
+
+		return unitsInRange;
+	}
+
 }
 
 public static class Defines

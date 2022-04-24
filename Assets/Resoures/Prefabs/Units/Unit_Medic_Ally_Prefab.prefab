@@ -1187,6 +1187,7 @@ Transform:
   m_Children:
   - {fileID: 4413865623671964}
   - {fileID: 4128509653881872}
+  - {fileID: 8721494779036280500}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1230,12 +1231,17 @@ MonoBehaviour:
   targetDir: {x: 0, y: 0, z: 0}
   targetDegAngle: 0
   targetColSize: 0
+  isLookTarget: 1
   weapon: {fileID: 0}
+  weaponScript: {fileID: 0}
   unitCol: {fileID: 0}
   searchTime: 0.5
   searchCurTime: 0
   animController: {fileID: 0}
-  medicinePrefab: {fileID: 635517412318582183, guid: 6d18ab4f9e4b6174697c9a964b93f5d6, type: 3}
+  charContoller: {fileID: 0}
+  medicinePrefab: {fileID: 1023248994340480, guid: 988ac363bd09b2749b0601852532ebcd, type: 3}
+  medicLeftHand: {fileID: 0}
+  healTarget: {fileID: 0}
 --- !u!143 &3378460791011432500
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1749,6 +1755,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4712398186699080}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4623869730852065692
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8721494779036280500}
+  m_Layer: 0
+  m_Name: Center
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8721494779036280500
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4623869730852065692}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4803373380695630}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1858983305647694941
 PrefabInstance:
