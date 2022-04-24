@@ -10,7 +10,7 @@ public class Tower : Units
 			//그대로 쓰기엔 조금 다른 부분들 유
 	//외부에서 타워 함수 호출 할 일있으면 GetComponent<Units>() as Tower으로 불러서 함수 호출 해주삼
 
-	public GameObject bulletPrefab;
+	//public GameObject bulletPrefab;
 
 	public override bool Attack(GameObject _target)
 	{
@@ -32,6 +32,7 @@ public class Tower : Units
 
 			if (weapon != null)
 			{
+				weaponScript.targetObj = targetObj;
 				weaponScript.Fire();
 			}
 
@@ -40,6 +41,7 @@ public class Tower : Units
 
 		return false;
 	}
+
 
 	public override void SearchUnit()
 	{

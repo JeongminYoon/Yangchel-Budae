@@ -33,12 +33,12 @@ public class RangeFunc : Units
                 animController.SetTrigger("tAttack");
             }
 
-            if (isShoot)
-            {
-                transform.Rotate(new Vector3(0f, 45f, 0f));
-            }
+            //if (isShoot)
+            //{
+            //    transform.Rotate(new Vector3(0f, 45f, 0f));
+            //}
 
-            isShoot = false;
+            //isShoot = false;
             //RotateMuzzleDir();
 
 

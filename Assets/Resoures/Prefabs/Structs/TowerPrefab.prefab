@@ -142,6 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b9c2c9423f573349949f9b85c6b0e13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DotTestAngle: 0
+  DotTestAngle2: 0
   unitStatus_Origin: {fileID: 11400000, guid: b0e57d01f54650d45a5ded9467c4d898, type: 2}
   unitStatus: {fileID: 0}
   isEnemy: 0
@@ -151,7 +153,7 @@ MonoBehaviour:
   targetDir: {x: 0, y: 0, z: 0}
   targetDegAngle: 0
   targetColSize: 0
-  isLookTarget: 1
+  center: {fileID: 0}
   weapon: {fileID: 0}
   weaponScript: {fileID: 0}
   unitCol: {fileID: 0}
@@ -159,7 +161,6 @@ MonoBehaviour:
   searchCurTime: 0
   animController: {fileID: 0}
   charContoller: {fileID: 0}
-  bulletPrefab: {fileID: 1003485616670832, guid: 3b1207bea6600a641b7d721763fc2369, type: 3}
 --- !u!1 &1950669865050126
 GameObject:
   m_ObjectHideFlags: 0
@@ -263,6 +264,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4435113561059096}
     m_Modifications:
+    - target: {fileID: -1475395150470054265, guid: 8700519ec02e5ca40b58946336809aae, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 1003485616670832, guid: 3b1207bea6600a641b7d721763fc2369, type: 3}
     - target: {fileID: 1700241443051174, guid: 8700519ec02e5ca40b58946336809aae, type: 3}
       propertyPath: m_Name
       value: Weapon_Tower_Enemy

@@ -19,8 +19,15 @@ public class Weapon : MonoBehaviour
 		//Quaternion weaponRot = transform.rotation;
 
 		GameObject bullet = Instantiate(bulletPrefab, muzzlePos, ObjRot);
-		UnitBullet bulletScript = bullet.GetComponent<UnitBullet>();
+		
+        
+        UnitBullet bulletScript = bullet.GetComponent<UnitBullet>();
 
+        //if (bulletScript == null)
+        //{
+        //    bulletScript = bullet.GetComponent<TowerBullet>();
+        //}
+        
         if (bulletScript != null)
         {
             bulletScript.dmg = dmg;
