@@ -7,7 +7,7 @@ public class BoomEffect : MonoBehaviour
     // Start is called before the first frame update
 
 
-   public float overLap = 5.0f;
+   public float overLap = 10.0f;
 
 
     void Start()
@@ -22,7 +22,7 @@ public class BoomEffect : MonoBehaviour
         {
             if (colls[i].GetComponent<Units>() != null && colls[i].GetComponent<Units>().isEnemy == true)
             {
-                colls[i].GetComponent<Units>().unitStatus.curHp -= 10;
+                colls[i].GetComponent<Units>().unitStatus.curHp -= 20;
 
                 
 
@@ -34,7 +34,7 @@ public class BoomEffect : MonoBehaviour
 
 
         }
-        Destroy(this.gameObject);
+        
 
     }
 

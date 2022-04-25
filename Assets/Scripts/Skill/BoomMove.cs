@@ -19,7 +19,10 @@ public class BoomMove : MonoBehaviour
         {
             bb = true;
 
-            Instantiate(boomPrefab);
+
+            Vector3 dir = gameObject.transform.position;
+
+            Instantiate(boomPrefab,dir, Quaternion.identity);
 
 
         }
