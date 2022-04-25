@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6239931713855434543}
   - component: {fileID: -4047698613917625310}
   - component: {fileID: -2994100527735381935}
+  - component: {fileID: 2935363135733914461}
   m_Layer: 0
   m_Name: NexusPrefab
   m_TagString: Untagged
@@ -140,6 +141,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cc406fdbd2c2a84da5828b972b44bd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DotTestAngle: 0
+  DotTestAngle2: 0
   unitStatus_Origin: {fileID: 11400000, guid: b92960d4f7cf58c45a5c4dd4bf543b8c, type: 2}
   unitStatus: {fileID: 0}
   isEnemy: 0
@@ -149,12 +152,28 @@ MonoBehaviour:
   targetDir: {x: 0, y: 0, z: 0}
   targetDegAngle: 0
   targetColSize: 0
-  isLookTarget: 1
+  hpBar: {fileID: 0}
+  center: {fileID: 0}
   weapon: {fileID: 0}
   weaponScript: {fileID: 0}
   unitCol: {fileID: 0}
   searchTime: 0.5
   searchCurTime: 0
+  navAgent: {fileID: 0}
   animController: {fileID: 0}
-  charContoller: {fileID: 0}
-  bulletPrefab: {fileID: 0}
+--- !u!208 &2935363135733914461
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499905421087518}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 0
+  m_Extents: {x: 4.5, y: 2.009, z: 4.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 1.9430001, z: 0}
+  m_TimeToStationary: 0.5

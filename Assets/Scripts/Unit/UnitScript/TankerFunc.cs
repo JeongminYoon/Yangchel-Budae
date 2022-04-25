@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class TankerFunc : Units
 {//탱커는 유닛 공격 안하고 기냥 무적권 타워 향해서 돌격 해야함.
@@ -10,6 +11,8 @@ public class TankerFunc : Units
 		{
 			animController.SetTrigger("tAttack");
 			weaponScript.targetObj = _target;
+
+			
 			return true;
 		}
 		return false;
@@ -19,6 +22,7 @@ public class TankerFunc : Units
 	{
 		if (weapon != null)
 		{
+			transform.LookAt(targetObj.transform);
 			weaponScript.WeaponColState(colState);
 		}
 	}
@@ -31,9 +35,16 @@ public class TankerFunc : Units
 
 			if (targetDist > unitStatus.atkRange)
 			{
-				transform.position += targetDir * unitStatus.moveSpd * Time.deltaTime;
-				
-				transform.LookAt(targetObj.transform);
+				//transform.position += targetDir * unitStatus.moveSpd * Time.deltaTime;
+				if (!unitStatus.isDead)
+				{ navAgent.isStopped = false; }
+
+				//transform.LookAt(targetObj.transform);
+			}
+			else
+			{
+				if (!unitStatus.isDead)
+				{ navAgent.isStopped = true; }
 			}
 		}
 		else
@@ -58,7 +69,10 @@ public class TankerFunc : Units
 		CenterSetting();
 
 		animController = this.gameObject.GetComponent<Animator>();
-		charContoller = this.gameObject.GetComponent<CharacterController>();
+		//charContoller = this.gameObject.GetComponent<CharacterController>();
+		navAgent = this.gameObject.GetComponent<NavMeshAgent>();
+		navAgent.speed = unitStatus.moveSpd;
+
 
 		SearchTower();
 	}
@@ -79,10 +93,10 @@ public class TankerFunc : Units
 			}
 		}
 
-		if (targetObj != null)
-		{
-			transform.LookAt(targetObj.transform);
-		}
+		//if (targetObj != null)
+		//{
+		//	transform.LookAt(targetObj.transform);
+		//}
 
 		Walk();
 		Attack(targetObj);

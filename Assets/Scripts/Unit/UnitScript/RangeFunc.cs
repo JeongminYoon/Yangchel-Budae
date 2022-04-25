@@ -17,12 +17,7 @@ public class RangeFunc : Units
         //피격판정은 콜리더로 하기
         if (base.Attack(_target)) //실제 Unit쪽에서 공격 성공하고 나서 총알 생성
         {
-			//애니메이션 넣으면 총구 방향 적쪽으로 맞춰 돌리는거
-			//45도 돌려주면 댐
-			//유닛 자체도 돌리기도 필요할듯 
-
-			//일단 급하게 이렇게 돌리고
-			//차후 머즐과 캐릭터 forward dir 외적값 구해서 lerp로 스르륵
+            
 
 			if (animController.GetCurrentAnimatorStateInfo(0).IsName("Range_Attack_01"))
             {
@@ -32,15 +27,6 @@ public class RangeFunc : Units
             {
                 animController.SetTrigger("tAttack");
             }
-
-            //if (isShoot)
-            //{
-            //    transform.Rotate(new Vector3(0f, 45f, 0f));
-            //}
-
-            //isShoot = false;
-            //RotateMuzzleDir();
-
 
             weaponScript.targetObj = _target;
 
@@ -54,6 +40,7 @@ public class RangeFunc : Units
 	{
         if (weapon != null)
         {
+            transform.LookAt(targetObj.transform);
             weaponScript.Fire(this.gameObject.transform.rotation);
         }
 	}
@@ -64,12 +51,11 @@ public class RangeFunc : Units
 	}
 
 
-	public void RotateMuzzleDir()
-    {
-        transform.LookAt(targetObj.transform);
-        //float temp = MuzzleToTarget();
-        transform.Rotate(new Vector3(0f, 45f, 0f));
-	}
+	//public void RotateMuzzleDir()
+ //   {
+ //       transform.LookAt(targetObj.transform);
+ //       transform.Rotate(new Vector3(0f, 45f, 0f));
+	//}
 
     protected override void Awake()
 	{
@@ -98,15 +84,5 @@ public class RangeFunc : Units
         Walk();
         if (targetObj != null)
         { Attack(targetObj); }
-
-        //if (isShoot)
-        //{
-        //    //RotateMuzzleDir();
-        //}
-        //else 
-        //{
-        //    transform.LookAt(targetObj.transform);
-        //}
-
 	}
 }

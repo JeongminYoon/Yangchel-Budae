@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MeleeFunc : Units
 {
+    
 	public override bool Attack(GameObject _target)
 	{
         //if (weapon != null)
@@ -89,16 +90,16 @@ public class MeleeFunc : Units
         //타겟 오브젝트랑 동일한지 확인 한뒤 처리 해주자!
     }
 
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    { 
-        if (hit.gameObject.CompareTag("Tower") || hit.gameObject.CompareTag("Nexus"))
-		{
-            if (targetObj.CompareTag("Tower") || targetObj.CompareTag("Nexus"))
-            {
-                animController.SetTrigger("tAttack");
-                weaponScript.targetObj = targetObj;
-            }
+  //  private void OnControllerColliderHit(ControllerColliderHit hit)
+  //  { 
+  //      if (hit.gameObject.CompareTag("Tower") || hit.gameObject.CompareTag("Nexus"))
+		//{
+  //          if (targetObj.CompareTag("Tower") || targetObj.CompareTag("Nexus"))
+  //          {
+  //              animController.SetTrigger("tAttack");
+  //              weaponScript.targetObj = targetObj;
+  //          }
             
-        }
-    }
+  //      }
+  //  }
 }

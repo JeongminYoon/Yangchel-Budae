@@ -1167,6 +1167,9 @@ GameObject:
   - component: {fileID: 95601168698307150}
   - component: {fileID: 8057369100783097577}
   - component: {fileID: 3378460791011432500}
+  - component: {fileID: 1436584477486022455}
+  - component: {fileID: -6996457327849623759}
+  - component: {fileID: 9045277551276602260}
   m_Layer: 0
   m_Name: Unit_Medic_Ally_Prefab
   m_TagString: Untagged
@@ -1222,6 +1225,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae0ccddab4e98a9478c539180066e5ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DotTestAngle: 0
+  DotTestAngle2: 0
   unitStatus_Origin: {fileID: 11400000, guid: f7a41dd3ac862ce449ca5128123704b6, type: 2}
   unitStatus: {fileID: 0}
   isEnemy: 0
@@ -1231,14 +1236,15 @@ MonoBehaviour:
   targetDir: {x: 0, y: 0, z: 0}
   targetDegAngle: 0
   targetColSize: 0
-  isLookTarget: 1
+  hpBar: {fileID: 0}
+  center: {fileID: 0}
   weapon: {fileID: 0}
   weaponScript: {fileID: 0}
   unitCol: {fileID: 0}
   searchTime: 0.5
   searchCurTime: 0
+  navAgent: {fileID: 0}
   animController: {fileID: 0}
-  charContoller: {fileID: 0}
   medicinePrefab: {fileID: 1023248994340480, guid: 988ac363bd09b2749b0601852532ebcd, type: 3}
   medicLeftHand: {fileID: 0}
   healTarget: {fileID: 0}
@@ -1251,7 +1257,7 @@ CharacterController:
   m_GameObject: {fileID: 1629728649629216}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5
@@ -1260,6 +1266,58 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0.15}
+--- !u!195 &1436584477486022455
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629728649629216}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 16
+  avoidancePriority: 51
+  m_AngularSpeed: 180
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!54 &-6996457327849623759
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629728649629216}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &9045277551276602260
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629728649629216}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &1634606147487116
 GameObject:
   m_ObjectHideFlags: 0

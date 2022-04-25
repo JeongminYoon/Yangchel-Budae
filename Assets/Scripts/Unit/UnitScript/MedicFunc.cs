@@ -31,7 +31,7 @@ public class MedicFunc : Units
 		//=> 그냥 타겟은 타워도 잡히기 때문에 예외 처리 안됨.
 		if (healTarget != null)
 		{//아군 힐 타겟 있으면 힐하기
-
+			
 			if (healDistance <= unitStatus.atkRange)
 			{
 				healCurTime += Time.deltaTime;
@@ -50,22 +50,17 @@ public class MedicFunc : Units
 					}
 				}
 			}
-
-
-
 		}
 		else
 		{//아군 없으면 공격
 			if (base.Attack(targetObj))
 			{
-
 				//if (isLookTarget)
 				//{
 				//	gameObject.transform.Rotate(new Vector3(0f, MuzzleToTarget(), 0f));
 				//}
 
 				//isLookTarget = false;
-
 
 				if (animController.GetCurrentAnimatorStateInfo(0).IsName("Medic_Attack"))
 				{
@@ -134,6 +129,7 @@ public class MedicFunc : Units
 	{
 		if (weapon != null)
 		{
+			transform.LookAt(targetObj.transform);
 			weaponScript.Fire(this.gameObject.transform.rotation);
 		}
 	}
@@ -141,6 +137,8 @@ public class MedicFunc : Units
 
 	public void Heal()
 	{
+		transform.LookAt(healTarget.transform);
+
 		GameObject medicine = Instantiate(medicinePrefab, medicLeftHand.transform.position, Quaternion.identity);
 		Medicine temp = medicine.GetComponent<Medicine>();
 
@@ -195,6 +193,7 @@ public class MedicFunc : Units
 					{
 						leastHpRatio = hpRatio;
 						healTarget = obj;
+						navAgent.SetDestination(healTarget.transform.position);
 						healDistance = Vector3.Magnitude(obj.transform.position - transform.position);
 					}
 				}
@@ -246,14 +245,14 @@ public class MedicFunc : Units
 
 		//if (isLookTarget)
 		//{
-		if (healTarget != null)
-		{
-			transform.LookAt(healTarget.transform);
-		}
-		else if (targetObj != null)
-		{
-			transform.LookAt(targetObj.transform);
-		}
+		//if (healTarget != null)
+		//{
+		//	transform.LookAt(healTarget.transform);
+		//}
+		//else if (targetObj != null)
+		//{
+		//	transform.LookAt(targetObj.transform);
+		//}
 
 		//}
 

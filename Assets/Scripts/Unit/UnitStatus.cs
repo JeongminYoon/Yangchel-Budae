@@ -7,6 +7,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "UnitStatus", menuName = "Scriptable Object/UnitStatus", order= int.MaxValue)]
 public class UnitStatus : ScriptableObject
 {
+
+
     public void DeepCopy(UnitStatus origin)
 	{
         unitName = String.Copy(origin.unitName);

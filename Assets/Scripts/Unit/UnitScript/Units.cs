@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.AI;
+
 abstract public class Units : MonoBehaviour
 {
 
@@ -33,17 +35,14 @@ abstract public class Units : MonoBehaviour
     /// <target>
     public GameObject targetObj;
     public List<GameObject> listTarget = new List<GameObject>();
-    //public List<GameObject> listTower;
-    //public GameObject nexus;
-    //public GameObject[] arrTowers = new GameObject[2]; //0 -> Left, 1 -> Right
 
     public float targetDist;
     public Vector3 targetDir;
     public float targetDegAngle;
     public float targetColSize;
     /// <target>
-    //public bool isLookTarget = true;
 
+    public GameObject hpBar = null;
 
     public GameObject center = null;
 
@@ -58,8 +57,10 @@ abstract public class Units : MonoBehaviour
     public float searchCurTime = 0f;
 
 
+
+    public NavMeshAgent navAgent;
     public Animator animController;
-    public CharacterController charContoller;
+    //public CharacterController charContoller;
 
 
     public delegate void HandlerDeath(GameObject unit);
@@ -144,6 +145,7 @@ abstract public class Units : MonoBehaviour
         if (unitStatus.curHp <= 0f)
         {
             unitStatus.isDead = true;
+
             handler(this.gameObject);
             Destroy(this.gameObject);
         }
@@ -156,8 +158,7 @@ abstract public class Units : MonoBehaviour
     public virtual void Walk()
 	{
         //지금은 그냥 타겟 있을때만 그쪽으로 걸어가는 방식.
-
-        //Vector3 dir = Vector3.Normalize(_target.transform.position - gameObject.transform.position);
+        
         if (targetObj != null)
         {
             CalcToObj(targetObj);
@@ -173,8 +174,10 @@ abstract public class Units : MonoBehaviour
             if (targetDist > unitStatus.atkRange)
             {
                 //animController.SetBool("bWalk", true);
-                charContoller.Move(targetDir * unitStatus.moveSpd * Time.deltaTime);
-                
+                //charContoller.Move(targetDir * unitStatus.moveSpd * Time.deltaTime);
+                if (!unitStatus.isDead)
+                { navAgent.isStopped = false; }
+
                 //if (targetObj != null && isLookTarget)
                 //{
                     //transform.LookAt(targetObj.transform);
@@ -182,7 +185,9 @@ abstract public class Units : MonoBehaviour
             }
             else
             {
-                //animController.SetBool("bWalk", false);
+                if (!unitStatus.isDead)
+                { navAgent.isStopped = true; }
+                                //animController.SetBool("bWalk", false);
             }
         }
         else 
@@ -273,6 +278,9 @@ abstract public class Units : MonoBehaviour
                     {
                         lowDist = dist;
                         targetObj = listTarget[i];
+
+                        //NavTest
+                        navAgent.SetDestination(targetObj.transform.position);
                     }
                 }
             }
@@ -300,8 +308,6 @@ abstract public class Units : MonoBehaviour
             targetObj = TowerManager.instance.towerList[Funcs.B2I(!isEnemy), Defines.left] ;
         }
 
-
-
         if (targetObj == null)
         {
             if (transform.position.x > 0)
@@ -318,7 +324,6 @@ abstract public class Units : MonoBehaviour
 
                     if (tempSkill2 != null)
                     { targetObj = tempSkill2.tower; }
-                    
                 }
                 else
                 {
@@ -327,6 +332,9 @@ abstract public class Units : MonoBehaviour
                 
             }
         }
+
+        //NavTest
+        navAgent.SetDestination(targetObj.transform.position);
     }
 
     public void Hit(int _dmg)
@@ -353,11 +361,21 @@ abstract public class Units : MonoBehaviour
 
     }
 
-    public void ScriptableObj_DeepCopy()
+	public void UpdateHpBar()
+	{
+        if (hpBar != null)
+        { 
+        
+        
+        
+        }
+	}
+	public void ScriptableObj_DeepCopy()
     {
         //unitStatus = unitStatus_Origin; //shallow copy -> 얕은 복사
         unitStatus = ScriptableObject.CreateInstance<UnitStatus>();
         unitStatus.DeepCopy(unitStatus_Origin);
+
     }
 
     public virtual void DeathEventSetting()
@@ -447,10 +465,7 @@ abstract public class Units : MonoBehaviour
 
     protected virtual void Awake()
     {
-        //SearchUnit();
-
         ScriptableObj_DeepCopy(); //깊은 복사
-
     }
 
     protected virtual void Start()
@@ -463,9 +478,16 @@ abstract public class Units : MonoBehaviour
         WeaponSetting();
         CenterSetting();
         animController = this.gameObject.GetComponent<Animator>();
-        charContoller = this.gameObject.GetComponent<CharacterController>();
+        //charContoller = this.gameObject.GetComponent<CharacterController>();
+       //navMeshTest
+        navAgent = this.gameObject.GetComponent<NavMeshAgent>();
+        navAgent.speed = unitStatus.moveSpd;
+       
 
         SearchUnit();
+
+        if (targetObj != null)
+        { transform.LookAt(targetObj.transform); }
 
         ColliderSetting();
     }
@@ -485,14 +507,22 @@ abstract public class Units : MonoBehaviour
         }
 		#endregion
 
-		if (targetObj != null /*&& isLookTarget*/)
-		{
-			transform.LookAt(targetObj.transform);
-        }
+		//if (targetObj != null /*&& isLookTarget*/)
+		//{
+		//	transform.LookAt(targetObj.transform);
+        //}
         
         Death(handlerDeath);
 
         //MuzzleToTarget();
+    }
+
+    protected virtual void Release()
+    {
+
+
+
+
     }
 
 	void OnDrawGizmos()

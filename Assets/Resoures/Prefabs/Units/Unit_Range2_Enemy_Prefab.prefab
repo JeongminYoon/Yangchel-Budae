@@ -2207,6 +2207,9 @@ GameObject:
   - component: {fileID: 95646688354791808}
   - component: {fileID: -1478828246930411740}
   - component: {fileID: 3039785250794593676}
+  - component: {fileID: 7694078774891520803}
+  - component: {fileID: 4910859484529352389}
+  - component: {fileID: 8592722151504473504}
   m_Layer: 0
   m_Name: Unit_Range2_Enemy_Prefab
   m_TagString: Untagged
@@ -2262,6 +2265,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dae25ca078b5c3439114893f4cd6939, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DotTestAngle: 0
+  DotTestAngle2: 0
   unitStatus_Origin: {fileID: 11400000, guid: 82d0e6e206eb45547a6a38f9707fed7b, type: 2}
   unitStatus: {fileID: 0}
   isEnemy: 0
@@ -2271,15 +2276,18 @@ MonoBehaviour:
   targetDir: {x: 0, y: 0, z: 0}
   targetDegAngle: 0
   targetColSize: 0
-  isLookTarget: 1
+  hpBar: {fileID: 0}
+  center: {fileID: 0}
   weapon: {fileID: 0}
   weaponScript: {fileID: 0}
   unitCol: {fileID: 0}
   searchTime: 0.5
   searchCurTime: 0
+  navAgent: {fileID: 0}
   animController: {fileID: 0}
-  charContoller: {fileID: 0}
   bulletPrefab: {fileID: 1003485616670832, guid: 3b1207bea6600a641b7d721763fc2369, type: 3}
+  isShoot: 0
+  tempTurn: 1
 --- !u!143 &3039785250794593676
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2289,7 +2297,7 @@ CharacterController:
   m_GameObject: {fileID: 1728604139815428}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Height: 2
   m_Radius: 0.5
@@ -2298,6 +2306,58 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0.15}
+--- !u!195 &7694078774891520803
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728604139815428}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 16
+  avoidancePriority: 50
+  m_AngularSpeed: 180
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!54 &4910859484529352389
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728604139815428}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!136 &8592722151504473504
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728604139815428}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &1755108414781504
 GameObject:
   m_ObjectHideFlags: 0

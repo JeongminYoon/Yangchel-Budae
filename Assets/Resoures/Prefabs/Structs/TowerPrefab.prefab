@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5372383641339557949}
   - component: {fileID: 6651931537047488873}
   - component: {fileID: 7161479795846276132}
+  - component: {fileID: -308035758408188559}
   m_Layer: 0
   m_Name: TowerPrefab
   m_TagString: Untagged
@@ -153,14 +154,31 @@ MonoBehaviour:
   targetDir: {x: 0, y: 0, z: 0}
   targetDegAngle: 0
   targetColSize: 0
+  hpBar: {fileID: 0}
   center: {fileID: 0}
   weapon: {fileID: 0}
   weaponScript: {fileID: 0}
   unitCol: {fileID: 0}
   searchTime: 0.5
   searchCurTime: 0
+  navAgent: {fileID: 0}
   animController: {fileID: 0}
-  charContoller: {fileID: 0}
+--- !u!208 &-308035758408188559
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1603715253580354}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.9070001, y: 3.887, z: 2.2580001}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 3.887, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &1950669865050126
 GameObject:
   m_ObjectHideFlags: 0

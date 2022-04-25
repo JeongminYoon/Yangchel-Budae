@@ -19,7 +19,7 @@ MonoBehaviour:
   curHp: 100
   dmg: 15
   atkSpd: 1.5
-  moveSpd: 0.5
+  moveSpd: 1
   atkRange: 4
   sightRange: 5
   cost: 2

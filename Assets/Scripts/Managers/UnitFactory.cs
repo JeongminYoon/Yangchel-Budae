@@ -26,7 +26,11 @@ public class UnitFactory : MonoBehaviour
 
 
         spawnObj = Instantiate(unitPrefabs[Funcs.B2I(isEnemy),(int)unitClass], spawnPos, Quaternion.identity);
-       
+
+        Units unitScript = spawnObj.GetComponent<Units>();
+
+        //GameObject hpBar = HpBarManager.instance.HpBarInstrate(); 
+
         #region switchCaseSpawn_DontUse
         //switch (unitClass)
         //{
@@ -73,7 +77,9 @@ public class UnitFactory : MonoBehaviour
 
         if (spawnObj != null)
         {
-            spawnObj.GetComponent<Units>().isEnemy = isEnemy;
+            unitScript.isEnemy = isEnemy;
+
+           //unitScript.hpBar = hpBar;
 
             //if (isEnemy)
             //{
