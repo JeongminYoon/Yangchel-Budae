@@ -222,6 +222,8 @@ Visual Studio 2019
 				무기가 bullet들 가지고 있고 bullet의 targetObj 정리 해주기
 				Medic이 Medicine들 가지고 있고 targetObj 정리 해주기
 					=> 근데 작동자체에는 문제 없고 가비지콜렉터 최적화 위한거라서 후순위
+
+07:37 2022-4-26	밀리 캐릭터 타워 공격 다시 됨. (FSM방식 안쓰고 그냥 콜라이더 크기 계산해서 하도록 했음.)
 			
 
 

@@ -17,22 +17,9 @@ public class Tower : Units
 		//피격판정은 콜리더로 하기
 		if (base.Attack(_target)) //실제 Unit쪽에서 공격 성공하고 나서 총알 생성
 		{
-			//Transform gunTr = transform.GetChild(0).transform;
-			//Vector3 gunPos = gunTr.position;
-			//Quaternion gunRot = gunTr.rotation;
-			//GameObject bullet = Instantiate(bulletPrefab, gunPos, gunRot);
-
-			//////for Test
-			//bullet.transform.LookAt(targetObj.transform);
-			//////for Test
-			//////추후에는 타워용 총알 따로 놔둘꺼고 되게 빠르게 할꺼임 
-			//////총알 자체도 손좀 많이 봐야하고
-
-			//bullet.GetComponent<UnitBullet>().dmg = (int)unitStatus.dmg;
-
 			if (weapon != null)
 			{
-				weaponScript.targetObj = targetObj;
+				weaponScript.targetObj = targetObj/*.GetComponent<Units>().center*/;
 				weaponScript.Fire();
 			}
 
@@ -143,9 +130,7 @@ public class Tower : Units
 			}
 		}
 
-
-
-			Death(handlerDeath);
+		Death(handlerDeath);
 	}
 
 }

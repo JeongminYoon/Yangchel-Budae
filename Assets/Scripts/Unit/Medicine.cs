@@ -11,6 +11,7 @@ public class Medicine : MonoBehaviour
     public GameObject medic;
     public GameObject targetObj;
 
+    public float curAliveTime = 0f;
 	public void Move()
 	{
         //아군 타겟 유닛이 죽어서 Destory될 경우 예외 처리 해줘야함.
@@ -32,6 +33,13 @@ public class Medicine : MonoBehaviour
     {
         Move();
         rotate += new Vector3(5, 0, 0);
+
+        curAliveTime += Time.deltaTime;
+
+        if (curAliveTime >= 3f)
+        {
+            Destroy(this.gameObject);
+        }
         
         //transform.rotation = Quaternion.Euler(rotate);
 

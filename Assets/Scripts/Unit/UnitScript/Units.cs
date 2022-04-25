@@ -66,6 +66,25 @@ abstract public class Units : MonoBehaviour
     public delegate void HandlerDeath(GameObject unit);
     public HandlerDeath handlerDeath;
 
+
+    //간단한 FSM를 위한 용도 -> 나중에 시간남으면 찐 FSM으로 바꿔줄 예정
+    public Enums.UnitState preState = Enums.UnitState.End;
+    public Enums.UnitState curState = Enums.UnitState.Walk;
+    public void SetState(Enums.UnitState state)
+    {
+        if (curState != state )
+        {
+            preState = curState;
+            curState = state;
+        }
+    }
+    public bool CompareState(Enums.UnitState state)
+    {
+        return curState == state ? true : false;
+    }
+
+
+
     protected void CalcToObj(GameObject obj)
     {
         //float targetColSize = obj.GetComponent<Units>().unitStatus.unitColScale.x;
@@ -163,31 +182,16 @@ abstract public class Units : MonoBehaviour
         {
             CalcToObj(targetObj);
 
-
-            //if (targetDist > unitStatus.atkRange + targetColSize + unitStatus.unitColScale.x)
-            //{
-            //    //transform.Translate(targetDir * unitStatus.moveSpd * Time.deltaTime);
-            //    transform.position += targetDir * unitStatus.moveSpd * Time.deltaTime;
-            //    //Debug.Log(unitStatus.moveSpd + "로 걷고 있습니다.");
-            //}
-
             if (targetDist > unitStatus.atkRange)
             {
-                //animController.SetBool("bWalk", true);
-                //charContoller.Move(targetDir * unitStatus.moveSpd * Time.deltaTime);
                 if (!unitStatus.isDead)
                 { navAgent.isStopped = false; }
 
-                //if (targetObj != null && isLookTarget)
-                //{
-                    //transform.LookAt(targetObj.transform);
-                //}
             }
             else
             {
                 if (!unitStatus.isDead)
                 { navAgent.isStopped = true; }
-                                //animController.SetBool("bWalk", false);
             }
         }
         else 
@@ -198,32 +202,44 @@ abstract public class Units : MonoBehaviour
 
 	public virtual bool Attack(GameObject _target)
     {
-        //지금 타워처럼 스케일이 1 이상인 애들도 
-        //공격 범위만큼 가까이 가야 때릴 수 있음.
-        // 추후 콜리더 범위로 수정 해야함.
-        //if (_target != null && targetDist <= unitStatus.atkRange + targetColSize + unitStatus.unitColScale.x)
+		//지금 타워처럼 스케일이 1 이상인 애들도 
+		//공격 범위만큼 가까이 가야 때릴 수 있음.
+		// 추후 콜리더 범위로 수정 해야함.
+		//if (_target != null && targetDist <= unitStatus.atkRange + targetColSize + unitStatus.unitColScale.x)
 
-        if(_target != null && targetDist <= unitStatus.atkRange)
-        {
-            atkCurTime += Time.deltaTime;
+		if (_target != null)
+		{
+			if (_target.CompareTag("Tower") || _target.CompareTag("Nexus"))
+			{
 
-            //Units temp = _target.GetComponent<Units>(); //=> null 나옴. 근데 그게 맞지 ㅋㅋ 안넣었으니까 ㅋㅋ
-            if (atkCurTime >= unitStatus.atkSpd)
-            {
-                //추후 각 유닛의 무기에 따라서 콜리더 판정으로 넘기기
-                //Debug.Log(unitStatus.atkRange + "의 범위로\n" + unitStatus.dmg + "의 데미지를 줍니다.");
-                //temp.Hit((int)unitStatus.dmg);
-                atkCurTime = 0f;
-                return true;
-            }
-        }
-        //else if (_target == null && atkCurTime != 0f)
-        //{
-        //    atkCurTime = 0f;
-        //    return false;
-        //}
+				if (targetDist <= unitStatus.atkRange + targetColSize)
+				{
+					atkCurTime += Time.deltaTime;
 
-        return false;
+					if (atkCurTime >= unitStatus.atkSpd)
+					{
+						atkCurTime = 0f;
+						return true;
+					}
+				}
+			}
+			else
+			{
+				if (targetDist <= unitStatus.atkRange)
+				{
+					atkCurTime += Time.deltaTime;
+
+					if (atkCurTime >= unitStatus.atkSpd)
+					{
+						atkCurTime = 0f;
+						return true;
+					}
+				}
+			}
+
+
+		}
+		return false;
     }
 
     public virtual void SearchUnit()
@@ -395,10 +411,10 @@ abstract public class Units : MonoBehaviour
         {
             if (unitCol as CapsuleCollider != null)
             {
-                tempSize.x = (unitCol as CapsuleCollider).radius;
+                tempSize.x = (unitCol as CapsuleCollider).radius/2f;
                 tempSize.x *= transform.localScale.x;
                 
-                tempSize.z = tempSize.x;
+                tempSize.z = (unitCol as CapsuleCollider).radius / 2f;
                 tempSize.z *= transform.localScale.z;
                 
                 tempSize.y = (unitCol as CapsuleCollider).height;
@@ -482,7 +498,8 @@ abstract public class Units : MonoBehaviour
        //navMeshTest
         navAgent = this.gameObject.GetComponent<NavMeshAgent>();
         navAgent.speed = unitStatus.moveSpd;
-       
+
+        atkCurTime = unitStatus.atkSpd;
 
         SearchUnit();
 

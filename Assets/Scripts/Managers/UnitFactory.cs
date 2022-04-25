@@ -29,8 +29,6 @@ public class UnitFactory : MonoBehaviour
 
         Units unitScript = spawnObj.GetComponent<Units>();
 
-        //GameObject hpBar = HpBarManager.instance.HpBarInstrate(); 
-
         #region switchCaseSpawn_DontUse
         //switch (unitClass)
         //{
@@ -79,19 +77,17 @@ public class UnitFactory : MonoBehaviour
         {
             unitScript.isEnemy = isEnemy;
 
-           //unitScript.hpBar = hpBar;
-
-            //if (isEnemy)
-            //{
-            //    //spawnObj.GetComponent<Renderer>().material.color = Color.red;
-            //    spawnObj.tag = "Enemy";
-            //}
+            if (isEnemy)
+            {
+                spawnObj.gameObject.transform.Rotate(new Vector3(0f, 180f, 0f));
+            }
 
             spawnObj.tag = "Unit";
 
+            //hpbar 생성
             GameObject hpBarObj = HpBarManager.instance.HpBarInstrate();
-            hpBarObj.GetComponent<HpBar>().Unit = spawnObj;
-            UnitManager.instance.unitList[Funcs.B2I(isEnemy)].Add(spawnObj);
+			hpBarObj.GetComponent<HpBar>().Unit = spawnObj;
+			UnitManager.instance.unitList[Funcs.B2I(isEnemy)].Add(spawnObj);
         }
 
 			return spawnObj;

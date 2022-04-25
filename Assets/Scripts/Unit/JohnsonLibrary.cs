@@ -218,6 +218,15 @@ namespace Enums
 		enemy,
 		End
 	}
+
+	public enum UnitState
+	{ 
+		Idle,
+		Walk,
+		Attack,
+		Death,
+		End
+	}
 }
 
 namespace Structs
