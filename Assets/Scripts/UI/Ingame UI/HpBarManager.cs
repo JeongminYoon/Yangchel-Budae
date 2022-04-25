@@ -46,7 +46,7 @@ public class HpBarManager : MonoBehaviour
         {
             //debugCurHp -= Time.deltaTime * 10;
             debugPos = new Vector3(Random.Range(0, 0), 0f, 0f);
-            debugUnit.GetComponent<HpBar>().HpBarSetting(debugCurHp, debugFulHp, debugPos);
+            //debugUnit.GetComponent<HpBar>().HpBarSetting(debugCurHp, debugFulHp, debugPos);
         }
         else
         {

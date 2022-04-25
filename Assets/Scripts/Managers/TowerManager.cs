@@ -77,12 +77,14 @@ public class TowerManager : MonoBehaviour
         { rotation = Quaternion.Euler(0f, 180f, 0f); }
 
         GameObject building = Instantiate(towerPrefab, pos, rotation, parent.transform);
+        GameObject hpBarObj = HpBarManager.instance.HpBarInstrate();
+        hpBarObj.GetComponent<HpBar>().Unit = building;
 
         ////머테리얼 바꾸는거
         //렌더러의 머테리얼즈(배열) 받아와서 수정한 뒤에 
         //다시 렌더러의 머테리얼즈(배열)에 삽입해야함.
 
-        
+
 
         if (isEnemy)
         {

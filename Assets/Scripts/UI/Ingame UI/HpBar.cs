@@ -14,6 +14,9 @@ public class HpBar : MonoBehaviour
     Image hpBarImage;
     public Sprite[] hpBarSprite = new Sprite[2];
 
+    public GameObject Unit = null;
+    UnitStatus status = null;
+
     bool eftSwitch = false;
     bool isAnimPlay = false;
     float time;
@@ -27,16 +30,18 @@ public class HpBar : MonoBehaviour
 
     void Update()
     {
-        if (eftSwitch == false)
-        {
-            hpBarEftValu = fullHp;
-            eftSwitch = true;
-        }
 
         hpText.text = (currentHp).ToString();
         transform.position = cam.WorldToScreenPoint(pos1 + new Vector3(0f, 3.2f, 0f));
         hpBarImage.fillAmount = currentHp / fullHp;
         DamageEffect();
+        HpBarSetting();
+
+        if (eftSwitch == false)
+        {
+            hpBarEftValu = fullHp;
+            eftSwitch = true;
+        }
     }
 
     void DamageEffect()
@@ -68,20 +73,45 @@ public class HpBar : MonoBehaviour
         }
     }
 
-    public void HpBarSetting(float curHp, float fulHp, Vector3 pos, bool isEnemy = false)
+    void HpBarSetting()
     {
-        currentHp = curHp;
-        fullHp = fulHp;
-        pos1 = pos;
-        if (isEnemy == true)
+        if (Unit != null)
         {
-            hpBarImage.sprite = hpBarSprite[1];
-        }
-        else
-        {
-            hpBarImage.sprite = hpBarSprite[0];
+            status = Unit.GetComponent<Units>().unitStatus;
+            currentHp = status.curHp;
+            fullHp = status.fullHp;
+            pos1 = Unit.transform.position;
+            if (Unit.GetComponent<Units>().isEnemy == true)
+            {
+                hpBarImage.sprite = hpBarSprite[1];
+            }
+            else
+            {
+                hpBarImage.sprite = hpBarSprite[0];
+            }
+
+
+            if (currentHp <= 0)
+            {
+                Destroy(this.gameObject);
+            }
         }
     }
+
+    //public void HpBarSetting(float curHp, float fulHp, Vector3 pos, bool isEnemy = false)
+    //{
+    //    currentHp = curHp;
+    //    fullHp = fulHp;
+    //    pos1 = pos;
+    //    if (isEnemy == true)
+    //    {
+    //        hpBarImage.sprite = hpBarSprite[1];
+    //    }
+    //    else
+    //    {
+    //        hpBarImage.sprite = hpBarSprite[0];
+    //    }
+    //}
 
     //힙: 동적할당(유저가 원할때 할당되고 유저가 원할때 해제하는것)
     //스택: 지역에서만 할당되는것
