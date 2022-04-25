@@ -5,34 +5,52 @@ using UnityEngine;
 public class BoomEffect : MonoBehaviour
 {
     // Start is called before the first frame update
+
+
+   public float overLap = 10.0f;
+
+
     void Start()
     {
-        
-    }
+        Collider[] colls = Physics.OverlapSphere(transform.position, overLap);
 
-    public bool pb = true;
 
-    private void OnTriggerEnter(Collider other)
-    {
 
-       
+
+      
+        for (int i = 0; i < colls.Length; i++)
+        {
+            if (colls[i].GetComponent<Units>() != null && colls[i].GetComponent<Units>().isEnemy == true)
+            {
+                colls[i].GetComponent<Units>().unitStatus.curHp -= 20;
+
+                
+
+            }
+
+
 
 
 
 
         }
-
-
-            
-
-
-
-
-
         
+
+    }
+
+ 
+
+    
+
+
 
 
     }
+
+
+
+
+
 
 
 

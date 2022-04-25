@@ -89,6 +89,8 @@ public class UnitFactory : MonoBehaviour
 
             spawnObj.tag = "Unit";
 
+            GameObject hpBarObj = HpBarManager.instance.HpBarInstrate();
+            hpBarObj.GetComponent<HpBar>().Unit = spawnObj;
             UnitManager.instance.unitList[Funcs.B2I(isEnemy)].Add(spawnObj);
         }
 

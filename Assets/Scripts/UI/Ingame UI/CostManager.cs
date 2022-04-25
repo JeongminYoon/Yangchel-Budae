@@ -27,7 +27,7 @@ public class CostManager : MonoBehaviour
     {
         currentCost = 0f;
         
-        CostBar.transform.SetAsLastSibling(); //코스트바 draw 위치 맨위로 초기화
+        //CostBar.transform.SetAsLastSibling(); //코스트바 draw 위치 맨위로 초기화
         costBar = CostBar.GetComponent<Image>();
         costTextValue = costText.gameObject.GetComponent<Text>();
     }

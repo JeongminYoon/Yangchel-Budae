@@ -4,29 +4,47 @@ using UnityEngine;
 
 public class BoomMove : MonoBehaviour
 {
-   
 
+    float speed = 10.0f;
+    
     public GameObject boomPrefab;
+
+    bool bb = false;
+
+
 
     private void OnTriggerEnter(Collider other)
     {
+        if(bb == false)
+        {
+            bb = true;
 
 
-        Destroy(gameObject);
+            Vector3 dir = gameObject.transform.position;
 
-        Instantiate(boomPrefab, transform.position, Quaternion.identity);
-        
+            Instantiate(boomPrefab,dir, Quaternion.identity);
+
+
+        }
+
+        Destroy(this.gameObject);
 
     }
+
+
+
     void Start()
     {
+
+
+
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        //transform.position += speed * Vector3.down * Time.deltaTime;
+        transform.position += speed * Vector3.down * Time.deltaTime;
 
     }
 }

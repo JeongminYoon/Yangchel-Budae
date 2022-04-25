@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19a04c93aae7cd54b97cfa6889699b29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boomPrefab: {fileID: 4385898973788362294, guid: 8961014b23f2d3d4287d3036e701c558, type: 3}
+  boomPrefab: {fileID: 1134129239631916, guid: 7e48ba6b1b968764490bbc70b66e3fe1, type: 3}
 --- !u!54 &-6713855867564744090
 Rigidbody:
   m_ObjectHideFlags: 0

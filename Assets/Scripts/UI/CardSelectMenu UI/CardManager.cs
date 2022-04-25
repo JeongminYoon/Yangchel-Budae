@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CardManager : MonoBehaviour
 {
     #region singletone
-    /// <singletone>
+    /// <singletone>    
     static public CardManager instance = null;
     /// <singletone>
 
@@ -16,8 +16,14 @@ public class CardManager : MonoBehaviour
         {
             instance = this;
         }
+        else 
+        {
+            Destroy(this.gameObject);
+        }
     }
     #endregion
+
+
     public DeckContainer deckContainer;
 
     public List<UnitStatus> unitStatusList = new List<UnitStatus>();
