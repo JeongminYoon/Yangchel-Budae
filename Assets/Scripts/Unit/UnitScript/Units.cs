@@ -182,16 +182,32 @@ abstract public class Units : MonoBehaviour
         {
             CalcToObj(targetObj);
 
-            if (targetDist > unitStatus.atkRange)
+            if (targetObj.CompareTag("Tower") || targetObj.CompareTag("Nexus"))
             {
-                if (!unitStatus.isDead)
-                { navAgent.isStopped = false; }
-
+                if (targetDist > unitStatus.atkRange + targetColSize)
+                {
+                    if (!unitStatus.isDead)
+                    { navAgent.isStopped = false; }
+                }
+                else
+                {
+                    if (!unitStatus.isDead)
+                    { navAgent.isStopped = true; }
+                }
             }
             else
             {
-                if (!unitStatus.isDead)
-                { navAgent.isStopped = true; }
+                if (targetDist > unitStatus.atkRange)
+                {
+                    if (!unitStatus.isDead)
+                    { navAgent.isStopped = false; }
+
+                }
+                else
+                {
+                    if (!unitStatus.isDead)
+                    { navAgent.isStopped = true; }
+                }
             }
         }
         else 
@@ -211,7 +227,6 @@ abstract public class Units : MonoBehaviour
 		{
 			if (_target.CompareTag("Tower") || _target.CompareTag("Nexus"))
 			{
-
 				if (targetDist <= unitStatus.atkRange + targetColSize)
 				{
 					atkCurTime += Time.deltaTime;
@@ -334,19 +349,19 @@ abstract public class Units : MonoBehaviour
             
             if (targetObj == null)
             {
-                if (SkillManager.instance.isSkill2Live)
-                {
-                    Skill2 tempSkill2 = SkillManager.instance.skill2.GetComponent<Skill2>();
+				if (SkillManager.instance.isSkill2Live)
+				{
+					Skill2 tempSkill2 = SkillManager.instance.skill2.GetComponent<Skill2>();
 
-                    if (tempSkill2 != null)
-                    { targetObj = tempSkill2.tower; }
-                }
-                else
-                {
-                    targetObj = TowerManager.instance.nexusList[Funcs.B2I(!isEnemy)];
+					if (tempSkill2 != null)
+					{ targetObj = tempSkill2.tower; }
 				}
-                
-            }
+				else
+				{
+					targetObj = TowerManager.instance.nexusList[Funcs.B2I(!isEnemy)];
+				}
+
+			}
         }
 
         //NavTest
@@ -438,13 +453,16 @@ abstract public class Units : MonoBehaviour
             weapon = Funcs.FindGameObjectInChildrenByTag(this.gameObject, "Weapon");
         }
 
-        weaponScript = weapon.GetComponent<Weapon>();
+        if (weapon != null)
+        {
+            weaponScript = weapon.GetComponent<Weapon>();
 
-        weaponScript.dmg = unitStatus.dmg;
-        weaponScript.isEnemy = isEnemy;
-    }
+            weaponScript.dmg = unitStatus.dmg;
+            weaponScript.isEnemy = isEnemy;
+        }
+	}
 
-    public void CenterSetting()
+		public void CenterSetting()
     {
         if (center == null)
         {

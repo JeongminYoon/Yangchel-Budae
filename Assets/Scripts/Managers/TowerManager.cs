@@ -78,7 +78,7 @@ public class TowerManager : MonoBehaviour
 
         GameObject building = Instantiate(towerPrefab, pos, rotation, parent.transform);
 
-        //hpBar
+		//hpBar 생성
 		GameObject hpBarObj = HpBarManager.instance.HpBarInstrate();
 		hpBarObj.GetComponent<HpBar>().Unit = building;
 
@@ -101,6 +101,7 @@ public class TowerManager : MonoBehaviour
         GameObject parentObj;
         GameObject prefab;
         bool isTower;
+
         for (int i = 0; i < Defines.towersPos.GetLength(0); ++i) //팀
         {
             for (int k = 0; k < Defines.towersPos.GetLength(1); ++k)//0,1=타워 / 2=넥서스

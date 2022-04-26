@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Nexus
   m_EditorClassIdentifier: 
   unitName: Nexus
-  unitNum: 0
+  unitNum: -2
   unitTier: 0
-  fullHp: 100
+  fullHp: 1000
   curHp: 100
   dmg: 0
   atkSpd: 1

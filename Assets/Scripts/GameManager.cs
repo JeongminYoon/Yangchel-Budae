@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     public SceneNum pastScene = SceneNum.SceneEnd;
     public SceneNum nextScene = SceneNum.SceneEnd;
 
+    public bool isGameWin = true;
 
     public void InGameSceneSetting()
     { 
@@ -68,6 +69,22 @@ public class GameManager : MonoBehaviour
 #else
         Application.Quit(); //겜 프로그램 시마이
 #endif
+    }
+
+    public void InGameResultCheck(bool isNexusEnemy)
+    { //넥서스 부서지면 자동으로 호출될 함수.
+        if (isNexusEnemy)
+        { //적팀 넥서스가 부서졌을 경우 -> 게임 승리 WIN
+        }
+        else 
+        {//우리팀 넥서스가 부서졌을 경우 -> 게임 Defect
+        }
+
+        isGameWin = isNexusEnemy;
+
+        SceneChange(Enums.SceneNum.Result);
+        //이제 Reuslt씬에서 GameManager의 isGameWin 값 따라서 
+        //세팅해주기
     }
 
     private void Awake()
