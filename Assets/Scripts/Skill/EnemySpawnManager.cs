@@ -20,7 +20,17 @@ public class EnemySpawnManager : MonoBehaviour
 
     List<UnitStatus> unitStatus;
     float currentCost = 0f;
-    int rand;
+    int rand;  // 유닛 소환 패턴1 랜덤값
+    int rand1; // 패턴 1 2 정해주는 랜덤값
+    
+    int rand2;  // 유닛 소한 패턴2 랜덤값
+    int rand3;  // 유닛 소환 패턴2 랜덤값
+
+
+    int randomSpawn; //적 타워 앞 위치 3개 랜덤값
+    int randomSpawn2; // 적 타워 1개 ,넥서스 랜덤값'
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -36,9 +46,16 @@ public class EnemySpawnManager : MonoBehaviour
         #endregion
 
         rand = Random.Range(0, 6); //랜덤 적 유닛 지정
+        
+      
+        rand2 = Random.Range(0, 6);
+        rand3 = Random.Range(0, 6);
+
+
+
+
     }
-    int randomSpawn;
-    
+   
     // Update is called once per frame
     void Update()
     {
@@ -53,6 +70,18 @@ public class EnemySpawnManager : MonoBehaviour
             EnemyRandom(rand); //적 소환, 현재코스트 - 사용된 유닛 코스트
             rand = Random.Range(0, 6); //랜덤 적 유닛 재지정
         }
+
+        if (unitStatus[rand2].cost + unitStatus[rand3].cost <= currentCost)
+        {
+            EnemyRandom(rand);
+
+
+            rand = Random.Range(0, 6);
+
+
+        }
+        rand1 = Random.Range(0, 2);
+
 
         //if (Input.GetKeyDown(KeyCode.F1))
         //{
@@ -82,7 +111,265 @@ public class EnemySpawnManager : MonoBehaviour
     Vector3 leftTowerPos;
     Vector3 rightTowerPos;
     Vector3 nexusTowerPos;
-    
+
+
+
+    void EnemyRandomPatton1()
+
+   {
+
+
+        if (TowerManager.instance.towerList[1, 0] == null && TowerManager.instance.towerList[1, 1] == null)
+        {
+            //둘다 없을때
+
+
+            UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+
+        }
+
+        if (TowerManager.instance.towerList[1, 0] == null && TowerManager.instance.towerList[1, 1])
+        {
+            //적 왼쪽타워가 없고 오른쪽 타워만 존재할때
+            randomSpawn = Random.Range(0, 2);
+
+
+            if (randomSpawn == 0)
+            {
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+
+
+            }
+            else if (randomSpawn == 1)
+            {
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+
+
+
+            }
+
+
+        }
+
+        if (TowerManager.instance.towerList[1, 0] && TowerManager.instance.towerList[1, 1] == null)
+        {
+            //적 오른쪽 타워가 없고 왼쪽 타워만 존재할때
+            randomSpawn = Random.Range(0, 2);
+            if (randomSpawn == 0)
+            {
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+
+
+            }
+            else if (randomSpawn == 1)
+            {
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+            }
+
+
+        }
+
+
+        if (TowerManager.instance.towerList[1, 0] && TowerManager.instance.towerList[1, 1])
+        {
+            //적 양쪽 타워가 다 존재할때
+            randomSpawn = Random.Range(0, 3);
+
+
+            if (randomSpawn == 0)
+            {
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+
+            }
+            else if (randomSpawn == 1)
+            {
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+            }
+            else if (randomSpawn == 2)
+            {
+
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+
+
+
+
+            }
+
+        }
+
+    }
+
+   
+    void EnemyRandomPatton2()
+    {
+
+
+        if (TowerManager.instance.towerList[1, 0] == null && TowerManager.instance.towerList[1, 1])
+        {
+            //적 왼쪽타워가 없고 오른쪽 타워만 존재할때
+            randomSpawn2 = Random.Range(0, 3);
+
+
+            
+      
+            if(randomSpawn2 == 0)
+            {
+
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+
+
+
+
+            }
+            if(randomSpawn2 == 1)
+            {
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+
+
+            }
+            if(randomSpawn2 == 2)
+            {
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+
+            }
+         
+
+
+            
+
+
+        }
+
+
+
+        if (TowerManager.instance.towerList[1, 0] && TowerManager.instance.towerList[1, 1] == null)
+        {
+            //적 오른쪽 타워가 없고 왼쪽 타워만 존재할때
+
+
+            randomSpawn2 = Random.Range(0, 2);
+            
+
+          
+            if(randomSpawn2 == 0)
+            {
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+
+
+
+
+            }
+            if(randomSpawn2 == 1)
+            {
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+
+
+            }
+            
+            if(randomSpawn2 == 2)
+            {
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+
+            }
+
+
+
+
+
+        }
+
+
+
+        if (TowerManager.instance.towerList[1, 0] && TowerManager.instance.towerList[1, 1])
+        {
+            //적 양쪽 타워가 다 존재할때
+            randomSpawn = Random.Range(0, 6);
+
+
+            if (randomSpawn == 0)
+            {
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+            }
+            else if (randomSpawn == 1)
+            {
+
+
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+
+            }
+            else if (randomSpawn == 2)
+            {
+
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+
+
+
+            }
+            else if (randomSpawn == 3)
+            {
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+
+
+            }
+            else if (randomSpawn == 4)
+            {
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+
+            }
+            else if(randomSpawn == 5)
+            {
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+
+
+            }
+
+
+
+
+
+
+        }
+
+
+
+    }
+  
+
+
+
+   
+
+
 
     public void EnemyRandom(int rand)
     {
@@ -104,98 +391,38 @@ public class EnemySpawnManager : MonoBehaviour
 
 
 
-
-
-        if (TowerManager.instance.towerList[1, 0] == null && TowerManager.instance.towerList[1, 1] == null)
-        {
-            //둘다 없을때
-
-
-            UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand,nexusTowerPos , true);
-
-        }
-
-
-
-
-
-        if (TowerManager.instance.towerList[1, 0]== null && TowerManager.instance.towerList[1, 1] )
-        {
-            //적 왼쪽타워가 없고 오른쪽 타워만 존재할때
-            randomSpawn = Random.Range(0, 2);
-
-
-            if(randomSpawn == 0)
-            {
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos , true);
-
-
-            }
-            else if(randomSpawn == 1)
-            {
-
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
-
-
-
-            }
-
-        
-        }
-
-        if (TowerManager.instance.towerList[1, 0] && TowerManager.instance.towerList[1, 1] == null)
-        {
-            //적 오른쪽 타워가 없고 왼쪽 타워만 존재할때
-            randomSpawn = Random.Range(0, 2);
-            if(randomSpawn == 0)
-            {
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
-
-
-            }
-            else if (randomSpawn == 1)
-            {
-
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand,nexusTowerPos, true);
-            }
-            
        
-        }
-
-        
-
-
-
-
-        if (TowerManager.instance.towerList[1, 0] && TowerManager.instance.towerList[1, 1])
+        if(rand1 == 0) // 패턴 1 ( 무난한 유닛 1마리씩 소환 )
         {
-            //적 양쪽 타워가 다 존재할때
-            randomSpawn = Random.Range(0, 3);
 
 
-            if (randomSpawn == 0)
-            {
+            EnemyRandomPatton1();
 
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand,leftTowerPos, true);
-
-            }
-            else if (randomSpawn == 1)
-            {
-
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
-            }
-            else if (randomSpawn == 2)
-            {
-
-
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
-
-
-
-
-            }
 
         }
+        
+       if(rand1 == 1)    // 패턴2 유닛 2마리씩 소환    
+        {
+
+
+            EnemyRandomPatton2();
+
+
+
+
+        }
+
+
+
+
+
+
+
+
+      
+
+
+      
 
 
 
