@@ -165,12 +165,20 @@ abstract public class Units : MonoBehaviour
         {
             unitStatus.isDead = true;
 
+            //유닛 콜라이더 끄기 
+            unitCol.enabled = false;
+
+            //UnitManager에서 제외하기
             handler(this.gameObject);
-            Destroy(this.gameObject);
+
+            //DeathAnimation 재생하기
+
+            
         }
         //Destroy(gameObject);
         //이 유닛 참조하고 있는 다른 놈들에 대해서도 예외처리 필요. => 0324 Unit Manager로 처리 완료
         //또 이거 쓰면 그 머다냐 메모리 릭 생긴다는 얘기도 있음.
+            //=> 가비지 컬렉터 구조상 디스트로이 전에 참조하고 있는 애들 부분에서 없애줘야함.
     }
 
 
@@ -225,6 +233,13 @@ abstract public class Units : MonoBehaviour
 
 		if (_target != null)
 		{
+            Units unitScript = _target.GetComponent<Units>();
+
+            if (unitScript.unitStatus.isDead)
+            {
+                return false;
+            }
+
 			if (_target.CompareTag("Tower") || _target.CompareTag("Nexus"))
 			{
 				if (targetDist <= unitStatus.atkRange + targetColSize)
@@ -349,23 +364,53 @@ abstract public class Units : MonoBehaviour
             
             if (targetObj == null)
             {
-				if (SkillManager.instance.isSkill2Live)
-				{
-					Skill2 tempSkill2 = SkillManager.instance.skill2.GetComponent<Skill2>();
+                //220427 이제 스킬2는 공격 안하기로 함.
+				//if (SkillManager.instance.isSkill2Live)
+				//{
+				//	Skill2 tempSkill2 = SkillManager.instance.skill2.GetComponent<Skill2>();
 
-					if (tempSkill2 != null)
-					{ targetObj = tempSkill2.tower; }
-				}
-				else
-				{
+				//	if (tempSkill2 != null)
+				//	{ targetObj = tempSkill2.tower; }
+				//}
+				//else
+				//{
 					targetObj = TowerManager.instance.nexusList[Funcs.B2I(!isEnemy)];
-				}
+				//}
 
 			}
         }
 
         //NavTest
         navAgent.SetDestination(targetObj.transform.position);
+    }
+
+    public void DeadTargetException(GameObject isDeadTarget)
+    {
+        //자신이 가지고 있는 웨폰과 각종 공격 관련 오브젝트들한테 알려줄 기능
+        //UnitManager에서 유닛 한마리 죽으면 자동으로 모든 애들중 죽은 애를 타겟으로 잡고있는 래~끼한테 실행.
+
+            //밀리 => 웨펀한테만 알려주고 공격 애니메이션 취소
+            //레윈쥐 -> 웨펀한테 알려주고 웨펀은 불ㅡㅡ릿들한테 말해주기 / 공격 애니메이션 취소
+            //메ㅡ딕 -> 웨펀한테 알려주고 웨펀은 불ㅡㅡ릿들한테 말해주기 / 메디슨들한테 알려주기 / 공격,힐 애니메이션 취소
+            //탱커 -> 웨펀한테 알려주고 공격 애니메이션 취소.
+
+        //유닛 자체에서 null할 필요는 없는게 어차피 이거 실행되고 다음에
+        //바로 리서치 유닛 들어감
+
+        //Units unitScript = isDeadTarget.GetComponent<Units>();
+
+        //if (unitScript != null)
+        //{
+        //    if (unitScript.unitStatus.isDead)
+        //    {
+        //        isDeadTarget = null;
+        //    }
+        //}
+
+        if (targetObj == isDeadTarget)
+        {
+            targetObj = null;
+        }
     }
 
     public void Hit(int _dmg)
@@ -552,9 +597,9 @@ abstract public class Units : MonoBehaviour
         //MuzzleToTarget();
     }
 
-    protected virtual void Release()
+    public virtual void Release()
     {
-
+       
 
 
 

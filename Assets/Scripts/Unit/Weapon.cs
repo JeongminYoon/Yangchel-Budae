@@ -14,19 +14,14 @@ public class Weapon : MonoBehaviour
 
     public void Fire(Quaternion ObjRot)
     { //원거리 무기일때 총알 소환 할 함수
-	  //=> 애니메이션 이벤트에서 관리
-		Vector3 muzzlePos = muzzle.transform.position;
+      //=> 애니메이션 이벤트에서 관리
+        Vector3 muzzlePos = muzzle.transform.position;
 		//Quaternion weaponRot = transform.rotation;
 
 		GameObject bullet = Instantiate(bulletPrefab, muzzlePos, ObjRot);
-		
+		        
         
         UnitBullet bulletScript = bullet.GetComponent<UnitBullet>();
-
-        //if (bulletScript == null)
-        //{
-        //    bulletScript = bullet.GetComponent<TowerBullet>();
-        //}
         
         if (bulletScript != null)
         {
@@ -67,6 +62,8 @@ public class Weapon : MonoBehaviour
         }
     }
 
+
+
 // Start is called before the first frame update
     void Start()
     {
@@ -76,21 +73,27 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //DeadTargetException();
     }
 
 	private void OnTriggerEnter(Collider other)
 	{
-        if (other.gameObject == targetObj)
+
+        //근접 애들만 사용할거 
+
+        if (targetObj != null)
         {
-            Units temp = other.gameObject.GetComponent<Units>();
-            
-            if (temp != null)
+            if (other.gameObject == targetObj)
             {
-                temp.Hit(dmg);
+                Units temp = other.gameObject.GetComponent<Units>();
+
+                if (temp != null)
+                {
+                    temp.Hit(dmg);
+                    GetComponent<BoxCollider>().enabled = false;
+                }
             }
         }
-
 	}
 
 }

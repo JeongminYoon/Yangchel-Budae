@@ -233,7 +233,12 @@ Visual Studio 2019
 
 20:51 2022-4-26	내일 시연끝나고 해야할 거 
 			메딕 힐타겟 죽으면 재 지정 해주는 기능.
-
+				=> 지금 isDead되면 바로 Destroy 시키지말고 참조 되는 부분에서 isDead 된거 null로 맞춰주고 난 뒤에 Destory하기
+				-> weapon, bullet, medicine에서 특히 관리 필요.
+~~죽었을 때 처리하기~~
+0. 뒤진 유닛 : 뒤졌으면 바로 Destory 해주지말고 isDeath 세팅해주고 콜라이더 끄기, UnitManager에서 빼기, Death 애니메이션 재생 (그 사이 다른 참조하고 있는 애들에서 null처리) => 애니메이션 재생이 끝나면, 찐으로 없애기
+1. 유닛들 : 공격전에 target의 isDead 체크 해서 뒤진 상태면 공격 애니메이션 없애고 처리하기
+2. weapon, bullet, medicine : targetObj의 isDead 체크해서 뒤졌으면 null로 바꿔주고 걍 가던길 가기
 
 ---------------------------------------------------------------
 [배경,스킬,적AI] - 방현준
