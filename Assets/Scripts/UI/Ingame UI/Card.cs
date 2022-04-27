@@ -53,6 +53,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         transform.position = currentPos;
         //카드 애니메이션 재생
         CardAnim();
+        SpawnRange.instance.ShowSpawnRangeEffect();
     }
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
@@ -63,11 +64,12 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         {
             //닿인곳이 땅이 아니면 카드의 처음위치(cardPos)로 카드를 되돌려놓음
             transform.position = cardPos;
+            print("not ground");
         }
         else
         {   //닿인곳이 땅이면 유닛 소환
             
-            if (temp.hitObj.tag == "Tower" || temp.hitObj.tag == "Nexus" || float.Parse(unitCost.text) > CostManager.instance.currentCost)
+            if (temp.hitObj.tag == "Tower" || temp.hitObj.tag == "Nexus" || temp.hitObj.tag != "SpawnRange" || float.Parse(unitCost.text) > CostManager.instance.currentCost)
             { //닿인곳이 타워,넥서스면 소환 취소
                 transform.position = cardPos;
             }
@@ -92,6 +94,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         }
         //카드 애니메이션 초기화
         transform.localScale = new Vector3(1, 1, 1);
+        SpawnRange.instance.HideSpawnRangeEffect();
     }
 
     void CardAnim()
