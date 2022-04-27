@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641258, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -660,7 +660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skill1Prefab: {fileID: 4667199152954949758, guid: 3c58b32dd47deaf43868f7b16ef36f68, type: 3}
-  skill2Prefab: {fileID: 8442221887539947438, guid: fa712159b8c989b4dbb9b36ae16d5e53, type: 3}
+  skill2Prefab: {fileID: 1337826535127648, guid: 0db1e4f91e814cd4981dcebea9343a63, type: 3}
   skill1: {fileID: 0}
   skill2: {fileID: 0}
   isSkill2Live: 0

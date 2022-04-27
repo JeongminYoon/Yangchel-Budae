@@ -20,17 +20,22 @@ public class Skill2 : MonoBehaviour
 
     void Start()
     {
-        allyNexusPos = Defines.allyNexusPos + new Vector3(0, 0, +2);
+        // allyNexusPos = Defines.allyNexusPos + new Vector3(0, 0, +6);
 
 
-        Vector3 towerPos = allyNexusPos;
+        //  Vector3 towerPos = allyNexusPos;
+
+
+        towerPrefab.transform.position = Defines.allyNexusPos + new Vector3(0, 0, 6);
 
 
         skillStatus = ScriptableObject.CreateInstance<UnitStatus>();
         skillStatus.DeepCopy(skillStatus_Origin);
 
-        tower = Instantiate(towerPrefab, towerPos, Quaternion.identity);
-
+        
+        
+        
+   
 
 
 
@@ -63,6 +68,9 @@ public class Skill2 : MonoBehaviour
 
 
         }
+
+
+
 
     }
 }

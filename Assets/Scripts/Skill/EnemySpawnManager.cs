@@ -59,7 +59,7 @@ public class EnemySpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        currentCost += Time.deltaTime / 2f; //현재 적의 코스트
+        currentCost += Time.deltaTime / 4f; //현재 적의 코스트
         if (currentCost > 10f)
         {
             currentCost = 10f;
