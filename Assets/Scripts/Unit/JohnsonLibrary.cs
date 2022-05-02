@@ -187,6 +187,10 @@ public static class Defines
 												enemyTower_RightPos,
 												enemyNexusPos} };
 	#endregion
+
+	public static string[] deathAnimations = { "Units_Death_01",
+												"Units_Death_02",
+												"Units_Death_03"};
 }
 
 namespace Enums
@@ -237,6 +241,8 @@ namespace Structs
 		public Vector3 hitPosition;
 		public GameObject hitObj;
 	}
+
+
 
 }
 

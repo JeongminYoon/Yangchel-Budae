@@ -60,11 +60,14 @@ abstract public class Units : MonoBehaviour
 
     public NavMeshAgent navAgent;
     public Animator animController;
+    //private string deathAnimStr;
     //public CharacterController charContoller;
 
 
     public delegate void HandlerDeath(GameObject unit);
     public HandlerDeath handlerDeath;
+    private bool isDelete = false;
+
 
 
     //간단한 FSM를 위한 용도 -> 나중에 시간남으면 찐 FSM으로 바꿔줄 예정
@@ -182,6 +185,9 @@ abstract public class Units : MonoBehaviour
             Release();
 
             //DeathAnimation 재생하기
+            int deathAnim = Random.Range(0, 3);
+            string deathAnimStr = "tDeath_" + deathAnim.ToString();
+            animController.SetTrigger(deathAnimStr);
         }
         //Destroy(gameObject);
         //이 유닛 참조하고 있는 다른 놈들에 대해서도 예외처리 필요. => 0324 Unit Manager로 처리 완료
@@ -205,12 +211,18 @@ abstract public class Units : MonoBehaviour
                     if (targetDist > unitStatus.atkRange + targetColSize)
                     {
                         if (!unitStatus.isDead)
-                        { navAgent.isStopped = false; }
+                        { 
+                            navAgent.isStopped = false;
+                            animController.SetBool("bWalk", true);
+                        }
                     }
                     else
                     {
                         if (!unitStatus.isDead)
-                        { navAgent.isStopped = true; }
+                        { 
+                            navAgent.isStopped = true;
+                            animController.SetBool("bWalk", false);
+                        }
                     }
                 }
                 else
@@ -218,13 +230,19 @@ abstract public class Units : MonoBehaviour
                     if (targetDist > unitStatus.atkRange)
                     {
                         if (!unitStatus.isDead)
-                        { navAgent.isStopped = false; }
+                        {
+                            navAgent.isStopped = false;
+                            animController.SetBool("bWalk", true);
+                        }
 
                     }
                     else
                     {
                         if (!unitStatus.isDead)
-                        { navAgent.isStopped = true; }
+                        { 
+                            navAgent.isStopped = true;
+                            animController.SetBool("bWalk", false);
+                        }
                     }
                 }
             }
@@ -235,7 +253,7 @@ abstract public class Units : MonoBehaviour
         }
         else 
         {
-            int a = 0;
+            //int a = 0;
         }
     }
 
@@ -570,6 +588,25 @@ abstract public class Units : MonoBehaviour
         return 0f;
     }
 
+    public void Victory()
+    {
+        if (unitStatus.isDead)
+        { return; }
+        int animRand = Random.Range(0, 2);
+        string vicStr = "tVictory_";
+        vicStr += animRand.ToString();
+        animController.SetTrigger(vicStr);
+    }
+
+    public void Defeated()
+    {
+        if (unitStatus.isDead)
+        { return; }
+        int animRand = Random.Range(0, 3);
+		string defeatStr = "tDefeated_";
+		defeatStr += animRand.ToString();
+		animController.SetTrigger(defeatStr);
+	}
 
     protected virtual void Awake()
     {
@@ -619,6 +656,8 @@ abstract public class Units : MonoBehaviour
         Death(handlerDeath);
 
         //MuzzleToTarget();
+
+        Delete();
     }
 
     public virtual void Release()
@@ -638,6 +677,33 @@ abstract public class Units : MonoBehaviour
         listTarget.Clear();
 
         //hp바는 어디에서 할까 
+    }
+
+    public void Delete()
+    {
+        if (unitStatus.isDead)
+        {
+            for (int i = 0; i < Defines.deathAnimations.Length; ++i)
+            {
+                if (animController.GetCurrentAnimatorStateInfo(0).IsName(Defines.deathAnimations[i])
+                    && animController.GetCurrentAnimatorStateInfo(0).normalizedTime >= 0.99f)
+                {
+                    //Destroy(this.gameObject);
+                    if (!isDelete)
+                    { StartCoroutine(DelayDestory()); }
+
+                }
+            }
+        }
+    }
+
+    public IEnumerator DelayDestory()
+    {
+
+        isDelete = true;        
+        yield return new WaitForSecondsRealtime(1f);
+        Destroy(this.gameObject);
+
     }
 
 	void OnDrawGizmos()

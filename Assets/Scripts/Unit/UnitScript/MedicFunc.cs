@@ -269,9 +269,11 @@ public class MedicFunc : Units
 		//}
 
 
-		Death(handlerDeath);
 		Walk();
 		Attack(targetObj);
+
+		Death(handlerDeath);
+		Delete();
 	}
 
     public override void Release()

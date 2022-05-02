@@ -11,7 +11,6 @@ public class TankerFunc : Units
 		{
 			animController.SetTrigger("tAttack");
 			weaponScript.targetObj = _target;
-
 			
 			return true;
 		}
@@ -37,14 +36,20 @@ public class TankerFunc : Units
 			{
 				//transform.position += targetDir * unitStatus.moveSpd * Time.deltaTime;
 				if (!unitStatus.isDead)
-				{ navAgent.isStopped = false; }
+				{ 
+					navAgent.isStopped = false;
+					animController.SetBool("bWalk", true);
+				}
 
 				//transform.LookAt(targetObj.transform);
 			}
 			else
 			{
 				if (!unitStatus.isDead)
-				{ navAgent.isStopped = true; }
+				{ 
+					navAgent.isStopped = true;
+					animController.SetBool("bWalk", false);
+				}
 			}
 		}
 		else
@@ -102,6 +107,7 @@ public class TankerFunc : Units
 		Attack(targetObj);
 
 		Death(handlerDeath);
+		Delete();
 	}
 
 

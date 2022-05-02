@@ -81,7 +81,10 @@ public class GameManager : MonoBehaviour
         }
 
         isGameWin = isNexusEnemy;
+        
+        UnitManager.instance.GameEnd(isNexusEnemy);
 
+        //이제 씬 넘기지 말고 연출 나온 뒤에 씬넘기기
         SceneChange(Enums.SceneNum.Result);
         //이제 Reuslt씬에서 GameManager의 isGameWin 값 따라서 
         //세팅해주기

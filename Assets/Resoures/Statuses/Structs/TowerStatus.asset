@@ -15,7 +15,7 @@ MonoBehaviour:
   unitName: Tower
   unitNum: -1
   unitTier: 0
-  fullHp: 500
+  fullHp: 100
   curHp: 100
   dmg: 20
   atkSpd: 1

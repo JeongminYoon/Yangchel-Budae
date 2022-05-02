@@ -70,7 +70,33 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    
+
+    public void GameEnd(bool isNexusEnemy)
+    {
+        //적팀 넥서스가 부서졌을 경우 -> 게임 승리 WIN
+            //true일 때
+            //우리팀은 victory 호출
+            //적팀은 Defeated 호출
+        foreach (GameObject unit in unitList[Funcs.B2I(isNexusEnemy)])
+        {
+            Units unitScript = unit.GetComponent<Units>();
+            if (unitScript != null)
+            {
+                unitScript.Defeated();
+            }
+        }
+
+        foreach (GameObject unit in unitList[Funcs.B2I(!isNexusEnemy)])
+        {
+            Units unitScript = unit.GetComponent<Units>();
+            if (unitScript != null)
+            {
+                unitScript.Victory();
+            }
+        }
+
+
+    }
 
     void Awake()
 	{
