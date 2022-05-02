@@ -171,6 +171,9 @@ abstract public class Units : MonoBehaviour
             //UnitManager에서 제외하기
             handler(this.gameObject);
 
+            //자기 타겟, 무기 타겟, (원거리면) 총알 타겟 릴리즈
+            Release();
+
             //DeathAnimation 재생하기
 
             
@@ -599,9 +602,21 @@ abstract public class Units : MonoBehaviour
 
     public virtual void Release()
     {
-       
+        if (weapon != null)
+        {
+            Weapon weaponScript = weapon.GetComponent<Weapon>();
 
+            if (weaponScript != null)
+            {
+                weaponScript.Release();
+            }
+        }
 
+        targetObj = null;
+
+        listTarget.Clear();
+
+        //hp바는 어디에서 할까 
 
     }
 

@@ -17,6 +17,7 @@ public class UnitBullet : MonoBehaviour
 
     public int dmg;
     public float bulletSpd = 10f;
+    public bool isDead = false;
 
     public GameObject targetObj;
     public float aliveTime = 0f;
@@ -35,11 +36,21 @@ public class UnitBullet : MonoBehaviour
 
         if (aliveTime >= 3f)
         {
+            Release();
             Destroy(this.gameObject);
+            //총알 Destroy 하는건 Weapon쪽에서 해줄예정.
+                //=> 근데 이러면 총알 날라가는데 유닛 뒤져버리면 못없애는디 ㅋㅋ; 좆댔넹
         }
 
         transform.position += transform.forward * bulletSpd * Time.deltaTime;
     }
+
+    public void Release()
+    {
+        targetObj = null;
+        isDead = true;
+    }
+
 
 	private void OnTriggerEnter(Collider other)
 	{
@@ -57,19 +68,25 @@ public class UnitBullet : MonoBehaviour
 
         //    Destroy(this.gameObject);
         //}
-
-        if (other.gameObject == targetObj)
+        if (targetObj != null)
         {
-            Units temp = other.gameObject.GetComponent<Units>();
-
-            if (temp != null)
+            if (other.gameObject == targetObj)
             {
-                temp.Hit(dmg);
-                Destroy(this.gameObject);
+                Units temp = other.gameObject.GetComponent<Units>();
+
+                if (temp != null)
+                {
+                    temp.Hit(dmg);
+                    Release();
+                    Destroy(this.gameObject);
+                }
             }
         }
-        else if(other.gameObject.CompareTag("MapData"))
+        
+        if (other.gameObject.CompareTag("MapData"))
         {
+
+            Release();
             Destroy(this.gameObject);
         }
 	}

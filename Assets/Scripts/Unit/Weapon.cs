@@ -10,6 +10,7 @@ public class Weapon : MonoBehaviour
 
     //for Range Weapon -> 상속으로 할까...?
     public GameObject bulletPrefab;
+    //public List<UnitBullet> bulletList = new List<UnitBullet>();
     public GameObject muzzle = null;
 
     public void Fire(Quaternion ObjRot)
@@ -19,10 +20,10 @@ public class Weapon : MonoBehaviour
 		//Quaternion weaponRot = transform.rotation;
 
 		GameObject bullet = Instantiate(bulletPrefab, muzzlePos, ObjRot);
-		        
         
         UnitBullet bulletScript = bullet.GetComponent<UnitBullet>();
-        
+        //bulletList.Add(bulletScript);
+
         if (bulletScript != null)
         {
             bulletScript.dmg = dmg;
@@ -39,6 +40,7 @@ public class Weapon : MonoBehaviour
 
         GameObject bullet = Instantiate(bulletPrefab, muzzlePos, weaponRot);
         UnitBullet bulletScript = bullet.GetComponent<UnitBullet>();
+        //bulletList.Add(bulletScript);
 
         if (bulletScript != null)
         {
@@ -62,6 +64,21 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    //public void BulletDestory()
+    //{
+    //    //이렇게 되면 유닛이 먼저 뒤져버렸을 때 문제 생김. 
+    //    //총알은 유닛이 죽던말던 그냥 알아서 할일 하면 됨. 필요없을듯.
+    //    //대신 타겟이 죽었을 때만 예외처리.
+    //    foreach (UnitBullet _bullet in bulletList)
+    //    {
+    //        if (_bullet.isDead)
+    //        {
+    //            UnitBullet temp = _bullet;
+    //            bulletList.Remove(_bullet);
+    //            Destroy(temp.gameObject);
+    //        }
+    //    }
+    //}
 
 
 // Start is called before the first frame update
@@ -74,6 +91,18 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         //DeadTargetException();
+    }
+
+    public void Release()
+    {
+        targetObj = null;
+
+        if (muzzle)
+        {
+            muzzle = null;
+        }
+
+        
     }
 
 	private void OnTriggerEnter(Collider other)
