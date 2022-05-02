@@ -32,6 +32,11 @@ public class UnitBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (targetObj != null && targetObj.GetComponent<Units>().unitStatus.isDead)
+        {
+            targetObj = null;
+        }
+
         aliveTime += Time.deltaTime;
 
         if (aliveTime >= 3f)
@@ -48,7 +53,7 @@ public class UnitBullet : MonoBehaviour
     public void Release()
     {
         targetObj = null;
-        isDead = true;
+        //isDead = true;
     }
 
 
@@ -85,7 +90,6 @@ public class UnitBullet : MonoBehaviour
         
         if (other.gameObject.CompareTag("MapData"))
         {
-
             Release();
             Destroy(this.gameObject);
         }

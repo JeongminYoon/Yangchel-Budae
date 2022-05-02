@@ -40,8 +40,11 @@ public class RangeFunc : Units
 	{
         if (weapon != null)
         {
-            transform.LookAt(targetObj.transform);
-            weaponScript.Fire(this.gameObject.transform.rotation);
+            if (targetObj != null)
+            {
+                transform.LookAt(targetObj.transform);
+                weaponScript.Fire(this.gameObject.transform.rotation);
+            }
         }
 	}
 

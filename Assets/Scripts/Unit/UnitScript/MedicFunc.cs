@@ -129,14 +129,21 @@ public class MedicFunc : Units
 	{
 		if (weapon != null)
 		{
-			transform.LookAt(targetObj.transform);
-			weaponScript.Fire(this.gameObject.transform.rotation);
-		}
+            if (targetObj != null)
+            {
+                transform.LookAt(targetObj.transform);
+                weaponScript.Fire(this.gameObject.transform.rotation);
+            }
+        }
 	}
 
 
 	public void Heal()
 	{
+		if (healTarget == null)
+		{
+			return;
+		}
 		transform.LookAt(healTarget.transform);
 
 		GameObject medicine = Instantiate(medicinePrefab, medicLeftHand.transform.position, Quaternion.identity);
@@ -152,6 +159,10 @@ public class MedicFunc : Units
 
 	public override void SearchUnit()
 	{
+		if (unitStatus.isDead)
+		{
+			return;
+		}
 		//아군 유닛만 타겟으로 잡도록.
 		//타워 히트는 없는걸루...?
 		//있으면 그냥 units의 SearchUnit에서 예외처리만 해주면 되고
@@ -193,6 +204,7 @@ public class MedicFunc : Units
 					{
 						leastHpRatio = hpRatio;
 						healTarget = obj;
+						
 						navAgent.SetDestination(healTarget.transform.position);
 						healDistance = Vector3.Magnitude(obj.transform.position - transform.position);
 					}
@@ -262,5 +274,12 @@ public class MedicFunc : Units
 		Attack(targetObj);
 	}
 
+    public override void Release()
+    {
+        base.Release();
+		
+		healTarget = null;
+		medicLeftHand = null;
+    }
 
 }

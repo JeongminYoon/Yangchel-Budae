@@ -1245,6 +1245,8 @@ MonoBehaviour:
   searchCurTime: 0
   navAgent: {fileID: 0}
   animController: {fileID: 0}
+  preState: 4
+  curState: 1
   medicinePrefab: {fileID: 1023248994340480, guid: 988ac363bd09b2749b0601852532ebcd, type: 3}
   medicLeftHand: {fileID: 0}
   healTarget: {fileID: 0}

@@ -54,13 +54,14 @@ public class UnitManager : MonoBehaviour
                 {//유닛 리스트 다 돌면서 유닛이 null아니고 -> 안전장치
                     //targetObj가 방금 죽은 유닛일 경우
 
-                    if (tempUnit.gameObject.CompareTag("Medic"))
+                    if (tempUnit.gameObject.GetComponent<Units>().unitStatus.unitNum == (int)Enums.UnitClass.medic)
                     {
+                        tempUnit.DeadTargetException(deadUnit);
                         (tempUnit as MedicFunc).SearchUnit();
                     }
                     else 
                     {
-                        //tempUnit.DeadTargetException(deadUnit);
+                        tempUnit.DeadTargetException(deadUnit);
                         tempUnit.SearchUnit();
                     }
                     

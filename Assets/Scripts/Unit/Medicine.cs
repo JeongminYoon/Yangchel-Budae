@@ -11,15 +11,28 @@ public class Medicine : MonoBehaviour
     public GameObject medic;
     public GameObject targetObj;
 
+    private Vector3 targetCenterPos;
     public float curAliveTime = 0f;
+
+
 	public void Move()
 	{
         //아군 타겟 유닛이 죽어서 Destory될 경우 예외 처리 해줘야함.
-        Vector3 centerPos = targetObj.GetComponent<Units>().center.transform.position;
-        Vector3 dir = centerPos - this.gameObject.transform.position;
 
+        if (targetObj != null)
+        {
+            targetCenterPos = targetObj.GetComponent<Units>().center.transform.position;
+        }
+        else
+        {
+            targetCenterPos.y = -1;
+        }
+
+        Vector3 dir = targetCenterPos - this.gameObject.transform.position;
         transform.position += dir.normalized * 5f * Time.deltaTime;
     }
+
+    
 
 	// Start is called before the first frame update
 	void Start()
@@ -31,13 +44,26 @@ public class Medicine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (targetObj != null && targetObj.GetComponent<Units>().unitStatus.isDead)
+        {
+            targetObj = null;
+        }
+
+        if (medic != null &&  medic.GetComponent<Units>().unitStatus.isDead)
+        {
+            medic = null;
+        }
+
+
         Move();
         rotate += new Vector3(5, 0, 0);
-
+        
         curAliveTime += Time.deltaTime;
 
         if (curAliveTime >= 3f)
         {
+            Release();
             Destroy(this.gameObject);
         }
         
@@ -48,24 +74,37 @@ public class Medicine : MonoBehaviour
         
     }
 
+    public void Release()
+    {
+        if (medic)
+        { medic = null; }
+
+        if (targetObj)
+        {
+            targetObj = null;
+        }
+    
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject != medic)
-        {
 
-            if (targetObj == other.gameObject)
-            {
-                Units hitObj = other.gameObject.GetComponent<Units>();
-                //hitObj.unitStatus.curHp += healAmount;
-                hitObj.Cure(healAmount);
-                
-                Destroy(this.gameObject);
-            }
-            else if(other.CompareTag("MapData"))
-            {
-                Destroy(this.gameObject);
-            }
+        if (targetObj == other.gameObject)
+        {
+            Units hitObj = other.gameObject.GetComponent<Units>();
+            //hitObj.unitStatus.curHp += healAmount;
+            hitObj.Cure(healAmount);
+
+            Release();
+            Destroy(this.gameObject);
         }
 
-	}
+
+        if (other.CompareTag("MapData"))
+        {
+            Release();
+            Destroy(this.gameObject);
+        }
+
+    }
 }

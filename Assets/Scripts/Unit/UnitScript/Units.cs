@@ -83,8 +83,6 @@ abstract public class Units : MonoBehaviour
         return curState == state ? true : false;
     }
 
-
-
     protected void CalcToObj(GameObject obj)
     {
         //float targetColSize = obj.GetComponent<Units>().unitStatus.unitColScale.x;
@@ -161,12 +159,21 @@ abstract public class Units : MonoBehaviour
 
     public virtual void Death(HandlerDeath handler)
     {
-        if (unitStatus.curHp <= 0f)
+        if (!unitStatus.isDead && unitStatus.curHp <= 0f)
         {
             unitStatus.isDead = true;
 
             //유닛 콜라이더 끄기 
-            unitCol.enabled = false;
+            if (unitCol != null)
+            {
+                unitCol.enabled = false;
+            }
+
+            //네비매쉬 끄기 
+            if (navAgent != null)
+            {
+                navAgent.enabled = false;
+            }
 
             //UnitManager에서 제외하기
             handler(this.gameObject);
@@ -175,8 +182,6 @@ abstract public class Units : MonoBehaviour
             Release();
 
             //DeathAnimation 재생하기
-
-            
         }
         //Destroy(gameObject);
         //이 유닛 참조하고 있는 다른 놈들에 대해서도 예외처리 필요. => 0324 Unit Manager로 처리 완료
@@ -186,163 +191,179 @@ abstract public class Units : MonoBehaviour
 
 
     public virtual void Walk()
-	{
-        //지금은 그냥 타겟 있을때만 그쪽으로 걸어가는 방식.
-        
-        if (targetObj != null)
+    {
+        if (!unitStatus.isDead)
         {
-            CalcToObj(targetObj);
+            //지금은 그냥 타겟 있을때만 그쪽으로 걸어가는 방식.
 
-            if (targetObj.CompareTag("Tower") || targetObj.CompareTag("Nexus"))
+            if (targetObj != null)
             {
-                if (targetDist > unitStatus.atkRange + targetColSize)
+                CalcToObj(targetObj);
+
+                if (targetObj.CompareTag("Tower") || targetObj.CompareTag("Nexus"))
                 {
-                    if (!unitStatus.isDead)
-                    { navAgent.isStopped = false; }
+                    if (targetDist > unitStatus.atkRange + targetColSize)
+                    {
+                        if (!unitStatus.isDead)
+                        { navAgent.isStopped = false; }
+                    }
+                    else
+                    {
+                        if (!unitStatus.isDead)
+                        { navAgent.isStopped = true; }
+                    }
                 }
                 else
                 {
-                    if (!unitStatus.isDead)
-                    { navAgent.isStopped = true; }
+                    if (targetDist > unitStatus.atkRange)
+                    {
+                        if (!unitStatus.isDead)
+                        { navAgent.isStopped = false; }
+
+                    }
+                    else
+                    {
+                        if (!unitStatus.isDead)
+                        { navAgent.isStopped = true; }
+                    }
                 }
             }
             else
             {
-                if (targetDist > unitStatus.atkRange)
-                {
-                    if (!unitStatus.isDead)
-                    { navAgent.isStopped = false; }
-
-                }
-                else
-                {
-                    if (!unitStatus.isDead)
-                    { navAgent.isStopped = true; }
-                }
+                SearchUnit();
             }
         }
         else 
         {
-            SearchUnit();
+            int a = 0;
         }
-	}
+    }
 
 	public virtual bool Attack(GameObject _target)
     {
-		//지금 타워처럼 스케일이 1 이상인 애들도 
-		//공격 범위만큼 가까이 가야 때릴 수 있음.
-		// 추후 콜리더 범위로 수정 해야함.
-		//if (_target != null && targetDist <= unitStatus.atkRange + targetColSize + unitStatus.unitColScale.x)
+        if (!unitStatus.isDead)
+        {
+            //지금 타워처럼 스케일이 1 이상인 애들도 
+            //공격 범위만큼 가까이 가야 때릴 수 있음.
+            // 추후 콜리더 범위로 수정 해야함.
+            //if (_target != null && targetDist <= unitStatus.atkRange + targetColSize + unitStatus.unitColScale.x)
 
-		if (_target != null)
-		{
-            Units unitScript = _target.GetComponent<Units>();
-
-            if (unitScript.unitStatus.isDead)
+            if (_target != null)
             {
-                return false;
+                Units unitScript = _target.GetComponent<Units>();
+
+                if (unitScript.unitStatus.isDead)
+                {
+                    return false;
+                }
+
+                if (_target.CompareTag("Tower") || _target.CompareTag("Nexus"))
+                {
+                    if (targetDist <= unitStatus.atkRange + targetColSize)
+                    {
+                        atkCurTime += Time.deltaTime;
+
+                        if (atkCurTime >= unitStatus.atkSpd)
+                        {
+                            atkCurTime = 0f;
+                            return true;
+                        }
+                    }
+                }
+                else
+                {
+                    if (targetDist <= unitStatus.atkRange)
+                    {
+                        atkCurTime += Time.deltaTime;
+
+                        if (atkCurTime >= unitStatus.atkSpd)
+                        {
+                            atkCurTime = 0f;
+                            return true;
+                        }
+                    }
+                }
+
+
             }
-
-			if (_target.CompareTag("Tower") || _target.CompareTag("Nexus"))
-			{
-				if (targetDist <= unitStatus.atkRange + targetColSize)
-				{
-					atkCurTime += Time.deltaTime;
-
-					if (atkCurTime >= unitStatus.atkSpd)
-					{
-						atkCurTime = 0f;
-						return true;
-					}
-				}
-			}
-			else
-			{
-				if (targetDist <= unitStatus.atkRange)
-				{
-					atkCurTime += Time.deltaTime;
-
-					if (atkCurTime >= unitStatus.atkSpd)
-					{
-						atkCurTime = 0f;
-						return true;
-					}
-				}
-			}
-
-
-		}
-		return false;
+        }
+        return false;
     }
 
     public virtual void SearchUnit()
     {
-        //1. 소환 됐을 때 가까운 라인 파악.
-        //2. 가까운 라인의 상대 타워 유무 파악
-        //3. 아직 있을 경우 상대 타워 타겟으로 지정.
-        //4. 상대 몬스터 생성되면(에너미 리스트에 존재할 경우) 서치 시작
-        //=> 매 프레임이 아니라 일정 시간마다
-        //5. 가장 가까운 유닛 타겟이 정해지면, 타겟을 바꾼 뒤 그쪽으로 이동
-        //6. 사정거리안에 들어오면 공격시작
-        //7. 공격 해서 적 몬스터 상태가 isDead == true되면 
-        //objectManager에서 리스트에서도 지우고 
-        //타겟도 취소
-        //8. 다시 1번으로 돌아가기
+        if (!unitStatus.isDead)
+        {
+            //1. 소환 됐을 때 가까운 라인 파악.
+            //2. 가까운 라인의 상대 타워 유무 파악
+            //3. 아직 있을 경우 상대 타워 타겟으로 지정.
+            //4. 상대 몬스터 생성되면(에너미 리스트에 존재할 경우) 서치 시작
+            //=> 매 프레임이 아니라 일정 시간마다
+            //5. 가장 가까운 유닛 타겟이 정해지면, 타겟을 바꾼 뒤 그쪽으로 이동
+            //6. 사정거리안에 들어오면 공격시작
+            //7. 공격 해서 적 몬스터 상태가 isDead == true되면 
+            //objectManager에서 리스트에서도 지우고 
+            //타겟도 취소
+            //8. 다시 1번으로 돌아가기
 
-        //매 프레임마다 돌리지는 말구 
-        //타겟 유닛이 없을때 몇초마다 돌리기?
-        //타겠이 정해졌을때는 안 돌리다가? 타겟이 죽었을 경우 재 탐색?
+            //매 프레임마다 돌리지는 말구 
+            //타겟 유닛이 없을때 몇초마다 돌리기?
+            //타겠이 정해졌을때는 안 돌리다가? 타겟이 죽었을 경우 재 탐색?
 
-        //일단 무적권 가까운 타워를 목표로 잡기
-        //그 쪽으로 걸어가다가 범위안에 적 있으면 타겟 바꾸기
+            //일단 무적권 가까운 타워를 목표로 잡기
+            //그 쪽으로 걸어가다가 범위안에 적 있으면 타겟 바꾸기
 
-        //Debug.Log(unitStatus.sightRange + "의 범위로 적을 찾고 있습니다.");
+            //Debug.Log(unitStatus.sightRange + "의 범위로 적을 찾고 있습니다.");
 
-        //if (unitStatus.unitName == "Medic")
-        //{//메딕 본인도 가져와버림.
-        //    listTarget = UnitManager.instance.unitList[Funcs.B2I(isEnemy)].ToList<GameObject>();
+            //if (unitStatus.unitName == "Medic")
+            //{//메딕 본인도 가져와버림.
+            //    listTarget = UnitManager.instance.unitList[Funcs.B2I(isEnemy)].ToList<GameObject>();
 
-        //    listTarget.Remove(this.gameObject);
-        //}
-        //else 
-        //{
+            //    listTarget.Remove(this.gameObject);
+            //}
+            //else 
+            //{
             listTarget = UnitManager.instance.unitList[Funcs.B2I(!isEnemy)].ToList<GameObject>();
-        //}
+            //}
 
-        if (listTarget.Count == 0)
-        {
-            SearchTower();
-        }
-        else
-        {
-            float lowDist = -1f;
-
-            for (int i = 0; i < listTarget.Count; ++i)
-            {
-                float dist = Vector3.Magnitude(listTarget[i].transform.position - this.transform.position);
-
-                if (dist <= unitStatus.sightRange)
-                {
-                    if (lowDist > dist || lowDist < 0f)
-                    {
-                        lowDist = dist;
-                        targetObj = listTarget[i];
-
-                        //NavTest
-                        navAgent.SetDestination(targetObj.transform.position);
-                    }
-                }
-            }
-
-            if (lowDist == -1f)
+            if (listTarget.Count == 0)
             {
                 SearchTower();
+            }
+            else
+            {
+                float lowDist = -1f;
+
+                for (int i = 0; i < listTarget.Count; ++i)
+                {
+                    float dist = Vector3.Magnitude(listTarget[i].transform.position - this.transform.position);
+
+                    if (dist <= unitStatus.sightRange)
+                    {
+                        if (lowDist > dist || lowDist < 0f)
+                        {
+                            lowDist = dist;
+                            targetObj = listTarget[i];
+
+                            //NavTest
+                            navAgent.SetDestination(targetObj.transform.position);
+                        }
+                    }
+                }
+
+                if (lowDist == -1f)
+                {
+                    SearchTower();
+                }
             }
         }
     }
 
     protected void SearchTower()
     {
+        if (unitStatus.isDead)
+        { return; }
+
         //나중에 스킬2 완성되면 스킬2 타워도 찾는걸로 바꾸기
 
         //For only unit
@@ -389,66 +410,71 @@ abstract public class Units : MonoBehaviour
 
     public void DeadTargetException(GameObject isDeadTarget)
     {
-        //자신이 가지고 있는 웨폰과 각종 공격 관련 오브젝트들한테 알려줄 기능
         //UnitManager에서 유닛 한마리 죽으면 자동으로 모든 애들중 죽은 애를 타겟으로 잡고있는 래~끼한테 실행.
+        //본인 예외 처리가 아니라 죽은 본인을 타겟으로 잡고있는 오브젝트들한테 예외 처리를 해줄 부분.
 
             //밀리 => 웨펀한테만 알려주고 공격 애니메이션 취소
             //레윈쥐 -> 웨펀한테 알려주고 웨펀은 불ㅡㅡ릿들한테 말해주기 / 공격 애니메이션 취소
-            //메ㅡ딕 -> 웨펀한테 알려주고 웨펀은 불ㅡㅡ릿들한테 말해주기 / 메디슨들한테 알려주기 / 공격,힐 애니메이션 취소
+            //메ㅡ딕 -> 웨펀한테 알려주고 웨펀은 불ㅡㅡ릿들한테 말해주기
+                // 메디슨들한테 알려주기 / 공격,힐 애니메이션 취소
             //탱커 -> 웨펀한테 알려주고 공격 애니메이션 취소.
 
-        //유닛 자체에서 null할 필요는 없는게 어차피 이거 실행되고 다음에
-        //바로 리서치 유닛 들어감
+        //이거 실행되고 바로 리서치 유닛 들어감.
 
-        //Units unitScript = isDeadTarget.GetComponent<Units>();
 
-        //if (unitScript != null)
-        //{
-        //    if (unitScript.unitStatus.isDead)
-        //    {
-        //        isDeadTarget = null;
-        //    }
-        //}
+        //220502 14:40 => 총알과 약품은 알아서 isDead 확인해서 target = null 해주기.
+
 
         if (targetObj == isDeadTarget)
         {
-            targetObj = null;
+
+            targetObj = null; //타겟 없애기
+
+            //공격중이라면 공격 애니메이션 취소하기
+            
+            if (weaponScript != null) //무기에서 타겟 없애기
+            {
+                //weaponScript.targetObj = null; 
+                weaponScript.DeadTargetException(isDeadTarget);
+            }
+
+            //if (unitStatus.unitNum == (int)Enums.UnitClass.medic)
+            //{
+            //    //메딕이면 약품에서도 처리해주기.
+            //}
+
         }
     }
 
     public void Hit(int _dmg)
     {
-        float temp = unitStatus.curHp;
-        unitStatus.curHp -= _dmg;
-        Debug.Log(_dmg + "의 데미지를 받아\n" + temp + "에서" + unitStatus.curHp + "가 되었습니다");
+        if (!unitStatus.isDead)
+        {
+            float temp = unitStatus.curHp;
+            unitStatus.curHp -= _dmg;
+            Debug.Log(_dmg + "의 데미지를 받아\n" + temp + "에서" + unitStatus.curHp + "가 되었습니다");
+        }
 
         //DamageUIManager.instance.PlayHpEffect(_dmg, this.gameObject.transform.position + new Vector3(0f, 3.2f, 0f));
     }
 
     public void Cure(int _healAmount)
     {
-        float temp = unitStatus.curHp;
-        unitStatus.curHp += _healAmount;
-        Debug.Log(_healAmount + "의 힐링을 받아\n" + temp + "에서" + unitStatus.curHp + "가 되었습니다");
-
-        if (unitStatus.curHp > unitStatus.fullHp)
+        if (!unitStatus.isDead)
         {
-            
-            unitStatus.curHp = unitStatus.fullHp;
-        }
+            float temp = unitStatus.curHp;
+            unitStatus.curHp += _healAmount;
+            Debug.Log(_healAmount + "의 힐링을 받아\n" + temp + "에서" + unitStatus.curHp + "가 되었습니다");
 
+            if (unitStatus.curHp > unitStatus.fullHp)
+            {
+
+                unitStatus.curHp = unitStatus.fullHp;
+            }
+        }
 
     }
 
-	public void UpdateHpBar()
-	{
-        if (hpBar != null)
-        { 
-        
-        
-        
-        }
-	}
 	public void ScriptableObj_DeepCopy()
     {
         //unitStatus = unitStatus_Origin; //shallow copy -> 얕은 복사
@@ -590,11 +616,6 @@ abstract public class Units : MonoBehaviour
         }
 		#endregion
 
-		//if (targetObj != null /*&& isLookTarget*/)
-		//{
-		//	transform.LookAt(targetObj.transform);
-        //}
-        
         Death(handlerDeath);
 
         //MuzzleToTarget();
@@ -602,6 +623,8 @@ abstract public class Units : MonoBehaviour
 
     public virtual void Release()
     {
+        targetObj = null;
+
         if (weapon != null)
         {
             Weapon weaponScript = weapon.GetComponent<Weapon>();
@@ -612,12 +635,9 @@ abstract public class Units : MonoBehaviour
             }
         }
 
-        targetObj = null;
-
         listTarget.Clear();
 
         //hp바는 어디에서 할까 
-
     }
 
 	void OnDrawGizmos()

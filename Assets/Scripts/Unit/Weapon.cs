@@ -10,17 +10,17 @@ public class Weapon : MonoBehaviour
 
     //for Range Weapon -> 상속으로 할까...?
     public GameObject bulletPrefab;
-    //public List<UnitBullet> bulletList = new List<UnitBullet>();
+   //public List<UnitBullet> bulletList = new List<UnitBullet>();
     public GameObject muzzle = null;
 
     public void Fire(Quaternion ObjRot)
     { //원거리 무기일때 총알 소환 할 함수
       //=> 애니메이션 이벤트에서 관리
         Vector3 muzzlePos = muzzle.transform.position;
-		//Quaternion weaponRot = transform.rotation;
+        //Quaternion weaponRot = transform.rotation;
 
-		GameObject bullet = Instantiate(bulletPrefab, muzzlePos, ObjRot);
-        
+        GameObject bullet = Instantiate(bulletPrefab, muzzlePos, ObjRot);
+
         UnitBullet bulletScript = bullet.GetComponent<UnitBullet>();
         //bulletList.Add(bulletScript);
 
@@ -30,7 +30,7 @@ public class Weapon : MonoBehaviour
             bulletScript.targetObj = targetObj;
         }
 
-	}
+    }
 
     public void Fire()
     { //원거리 무기일때 총알 소환 할 함수
@@ -64,6 +64,22 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    public void DeadTargetException(GameObject isDeadTarget)
+    {
+        if (targetObj == isDeadTarget)
+        {
+            targetObj = null;
+        }
+
+        //foreach (UnitBullet _bullet in bulletList)
+        //{
+        //    if (_bullet.targetObj = isDeadTarget)
+        //    {
+        //        _bullet.targetObj = null;
+        //    }
+        //}
+    }
+
     //public void BulletDestory()
     //{
     //    //이렇게 되면 유닛이 먼저 뒤져버렸을 때 문제 생김. 
@@ -81,7 +97,7 @@ public class Weapon : MonoBehaviour
     //}
 
 
-// Start is called before the first frame update
+    // Start is called before the first frame update
     void Start()
     {
         
@@ -91,6 +107,8 @@ public class Weapon : MonoBehaviour
     void Update()
     {
         //DeadTargetException();
+
+        
     }
 
     public void Release()
@@ -102,7 +120,7 @@ public class Weapon : MonoBehaviour
             muzzle = null;
         }
 
-        
+        //bulletList.Clear();
     }
 
 	private void OnTriggerEnter(Collider other)

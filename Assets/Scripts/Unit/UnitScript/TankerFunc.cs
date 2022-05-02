@@ -20,7 +20,7 @@ public class TankerFunc : Units
 	
 	public void Slash(int colState)
 	{
-		if (weapon != null)
+		if (weapon != null && targetObj != null)
 		{
 			transform.LookAt(targetObj.transform);
 			weaponScript.WeaponColState(colState);
