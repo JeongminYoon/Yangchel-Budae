@@ -10,10 +10,10 @@ public class HpBarManager : MonoBehaviour
     public GameObject canvas;
 
     #region debug Value
-    GameObject debugUnit;
-    float debugCurHp = 100f;
-    float debugFulHp = 100f;
-    Vector3 debugPos;
+    //GameObject debugUnit;
+    //float debugCurHp = 100f;
+    //float debugFulHp = 100f;
+    //Vector3 debugPos;
     #endregion
 
     private void Awake()
@@ -35,24 +35,23 @@ public class HpBarManager : MonoBehaviour
         time += Time.deltaTime;
         if (time >= 5f)
         {
-            debugCurHp -= 30f;
             time = -50;
         }
     }
 
-    void DebugHpBarSet()
-    {
-        if (debugCurHp > 0f)
-        {
-            //debugCurHp -= Time.deltaTime * 10;
-            debugPos = new Vector3(Random.Range(0, 0), 0f, 0f);
-            //debugUnit.GetComponent<HpBar>().HpBarSetting(debugCurHp, debugFulHp, debugPos);
-        }
-        else
-        {
-            Destroy(debugUnit);
-        }
-    }
+    //void DebugHpBarSet()
+    //{
+    //    if (debugCurHp > 0f)
+    //    {
+    //        //debugCurHp -= Time.deltaTime * 10;
+    //        debugPos = new Vector3(Random.Range(0, 0), 0f, 0f);
+    //        //debugUnit.GetComponent<HpBar>().HpBarSetting(debugCurHp, debugFulHp, debugPos);
+    //    }
+    //    else
+    //    {
+    //        Destroy(debugUnit);
+    //    }
+    //}
 
     public GameObject HpBarInstrate()
     {
@@ -72,7 +71,6 @@ public class HpBarManager : MonoBehaviour
     ////ㄴㄴ 04-11 isDead값을 참조하지많고 직접 유닛 게임오브젝트의 체력값을 받아와서 서순 해결함.
     ////2.유닛이 죽을때마다 모든 리스트를 초기화해준다. 즉 모든 hp바를 제거했다가 다시 만들기 떄문에 깜빡임이 발생함.
     //      //이건 죽은유닛을 인식해서 (unitList의 null값 불러오기) hpBarList만 초기화 하지 말고 갯수맞춰 관리해야하는데 어렵다.. 공부 더해야함
-    ////ㅅㅂ 레퍼런스 없이 만드니까 힘들다. 유튭 강좌 봐야하나
 
     //static public HpBarManager instance = null;
     //public GameObject canvas;

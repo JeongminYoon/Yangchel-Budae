@@ -60,30 +60,29 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     {//드롭할때
         RayResult temp = Funcs.RayToWorld();
 
-        if (temp.isHit == false)
+        if (this.status.unitName.Contains("Skill") && float.Parse(unitCost.text) < CostManager.instance.currentCost) //사용한 카드가 스킬이면
         {
-            //닿인곳이 땅이 아니면 카드의 처음위치(cardPos)로 카드를 되돌려놓음
-            transform.position = cardPos;
-            print("not ground");
+            SpawnSkill();
+            NewCardManager.instance.SpawnCard(this.gameObject, 4);
+            NewCardManager.instance.CardUse(this.gameObject);
+            CostManager.instance.currentCost -= float.Parse(unitCost.text);
         }
-        else
-        {   //닿인곳이 땅이면 유닛 소환
-            
-            if (temp.hitObj.tag == "Tower" || temp.hitObj.tag == "Nexus" || temp.hitObj.tag != "SpawnRange" || float.Parse(unitCost.text) > CostManager.instance.currentCost)
-            { //닿인곳이 타워,넥서스면 소환 취소
-                transform.position = cardPos;
-            }
-            else 
+        else //사용한 카드가 유닛이면
+        {
+            if (temp.isHit == false)
             {
-                if (this.status.unitName.Contains("Skill")) //사용한 카드가 스킬이면
-                {
-                    print("스킬번호 " + status.unitNum + "번 " + status.unitName + " 사용"); //debug
-                    SpawnSkill();
-                    NewCardManager.instance.SpawnCard(this.gameObject, 4);
-                    NewCardManager.instance.CardUse(this.gameObject);
-                    CostManager.instance.currentCost -= float.Parse(unitCost.text);
+                //닿인곳이 땅이 아니면 카드의 처음위치(cardPos)로 카드를 되돌려놓음
+                transform.position = cardPos;
+                print("not ground");
+            }
+            else
+            {   //닿인곳이 땅이면 유닛 소환
+
+                if (temp.hitObj.tag == "Tower" || temp.hitObj.tag == "Nexus" || temp.hitObj.tag != "SpawnRange" || float.Parse(unitCost.text) > CostManager.instance.currentCost)
+                { //닿인곳이 타워,넥서스면 소환 취소
+                    transform.position = cardPos;
                 }
-                else                                       //사용한 카드가 유닛이면
+                else
                 {
                     UnitFactory.instance.SpawnUnit((Enums.UnitClass)status.unitNum, temp.hitPosition);
                     NewCardManager.instance.SpawnCard(this.gameObject, 4);
