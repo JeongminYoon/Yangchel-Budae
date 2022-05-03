@@ -59,7 +59,6 @@ public class MedicFunc : Units
 				//{
 				//	gameObject.transform.Rotate(new Vector3(0f, MuzzleToTarget(), 0f));
 				//}
-
 				//isLookTarget = false;
 
 				if (animController.GetCurrentAnimatorStateInfo(0).IsName("Medic_Attack"))
@@ -77,50 +76,6 @@ public class MedicFunc : Units
 		}
 
 
-		//if (base.Attack(_target))
-		//{
-		//	Units temp = _target.GetComponent<Units>();
-
-		//	if (temp != null)
-		//	{
-		//		if (temp.isEnemy)
-		//		{
-
-		//			if (animController.GetCurrentAnimatorStateInfo(0).IsName("Medic_Attack"))
-		//			{
-		//				animController.Play("Medic_Attack", -1, 0f);
-		//			}
-		//			else
-		//			{
-		//				animController.SetTrigger("tAttack");
-		//			}
-		//		}
-		//		else
-		//		{
-		//			if (animController.GetCurrentAnimatorStateInfo(0).IsName("Medic_Throw"))
-		//			{
-		//				animController.Play("Medic_Throw", -1, 0f);
-		//			}
-		//			else
-		//			{
-		//				animController.SetTrigger("tHeal");
-		//			}
-		//		}
-		//	}
-		//}
-		////if (base.Attack(_target))
-		////{
-		////	GameObject medicine = Instantiate(medicinePrefab,transform.position, Quaternion.identity);
-		////	Medicine temp = medicine.GetComponent<Medicine>();
-		////	if (temp != null)
-		////	{
-		////		temp.healAmount = (int)unitStatus.dmg;
-		////		temp.targetObj = _target;
-		////		temp.medic = this.gameObject;
-		////		return true; 
-		////	}
-		////	return false;
-		////}
 
 		return false;
 	}
@@ -146,23 +101,20 @@ public class MedicFunc : Units
 		}
 		transform.LookAt(healTarget.transform);
 
-		GameObject medicine = Instantiate(medicinePrefab, medicLeftHand.transform.position, Quaternion.identity);
+		GameObject medicine = Instantiate(medicinePrefab, medicLeftHand.transform.position, transform.rotation);
 		Medicine temp = medicine.GetComponent<Medicine>();
 
 		if (temp != null)
 		{
 			temp.healAmount = (int)(unitStatus.dmg / 2f);
 			temp.targetObj = healTarget;
+			//temp.targetCenterPos = targetObj.GetComponent<Units>().center.transform.position;
 			temp.medic = this.gameObject;
 		}
 	}
 
 	public override void SearchUnit()
 	{
-		if (unitStatus.isDead)
-		{
-			return;
-		}
 		//아군 유닛만 타겟으로 잡도록.
 		//타워 히트는 없는걸루...?
 		//있으면 그냥 units의 SearchUnit에서 예외처리만 해주면 되고
@@ -180,12 +132,19 @@ public class MedicFunc : Units
 
 		base.SearchUnit();
 
+		if (unitStatus.isDead || GameManager.instance.isGameEnd)
+		{
+			return;
+		}
+
+		healTarget = null;
 		List<GameObject> listAlly = UnitManager.instance.GetUnitList_Val(Funcs.B2I(isEnemy));
 		listAlly.Remove(this.gameObject);
 
 		if (listAlly.Count == 0)
 		{
-			healTarget = null;
+			//healTarget = null;
+			return;
 		}
 		else
 		{
@@ -196,6 +155,10 @@ public class MedicFunc : Units
 			foreach (GameObject obj in listAlly)
 			{
 				Units temp = obj.GetComponent<Units>();
+				if (temp.unitStatus.isDead)
+				{
+					continue;
+				}
 				float hpRatio = temp.unitStatus.curHp / temp.unitStatus.fullHp;
 
 				if (temp != null)
@@ -255,21 +218,11 @@ public class MedicFunc : Units
 			searchCurTime = 0f;
 		}
 
-		//if (isLookTarget)
-		//{
-		//if (healTarget != null)
-		//{
-		//	transform.LookAt(healTarget.transform);
-		//}
-		//else if (targetObj != null)
-		//{
-		//	transform.LookAt(targetObj.transform);
-		//}
-
-		//}
-
-
 		Walk();
+
+//		if (healTarget == null)
+		
+
 		Attack(targetObj);
 
 		Death(handlerDeath);

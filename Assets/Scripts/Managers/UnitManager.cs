@@ -82,6 +82,7 @@ public class UnitManager : MonoBehaviour
             Units unitScript = unit.GetComponent<Units>();
             if (unitScript != null)
             {
+                unitScript.navAgent.isStopped = true;
                 unitScript.Defeated();
             }
         }
@@ -91,6 +92,7 @@ public class UnitManager : MonoBehaviour
             Units unitScript = unit.GetComponent<Units>();
             if (unitScript != null)
             {
+                unitScript.navAgent.isStopped = true;
                 unitScript.Victory();
             }
         }

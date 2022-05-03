@@ -198,8 +198,10 @@ abstract public class Units : MonoBehaviour
 
     public virtual void Walk()
     {
-        if (!unitStatus.isDead)
+        if (unitStatus.isDead || GameManager.instance.isGameEnd)
         {
+            return;
+        }
             //지금은 그냥 타겟 있을때만 그쪽으로 걸어가는 방식.
 
             if (targetObj != null)
@@ -250,17 +252,20 @@ abstract public class Units : MonoBehaviour
             {
                 SearchUnit();
             }
-        }
-        else 
-        {
-            //int a = 0;
-        }
+        
+    
     }
+
 
 	public virtual bool Attack(GameObject _target)
     {
-        if (!unitStatus.isDead)
+
+        if (unitStatus.isDead || GameManager.instance.isGameEnd)
         {
+            return false;
+        }
+
+
             //지금 타워처럼 스케일이 1 이상인 애들도 
             //공격 범위만큼 가까이 가야 때릴 수 있음.
             // 추후 콜리더 범위로 수정 해야함.
@@ -304,14 +309,14 @@ abstract public class Units : MonoBehaviour
 
 
             }
-        }
+        
         return false;
     }
 
     public virtual void SearchUnit()
     {
-        if (!unitStatus.isDead)
-        {
+        if (unitStatus.isDead || GameManager.instance.isGameEnd)
+        { return; }
             //1. 소환 됐을 때 가까운 라인 파악.
             //2. 가까운 라인의 상대 타워 유무 파악
             //3. 아직 있을 경우 상대 타워 타겟으로 지정.
@@ -374,12 +379,12 @@ abstract public class Units : MonoBehaviour
                     SearchTower();
                 }
             }
-        }
+        
     }
 
     protected void SearchTower()
     {
-        if (unitStatus.isDead)
+        if (unitStatus.isDead || GameManager.instance.isGameEnd)
         { return; }
 
         //나중에 스킬2 완성되면 스킬2 타워도 찾는걸로 바꾸기
@@ -445,11 +450,20 @@ abstract public class Units : MonoBehaviour
 
         if (targetObj == isDeadTarget)
         {
-
             targetObj = null; //타겟 없애기
 
             //공격중이라면 공격 애니메이션 취소하기
-            
+            //실행중인 애니메이션 has exit 없애는거 아니면
+           //취소하는 방법 없네 일단 패스..ㅋㅋ;
+            //for (int i = 0; i < Defines.atkAnims.Length; ++i)
+            //{
+            //    if (animController.GetCurrentAnimatorStateInfo(0).IsName(Defines.atkAnims[i]))
+            //    {
+            //        animController.GetCurrentAnimatorClipInfo(0)[0].clip.
+            //    }
+            //}
+
+
             if (weaponScript != null) //무기에서 타겟 없애기
             {
                 //weaponScript.targetObj = null; 

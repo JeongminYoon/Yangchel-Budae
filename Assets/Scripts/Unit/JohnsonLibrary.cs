@@ -191,6 +191,12 @@ public static class Defines
 	public static string[] deathAnimations = { "Units_Death_01",
 												"Units_Death_02",
 												"Units_Death_03"};
+	public static string[] atkAnims = {"Melee_Attack",
+										"Range_Attack_01",
+										"Range_Attack_02",
+										"Medic_Attack",
+										"Tanker_Attack"
+										};
 }
 
 namespace Enums

@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     public SceneNum nextScene = SceneNum.SceneEnd;
 
     public bool isGameWin = true;
-
+    public bool isGameEnd = false;
     public void InGameSceneSetting()
     { 
         //-> 맵 깔기
@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour
 
     public void GameStart()
     {
+        isGameEnd = false;
         SceneChange(SceneNum.CardSelect);
     }
 
@@ -73,6 +74,9 @@ public class GameManager : MonoBehaviour
 
     public void InGameResultCheck(bool isNexusEnemy)
     { //넥서스 부서지면 자동으로 호출될 함수.
+
+        isGameEnd = true;
+
         if (isNexusEnemy)
         { //적팀 넥서스가 부서졌을 경우 -> 게임 승리 WIN
         }
@@ -85,7 +89,7 @@ public class GameManager : MonoBehaviour
         UnitManager.instance.GameEnd(isNexusEnemy);
 
         //이제 씬 넘기지 말고 연출 나온 뒤에 씬넘기기
-        SceneChange(Enums.SceneNum.Result);
+        //SceneChange(Enums.SceneNum.Result);
         //이제 Reuslt씬에서 GameManager의 isGameWin 값 따라서 
         //세팅해주기
     }

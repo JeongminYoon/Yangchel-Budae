@@ -28,6 +28,11 @@ public class TankerFunc : Units
 
 	public override void Walk()
 	{
+		if (unitStatus.isDead || GameManager.instance.isGameEnd)
+		{
+			return;
+		}
+
 		if (targetObj != null)
 		{
 			CalcToObj(targetObj);

@@ -11,28 +11,31 @@ public class Medicine : MonoBehaviour
     public GameObject medic;
     public GameObject targetObj;
 
-    private Vector3 targetCenterPos;
+    public Vector3 targetCenterPos;
     public float curAliveTime = 0f;
 
+    
 
 	public void Move()
 	{
         //아군 타겟 유닛이 죽어서 Destory될 경우 예외 처리 해줘야함.
 
+        Vector3 dir = new Vector3();
+
         if (targetObj != null)
         {
             targetCenterPos = targetObj.GetComponent<Units>().center.transform.position;
+            dir = targetCenterPos - this.gameObject.transform.position;
         }
         else
         {
-            targetCenterPos.y = -1;
+            dir = this.gameObject.transform.forward.normalized;
+            GetComponent<Rigidbody>().isKinematic = false;
+            GetComponent<Rigidbody>().useGravity = true;
         }
 
-        Vector3 dir = targetCenterPos - this.gameObject.transform.position;
         transform.position += dir.normalized * 5f * Time.deltaTime;
     }
-
-    
 
 	// Start is called before the first frame update
 	void Start()
