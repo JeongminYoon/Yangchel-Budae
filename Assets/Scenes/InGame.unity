@@ -367,7 +367,6 @@ MonoBehaviour:
   - {fileID: 219826828}
   - {fileID: 1048858666}
   rangeEffectMat: {fileID: 2100000, guid: baf5ad4898e0b6f42b54bdda4a02f1b6, type: 2}
-  rangeEffect: {fileID: 0}
   sprites:
   - {fileID: 21300000, guid: 3cc48c12faf6b164aa5345ecefb208b5, type: 3}
   - {fileID: 21300000, guid: 07c80b00ccfe9214abeedc60e67e8895, type: 3}
@@ -988,6 +987,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 82d0e6e206eb45547a6a38f9707fed7b, type: 2}
   - {fileID: 11400000, guid: 4cac7d866f8a5bb4fb302da876337f7b, type: 2}
   - {fileID: 11400000, guid: f7a41dd3ac862ce449ca5128123704b6, type: 2}
+  - {fileID: 11400000, guid: b8493942b5971e34fa26e78f3a77f698, type: 2}
   nextCardStatus: {fileID: 0}
 --- !u!224 &1032132298 stripped
 RectTransform:
@@ -1280,6 +1280,7 @@ GameObject:
   - component: {fileID: 1536004783}
   - component: {fileID: 1536004782}
   - component: {fileID: 1536004781}
+  - component: {fileID: 1536004784}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1352,6 +1353,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
+--- !u!114 &1536004784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1536004780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec1d523283231ba4b9c3130b92f4adb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 1536004782}
+  shakeRange: 0.05
 --- !u!1 &1606398984
 GameObject:
   m_ObjectHideFlags: 0
