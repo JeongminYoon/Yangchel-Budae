@@ -7,6 +7,7 @@ MonoImporter:
   - skillStatus_Origin: {instanceID: 0}
   - towerPrefab: {fileID: 1337826535127648, guid: 0db1e4f91e814cd4981dcebea9343a63, type: 3}
   - tower: {instanceID: 0}
+  - skill2Effect: {fileID: 1040608886635896, guid: a97415c6b57076f41a6621a7b51d63a3, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

@@ -30,6 +30,17 @@ public class EnemySpawnManager : MonoBehaviour
     int randomSpawn; //적 타워 앞 위치 3개 랜덤값
     int randomSpawn2; // 적 타워 1개 ,넥서스 랜덤값'
 
+    int nexusRandom; //넥서스 타워 앞 소환 좌표 랜덤값
+
+
+    Vector3 leftTowerPos;
+    Vector3 rightTowerPos;
+    Vector3 nexusTowerPos;
+
+    Vector3 nexTower1; 
+    Vector3 nexTower2;
+
+    public bool pb = false;
 
 
     // Start is called before the first frame update
@@ -51,37 +62,59 @@ public class EnemySpawnManager : MonoBehaviour
         rand2 = Random.Range(0, 6);
         rand3 = Random.Range(0, 6);
 
+        nexusRandom = Random.Range(0, 2);
+
+
 
 
 
     }
-   
+
     // Update is called once per frame
     void Update()
     {
         currentCost += Time.deltaTime / 4f; //현재 적의 코스트
-        if (currentCost > 10f)
+
+
+
+       if(GameManager.instance.isGameEnd == true)
         {
-            currentCost = 10f;
+
+            pb = true;
+
         }
 
-        if (unitStatus[rand].cost <= currentCost) //랜덤한 적 유닛의 코스트가 현재 코스트보다 높으면
+       if(pb == false)
         {
-            EnemyRandom(rand); //적 소환, 현재코스트 - 사용된 유닛 코스트
-            rand = Random.Range(0, 6); //랜덤 적 유닛 재지정
+
+
+
+            if (currentCost > 10f)
+            {
+                currentCost = 10f;
+            }
+
+            if (unitStatus[rand].cost <= currentCost) //랜덤한 적 유닛의 코스트가 현재 코스트보다 높으면
+            {
+                EnemyRandom(rand); //적 소환, 현재코스트 - 사용된 유닛 코스트
+                rand = Random.Range(0, 6); //랜덤 적 유닛 재지정
+            }
+
+            if (unitStatus[rand2].cost + unitStatus[rand3].cost <= currentCost)
+            {
+                EnemyRandom(rand);
+
+
+                rand = Random.Range(0, 6);
+
+
+            }
+            rand1 = Random.Range(0, 2);
+
+
         }
 
-        if (unitStatus[rand2].cost + unitStatus[rand3].cost <= currentCost)
-        {
-            EnemyRandom(rand);
-
-
-            rand = Random.Range(0, 6);
-
-
-        }
-        rand1 = Random.Range(0, 2);
-
+        
 
         //if (Input.GetKeyDown(KeyCode.F1))
         //{
@@ -108,23 +141,33 @@ public class EnemySpawnManager : MonoBehaviour
     }
 
 
-    Vector3 leftTowerPos;
-    Vector3 rightTowerPos;
-    Vector3 nexusTowerPos;
-
-
-
+  
     void EnemyRandomPatton1()
 
    {
-
+        
 
         if (TowerManager.instance.towerList[1, 0] == null && TowerManager.instance.towerList[1, 1] == null)
         {
             //둘다 없을때
 
+            if(nexusRandom == 0)
+            {
 
-            UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+
+
+            }
+            if(nexusRandom == 1)
+            {
+
+
+                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+
+
+
+            }
 
         }
 
@@ -143,9 +186,23 @@ public class EnemySpawnManager : MonoBehaviour
             else if (randomSpawn == 1)
             {
 
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+              
+                if(nexusRandom == 0)
+                {
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
 
 
+                }
+                if(nexusRandom == 1)
+                {
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+
+
+
+                }
+               
 
             }
 
@@ -165,7 +222,22 @@ public class EnemySpawnManager : MonoBehaviour
             else if (randomSpawn == 1)
             {
 
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+              if(nexusRandom == 0)
+                {
+
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+
+                }
+                if(nexusRandom == 1)
+                {
+
+
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                }
+                
+              
             }
 
 
@@ -191,9 +263,25 @@ public class EnemySpawnManager : MonoBehaviour
             }
             else if (randomSpawn == 2)
             {
+                
+
+               if(nexusRandom == 0)
+                {
 
 
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+
+                }
+
+              if(nexusRandom == 1)
+                {
+
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+
+
+                }
 
 
 
@@ -223,8 +311,19 @@ public class EnemySpawnManager : MonoBehaviour
 
                 UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
 
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+              
+                if(nexusRandom == 0)
+                {
 
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+
+                }
+                if(nexusRandom == 1)
+                {
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                }
+               
 
 
 
@@ -239,10 +338,34 @@ public class EnemySpawnManager : MonoBehaviour
             }
             if(randomSpawn2 == 2)
             {
+                if (nexusRandom == 0)
+                {
 
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
 
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+
+
+                }
+                if(nexusRandom == 1)
+                {
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+
+
+                }
+                if(nexusRandom == 0)
+                {
+
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+                }
+                if(nexusRandom == 1)
+                {
+
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                }
+               
             }
          
 
@@ -267,8 +390,22 @@ public class EnemySpawnManager : MonoBehaviour
             {
 
                 UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+                
+                if(nexusRandom ==0)
+                {
 
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+
+
+                }
+                if(nexusRandom == 1)
+                {
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                }
+                
+                
+               
 
 
 
@@ -284,10 +421,33 @@ public class EnemySpawnManager : MonoBehaviour
             
             if(randomSpawn2 == 2)
             {
+                if (nexusRandom == 0)
+                {
 
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
 
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+
+                }
+                if (nexusRandom == 1)
+                {
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                }
+
+                if (nexusRandom == 0)
+                {
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+
+
+                }
+                if (nexusRandom == 1)
+                {
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                }
+
+
 
             }
 
@@ -317,14 +477,38 @@ public class EnemySpawnManager : MonoBehaviour
 
 
                 UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+                if (nexusRandom == 0)
+                {
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+
+
+                }
+                if (nexusRandom == 1)
+                {
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                }
+
 
             }
             else if (randomSpawn == 2)
             {
 
+                if (nexusRandom == 0)
+                {
 
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+
+
+                }
+                if (nexusRandom == 1)
+                {
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                }
+
+
                 UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
 
 
@@ -347,8 +531,31 @@ public class EnemySpawnManager : MonoBehaviour
             else if(randomSpawn == 5)
             {
 
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexusTowerPos, true);
+                if (nexusRandom == 0)
+                {
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+
+
+                }
+                if (nexusRandom == 1)
+                {
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                }
+
+                if (nexusRandom == 0)
+                {
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+
+
+                }
+                if (nexusRandom == 1)
+                {
+
+                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                }
 
 
             }
@@ -382,7 +589,10 @@ public class EnemySpawnManager : MonoBehaviour
 
         nexusTowerPos = Defines.enemyNexusPos + new Vector3(0, 0, -4);
 
-        
+
+        nexTower1 = nexusTowerPos + new Vector3(1, 0, 0); // 넥서스 타워 앞 스폰에 x값+1
+        nexTower2 = nexusTowerPos + new Vector3(-1, 0, 0);  // 넥서스 타워 앞 스폰에 x값 -1
+
 
 
         currentCost -= unitStatus[rand].cost;
