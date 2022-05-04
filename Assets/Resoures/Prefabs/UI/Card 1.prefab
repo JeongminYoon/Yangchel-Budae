@@ -91,8 +91,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   status: {fileID: 0}
+  spawnEffect: {fileID: 6947810044284974377, guid: 02cb314896018e64890d3dd7db656324, type: 3}
   unitName: {fileID: 0}
   unitCost: {fileID: 0}
+  cardDeskPos: 0
+  value: 0
+  isenabled: 0
 --- !u!1 &295353270690071572
 GameObject:
   m_ObjectHideFlags: 0

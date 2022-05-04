@@ -23,7 +23,7 @@ public class Skill1 : MonoBehaviour
         //Instantiate(airplanPrefab);
         Vector3 airpos = new Vector3(0, 20, -33);
         Instantiate(airplanPrefab, airpos, Quaternion.identity);
-        CameraShake.instance.Shake(10f);
+        CameraShake.instance.Shake(12f);
     }
 
     // Update is called once per frame

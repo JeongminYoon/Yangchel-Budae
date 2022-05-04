@@ -15,6 +15,7 @@ public class NewCardManager : MonoBehaviour
     public GameObject cardPrefab;
     public GameObject nextCard;
     public GameObject[] Pos = new GameObject[5];
+    public GameObject[] unitModels = new GameObject[6];
     public Queue<GameObject> deckqueue;
 
     GameObject[] deck; //로비에서 넘어와서 셔플 할 용도로 사용할 배열

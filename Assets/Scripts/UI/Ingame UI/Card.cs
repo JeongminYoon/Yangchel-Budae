@@ -8,6 +8,7 @@ using Structs;
 public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     public UnitStatus status;
+    public GameObject spawnEffect;
     public Text unitName;
     public Text unitCost;
     public int cardDeskPos;
@@ -36,6 +37,8 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     RectTransform rt1;
     RectTransform rt2;
     Vector3 Rt1;
+    GameObject unitModel;
+    Material unitModelMat;
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {//드래그 시작 했을때
         //카드의 처음위치 cardPos를 정해줌
@@ -45,6 +48,11 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         rt1 = GetComponent<RectTransform>();
         rt2 = GetComponent<RectTransform>();
         Rt1 = rt1.anchoredPosition;
+        unitModel =  Instantiate(NewCardManager.instance.unitModels[status.unitNum]);
+        unitModelMat = unitModel.transform.GetChild(0).gameObject.GetComponent<SkinnedMeshRenderer>().materials[0];
+        unitModelMat.shader = Shader.Find("Legacy Shaders/Transparent/Diffuse");
+        unitModelMat.color = new Color(unitModelMat.color.r, unitModelMat.color.g, unitModelMat.color.b, 0.5f);
+
     }
 
     void IDragHandler.OnDrag(PointerEventData eventData)
@@ -54,6 +62,17 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         //카드 애니메이션 재생
         CardAnim();
         SpawnRange.instance.ShowSpawnRangeEffect();
+
+        RayResult temp = Funcs.RayToWorld();
+        if (temp.isHit == false || temp.hitObj.tag == "Tower" || temp.hitObj.tag == "Nexus" || temp.hitObj.tag != "SpawnRange")
+        {
+            unitModel.SetActive(false);
+        }
+        else
+        {
+            unitModel.SetActive(true);
+            unitModel.transform.position = temp.hitPosition;
+        }
     }
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
@@ -84,10 +103,13 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                 }
                 else
                 {
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)status.unitNum, temp.hitPosition);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)status.unitNum, temp.hitPosition);
+                    GameObject SE = Instantiate(spawnEffect);
+                    SE.GetComponent<UnitSpawnEffect>().UnitSpawnEftSetting((Enums.UnitClass)status.unitNum, temp.hitPosition);
                     NewCardManager.instance.SpawnCard(this.gameObject, 4);
                     NewCardManager.instance.CardUse(this.gameObject);
                     CostManager.instance.currentCost -= float.Parse(unitCost.text);
+                    Destroy(unitModel);
                 }
             }
         }

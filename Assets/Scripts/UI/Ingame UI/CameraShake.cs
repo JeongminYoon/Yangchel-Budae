@@ -32,13 +32,30 @@ public class CameraShake : MonoBehaviour
         x = originalCamPos.x;
         y = originalCamPos.y;
         InvokeRepeating("RestoringForce", 0f, 0.03f);
+       // iTween.ShakePosition(this.gameObject, new Vector3(1, 1, 0), 1);
     }
+
+    public void Shake(Vector3 vec, float time)
+    {
+        iTween.ShakePosition(this.gameObject, vec, time);
+    }
+
     private void Update()
     {
         //if (Input.GetKey(KeyCode.Space))
         //{
         //    StartShake();
         //}
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Shake(new Vector3(0.5f, 0f, 0), 10f);
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Shake(new Vector3(0f, 0f, 0.5f), 10f);
+        }
+
 
         TimerSetting();
         TimerEffectSetting();

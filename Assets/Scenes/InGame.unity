@@ -975,6 +975,13 @@ MonoBehaviour:
   - {fileID: 6005032938432836977}
   - {fileID: 6005032938780819395}
   - {fileID: 6005032939516619397}
+  unitModels:
+  - {fileID: 1211111090650002, guid: 782ef5966a2fd0b448c05ab588226bcd, type: 3}
+  - {fileID: 1737705246820700, guid: e074d91c4fb11544cbd31bee137d9de5, type: 3}
+  - {fileID: 1781282677531552, guid: 08b52f9506680e74c801e6482c8ee918, type: 3}
+  - {fileID: 1897805527876310, guid: 26f85affe8cc5d947b38a43923d88efd, type: 3}
+  - {fileID: 1049186450765084, guid: 028e30bb714c3604bb1dfaa9d69bd39d, type: 3}
+  - {fileID: 1629728649629216, guid: 47336d8d89c8410458825891b75184d4, type: 3}
   myHand:
   - {fileID: 0}
   - {fileID: 0}
@@ -1091,6 +1098,41 @@ Transform:
   m_Father: {fileID: 112745181}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1071811944
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1071811945}
+  m_Layer: 5
+  m_Name: UnitSpawnEffects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1071811945
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1071811944}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6005032937562386533}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1209279285
 GameObject:
   m_ObjectHideFlags: 0
@@ -1980,6 +2022,7 @@ RectTransform:
   - {fileID: 1032132298}
   - {fileID: 6005032939164467808}
   - {fileID: 739476885}
+  - {fileID: 1071811945}
   m_Father: {fileID: 553303741}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
