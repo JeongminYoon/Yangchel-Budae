@@ -1356,11 +1356,14 @@ MonoBehaviour:
   center: {fileID: 0}
   weapon: {fileID: 0}
   weaponScript: {fileID: 0}
+  bloodPrefab: {fileID: 100000, guid: bc98890f6028f444eaa7789bde5e2eeb, type: 3}
   unitCol: {fileID: 0}
   searchTime: 0.5
   searchCurTime: 0
   navAgent: {fileID: 0}
   animController: {fileID: 0}
+  preState: 4
+  curState: 1
 --- !u!143 &7842787956164885255
 CharacterController:
   m_ObjectHideFlags: 0

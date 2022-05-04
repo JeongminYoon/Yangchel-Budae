@@ -106,8 +106,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-               
 
+        isGameEnd = false;
     }
 
     // Update is called once per frame
