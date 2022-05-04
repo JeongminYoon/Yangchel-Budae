@@ -2627,6 +2627,7 @@ MonoBehaviour:
   center: {fileID: 0}
   weapon: {fileID: 0}
   weaponScript: {fileID: 0}
+  bloodPrefab: {fileID: 100000, guid: bc98890f6028f444eaa7789bde5e2eeb, type: 3}
   unitCol: {fileID: 0}
   searchTime: 0.5
   searchCurTime: 0

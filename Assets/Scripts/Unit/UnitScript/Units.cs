@@ -49,6 +49,11 @@ abstract public class Units : MonoBehaviour
     public GameObject weapon = null;
     public Weapon       weaponScript;
 
+    //[SerializeField]
+    public GameObject bloodPrefab;
+    //private GameObject blood;
+    //private ParticleSystem bloodPS;
+
     public Collider unitCol;
 
     private float atkCurTime = 0f;
@@ -316,7 +321,9 @@ abstract public class Units : MonoBehaviour
     public virtual void SearchUnit()
     {
         if (unitStatus.isDead || GameManager.instance.isGameEnd)
-        { return; }
+        { 
+            return; 
+        }
             //1. 소환 됐을 때 가까운 라인 파악.
             //2. 가까운 라인의 상대 타워 유무 파악
             //3. 아직 있을 경우 상대 타워 타겟으로 지정.
@@ -484,6 +491,12 @@ abstract public class Units : MonoBehaviour
         {
             float temp = unitStatus.curHp;
             unitStatus.curHp -= _dmg;
+
+            if(!(gameObject.CompareTag("Tower") || gameObject.CompareTag("Nexus")))
+            { 
+                Instantiate(bloodPrefab, center.transform.position, transform.rotation);
+            }
+
             Debug.Log(_dmg + "의 데미지를 받아\n" + temp + "에서" + unitStatus.curHp + "가 되었습니다");
         }
 
@@ -643,6 +656,10 @@ abstract public class Units : MonoBehaviour
         navAgent.speed = unitStatus.moveSpd;
 
         atkCurTime = unitStatus.atkSpd;
+
+        
+        
+        
 
         SearchUnit();
 
