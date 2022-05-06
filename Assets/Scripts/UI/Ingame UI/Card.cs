@@ -64,14 +64,14 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         SpawnRange.instance.ShowSpawnRangeEffect();
 
         RayResult temp = Funcs.RayToWorld();
-        if (temp.isHit == false || temp.hitObj.tag == "Tower" || temp.hitObj.tag == "Nexus" || temp.hitObj.tag != "SpawnRange")
+        if (temp.isHit == false || temp.hitObj.tag == "Tower" || temp.hitObj.tag == "Nexus" || temp.hitObj.tag == "SpawnRange")
         {
             unitModel.SetActive(false);
         }
         else
         {
             unitModel.SetActive(true);
-            unitModel.transform.position = temp.hitPosition;
+            unitModel.transform.position = temp.hitPosition + new Vector3(0f,0.55f);
         }
     }
 
@@ -79,7 +79,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     {//드롭할때
         RayResult temp = Funcs.RayToWorld();
 
-        if (this.status.unitName.Contains("Skill") && float.Parse(unitCost.text) < CostManager.instance.currentCost) //사용한 카드가 스킬이면
+        if (this.status.unitName.Contains("Skill") && float.Parse(unitCost.text) < CostManager.instance.currentCost && temp.isHit == true) //사용한 카드가 스킬이면
         {
             SpawnSkill();
             NewCardManager.instance.SpawnCard(this.gameObject, 4);
@@ -92,24 +92,26 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
             {
                 //닿인곳이 땅이 아니면 카드의 처음위치(cardPos)로 카드를 되돌려놓음
                 transform.position = cardPos;
+                Destroy(unitModel);
                 print("not ground");
             }
             else
             {   //닿인곳이 땅이면 유닛 소환
 
-                if (temp.hitObj.tag == "Tower" || temp.hitObj.tag == "Nexus" || temp.hitObj.tag != "SpawnRange" || float.Parse(unitCost.text) > CostManager.instance.currentCost)
+                if (temp.hitObj.tag == "Tower" || temp.hitObj.tag == "Nexus" || temp.hitObj.tag == "SpawnRange" || float.Parse(unitCost.text) > CostManager.instance.currentCost)
                 { //닿인곳이 타워,넥서스면 소환 취소
                     transform.position = cardPos;
+                    Destroy(unitModel);
                 }
                 else
                 {
                     //UnitFactory.instance.SpawnUnit((Enums.UnitClass)status.unitNum, temp.hitPosition);
-                    GameObject SE = Instantiate(spawnEffect);
-                    SE.GetComponent<UnitSpawnEffect>().UnitSpawnEftSetting((Enums.UnitClass)status.unitNum, temp.hitPosition);
+                    GameObject spawnEft = Instantiate(spawnEffect);
+                    spawnEft.GetComponent<UnitSpawnEffect>().UnitSpawnEftSetting((Enums.UnitClass)status.unitNum, temp.hitPosition, unitModel);
+                   
                     NewCardManager.instance.SpawnCard(this.gameObject, 4);
                     NewCardManager.instance.CardUse(this.gameObject);
                     CostManager.instance.currentCost -= float.Parse(unitCost.text);
-                    Destroy(unitModel);
                 }
             }
         }
@@ -146,5 +148,9 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                 SkillManager.instance.UseSkill2();
             }
         }
+    }
+    public void DeletUnitModel(GameObject go)
+    {
+        Destroy(go);
     }
 }

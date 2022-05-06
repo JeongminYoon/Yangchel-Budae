@@ -43,6 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b01a06126f27ba4781d1d501a31b3f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: 1
   circlePrefab: {fileID: 7761318449830846027, guid: 26321fb76d92bf54da1954f90b6e75b7, type: 3}
-  canvas: {fileID: 0}
+  fxEffect: {fileID: 1462327970484030, guid: f01c1eba69de19e44b04d8d651aaac37, type: 3}
