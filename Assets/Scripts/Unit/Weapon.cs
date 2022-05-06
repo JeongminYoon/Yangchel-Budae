@@ -136,7 +136,7 @@ public class Weapon : MonoBehaviour
 
                 if (temp != null)
                 {
-                    temp.Hit(dmg);
+                    temp.Hit(dmg,transform.position);
                     GetComponent<BoxCollider>().enabled = false;
                 }
             }

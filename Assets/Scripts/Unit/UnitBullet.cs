@@ -81,7 +81,8 @@ public class UnitBullet : MonoBehaviour
 
                 if (temp != null)
                 {
-                    temp.Hit(dmg);
+                   
+                    temp.Hit(dmg,transform.position,-transform.position.normalized);
                     Release();
                     Destroy(this.gameObject);
                 }

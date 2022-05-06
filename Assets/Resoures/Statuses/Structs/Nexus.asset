@@ -15,7 +15,7 @@ MonoBehaviour:
   unitName: Nexus
   unitNum: -2
   unitTier: 0
-  fullHp: 1
+  fullHp: 100
   curHp: 100
   dmg: 0
   atkSpd: 1

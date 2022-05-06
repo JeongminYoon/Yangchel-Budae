@@ -53,6 +53,7 @@ abstract public class Units : MonoBehaviour
     public GameObject bloodPrefab;
     //private GameObject blood;
     //private ParticleSystem bloodPS;
+    //public GameObject fragmentPrefab;
 
     public Collider unitCol;
 
@@ -485,16 +486,28 @@ abstract public class Units : MonoBehaviour
         }
     }
 
-    public void Hit(int _dmg)
+    public void Hit(int _dmg, Vector3 hitPosition = default(Vector3), Vector3 hitDir = default(Vector3))
     {
         if (!unitStatus.isDead)
         {
             float temp = unitStatus.curHp;
             unitStatus.curHp -= _dmg;
 
-            if(!(gameObject.CompareTag("Tower") || gameObject.CompareTag("Nexus")))
-            { 
+            if (!(gameObject.CompareTag("Tower") || gameObject.CompareTag("Nexus")))
+            {
                 Instantiate(bloodPrefab, center.transform.position, transform.rotation);
+            }
+            else 
+            {
+                if (hitDir == default(Vector3))
+                {
+                    Instantiate(bloodPrefab, hitPosition, transform.rotation);
+                }
+                else
+                {
+                    Instantiate(bloodPrefab, hitPosition, Quaternion.Euler(-hitDir));
+				}
+                
             }
 
             Debug.Log(_dmg + "의 데미지를 받아\n" + temp + "에서" + unitStatus.curHp + "가 되었습니다");

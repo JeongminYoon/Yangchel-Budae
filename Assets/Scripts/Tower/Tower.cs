@@ -7,10 +7,17 @@ public class Tower : Units
 	//Units 클래스는 기본적으로 ㄹㅇ 유닛들한테 맞춰서 설계해놓은거라서
 	//타워클래스는 앵간하면 부모함수(base.Func()) 콜 하지말고
 	//부모 가상 함수 재정의(override)해서 쓰거나 함수 새로 만들어서 쓸 예정.
-			//그대로 쓰기엔 조금 다른 부분들 유
+	//그대로 쓰기엔 조금 다른 부분들 유
 	//외부에서 타워 함수 호출 할 일있으면 GetComponent<Units>() as Tower으로 불러서 함수 호출 해주삼
 
 	//public GameObject bulletPrefab;
+
+	public delegate void HandlerDamaged();
+	public HandlerDamaged handlerDamaged;
+
+	public GameObject firePrefab;
+	public GameObject boomFxPrefab;
+
 
 	public override bool Attack(GameObject _target)
 	{
@@ -64,6 +71,26 @@ public class Tower : Units
 		}
 	}
 
+	public virtual void DamagedFire()
+	{
+		float hpRatio = unitStatus.curHp / unitStatus.fullHp;
+
+		if (hpRatio <= 75f && hpRatio > 50f)
+		{
+
+		}
+		else if (hpRatio <= 50f && hpRatio > 25f)
+		{
+
+		}
+		else
+		{ 
+		
+		}
+
+	
+	}
+
 	public override void DeathEventSetting()
 	{
 		//base.DeathEvent();
@@ -77,6 +104,8 @@ public class Tower : Units
 	{
 		if (unitStatus.curHp <= 0f)
 		{
+			//이제 쉐이더를 쓰든 머테리얼 알파값을 조절하던 
+			//폭팔이펙트 나오게하고 사라지게 하기
 			unitStatus.isDead = true;
 			handler(this.gameObject);
 			Destroy(this.gameObject);
