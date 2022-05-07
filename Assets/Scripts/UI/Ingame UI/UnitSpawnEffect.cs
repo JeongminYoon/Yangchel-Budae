@@ -8,10 +8,13 @@ public class UnitSpawnEffect : MonoBehaviour
 {
     float timer = 2f;
     public GameObject circlePrefab;
+    public GameObject costEffectPrefab;
     public GameObject fxEffect;
     GameObject circle;
     GameObject unitModelInvis;
     GameObject unitModel;
+    Text costEffectText;
+    int cost;
     UnitClass num;
     Vector3 pos;
     bool swt = false;
@@ -25,6 +28,7 @@ public class UnitSpawnEffect : MonoBehaviour
         canvasTr = GameObject.Find("UI").transform.Find("Canvas");
         circle = Instantiate(circlePrefab, cam.WorldToScreenPoint(pos), Quaternion.identity, canvasTr);
         circle.SetActive(false);
+        CostEffectSetting();
     }
 
     // Update is called once per frame
@@ -33,13 +37,17 @@ public class UnitSpawnEffect : MonoBehaviour
 
         timer -= Time.deltaTime;
 
-        if (timer <=1f && timer > 0f)
+        if (timer > 1f)
         {
+            CostEffectPlay();
+        }
+        else if (timer <=1f && timer > 0f)
+        {
+            Destroy(costEffect);
             if (swt == false)
             {
                 swt = true;
                 Destroy(unitModelInvis);
-                MoveUnitModel();
             }
             circle.GetComponent<Image>().fillAmount = timer;
         }
@@ -52,10 +60,37 @@ public class UnitSpawnEffect : MonoBehaviour
         }  
     }
 
-    public void UnitSpawnEftSetting(UnitClass unitnum, Vector3 ps, GameObject invModel)
+    GameObject costEffect;
+    RectTransform rt;
+    void CostEffectSetting()
+    {
+        costEffect = Instantiate(costEffectPrefab, cam.WorldToScreenPoint(pos), Quaternion.identity, canvasTr);
+        costEffectText = costEffect.transform.Find("Text").GetComponent<Text>();
+        costEffectText.text = cost.ToString();
+        rt = costEffect.GetComponent<RectTransform>();
+        rt.anchoredPosition += new Vector2(0f, 60f);
+        //rt.sizeDelta = new Vector2(0f, 0f);
+    }
+
+    float eftTimer = 0f;
+    void CostEffectPlay()
+    {
+        eftTimer += Time.deltaTime;
+        if (eftTimer >= 0.05f)
+        {
+            eftTimer = 0f;
+            rt.anchoredPosition += new Vector2(0f, 1f);
+            //rt.sizeDelta += new Vector2(3.5f, 3.5f);
+            costEffect.GetComponent<Image>().color -= new Color(0f, 0f, 0f, 0.07f);
+            costEffectText.color -= new Color(0f, 0f, 0f, 0.07f);
+        }
+    }
+
+    public void UnitSpawnEftSetting(UnitClass unitnum, Vector3 ps, int cst,GameObject invModel)
     {
         num = unitnum;
         pos = ps;
+        cost = cst;
         unitModelInvis = invModel;
     }
 

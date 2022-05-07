@@ -44,4 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circlePrefab: {fileID: 7761318449830846027, guid: 26321fb76d92bf54da1954f90b6e75b7, type: 3}
+  costEffectPrefab: {fileID: 4235803068228720394, guid: f9fa4f4e2736f1f4ca36efb0a31691fc, type: 3}
   fxEffect: {fileID: 1462327970484030, guid: f01c1eba69de19e44b04d8d651aaac37, type: 3}
