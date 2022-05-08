@@ -416,6 +416,8 @@ MonoBehaviour:
   curScene: 4
   pastScene: 4
   nextScene: 4
+  isGameWin: 1
+  isGameEnd: 0
 --- !u!4 &686047403
 Transform:
   m_ObjectHideFlags: 0

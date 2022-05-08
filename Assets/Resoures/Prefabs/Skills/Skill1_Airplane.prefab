@@ -1577,6 +1577,7 @@ MonoBehaviour:
   bulletCreateTime: 1
   spwanPos:
   - {fileID: 0}
+  spawnPosLoc: {fileID: 0}
 --- !u!1 &1966640124558694
 GameObject:
   m_ObjectHideFlags: 0
