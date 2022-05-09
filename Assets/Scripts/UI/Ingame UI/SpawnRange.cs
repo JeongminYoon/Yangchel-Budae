@@ -29,14 +29,30 @@ public class SpawnRange : MonoBehaviour
         {
             rangePos[i] = ranges[i].transform.position;
         }
-        HideRange(1);
-        HideRange(2);
+
+        int temp = 1;
+        for (int i = 0; i < (int)Enums.Team.End; ++i)
+        {
+            for (int k = 0; k < 2; ++k)
+            {
+                rangeList[i, k] = ranges[temp];
+
+                //1. 왼쪽 우리팀 패널
+                //2. 오른쪽 우리팀 패널
+                //3. 윈쪽 적팀 패널
+                //4. 오른쪽 적팀패널
+                ++temp;
+            }
+        
+        }
+       
     }
     
     // Update is called once per frame
     void Update()
     {
-        RangeSetting();
+        //RangeSetting();
+        SetRangeList();
         material.color = new Color(material.color.r, material.color.g, material.color.b, 0.15f);
         iTween.ColorTo(gameObject, iTween.Hash("a", 0.3f, "time", 1f, "loopType", "pingPong", "easeType", "easeOutSine"));
     }
@@ -49,34 +65,28 @@ public class SpawnRange : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    void RangeSetting()
-    {
-        // 만약에 아군타워,적군타워 둘다 부숴졌을때 부자연스럽게 출력됨. 수정필요
-        if (TowerManager.instance.towerList[0, 0] == null)
-        {
-            ActiveRange(1);
-        }
-        if (TowerManager.instance.towerList[0, 1] == null)
-        {
-            ActiveRange(2);
-        }
-        if (TowerManager.instance.towerList[1, 0] == null)
-        {
-            HideRange(3);
-        }
-        if (TowerManager.instance.towerList[1, 1] == null)
-        {
-            HideRange(4);
-        }
-    }
+    public GameObject[,] rangeList = new GameObject[2,2];
 
-    void ActiveRange(int i)
+    void SetRangeList()
     {
-        ranges[i].transform.position = rangePos[i];
-    }
+        for (int i = 0; i < 2; i++)
+        {
+            for (int k = 0; k < 2; k++)
+            {
+                if (TowerManager.instance.towerList[i, k] == null)
+                {
+                    rangeList[i, k].SetActive(false);
+                }
+            }
+        }
 
-    void HideRange(int i)
-    {
-        ranges[i].transform.position = new Vector3(99f, -99f, 0f);
+        for (int i = 0; i < 2; i++)
+        {
+            if (TowerManager.instance.towerList[0,i] == null && TowerManager.instance.towerList[1, i] == null)
+            {
+                rangeList[0, i].SetActive(false);
+                rangeList[1, i].SetActive(true);
+            }
+        }
     }
 }

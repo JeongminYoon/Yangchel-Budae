@@ -48,6 +48,7 @@ public class UnitSpawnEffect : MonoBehaviour
             {
                 swt = true;
                 Destroy(unitModelInvis);
+                MoveUnitModel();
             }
             circle.GetComponent<Image>().fillAmount = timer;
         }
