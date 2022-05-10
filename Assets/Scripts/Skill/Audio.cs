@@ -5,10 +5,13 @@ using UnityEngine;
 public class Audio : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    public AudioSource ads;
+
     void Start()
     {
 
-
+        
 
     }
 
@@ -18,6 +21,20 @@ public class Audio : MonoBehaviour
         if (GameManager.instance.isGameEnd == true)
         {
             Destroy(gameObject);
+        }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+
+            ads.volume += 0.1f;
+
+
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+
+
+            ads.volume -= 0.1f;
         }
     }
 }
