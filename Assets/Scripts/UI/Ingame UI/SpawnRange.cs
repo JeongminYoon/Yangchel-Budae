@@ -45,7 +45,9 @@ public class SpawnRange : MonoBehaviour
             }
         
         }
-       
+
+        rangeList[0, 0].SetActive(false);
+        rangeList[0, 1].SetActive(false);
     }
     
     // Update is called once per frame

@@ -36,7 +36,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
 
     RectTransform rt1;
     RectTransform rt2;
-    Vector3 Rt1;
+    Vector3 vec;
     GameObject unitModel;
     Material unitModelMat;
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
@@ -47,11 +47,18 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         //카드 애니메이션 변수 선언
         rt1 = GetComponent<RectTransform>();
         rt2 = GetComponent<RectTransform>();
-        Rt1 = rt1.anchoredPosition;
-        unitModel =  Instantiate(NewCardManager.instance.unitModels[status.unitNum]);
-        unitModelMat = unitModel.transform.GetChild(0).gameObject.GetComponent<SkinnedMeshRenderer>().materials[0];
-        unitModelMat.shader = Shader.Find("Legacy Shaders/Transparent/Diffuse");
-        unitModelMat.color = new Color(unitModelMat.color.r, unitModelMat.color.g, unitModelMat.color.b, 0.5f);
+        vec = rt1.anchoredPosition;
+
+        if (this.status.unitName.Contains("Skill"))
+        {
+        }
+        else
+        {
+            unitModel = Instantiate(NewCardManager.instance.unitModels[status.unitNum]);
+            unitModelMat = unitModel.transform.GetChild(0).gameObject.GetComponent<SkinnedMeshRenderer>().materials[0];
+            unitModelMat.shader = Shader.Find("Legacy Shaders/Transparent/Diffuse");
+            unitModelMat.color = new Color(unitModelMat.color.r, unitModelMat.color.g, unitModelMat.color.b, 0.5f);
+        }
 
     }
 
@@ -63,15 +70,21 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         CardAnim();
         SpawnRange.instance.ShowSpawnRangeEffect();
 
-        RayResult temp = Funcs.RayToWorld();
-        if (temp.isHit == false || temp.hitObj.tag == "Tower" || temp.hitObj.tag == "Nexus" || temp.hitObj.tag == "SpawnRange")
+        if (this.status.unitName.Contains("Skill"))
         {
-            unitModel.SetActive(false);
         }
-        else
+        else 
         {
-            unitModel.SetActive(true);
-            unitModel.transform.position = temp.hitPosition + new Vector3(0f,0.55f);
+            RayResult temp = Funcs.RayToWorld();
+            if (temp.isHit == false || temp.hitObj.tag == "Tower" || temp.hitObj.tag == "Nexus" || temp.hitObj.tag == "SpawnRange")
+            {
+                unitModel.SetActive(false);
+            }
+            else
+            {
+                unitModel.SetActive(true);
+                unitModel.transform.position = temp.hitPosition + new Vector3(0f, 0.55f);
+            }
         }
     }
 
@@ -122,7 +135,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
 
     void CardAnim()
     {
-        float h = (rt2.anchoredPosition.y - Rt1.y) / 219;
+        float h = (rt2.anchoredPosition.y - vec.y) / 219;
         if (h >= 1)
         {
             h = 1;
