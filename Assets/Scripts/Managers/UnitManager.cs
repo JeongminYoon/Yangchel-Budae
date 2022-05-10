@@ -116,12 +116,7 @@ public class UnitManager : MonoBehaviour
 
 	void Start()
     {
-        if (GameManager.instance == null)
-        {
-            GameManager tempGameMgr = new GameManager();
-            GameObject tempObj = new GameObject();
-            tempObj.AddComponent<GameManager>();
-        }
+        Funcs.GameManagerHasNotExist();
     }
 
     void Update()

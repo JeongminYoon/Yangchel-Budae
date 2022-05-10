@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Tower : Units
 {
 	//Units 클래스는 기본적으로 ㄹㅇ 유닛들한테 맞춰서 설계해놓은거라서
@@ -12,11 +13,22 @@ public class Tower : Units
 
 	//public GameObject bulletPrefab;
 
-	public delegate void HandlerDamaged();
-	public HandlerDamaged handlerDamaged;
+	//public delegate void HandlerDamaged();
+	//public HandlerDamaged handlerDama;
 
-	public GameObject firePrefab;
+	public GameObject[] firePrefab = new GameObject[3];
+	private List<GameObject> fireList = new List<GameObject>();
+
+	public GameObject[] firePosObject = new GameObject[3];
+	Transform[] fireTransform = new Transform[3];
+
+
 	public GameObject boomFxPrefab;
+
+	
+	protected delegate void HandlerTowerFire(int i);
+	protected event HandlerTowerFire fireEvent;
+	//protected HandlerTowerDamaged handlerTowerDamaged;
 
 
 	public override bool Attack(GameObject _target)
@@ -29,10 +41,8 @@ public class Tower : Units
 				weaponScript.targetObj = targetObj/*.GetComponent<Units>().center*/;
 				weaponScript.Fire();
 			}
-
 			return true;
 		}
-
 		return false;
 	}
 
@@ -40,7 +50,6 @@ public class Tower : Units
 	public override void SearchUnit()
 	{
 		listTarget = UnitManager.instance.unitList[Funcs.B2I(!isEnemy)];
-
 
 		if (listTarget.Count == 0)
 		{
@@ -71,35 +80,64 @@ public class Tower : Units
 		}
 	}
 
+
+
 	public virtual void DamagedFire()
 	{
 		float hpRatio = unitStatus.curHp / unitStatus.fullHp;
 
-		if (hpRatio <= 75f && hpRatio > 50f)
+		if (hpRatio <= 0.75f && hpRatio > 0.50f)
 		{
-
+			fireEvent(0);
+			//handlerDamaged();
 		}
-		else if (hpRatio <= 50f && hpRatio > 25f)
+		else if (hpRatio <= 0.50f && hpRatio > 0.25f)
 		{
-
+			fireEvent(1);
+			//handlerDamaged();
 		}
-		else
-		{ 
-		
+		else if(hpRatio < 0.5f)
+		{
+			fireEvent(2);
+			//handlerDamaged();
 		}
-
-	
 	}
 
+	public void InstantiateFire(int i)
+	{
+		if (fireList.Count > i)
+		{
+			return;
+		}
+		int rand = Random.Range(0, 3);
+
+	
+		fireList.Add(Instantiate(firePrefab[rand], fireTransform[i]));
+	}
+	public void DamagedEventSetting()
+	{
+		fireEvent = new HandlerTowerFire(InstantiateFire);
+
+		for (int i = 0; i < firePosObject.Length; ++i)
+		{
+			fireTransform[i] = firePosObject[i].transform;
+		}
+
+	}
 	public override void DeathEventSetting()
 	{
 		//base.DeathEvent();
-
 		handlerDeath = new HandlerDeath(TowerManager.instance.RemoveDeadTower);
 		//handlerDeath += UnitManager.instance.ResearchTarget_AllUnit;
-
 	}
 
+	public void DestoryFires()
+	{
+		for (int i = 0; i < fireList.Count; ++i)
+		{
+			//Destroy(fireList[i]);
+		}
+	}
 	public override void Death(HandlerDeath handler)
 	{
 		if (unitStatus.curHp <= 0f)
@@ -108,6 +146,8 @@ public class Tower : Units
 			//폭팔이펙트 나오게하고 사라지게 하기
 			unitStatus.isDead = true;
 			handler(this.gameObject);
+
+			DestoryFires();
 			Destroy(this.gameObject);
 		}
 	}
@@ -121,6 +161,7 @@ public class Tower : Units
 	protected override void Start()
 	{
 		DeathEventSetting();
+		DamagedEventSetting();
 		ColliderSetting();
 		//ScriptableObj_DeepCopy();
 
@@ -158,6 +199,8 @@ public class Tower : Units
 				Attack(targetObj);
 			}
 		}
+
+		DamagedFire();
 
 		Death(handlerDeath);
 	}

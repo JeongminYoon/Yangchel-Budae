@@ -6,6 +6,16 @@ using UnityEngine;
 
 public static class Funcs
 {
+
+	public static void GameManagerHasNotExist()
+	{
+		if (GameManager.instance == null)
+		{
+			GameObject tempObj = new GameObject();
+			tempObj.AddComponent<GameManager>();
+		}
+		
+	}
     public static int B2I(bool boolean)
     {
         return Convert.ToInt32(boolean);
