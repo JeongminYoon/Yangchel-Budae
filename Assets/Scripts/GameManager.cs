@@ -85,13 +85,18 @@ public class GameManager : MonoBehaviour
         }
 
         isGameWin = isNexusEnemy;
-        
+        StartCoroutine(DelayGameEnd());
         UnitManager.instance.GameEnd(isNexusEnemy);
 
-        //이제 씬 넘기지 말고 연출 나온 뒤에 씬넘기기
-        //SceneChange(Enums.SceneNum.Result);
-        //이제 Reuslt씬에서 GameManager의 isGameWin 값 따라서 
-        //세팅해주기
+        //연출 추가해주기
+
+    }
+
+    public IEnumerator DelayGameEnd()
+    {
+
+        yield return new WaitForSecondsRealtime(5f);
+        SceneChange(Enums.SceneNum.Result);
     }
 
     private void Awake()

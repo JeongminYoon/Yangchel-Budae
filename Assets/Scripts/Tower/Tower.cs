@@ -103,7 +103,7 @@ public class Tower : Units
 		}
 	}
 
-	public void InstantiateFire(int i)
+	public virtual void InstantiateFire(int i)
 	{
 		if (fireList.Count > i)
 		{
@@ -112,9 +112,9 @@ public class Tower : Units
 		int rand = Random.Range(0, 3);
 
 	
-		fireList.Add(Instantiate(firePrefab[rand], fireTransform[i]));
+		fireList.Add(Instantiate(firePrefab[rand], fireTransform[rand]));
 	}
-	public void DamagedEventSetting()
+	public virtual void DamagedEventSetting()
 	{
 		fireEvent = new HandlerTowerFire(InstantiateFire);
 
@@ -131,23 +131,28 @@ public class Tower : Units
 		//handlerDeath += UnitManager.instance.ResearchTarget_AllUnit;
 	}
 
-	public void DestoryFires()
+	public virtual void DestoryFires()
 	{
 		for (int i = 0; i < fireList.Count; ++i)
 		{
-			//Destroy(fireList[i]);
+			Destroy(fireList[i]);
 		}
 	}
 	public override void Death(HandlerDeath handler)
 	{
-		if (unitStatus.curHp <= 0f)
+		if (!unitStatus.isDead && unitStatus.curHp <= 0f)
 		{
 			//이제 쉐이더를 쓰든 머테리얼 알파값을 조절하던 
 			//폭팔이펙트 나오게하고 사라지게 하기
 			unitStatus.isDead = true;
 			handler(this.gameObject);
 
-			DestoryFires();
+			Release();
+
+			GameObject boomFx = Instantiate(boomFxPrefab, transform.position, transform.rotation);
+			//boomFx.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+			//GetComponent<MeshRenderer>().enabled = false;
+
 			Destroy(this.gameObject);
 		}
 	}
@@ -203,6 +208,20 @@ public class Tower : Units
 		DamagedFire();
 
 		Death(handlerDeath);
+	}
+
+
+	public override void Release()
+	{
+		base.Release();
+
+		DestoryFires();
+
+	}
+
+	public override void Delete()
+	{
+		
 	}
 
 }

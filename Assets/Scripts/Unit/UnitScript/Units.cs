@@ -500,11 +500,11 @@ abstract public class Units : MonoBehaviour
             else 
             {
                 if (hitDir == default(Vector3))
-                {
+                {//근접공격
                     Instantiate(bloodPrefab, hitPosition, transform.rotation);
                 }
                 else
-                {
+                {//원거리 공격
                     Instantiate(bloodPrefab, hitPosition, Quaternion.Euler(-hitDir));
 				}
                 
@@ -723,7 +723,7 @@ abstract public class Units : MonoBehaviour
         //hp바는 어디에서 할까 
     }
 
-    public void Delete()
+    public virtual void Delete()
     {
         if (unitStatus.isDead)
         {
@@ -743,7 +743,6 @@ abstract public class Units : MonoBehaviour
 
     public IEnumerator DelayDestory()
     {
-
         isDelete = true;        
         yield return new WaitForSecondsRealtime(1f);
         Destroy(this.gameObject);

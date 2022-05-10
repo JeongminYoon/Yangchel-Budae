@@ -12,6 +12,9 @@ public class Weapon : MonoBehaviour
     public GameObject bulletPrefab;
    //public List<UnitBullet> bulletList = new List<UnitBullet>();
     public GameObject muzzle = null;
+    
+    public GameObject muzzleFirePrefab; //여러개 만들어 줘야함.
+    
 
     public void Fire(Quaternion ObjRot)
     { //원거리 무기일때 총알 소환 할 함수
@@ -23,6 +26,8 @@ public class Weapon : MonoBehaviour
 
         UnitBullet bulletScript = bullet.GetComponent<UnitBullet>();
         //bulletList.Add(bulletScript);
+
+        //Instantiate(muzzleFirePrefab, muzzle.transform);
 
         if (bulletScript != null)
         {
@@ -41,6 +46,8 @@ public class Weapon : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, muzzlePos, weaponRot);
         UnitBullet bulletScript = bullet.GetComponent<UnitBullet>();
         //bulletList.Add(bulletScript);
+
+        //Instantiate(muzzleFirePrefab, muzzle.transform);
 
         if (bulletScript != null)
         {
