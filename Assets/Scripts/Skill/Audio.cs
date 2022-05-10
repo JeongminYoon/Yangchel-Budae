@@ -17,9 +17,7 @@ public class Audio : MonoBehaviour
     {
         if (GameManager.instance.isGameEnd == true)
         {
-
             Destroy(gameObject);
-
         }
     }
 }

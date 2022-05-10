@@ -37,6 +37,13 @@ public class ResultSceneManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
+        if (GameManager.instance == null)
+        {
+            GameManager tempGameMgr = new GameManager();
+            GameObject tempObj = new GameObject();
+            tempObj.AddComponent<GameManager>();
+        }
+
         if (resultText != null)
         {
              string resultStr = "";

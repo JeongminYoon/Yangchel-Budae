@@ -111,11 +111,17 @@ public class UnitManager : MonoBehaviour
         {
             unitList[i] = new List<GameObject>();
         }
+
 	}
 
 	void Start()
     {
-        
+        if (GameManager.instance == null)
+        {
+            GameManager tempGameMgr = new GameManager();
+            GameObject tempObj = new GameObject();
+            tempObj.AddComponent<GameManager>();
+        }
     }
 
     void Update()
