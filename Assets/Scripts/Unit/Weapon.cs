@@ -13,7 +13,9 @@ public class Weapon : MonoBehaviour
    //public List<UnitBullet> bulletList = new List<UnitBullet>();
     public GameObject muzzle = null;
     
-    public GameObject muzzleFirePrefab; //여러개 만들어 줘야함.
+    public GameObject[] muzzleFlashPrefab = new GameObject[9] ; //여러개 만들어 줘야함.
+    //private GameObject muzzleFlash = null;
+    Vector3 muzzleFlashScale = new Vector3(0.01f, 0.01f, 0.01f);
     
 
     public void Fire(Quaternion ObjRot)
@@ -28,6 +30,7 @@ public class Weapon : MonoBehaviour
         //bulletList.Add(bulletScript);
 
         //Instantiate(muzzleFirePrefab, muzzle.transform);
+        InstantiateMuzzleFlash();
 
         if (bulletScript != null)
         {
@@ -46,8 +49,9 @@ public class Weapon : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, muzzlePos, weaponRot);
         UnitBullet bulletScript = bullet.GetComponent<UnitBullet>();
         //bulletList.Add(bulletScript);
+        InstantiateMuzzleFlash();
 
-        //Instantiate(muzzleFirePrefab, muzzle.transform);
+
 
         if (bulletScript != null)
         {
@@ -87,6 +91,22 @@ public class Weapon : MonoBehaviour
         //}
     }
 
+    public void InstantiateMuzzleFlash()
+    {
+        int rand = Random.Range(0, 9);
+
+        GameObject flash = Instantiate(muzzleFlashPrefab[rand], muzzle.transform);
+        flash.GetComponent<MuzzleFlashFX>().maxScale = muzzleFlashScale;
+        flash.transform.localScale = muzzleFlashScale;
+
+
+        //if (muzzleFlash)
+        //{
+        //    Destroy(muzzleFlash);
+        //}
+
+        //muzzleFlash = flash;
+    }
     //public void BulletDestory()
     //{
     //    //이렇게 되면 유닛이 먼저 뒤져버렸을 때 문제 생김. 
@@ -107,7 +127,12 @@ public class Weapon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        if (name.Contains("Range") || name.Contains("Tower"))
+        {
+            muzzleFlashScale = new Vector3(0.025f, 0.025f, 0.025f);
+        }
+
+
     }
 
     // Update is called once per frame
@@ -126,6 +151,11 @@ public class Weapon : MonoBehaviour
         {
             muzzle = null;
         }
+
+        //if (muzzleFlash)
+        //{
+        //    Destroy(muzzleFlash);
+        //}
 
         //bulletList.Clear();
     }
