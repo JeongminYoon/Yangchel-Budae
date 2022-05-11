@@ -79,7 +79,7 @@ public class TowerManager : MonoBehaviour
         GameObject building = Instantiate(towerPrefab, pos, rotation, parent.transform);
 
 		//hpBar 생성
-		GameObject hpBarObj = HpBarManager.instance.HpBarInstrate();
+		GameObject hpBarObj = HpBarManager.instance.HpBarInstrate(pos);
 		hpBarObj.GetComponent<HpBar>().Unit = building;
 
 

@@ -30,17 +30,19 @@ public class HpBar : MonoBehaviour
 
     void Update()
     {
-
-        hpText.text = (currentHp).ToString();
-        transform.position = cam.WorldToScreenPoint(pos1 + new Vector3(0f, 3.2f, 0f));
-        hpBarImage.fillAmount = currentHp / fullHp;
-        DamageEffect();
-        HpBarSetting();
-
-        if (eftSwitch == false)
+        if (Unit != null)
         {
-            hpBarEftValu = fullHp;
-            eftSwitch = true;
+            HpBarSetting();
+            hpText.text = (currentHp).ToString();
+            transform.position = cam.WorldToScreenPoint(pos1 + new Vector3(0f, 3.2f, 0f));
+            hpBarImage.fillAmount = currentHp / fullHp;
+            DamageEffect();
+
+            if (eftSwitch == false)
+            {
+                hpBarEftValu = fullHp;
+                eftSwitch = true;
+            }
         }
     }
 

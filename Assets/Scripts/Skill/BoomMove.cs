@@ -23,7 +23,7 @@ public class BoomMove : MonoBehaviour
             Vector3 dir = gameObject.transform.position;
 
             Instantiate(boomPrefab,dir, Quaternion.identity);
-            CameraShake.instance.Shake(new Vector3(0.5f,0.5f,0f),0.8f);
+            CameraShake.instance.Shake(0.5f,0.5f,0.05f);
         }
 
         Destroy(this.gameObject);

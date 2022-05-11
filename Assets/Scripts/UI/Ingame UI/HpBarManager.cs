@@ -8,7 +8,6 @@ public class HpBarManager : MonoBehaviour
     static public HpBarManager instance = null;
     public GameObject hpBarPrefab;
     public GameObject canvas;
-
     #region debug Value
     //GameObject debugUnit;
     //float debugCurHp = 100f;
@@ -37,6 +36,11 @@ public class HpBarManager : MonoBehaviour
         {
             time = -50;
         }
+
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            CameraShake.instance.Shake(3f, 0.1f, 0.05f);
+        }
     }
 
     //void DebugHpBarSet()
@@ -53,9 +57,9 @@ public class HpBarManager : MonoBehaviour
     //    }
     //}
 
-    public GameObject HpBarInstrate()
+    public GameObject HpBarInstrate(Vector3 worldPosition)
     {
-        return Instantiate(hpBarPrefab, new Vector3(999f, 999f, 999f), Quaternion.identity, canvas.transform);
+        return Instantiate(hpBarPrefab, Camera.main.WorldToScreenPoint(worldPosition + new Vector3(0f, 3.2f, 0f)), Quaternion.identity, canvas.transform);
     }
 
     #region 구 코드
