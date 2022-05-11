@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public bool isGameEnd = false;
     public void InGameSceneSetting()
     { 
+        
         //-> 맵 깔기
         //-> 타워깔기
         //-> 유닛 매니저 세팅
@@ -49,10 +50,15 @@ public class GameManager : MonoBehaviour
             nextScene = SceneNum.SceneEnd;
            //Debug.Log(sceneNum + "으로 신 바꾸기 성공");
             SceneManager.LoadScene((int)sceneNum);
+
+
+            //sound
+            AudioManager.instance.BGMPlay(sceneNum);
+
         }
         else
         {
-            //Debug.Log(sceneNum + "으로 신 바꾸기 실패");
+            //Debug.Log(sceneNum + "으로 신 바꾸기 실패");  
             return;
         }
     }
@@ -106,13 +112,16 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
         DontDestroyOnLoad(gameObject);
+
         curScene = (SceneNum)SceneManager.GetActiveScene().buildIndex;
+        //AudioManager.instance.BGMPlay(curScene);
     }
 
     void Start()
     {
-
         isGameEnd = false;
+
+        AudioManager.instance.BGMPlay(curScene);
     }
 
     // Update is called once per frame
