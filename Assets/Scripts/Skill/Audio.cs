@@ -5,6 +5,9 @@ using UnityEngine;
 public class Audio : MonoBehaviour
 {
     // Start is called before the first frame update
+
+    
+    
     void Start()
     {
 
@@ -19,5 +22,9 @@ public class Audio : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+       
+
+
     }
 }

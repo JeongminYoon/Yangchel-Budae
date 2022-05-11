@@ -29,6 +29,12 @@ public class MedicFunc : Units
 		//1. 아군 유닛이 있을 경우 
 		//=>힐 타겟 있을경우
 		//=> 그냥 타겟은 타워도 잡히기 때문에 예외 처리 안됨.
+
+		if (GameManager.instance.isGameEnd)
+		{
+			return false;
+		}
+
 		if (healTarget != null)
 		{//아군 힐 타겟 있으면 힐하기
 			
