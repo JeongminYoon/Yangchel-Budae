@@ -49,7 +49,9 @@ public class Tower : Units
 
 	public override void SearchUnit()
 	{
-		listTarget = UnitManager.instance.unitList[Funcs.B2I(!isEnemy)];
+		//listTarget = UnitManager.instance.unitList[Funcs.B2I(!isEnemy)];
+
+		listTarget = UnitManager.instance.GetUnitList_Val(Funcs.B2I(!isEnemy));
 
 		if (listTarget.Count == 0)
 		{
@@ -199,7 +201,7 @@ public class Tower : Units
 		{
 			if (weapon != null)
 			{
-				weapon.transform.LookAt(targetObj.transform);
+				weapon.transform.LookAt(targetObj.transform); 
 				//weapon.transform.Rotate(new Vector3(0f, 1f * Time.deltaTime, 0f));
 				Attack(targetObj);
 			}

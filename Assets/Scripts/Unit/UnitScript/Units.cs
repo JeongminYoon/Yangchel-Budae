@@ -106,7 +106,7 @@ abstract public class Units : MonoBehaviour
         else 
         {
             targetColSize = 0f;
-        }
+        };
 
 
         Vector3 targetPos = obj.transform.position;
@@ -325,36 +325,37 @@ abstract public class Units : MonoBehaviour
         { 
             return; 
         }
-            //1. 소환 됐을 때 가까운 라인 파악.
-            //2. 가까운 라인의 상대 타워 유무 파악
-            //3. 아직 있을 경우 상대 타워 타겟으로 지정.
-            //4. 상대 몬스터 생성되면(에너미 리스트에 존재할 경우) 서치 시작
-            //=> 매 프레임이 아니라 일정 시간마다
-            //5. 가장 가까운 유닛 타겟이 정해지면, 타겟을 바꾼 뒤 그쪽으로 이동
-            //6. 사정거리안에 들어오면 공격시작
-            //7. 공격 해서 적 몬스터 상태가 isDead == true되면 
-            //objectManager에서 리스트에서도 지우고 
-            //타겟도 취소
-            //8. 다시 1번으로 돌아가기
+        //1. 소환 됐을 때 가까운 라인 파악.
+        //2. 가까운 라인의 상대 타워 유무 파악
+        //3. 아직 있을 경우 상대 타워 타겟으로 지정.
+        //4. 상대 몬스터 생성되면(에너미 리스트에 존재할 경우) 서치 시작
+        //=> 매 프레임이 아니라 일정 시간마다
+        //5. 가장 가까운 유닛 타겟이 정해지면, 타겟을 바꾼 뒤 그쪽으로 이동
+        //6. 사정거리안에 들어오면 공격시작
+        //7. 공격 해서 적 몬스터 상태가 isDead == true되면 
+        //objectManager에서 리스트에서도 지우고 
+        //타겟도 취소
+        //8. 다시 1번으로 돌아가기
 
-            //매 프레임마다 돌리지는 말구 
-            //타겟 유닛이 없을때 몇초마다 돌리기?
-            //타겠이 정해졌을때는 안 돌리다가? 타겟이 죽었을 경우 재 탐색?
+        //매 프레임마다 돌리지는 말구 
+        //타겟 유닛이 없을때 몇초마다 돌리기?
+        //타겠이 정해졌을때는 안 돌리다가? 타겟이 죽었을 경우 재 탐색?
 
-            //일단 무적권 가까운 타워를 목표로 잡기
-            //그 쪽으로 걸어가다가 범위안에 적 있으면 타겟 바꾸기
+        //일단 무적권 가까운 타워를 목표로 잡기
+        //그 쪽으로 걸어가다가 범위안에 적 있으면 타겟 바꾸기
 
-            //Debug.Log(unitStatus.sightRange + "의 범위로 적을 찾고 있습니다.");
+        //Debug.Log(unitStatus.sightRange + "의 범위로 적을 찾고 있습니다.");
 
-            //if (unitStatus.unitName == "Medic")
-            //{//메딕 본인도 가져와버림.
-            //    listTarget = UnitManager.instance.unitList[Funcs.B2I(isEnemy)].ToList<GameObject>();
+        //if (unitStatus.unitName == "Medic")
+        //{//메딕 본인도 가져와버림.
+        //    listTarget = UnitManager.instance.unitList[Funcs.B2I(isEnemy)].ToList<GameObject>();
 
-            //    listTarget.Remove(this.gameObject);
-            //}
-            //else 
-            //{
-            listTarget = UnitManager.instance.unitList[Funcs.B2I(!isEnemy)].ToList<GameObject>();
+        //    listTarget.Remove(this.gameObject);
+        //}
+        //else 
+        //{
+        //listTarget = UnitManager.instance.unitList[Funcs.B2I(!isEnemy)].ToList<GameObject>();
+        listTarget = UnitManager.instance.GetUnitList_Val(Funcs.B2I(!isEnemy));
             //}
 
             if (listTarget.Count == 0)
@@ -753,22 +754,24 @@ abstract public class Units : MonoBehaviour
     {
         if (targetObj != null)
         {
-            if (this.gameObject.tag == "Tower")
+            if (targetObj.tag == "Tower")
             {
                 Gizmos.color = Color.blue;
             }
-            else if (this.gameObject.tag == "Enemy")
-            { 
+            else if (targetObj.tag == "Nexus")
+            {
                 Gizmos.color = Color.red;
-                Gizmos.DrawLine(transform.position, targetObj.transform.position);
             }
-            else
+            else 
             {
                 Gizmos.color = Color.green;
-                Gizmos.DrawLine(transform.position, targetObj.transform.position);
             }
 
-            
+            Gizmos.DrawLine(transform.position, targetObj.transform.position);
+
+            Gizmos.color = Color.green;
+            if(center!=null)
+            { Gizmos.DrawWireSphere(center.transform.position, unitStatus.atkRange);}
         }
     }
 

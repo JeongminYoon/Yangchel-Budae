@@ -57,6 +57,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    
+
     public void GameStart()
     {
         isGameEnd = false;
