@@ -21,10 +21,10 @@ public class CameraShake : MonoBehaviour
     public Camera mainCamera;
     Vector3 originalCamPos;
 
-    [SerializeField] [Range(0.0f, 0.1f)] float shakeRange = 0.05f;
+    //[SerializeField] [Range(0.0f, 0.1f)] float shakeRange = 0.05f;
     //[SerializeField] [Range(0.1f, 1f)] float duration = 0.5f;
 
-    float timer = 0f;
+    //float timer = 0f;
 
     private void Start()
     {

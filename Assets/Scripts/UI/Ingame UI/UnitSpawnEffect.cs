@@ -101,6 +101,12 @@ public class UnitSpawnEffect : MonoBehaviour
         unitModel = Instantiate(NewCardManager.instance.unitModels[(int)num], pos, Quaternion.identity);
         unitModel.transform.position += new Vector3(0, 10f, 0);
         iTween.MoveTo(unitModel, iTween.Hash("islocal", true, "y", pos.y + 0.6f, "time", 0.95f, "easetype", "easeOutBounce", "oncompletetarget", this.gameObject));
+        StartCoroutine("PlayFx");
+    }
+
+    IEnumerator PlayFx()
+    {
+        yield return new WaitForSeconds(0.3f);
         Instantiate(fxEffect, pos, Quaternion.identity);
     }
 }

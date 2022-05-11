@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Structs;
 
-public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public UnitStatus status;
     public GameObject spawnEffect;
@@ -33,8 +33,8 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
 
         unitName.text = status.unitName;
         unitCost.text = (status.cost).ToString();
-
     }
+
 
     RectTransform rt1;
     RectTransform rt2;
@@ -46,7 +46,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {//드래그 시작 했을때
-        //카드의 처음위치 cardPos를 정해줌
+     //카드의 처음위치 cardPos를 정해줌
         cardPos = transform.position;
 
         //카드 애니메이션 변수 선언
@@ -65,7 +65,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
             defaltCol = new Color(unitModelMat.color.r, unitModelMat.color.g, unitModelMat.color.b, 0.5f);
             unitModelMat.color = defaltCol;
 
-            unitPlatform = Instantiate(unitPlatformPrefab);
+            unitPlatform = Instantiate(unitPlatformPrefab, new Vector3(999, 999, 0), Quaternion.Euler(new Vector3(90, 0, 0)));
             unitPlatform.GetComponent<SpriteRenderer>().material.shader = Shader.Find("Legacy Shaders/Transparent/Diffuse");
             print(unitPlatform.GetComponent<SpriteRenderer>().material.color);
         }
@@ -96,7 +96,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
             {
                 //unitModel.SetActive(true);
                 unitModelMat.color = defaltCol;
-                unitPlatform.GetComponent<SpriteRenderer>().material.color = new Color(1, 1, 1, 1f);
+                unitPlatform.GetComponent<SpriteRenderer>().material.color = new Color(1, 1, 1, 0.5f);
                 unitModel.transform.position = temp.hitPosition + new Vector3(0f, 0.55f);
                 unitPlatform.transform.position = temp.hitPosition + new Vector3(0f, 0.65f);
             }
@@ -166,6 +166,56 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         transform.localScale = new Vector3(1 - cardAnim_h, 1 - cardAnim_h, 1);
         print(cardAnim_h);
     }
+
+    bool isAnim_PopUp_Played = false;
+    void CardPopUpAnim(int i)
+    {
+        if (i == 0)
+        {
+            IEnumerator ie = PopUpAnim(2f);
+            StartCoroutine(ie);
+            //iTween.MoveBy(gameObject, iTween.Hash("y", 5, "sin", "easeInOutExpo"));
+        }
+        else
+        {
+            IEnumerator ie = PopUpAnim(-2f);
+            StartCoroutine(ie);
+            //iTween.MoveBy(gameObject, iTween.Hash("y", -5, "sin", "easeInOutExpo"));
+        }
+    }
+
+    IEnumerator PopUpAnim(float power)
+    {
+        for (int i = 0; i <= 10; i++)
+        {
+            this.gameObject.GetComponent<RectTransform>().position += new Vector3(0f, power, 0f);
+            yield return new WaitForSeconds(0.02f);
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (isAnim_PopUp_Played == false)
+        {
+            isAnim_PopUp_Played = true;
+            CardPopUpAnim(0);
+        }
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (isAnim_PopUp_Played == true)
+        {
+            isAnim_PopUp_Played = false;
+            CardPopUpAnim(1);
+        }
+    }
+
+    //private void OnMouseExit()
+    //{
+    //    isAnim_PopUp_Played = false;
+    //    CardPopUpAnim(1);
+    //}
+
 
     void SpawnSkill()
     {
