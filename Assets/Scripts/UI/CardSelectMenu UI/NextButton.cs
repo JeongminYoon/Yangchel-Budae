@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Button : MonoBehaviour
+public class NextButton : MonoBehaviour
 {
     #region singletone
-    static public Button instance = null;
+    static public NextButton instance = null;
     private void Awake()
     {
         if (instance == null)

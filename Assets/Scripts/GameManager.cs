@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Enums;
 
@@ -54,7 +55,6 @@ public class GameManager : MonoBehaviour
 
             //sound
             AudioManager.instance.BGMPlay(sceneNum);
-
         }
         else
         {
@@ -125,6 +125,8 @@ public class GameManager : MonoBehaviour
         isGameEnd = false;
 
         AudioManager.instance.BGMPlay(curScene);
+        BgmSlider = setting_Menu.transform.Find("BGM_Slider").GetComponent<Slider>();
+        BgmSlider.value = 0.5f;
     }
 
     // Update is called once per frame
@@ -134,5 +136,26 @@ public class GameManager : MonoBehaviour
         {
             print(MyHandsList.Count);
         }
+
+        AudioManager.instance.bgmSoundSet(BgmSlider.value);
     }
+
+
+    #region 게임 설정창 변수/함수들 feat.Yoon
+    public GameObject setting_Menu;
+    Slider BgmSlider;
+
+    public void SetMenuActive(bool isActive)
+    {
+        if (isActive == false)
+        {
+            setting_Menu.SetActive(false);
+        }
+        else
+        {
+            setting_Menu.SetActive(true); ;
+        }    
+    }
+
+    #endregion
 }

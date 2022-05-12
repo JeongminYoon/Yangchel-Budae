@@ -94,4 +94,9 @@ public class AudioManager : MonoBehaviour
 
     }
 
+    public void bgmSoundSet(float i)
+    {
+        bgmAus.volume = i;
+    }
+
 }

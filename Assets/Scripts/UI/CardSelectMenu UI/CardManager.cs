@@ -199,13 +199,13 @@ public class CardManager : MonoBehaviour
         if (cardNum < 4)
         {
             text.text = "<color=#930500>" + "최소 " + (4 - cardNum).ToString() + "명이 더 필요합니다" + "</color>";
-            Button.instance.ChangeButtonColor(0);
+            NextButton.instance.ChangeButtonColor(0);
             isReady = false;
         }
         else
         {
             text.text = "<color=#009304>" + "출동준비 완료!" + "</color>";
-            Button.instance.ChangeButtonColor(1);
+            NextButton.instance.ChangeButtonColor(1);
             isReady = true;
         }    
     }
