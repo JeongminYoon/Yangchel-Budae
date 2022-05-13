@@ -21,10 +21,10 @@ public class CameraShake : MonoBehaviour
     public Camera mainCamera;
     Vector3 originalCamPos;
 
-    [SerializeField] [Range(0.0f, 0.1f)] float shakeRange = 0.05f;
+    //[SerializeField] [Range(0.0f, 0.1f)] float shakeRange = 0.05f;
     //[SerializeField] [Range(0.1f, 1f)] float duration = 0.5f;
 
-    float timer = 0f;
+    //float timer = 0f;
 
     private void Start()
     {
@@ -32,20 +32,10 @@ public class CameraShake : MonoBehaviour
         x = originalCamPos.x;
         y = originalCamPos.y;
         InvokeRepeating("RestoringForce", 0f, 0.03f);
-       // iTween.ShakePosition(this.gameObject, new Vector3(1, 1, 0), 1);
-    }
-
-    public void Shake(Vector3 vec, float time)
-    {
-        iTween.ShakePosition(this.gameObject, vec, time);
     }
 
     private void Update()
     {
-        //if (Input.GetKey(KeyCode.Space))
-        //{
-        //    StartShake();
-        //}
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
@@ -56,36 +46,9 @@ public class CameraShake : MonoBehaviour
             Shake(new Vector3(0f, 0f, 0.5f), 10f);
         }
 
-
-        TimerSetting();
-        TimerEffectSetting();
-        if (timer <= 0f)
-        {
-            StopShake();
-        }
     }
 
-    void TimerSetting()
-    {        
-        timer -= Time.deltaTime;
-        if (timer <= 0f)
-        {
-            timer = 0f;
-        }
-    }
 
-    float timerEffect = 0f;
-    void TimerEffectSetting()
-    {
-        if (timer > 1)
-        {
-            timerEffect = 1;
-        }
-        else
-        {
-            timerEffect = timer;
-        }
-    }
     float restoringForce;
     float x;
     float y;
@@ -117,54 +80,101 @@ public class CameraShake : MonoBehaviour
         transform.position = new Vector3(x, y, originalCamPos.z);
     }
 
-    bool swi = false;
-
-    public void Shake(float duration)
+    public void Shake(Vector3 vec, float time)
     {
-        if (swi == false)
+        iTween.ShakePosition(this.gameObject, vec, time);
+    }
+
+    public void Shake(float time, float power = 0.05f, float cycle = 0.05f)  //»ÁµÈΩ√∞£, »ÁµÈ»˚, »ÁµÈ∏≤ ¡÷±‚(∏Ó√ ∏∂¥Ÿ »ÁµÈ¡ˆ)
+    {
+        IEnumerator shakeCoroutine = ShakeCoroutine(time ,power,cycle);
+        StartCoroutine(shakeCoroutine);
+    }
+
+    IEnumerator ShakeCoroutine(float time, float power, float cycle)
+    {
+        for (int i = 0; i <= time / cycle; i++)
         {
-            swi = true;
-            //originalCamPos = mainCamera.transform.position;
-            InvokeRepeating("StartShake", 0f, 0.05f);
-            timer += duration;
-        }
-        else
-        {
-            StopShake();
-            InvokeRepeating("StartShake", 0f, 0.05f);
-            timer = duration;
+            mainCamera.transform.position += Random.insideUnitSphere * power;
+            yield return new WaitForSeconds(cycle / 2);
+            mainCamera.transform.position = originalCamPos;
+            yield return new WaitForSeconds(cycle / 2);
         }
     }
 
-    void StartShake()
-    {
-        float cameraPosx = (Random.value * shakeRange * 2 - shakeRange) * timerEffect;
-        float cameraPosy = (Random.value * shakeRange * 2 - shakeRange) * timerEffect;
-        Vector3 ShakecameraPos = mainCamera.transform.position;
-        ShakecameraPos.x += cameraPosx;
-        ShakecameraPos.y += cameraPosy;
-        if (ShakecameraPos.x > originalCamPos.x + 0.5f)
-        {
-            ShakecameraPos.x = originalCamPos.x + 0.2f;
-        }
-        if (ShakecameraPos.x < originalCamPos.x - 0.5f)
-        {
-            ShakecameraPos.x = originalCamPos.x - 0.2f;
-        }
-        if (ShakecameraPos.y > originalCamPos.y + 0.5f)
-        {
-            ShakecameraPos.y = originalCamPos.y + 0.2f;
-        }
-        if (ShakecameraPos.y < originalCamPos.y - 0.5f)
-        {
-            ShakecameraPos.y = originalCamPos.y - 0.2f;
-        }
-        mainCamera.transform.position = ShakecameraPos;
-    }
+    #region InvokeªÁøÎ ±∏ ƒ⁄µÂ
+    //void TimerSetting()
+    //{
+    //    timer -= Time.deltaTime;
+    //    if (timer <= 0f)
+    //    {
+    //        timer = 0f;
+    //    }
+    //}
 
-    void StopShake()
-    {
-        CancelInvoke("StartShake");
-        //mainCamera.transform.position = originalCamPos;
-    }
+    //float timerEffect = 0f;
+    //void TimerEffectSetting()
+    //{
+    //    if (timer > 1)
+    //    {
+    //        timerEffect = 1;
+    //    }
+    //    else
+    //    {
+    //        timerEffect = timer;
+    //    }
+    //}
+
+    //bool swi = false;
+
+    //public void Shake(float time, float power = 0.05f, float cycle = 0.05f)
+    //{
+    //    shakeRange = power;
+    //    if (swi == false)
+    //    {
+    //        swi = true;
+    //        //originalCamPos = mainCamera.transform.position;
+    //        InvokeRepeating("StartShake", 0f, cycle);
+    //        timer += time;
+    //    }
+    //    else
+    //    {
+    //        StopShake();
+    //        InvokeRepeating("StartShake", 0f, cycle);
+    //        timer = time;
+    //    }
+    //}
+
+    //void StartShake()
+    //{
+    //    float cameraPosx = (Random.value * shakeRange * 2 - shakeRange) * timerEffect;
+    //    float cameraPosy = (Random.value * shakeRange * 2 - shakeRange) * timerEffect;
+    //    Vector3 ShakecameraPos = mainCamera.transform.position;
+    //    ShakecameraPos.x += cameraPosx;
+    //    ShakecameraPos.y += cameraPosy;
+    //    //if (ShakecameraPos.x > originalCamPos.x + 0.5f)
+    //    //{
+    //    //    ShakecameraPos.x = originalCamPos.x + 0.2f;
+    //    //}
+    //    //if (ShakecameraPos.x < originalCamPos.x - 0.5f)
+    //    //{
+    //    //    ShakecameraPos.x = originalCamPos.x - 0.2f;
+    //    //}
+    //    //if (ShakecameraPos.y > originalCamPos.y + 0.5f)
+    //    //{
+    //    //    ShakecameraPos.y = originalCamPos.y + 0.2f;
+    //    //}
+    //    //if (ShakecameraPos.y < originalCamPos.y - 0.5f)
+    //    //{
+    //    //    ShakecameraPos.y = originalCamPos.y - 0.2f;
+    //    //}
+    //    mainCamera.transform.position = ShakecameraPos;
+    //}
+
+    //void StopShake()
+    //{
+    //    CancelInvoke("StartShake");
+    //    //mainCamera.transform.position = originalCamPos;
+    //}
+    #endregion
 }

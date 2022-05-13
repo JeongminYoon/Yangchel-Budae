@@ -12,6 +12,7 @@ public class ResultSceneManager : MonoBehaviour
 
     public void GotoCardSelectScene()
     {
+        GameManager.instance.isGameEnd = false;
         GameManager.instance.SceneChange(Enums.SceneNum.CardSelect);
 
     }

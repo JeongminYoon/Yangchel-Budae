@@ -79,7 +79,7 @@ public class TowerManager : MonoBehaviour
         GameObject building = Instantiate(towerPrefab, pos, rotation, parent.transform);
 
 		//hpBar 생성
-		GameObject hpBarObj = HpBarManager.instance.HpBarInstrate();
+		GameObject hpBarObj = HpBarManager.instance.HpBarInstrate(pos);
 		hpBarObj.GetComponent<HpBar>().Unit = building;
 
 
@@ -153,7 +153,17 @@ public class TowerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetMouseButtonDown(Defines.left) && Input.GetKey(KeyCode.LeftControl))
+        {
+            Structs.RayResult rayResult = Funcs.RayToWorld();
 
-   
+            if (rayResult.isHit &&(rayResult.hitObj.tag == "Tower" || rayResult.hitObj.tag == "Nexus"))
+
+            {
+                Units tempScript = rayResult.hitObj.GetComponent<Units>();
+                tempScript.Hit(50);
+            }
+
+        }
     }
 }

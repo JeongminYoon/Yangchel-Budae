@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Enums;
 
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
     public bool isGameEnd = false;
     public void InGameSceneSetting()
     { 
+        
         //-> 맵 깔기
         //-> 타워깔기
         //-> 유닛 매니저 세팅
@@ -49,13 +51,20 @@ public class GameManager : MonoBehaviour
             nextScene = SceneNum.SceneEnd;
            //Debug.Log(sceneNum + "으로 신 바꾸기 성공");
             SceneManager.LoadScene((int)sceneNum);
+
+
+            //sound
+            AudioManager.instance.BGMPlay(sceneNum);
         }
         else
         {
-            //Debug.Log(sceneNum + "으로 신 바꾸기 실패");
+            //Debug.Log(sceneNum + "으로 신 바꾸기 실패");  
             return;
         }
     }
+
+
+    
 
     public void GameStart()
     {
@@ -85,13 +94,18 @@ public class GameManager : MonoBehaviour
         }
 
         isGameWin = isNexusEnemy;
-        
+        StartCoroutine(DelayGameEnd());
         UnitManager.instance.GameEnd(isNexusEnemy);
 
-        //이제 씬 넘기지 말고 연출 나온 뒤에 씬넘기기
-        //SceneChange(Enums.SceneNum.Result);
-        //이제 Reuslt씬에서 GameManager의 isGameWin 값 따라서 
-        //세팅해주기
+        //연출 추가해주기
+
+    }
+
+    public IEnumerator DelayGameEnd()
+    {
+
+        yield return new WaitForSecondsRealtime(5f);
+        SceneChange(Enums.SceneNum.Result);
     }
 
     private void Awake()
@@ -101,13 +115,18 @@ public class GameManager : MonoBehaviour
             instance = this;
         }
         DontDestroyOnLoad(gameObject);
+
         curScene = (SceneNum)SceneManager.GetActiveScene().buildIndex;
+        //AudioManager.instance.BGMPlay(curScene);
     }
 
     void Start()
     {
-
         isGameEnd = false;
+
+        AudioManager.instance.BGMPlay(curScene);
+        BgmSlider = setting_Menu.transform.Find("BGM_Slider").GetComponent<Slider>();
+        BgmSlider.value = 0.5f;
     }
 
     // Update is called once per frame
@@ -117,5 +136,26 @@ public class GameManager : MonoBehaviour
         {
             print(MyHandsList.Count);
         }
+
+        AudioManager.instance.bgmSoundSet(BgmSlider.value);
     }
+
+
+    #region 게임 설정창 변수/함수들 feat.Yoon
+    public GameObject setting_Menu;
+    Slider BgmSlider;
+
+    public void SetMenuActive(bool isActive)
+    {
+        if (isActive == false)
+        {
+            setting_Menu.SetActive(false);
+        }
+        else
+        {
+            setting_Menu.SetActive(true); ;
+        }    
+    }
+
+    #endregion
 }

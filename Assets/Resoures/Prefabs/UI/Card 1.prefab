@@ -97,6 +97,7 @@ MonoBehaviour:
   cardDeskPos: 0
   value: 0
   isenabled: 0
+  unitPlatformPrefab: {fileID: 4394405408799934164, guid: 73c7bf9e8e973aa42b2f9f8f843e5d74, type: 3}
 --- !u!1 &295353270690071572
 GameObject:
   m_ObjectHideFlags: 0

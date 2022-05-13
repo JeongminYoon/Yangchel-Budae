@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Structs;
 
-public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public UnitStatus status;
     public GameObject spawnEffect;
@@ -13,6 +13,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     public Text unitCost;
     public int cardDeskPos;
     Vector3 cardPos;
+    Color defaltCol;
 
     public int value;
 
@@ -34,14 +35,18 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         unitCost.text = (status.cost).ToString();
     }
 
+
     RectTransform rt1;
     RectTransform rt2;
     Vector3 vec;
     GameObject unitModel;
+    public GameObject unitPlatformPrefab;
+    GameObject unitPlatform;
     Material unitModelMat;
+    
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {//드래그 시작 했을때
-        //카드의 처음위치 cardPos를 정해줌
+     //카드의 처음위치 cardPos를 정해줌
         cardPos = transform.position;
 
         //카드 애니메이션 변수 선언
@@ -57,7 +62,12 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
             unitModel = Instantiate(NewCardManager.instance.unitModels[status.unitNum]);
             unitModelMat = unitModel.transform.GetChild(0).gameObject.GetComponent<SkinnedMeshRenderer>().materials[0];
             unitModelMat.shader = Shader.Find("Legacy Shaders/Transparent/Diffuse");
-            unitModelMat.color = new Color(unitModelMat.color.r, unitModelMat.color.g, unitModelMat.color.b, 0.5f);
+            defaltCol = new Color(unitModelMat.color.r, unitModelMat.color.g, unitModelMat.color.b, 0.5f);
+            unitModelMat.color = defaltCol;
+
+            unitPlatform = Instantiate(unitPlatformPrefab, new Vector3(999, 999, 0), Quaternion.Euler(new Vector3(90, 0, 0)));
+            unitPlatform.GetComponent<SpriteRenderer>().material.shader = Shader.Find("Legacy Shaders/Transparent/Diffuse");
+            print(unitPlatform.GetComponent<SpriteRenderer>().material.color);
         }
 
     }
@@ -78,12 +88,17 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
             RayResult temp = Funcs.RayToWorld();
             if (temp.isHit == false || temp.hitObj.tag == "Tower" || temp.hitObj.tag == "Nexus" || temp.hitObj.tag == "SpawnRange")
             {
-                unitModel.SetActive(false);
+                //unitModel.SetActive(false);
+                unitModelMat.color = new Color(unitModelMat.color.r,0, 0, 0.5f);
+                unitPlatform.GetComponent<SpriteRenderer>().material.color = new Color(0.5f, 0.2f, 0.2f, 0.5f);
             }
             else
             {
-                unitModel.SetActive(true);
+                //unitModel.SetActive(true);
+                unitModelMat.color = defaltCol;
+                unitPlatform.GetComponent<SpriteRenderer>().material.color = new Color(1, 1, 1, 0.5f);
                 unitModel.transform.position = temp.hitPosition + new Vector3(0f, 0.55f);
+                unitPlatform.transform.position = temp.hitPosition + new Vector3(0f, 0.65f);
             }
         }
     }
@@ -92,7 +107,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     {//드롭할때
         RayResult temp = Funcs.RayToWorld();
 
-        if (this.status.unitName.Contains("Skill") && float.Parse(unitCost.text) < CostManager.instance.currentCost && temp.isHit == true) //사용한 카드가 스킬이면
+        if (this.status.unitName.Contains("Skill") && cardAnim_h ==1f && float.Parse(unitCost.text) < CostManager.instance.currentCost && temp.isHit == true) //사용한 카드가 스킬이면
         {
             SpawnSkill();
             NewCardManager.instance.SpawnCard(this.gameObject, 4);
@@ -106,6 +121,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                 //닿인곳이 땅이 아니면 카드의 처음위치(cardPos)로 카드를 되돌려놓음
                 transform.position = cardPos;
                 Destroy(unitModel);
+                Destroy(unitPlatform);
                 print("not ground");
             }
             else
@@ -115,13 +131,15 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                 { //닿인곳이 타워,넥서스면 소환 취소
                     transform.position = cardPos;
                     Destroy(unitModel);
+                    Destroy(unitPlatform);
                 }
                 else
                 {
                     //UnitFactory.instance.SpawnUnit((Enums.UnitClass)status.unitNum, temp.hitPosition);
                     GameObject spawnEft = Instantiate(spawnEffect);
                     spawnEft.GetComponent<UnitSpawnEffect>().UnitSpawnEftSetting((Enums.UnitClass)status.unitNum, temp.hitPosition, status.cost, unitModel);
-                   
+                    Destroy(unitPlatform);
+
                     NewCardManager.instance.SpawnCard(this.gameObject, 4);
                     NewCardManager.instance.CardUse(this.gameObject);
                     CostManager.instance.currentCost -= float.Parse(unitCost.text);
@@ -133,19 +151,71 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         SpawnRange.instance.HideSpawnRangeEffect();
     }
 
+    float cardAnim_h;
     void CardAnim()
     {
-        float h = (rt2.anchoredPosition.y - vec.y) / 219;
-        if (h >= 1)
+        cardAnim_h = (rt2.anchoredPosition.y - vec.y) / 219;
+        if (cardAnim_h >= 1)
         {
-            h = 1;
+            cardAnim_h = 1;
         }
-        if (h <= 0)
+        if (cardAnim_h <= 0)
         {
-            h = 0;
+            cardAnim_h = 0;
         }
-        transform.localScale = new Vector3(1 - h, 1 - h, 1);
+        transform.localScale = new Vector3(1 - cardAnim_h, 1 - cardAnim_h, 1);
+        print(cardAnim_h);
     }
+
+    bool isAnim_PopUp_Played = false;
+    void CardPopUpAnim(int i)
+    {
+        if (i == 0)
+        {
+            IEnumerator ie = PopUpAnim(2f);
+            StartCoroutine(ie);
+            //iTween.MoveBy(gameObject, iTween.Hash("y", 5, "sin", "easeInOutExpo"));
+        }
+        else
+        {
+            IEnumerator ie = PopUpAnim(-2f);
+            StartCoroutine(ie);
+            //iTween.MoveBy(gameObject, iTween.Hash("y", -5, "sin", "easeInOutExpo"));
+        }
+    }
+
+    IEnumerator PopUpAnim(float power)
+    {
+        for (int i = 0; i <= 10; i++)
+        {
+            this.gameObject.GetComponent<RectTransform>().position += new Vector3(0f, power, 0f);
+            yield return new WaitForSeconds(0.02f);
+        }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (isAnim_PopUp_Played == false)
+        {
+            isAnim_PopUp_Played = true;
+            CardPopUpAnim(0);
+        }
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (isAnim_PopUp_Played == true)
+        {
+            isAnim_PopUp_Played = false;
+            CardPopUpAnim(1);
+        }
+    }
+
+    //private void OnMouseExit()
+    //{
+    //    isAnim_PopUp_Played = false;
+    //    CardPopUpAnim(1);
+    //}
+
 
     void SpawnSkill()
     {
