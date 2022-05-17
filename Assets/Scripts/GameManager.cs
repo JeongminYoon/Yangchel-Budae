@@ -55,12 +55,18 @@ public class GameManager : MonoBehaviour
 
             //sound
             AudioManager.instance.BGMPlay(sceneNum);
+
+            
+
         }
         else
         {
             //Debug.Log(sceneNum + "으로 신 바꾸기 실패");  
             return;
         }
+
+        
+
     }
 
 
