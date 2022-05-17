@@ -79,6 +79,36 @@ abstract public class Units : MonoBehaviour
     //간단한 FSM를 위한 용도 -> 나중에 시간남으면 찐 FSM으로 바꿔줄 예정
     public Enums.UnitState preState = Enums.UnitState.End;
     public Enums.UnitState curState = Enums.UnitState.Walk;
+
+    //사운드
+    //오디오 소스 : 플레이어
+    //오디오 클립 : 사운드 파일
+    //오디오 리스너 : 메인카메라에 보통 붙임.
+    //public AudioSource unitFxAus;
+    //필요한 소리들은 각 객체들 마다 넣어주기
+
+    public AudioClip[] unitAC = new AudioClip[(int)Enums.eUnitFXS.End];
+
+    public virtual void LoadSoundClips()
+    {
+        unitAC[(int)Enums.eUnitFXS.HitFXS] = Resources.Load("Sounds/Unit/Unit_Hit_0") as AudioClip;
+
+
+    }
+
+    //public void SettingAus()
+    //{
+    //    unitFxAus = this.gameObject.GetComponent<AudioSource>();
+
+    //    if (!unitFxAus)
+    //    {
+    //        unitFxAus = this.gameObject.AddComponent<AudioSource>();
+    //    }
+
+    //    unitFxAus.playOnAwake = false;
+    //    unitFxAus.loop = false;
+    //}
+
     public void SetState(Enums.UnitState state)
     {
         if (curState != state )
@@ -497,9 +527,14 @@ abstract public class Units : MonoBehaviour
             if (!(gameObject.CompareTag("Tower") || gameObject.CompareTag("Nexus")))
             {
                 Instantiate(bloodPrefab, center.transform.position, transform.rotation);
+
+                //AudioManager.instance.unitAus.PlayOneShot(unitAC[(int)Enums.eUnitFXS.HitFXS]);
             }
             else 
             {
+
+                //AudioManager.instance.unitAus.PlayOneShot((gameObject.GetComponent<Units>() as Tower).towerAC[(int)Enums.eUnitFXS.HitFXS]);
+
                 if (hitDir == default(Vector3))
                 {//근접공격
                     Instantiate(bloodPrefab, hitPosition, transform.rotation);
@@ -510,6 +545,8 @@ abstract public class Units : MonoBehaviour
 				}
                 
             }
+
+            AudioManager.instance.unitAus.PlayOneShot(unitAC[(int)Enums.eUnitFXS.HitFXS]);
 
             Debug.Log(_dmg + "의 데미지를 받아\n" + temp + "에서" + unitStatus.curHp + "가 되었습니다");
         }
@@ -656,10 +693,14 @@ abstract public class Units : MonoBehaviour
 
     protected virtual void Start()
     {
+
+        //unitAC[(int)Enums.eUnitFXS.HitFXS] = Resources.Load("Sounds/Unit/Unit_Hit_0") as AudioClip;
+
         DeathEventSetting();
 
         //unitStatus = unitStatus_Origin; 얕은 복사 Shallow
         //ScriptableObj_DeepCopy(); //깊은 복사
+        //SettingAus();
 
         WeaponSetting();
         CenterSetting();

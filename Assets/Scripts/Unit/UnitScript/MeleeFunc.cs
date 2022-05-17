@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MeleeFunc : Units
 {
+
+	public AudioClip[] meleeAC = new AudioClip[(int)Enums.eUnitFXS.End];
 	public override bool Attack(GameObject _target)
 	{
 		if (base.Attack(_target))
@@ -15,7 +17,19 @@ public class MeleeFunc : Units
         return false;
     }
 
-    public void Slash(int colState)
+	public override void LoadSoundClips()
+	{
+		base.LoadSoundClips();
+
+		unitAC[(int)Enums.eUnitFXS.AttackFXS] = Resources.Load("Sounds/Unit/Melee_Fire") as AudioClip;
+
+		if (weaponScript != null)
+		{
+			weaponScript.fireAC = unitAC[(int)Enums.eUnitFXS.AttackFXS];
+		}
+	}
+
+	public void Slash(int colState)
     {//애니메이션 동작에 맞춰서 이거 틀어줄꺼임.
         if (weapon != null)
         {
@@ -27,14 +41,15 @@ public class MeleeFunc : Units
     {
         base.Awake();
 
-    }
+		//unitAC[(int)Enums.eUnitFXS.HitFXS] = Resources.Load("Sounds/Unit/Unit_Hit_0") as AudioClip;
+	}
 
     // Start is called before the first frame update
      protected override void Start()
      {
         base.Start();
 
-        
+		LoadSoundClips();
      }
 
     // Update is called once per frame

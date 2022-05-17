@@ -143,7 +143,10 @@ public class GameManager : MonoBehaviour
             print(MyHandsList.Count);
         }
 
-        AudioManager.instance.bgmSoundSet(BgmSlider.value);
+        if (BgmSlider != null)
+        {//오류 수정 : 0518근희
+            AudioManager.instance.bgmSoundSet(BgmSlider.value);
+        }
     }
 
 

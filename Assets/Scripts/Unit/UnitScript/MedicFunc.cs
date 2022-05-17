@@ -6,7 +6,6 @@ using System.Linq;
 
 public class MedicFunc : Units
 {
-
 	public GameObject medicinePrefab;
 	public GameObject medicLeftHand = null;
 
@@ -14,7 +13,22 @@ public class MedicFunc : Units
 	private float healFulltime = 2f;
 	private float healCurTime = 2f;
 	private float healDistance;
-	
+
+	public AudioClip[] medicAC = new AudioClip[(int)Enums.eUnitFXS.End];
+
+
+	public override void LoadSoundClips()
+	{
+		base.LoadSoundClips();
+		
+		unitAC[(int)Enums.eUnitFXS.AttackFXS] = Resources.Load("Sounds/Unit/Medic_Fire") as AudioClip;
+
+		if (weaponScript != null)
+		{
+			weaponScript.fireAC = unitAC[(int)Enums.eUnitFXS.AttackFXS];
+		}
+
+	}
 
 	public override bool Attack(GameObject _target)
 	{
@@ -200,6 +214,8 @@ public class MedicFunc : Units
 	protected override void Awake()
 	{
 		base.Awake();
+
+		//unitAC[(int)Enums.eUnitFXS.HitFXS] = Resources.Load("Sounds/Unit/Unit_Hit_0") as AudioClip;
 	}
 
 	protected override void Start()
@@ -211,6 +227,8 @@ public class MedicFunc : Units
 		}
 		HandSetting();
 		SearchUnit();
+
+		LoadSoundClips();
 	}
 
 	protected override void Update()

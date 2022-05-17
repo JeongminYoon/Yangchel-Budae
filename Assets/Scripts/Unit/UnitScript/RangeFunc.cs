@@ -12,7 +12,25 @@ public class RangeFunc : Units
 
     //public GameObject muzzle = null;
 
-	public override bool Attack(GameObject _target)
+    public AudioClip[] rangeAC = new AudioClip[(int)Enums.eUnitFXS.End];
+
+    public override void LoadSoundClips()
+    {
+        base.LoadSoundClips();
+
+        string firePath = "Sounds/Unit/Range";
+        firePath += unitStatus.unitTier.ToString() + "_Fire";
+
+        unitAC[(int)Enums.eUnitFXS.AttackFXS] = Resources.Load(firePath) as AudioClip;
+
+        if (weaponScript != null)
+        {
+            weaponScript.fireAC = unitAC[(int)Enums.eUnitFXS.AttackFXS];
+        }
+    }
+
+
+    public override bool Attack(GameObject _target)
 	{
         //피격판정은 콜리더로 하기
         if (base.Attack(_target)) //실제 Unit쪽에서 공격 성공하고 나서 총알 생성
@@ -64,9 +82,10 @@ public class RangeFunc : Units
 	{
 		base.Awake();
 
-        
+        //unitAC[(int)Enums.eUnitFXS.HitFXS] = Resources.Load("Sounds/Unit/Unit_Hit_0") as AudioClip;
 
-	}
+
+    }
 
 	// Start is called before the first frame update
 	protected override void Start()
@@ -77,7 +96,8 @@ public class RangeFunc : Units
         {
             weaponScript.FindMuzzle();         
         }
-      
+
+        LoadSoundClips();
     }
 
     // Update is called once per frame

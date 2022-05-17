@@ -1251,6 +1251,10 @@ MonoBehaviour:
   medicinePrefab: {fileID: 1023248994340480, guid: 988ac363bd09b2749b0601852532ebcd, type: 3}
   medicLeftHand: {fileID: 0}
   healTarget: {fileID: 0}
+  medicAC:
+  - {fileID: 8300000, guid: 3ac55a33aed455948beddc54ee68b6ee, type: 3}
+  - {fileID: 8300000, guid: 7e50452e38a8a0f488e71b9c722b4662, type: 3}
+  - {fileID: 0}
 --- !u!143 &3378460791011432500
 CharacterController:
   m_ObjectHideFlags: 0

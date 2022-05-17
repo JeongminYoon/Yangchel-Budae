@@ -37,6 +37,9 @@ public class Nexus : Tower
 
 			GameObject boomFx = Instantiate(boomFxPrefab, transform.position, transform.rotation);
 
+			//AudioManager.instance.unitAus.PlayOneShot(towerAC[(int)Enums.eUnitFXS.DeathFXS]);
+			AudioManager.instance.unitAus.PlayOneShot(unitAC[(int)Enums.eUnitFXS.DeathFXS]);
+
 			Destroy(this.gameObject);
 		}
 	}
@@ -51,6 +54,8 @@ public class Nexus : Tower
 		//DeathEventSetting();
 		DamagedEventSetting();
 		ColliderSetting();
+
+		//SettingAus();
 	}
 
 	// Update is called once per frame

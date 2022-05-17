@@ -247,6 +247,14 @@ namespace Enums
 		Death,
 		End
 	}
+
+	public enum eUnitFXS
+	{
+		AttackFXS,
+		HitFXS,
+		DeathFXS,
+		End
+	}
 }
 
 namespace Structs

@@ -5,6 +5,20 @@ using UnityEngine.AI;
 
 public class TankerFunc : Units
 {//탱커는 유닛 공격 안하고 기냥 무적권 타워 향해서 돌격 해야함.
+
+	public AudioClip[] tankerAC = new AudioClip[(int)Enums.eUnitFXS.End];
+
+	public override void LoadSoundClips()
+	{
+		base.LoadSoundClips();
+
+		unitAC[(int)Enums.eUnitFXS.AttackFXS] = Resources.Load("Sounds/Unit/Melee_Fire") as AudioClip;
+
+		if (weaponScript != null)
+		{
+			weaponScript.fireAC = unitAC[(int)Enums.eUnitFXS.AttackFXS];
+		}
+	}
 	public override bool Attack(GameObject _target)
 	{
 		if (base.Attack(_target))
@@ -66,6 +80,8 @@ public class TankerFunc : Units
 	protected override void Awake()
 	{
 		base.Awake();
+		//tankerAC[(int)Enums.eUnitFXS.HitFXS] = Resources.Load("Sounds/Unit/Unit_Hit_0") as AudioClip;
+		//unitAC[(int)Enums.eUnitFXS.HitFXS] = Resources.Load("Sounds/Unit/Unit_Hit_0") as AudioClip;
 	}
 
 	protected override void Start()
@@ -78,13 +94,17 @@ public class TankerFunc : Units
 		WeaponSetting();
 		CenterSetting();
 
+		//SettingAus();
+
 		animController = this.gameObject.GetComponent<Animator>();
 		//charContoller = this.gameObject.GetComponent<CharacterController>();
 		navAgent = this.gameObject.GetComponent<NavMeshAgent>();
 		navAgent.speed = unitStatus.moveSpd;
 
+		LoadSoundClips();
 
 		SearchTower();
+
 	}
 
 	protected override void Update()

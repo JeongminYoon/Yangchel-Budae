@@ -164,6 +164,10 @@ MonoBehaviour:
   - {fileID: 750239972922236146}
   - {fileID: 8077009726987685343}
   boomFxPrefab: {fileID: 1462327970484030, guid: f01c1eba69de19e44b04d8d651aaac37, type: 3}
+  towerAC:
+  - {fileID: 0}
+  - {fileID: 8300000, guid: 3862b77d9838d1044b36d1790b248eb3, type: 3}
+  - {fileID: 8300000, guid: c00242fb08a0b01479e8c5d49d79effd, type: 3}
 --- !u!208 &-308035758408188559
 NavMeshObstacle:
   m_ObjectHideFlags: 0

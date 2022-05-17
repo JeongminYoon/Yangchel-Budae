@@ -16,7 +16,8 @@ public class Weapon : MonoBehaviour
     public GameObject[] muzzleFlashPrefab = new GameObject[9] ; //여러개 만들어 줘야함.
     //private GameObject muzzleFlash = null;
     Vector3 muzzleFlashScale = new Vector3(0.01f, 0.01f, 0.01f);
-    
+
+    public AudioClip fireAC;
 
     public void Fire(Quaternion ObjRot)
     { //원거리 무기일때 총알 소환 할 함수
@@ -37,6 +38,8 @@ public class Weapon : MonoBehaviour
             bulletScript.dmg = dmg;
             bulletScript.targetObj = targetObj;
         }
+
+        AudioManager.instance.unitAus.PlayOneShot(fireAC);
 
     }
 
@@ -59,12 +62,17 @@ public class Weapon : MonoBehaviour
             bulletScript.targetObj = targetObj;
         }
 
+        AudioManager.instance.unitAus.PlayOneShot(fireAC);
     }
 
     public void WeaponColState(int colState)
     { //근거리 무기 콜라이더 껏다 켰다할 함수
       //=> 애니메이션 이벤트에서 MeleeFunc Slash함수 호출해서 관리
         GetComponent<BoxCollider>().enabled = Funcs.I2B(colState);
+
+        if (Funcs.I2B(colState))
+        { AudioManager.instance.unitAus.PlayOneShot(fireAC); }
+        
     }
 
     public void FindMuzzle()

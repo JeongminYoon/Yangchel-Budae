@@ -30,6 +30,21 @@ public class Tower : Units
 	protected event HandlerTowerFire fireEvent;
 	//protected HandlerTowerDamaged handlerTowerDamaged;
 
+		
+	//public AudioClip[] towerAC = new AudioClip[(int)Enums.eUnitFXS.End];
+
+	public override void LoadSoundClips()
+	{
+		unitAC[(int)Enums.eUnitFXS.AttackFXS] = Resources.Load("Sounds/Unit/Tower/Tower_Fire") as AudioClip;
+		unitAC[(int)Enums.eUnitFXS.HitFXS] = Resources.Load("Sounds/Unit/Tower/Tower_Hit") as AudioClip;
+		unitAC[(int)Enums.eUnitFXS.DeathFXS] = Resources.Load("Sounds/Unit/Tower/Tower_Death") as AudioClip;
+
+		if (weaponScript != null)
+		{
+			weaponScript.fireAC = unitAC[(int)Enums.eUnitFXS.AttackFXS];
+		}
+
+	}
 
 	public override bool Attack(GameObject _target)
 	{
@@ -155,6 +170,17 @@ public class Tower : Units
 			//boomFx.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
 			//GetComponent<MeshRenderer>().enabled = false;
 
+
+			//카메라 쉐이크
+			float shakeTime = Random.Range(0.25f, 0.5f);
+			float shakeForce = Random.Range(0.05f, 0.25f);
+			CameraShake.instance.Shake(0.25f,shakeForce,0.1f);
+
+			//사운드 출력
+			//unitFxAus.PlayOneShot(towerAC[(int)Enums.eUnitFXS.DeathFXS]);
+			//AudioManager.instance.unitAus.PlayOneShot(towerAC[(int)Enums.eUnitFXS.DeathFXS]);
+			AudioManager.instance.unitAus.PlayOneShot(unitAC[(int)Enums.eUnitFXS.DeathFXS]);
+
 			Destroy(this.gameObject);
 		}
 	}
@@ -170,6 +196,8 @@ public class Tower : Units
 		DeathEventSetting();
 		DamagedEventSetting();
 		ColliderSetting();
+
+		//SettingAus();
 		//ScriptableObj_DeepCopy();
 
 		searchTime = 0.25f;
@@ -180,6 +208,8 @@ public class Tower : Units
 		{
 			weaponScript.FindMuzzle();
 		}
+
+		LoadSoundClips();
 
 	}
 

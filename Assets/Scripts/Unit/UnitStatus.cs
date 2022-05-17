@@ -13,6 +13,7 @@ public class UnitStatus : ScriptableObject
 	{
         unitName = String.Copy(origin.unitName);
         unitNum = origin.unitNum;
+        unitTier = origin.unitTier;
 
         fullHp = origin.fullHp;
         curHp = fullHp;

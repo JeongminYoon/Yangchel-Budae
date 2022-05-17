@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29b9ec95413652e429e43d378d2eb7ff, type: 3}
-  m_Name: MedicStauts
+  m_Name: Range1Status
   m_EditorClassIdentifier: 
-  unitName: Medic
-  unitNum: 5
-  unitTier: 0
+  unitName: Range
+  unitNum: 2
+  unitTier: 1
   fullHp: 100
   curHp: 100
   dmg: 15
-  atkSpd: 1
+  atkSpd: 1.5
   moveSpd: 1
   atkRange: 4
   sightRange: 5

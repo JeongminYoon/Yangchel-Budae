@@ -16,15 +16,35 @@ public class AudioManager : MonoBehaviour
     AudioSource bgmAus;
 
     AudioSource sfxAus;
-    
+
+    public AudioSource unitAus;
+
 
     //public AudioSource mainMenuBgm;
     //public AudioSource cardSelectBgm;
     //public AudioSource inGameBgm;
 
-   // public AudioSource[] bgmList = new AudioSource[4];
+    // public AudioSource[] bgmList = new AudioSource[4];
 
-    
+    public void UnitAusSetting()
+    {
+        unitAus = this.gameObject.AddComponent<AudioSource>();
+        unitAus.playOnAwake = false;
+        unitAus.loop = false;
+    }
+
+    private void UnitAusVolumeSetting()
+    {
+
+        float mouseScroll = 0f;
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            mouseScroll += Input.GetAxis("Mouse ScrollWheel") * 0.1f;
+        }
+        unitAus.volume += mouseScroll;
+        
+    }
+
 
     private void Awake()
     {
@@ -35,7 +55,14 @@ public class AudioManager : MonoBehaviour
 
        DontDestroyOnLoad(this.gameObject);
 
-        bgmAus = GetComponent<AudioSource>();
+       bgmAus = GetComponent<AudioSource>();
+		if (!bgmAus)
+		{
+            bgmAus = this.gameObject.AddComponent<AudioSource>();
+		}
+
+
+		UnitAusSetting();
     }
 
 
@@ -43,6 +70,8 @@ public class AudioManager : MonoBehaviour
     public void BGMPlay(Enums.SceneNum sceneNum)
     {
         //bgmList[(int)sceneNum].Play();
+        if (inGameAudios.Length <= 0)
+        { return; } //오류 수정 : 0518근희
         bgmAus.Stop();
         bgmAus.PlayOneShot(inGameAudios[(int)sceneNum]);//그냥 Play로 하면 브금 깨지는 경우가 있다고 해서 요걸로 실행.
     }
@@ -62,13 +91,8 @@ public class AudioManager : MonoBehaviour
     void Update()
     {
 
-
         bgmSound();
-
-
-
-        
-
+        UnitAusVolumeSetting();
     }
 
 
@@ -78,7 +102,6 @@ public class AudioManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-
             bgmAus.volume += 0.1f;
 
         }
@@ -86,8 +109,9 @@ public class AudioManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-
             bgmAus.volume -= 0.1f;
+
+   
 
         }
 
