@@ -150,10 +150,12 @@ public class GameManager : MonoBehaviour
         if (isActive == false)
         {
             setting_Menu.SetActive(false);
+            Time.timeScale = 1;
         }
         else
         {
-            setting_Menu.SetActive(true); ;
+            setting_Menu.SetActive(true);
+            Time.timeScale = 0;
         }    
     }
 

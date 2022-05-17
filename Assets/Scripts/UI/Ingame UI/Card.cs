@@ -195,20 +195,14 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (isAnim_PopUp_Played == false)
-        {
-            isAnim_PopUp_Played = true;
-            CardPopUpAnim(0);
-        }
+
     }
+
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (isAnim_PopUp_Played == true)
-        {
-            isAnim_PopUp_Played = false;
-            CardPopUpAnim(1);
-        }
+
     }
+
 
     //private void OnMouseExit()
     //{
