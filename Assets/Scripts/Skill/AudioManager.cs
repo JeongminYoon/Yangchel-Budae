@@ -21,6 +21,8 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource unitAus;
 
+    public AudioClip winAudio;
+    public AudioClip loseAudio;
 
     //public AudioSource mainMenuBgm;
     //public AudioSource cardSelectBgm;
@@ -76,6 +78,17 @@ public class AudioManager : MonoBehaviour
         { return; } //오류 수정 : 0518근희
         bgmAus.Stop();
         bgmAus.PlayOneShot(inGameAudios[(int)sceneNum]);//그냥 Play로 하면 브금 깨지는 경우가 있다고 해서 요걸로 실행.
+    }
+
+
+
+    public void EndBgm()
+    {
+
+
+
+
+
     }
 
 

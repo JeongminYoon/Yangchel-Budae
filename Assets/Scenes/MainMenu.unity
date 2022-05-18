@@ -1283,9 +1283,16 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a9215430f90b9b143b1d1415bbb51150, type: 3}
   - {fileID: 8300000, guid: a1e1a2626594dfc4f831735a4980db8e, type: 3}
   - {fileID: 8300000, guid: 8984ee3609f687d40b3c49be98d2c0ad, type: 3}
+<<<<<<< Updated upstream
   - {fileID: 8300000, guid: 8984ee3609f687d40b3c49be98d2c0ad, type: 3}
   sfxValue: 0
   unitAus: {fileID: 0}
+=======
+  - {fileID: 0}
+  unitAus: {fileID: 0}
+  winAudio: {fileID: 8300000, guid: f0c6053abce573c49ab3573bfad00354, type: 3}
+  loseAudio: {fileID: 8300000, guid: 7764b4b29094c184db39cc8af8a5ed4a, type: 3}
+>>>>>>> Stashed changes
 --- !u!82 &1923356402
 AudioSource:
   m_ObjectHideFlags: 0
