@@ -22,6 +22,12 @@ public class AudioManager : MonoBehaviour
     public AudioSource unitAus;
 
 
+
+    public AudioClip winAudio;
+    public AudioClip loseAudio;
+
+
+
     //public AudioSource mainMenuBgm;
     //public AudioSource cardSelectBgm;
     //public AudioSource inGameBgm;

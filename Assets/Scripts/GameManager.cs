@@ -94,9 +94,14 @@ public class GameManager : MonoBehaviour
 
         if (isNexusEnemy)
         { //적팀 넥서스가 부서졌을 경우 -> 게임 승리 WIN
+
+            AudioManager.instance.inGameAudios[3] = AudioManager.instance.winAudio;
+
         }
         else 
         {//우리팀 넥서스가 부서졌을 경우 -> 게임 Defect
+            AudioManager.instance.inGameAudios[3] = AudioManager.instance.loseAudio;
+
         }
 
         isGameWin = isNexusEnemy;
