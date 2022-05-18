@@ -136,9 +136,9 @@ public class GameManager : MonoBehaviour
         isGameEnd = false;
 
         AudioManager.instance.BGMPlay(curScene);
-        bgmSlider = setting_Menu.transform.Find("FX_Slider").GetComponent<Slider>();
+        bgmSlider = setting_Menu.transform.Find("BGM_Slider").GetComponent<Slider>();
         bgmSlider.value = 0.5f;
-        sfxSlider = setting_Menu.transform.Find("BGM_Slider").GetComponent<Slider>();
+        sfxSlider = setting_Menu.transform.Find("FX_Slider").GetComponent<Slider>();
         sfxSlider.value = 0.5f;
     }
 
