@@ -94,9 +94,14 @@ public class GameManager : MonoBehaviour
 
         if (isNexusEnemy)
         { //적팀 넥서스가 부서졌을 경우 -> 게임 승리 WIN
+
+            AudioManager.instance.inGameAudios[3] = AudioManager.instance.winAudio;
+
         }
         else 
         {//우리팀 넥서스가 부서졌을 경우 -> 게임 Defect
+            AudioManager.instance.inGameAudios[3] = AudioManager.instance.loseAudio;
+
         }
 
         isGameWin = isNexusEnemy;
@@ -131,8 +136,10 @@ public class GameManager : MonoBehaviour
         isGameEnd = false;
 
         AudioManager.instance.BGMPlay(curScene);
-        BgmSlider = setting_Menu.transform.Find("BGM_Slider").GetComponent<Slider>();
-        BgmSlider.value = 0.5f;
+        bgmSlider = setting_Menu.transform.Find("BGM_Slider").GetComponent<Slider>();
+        bgmSlider.value = 0.5f;
+        sfxSlider = setting_Menu.transform.Find("FX_Slider").GetComponent<Slider>();
+        sfxSlider.value = 0.5f;
     }
 
     // Update is called once per frame
@@ -143,16 +150,21 @@ public class GameManager : MonoBehaviour
             print(MyHandsList.Count);
         }
 
-        if (BgmSlider != null)
+        if (bgmSlider != null)
         {//오류 수정 : 0518근희
-            AudioManager.instance.bgmSoundSet(BgmSlider.value);
+            AudioManager.instance.bgmSoundSet(bgmSlider.value);
+        }
+        if (sfxSlider != null)
+        {
+            AudioManager.instance.sfxSoundSet(sfxSlider.value);
         }
     }
 
 
     #region 게임 설정창 변수/함수들 feat.Yoon
     public GameObject setting_Menu;
-    Slider BgmSlider;
+    Slider bgmSlider;
+    Slider sfxSlider;
 
     public void SetMenuActive(bool isActive)
     {

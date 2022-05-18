@@ -172,14 +172,14 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     {
         if (i == 0)
         {
-            IEnumerator ie = PopUpAnim(2f);
+            IEnumerator ie = PopUpAnim(0.2f);
             StartCoroutine(ie);
             //iTween.MoveBy(gameObject, iTween.Hash("y", 5, "sin", "easeInOutExpo"));
         }
         else
         {
-            IEnumerator ie = PopUpAnim(-2f);
-            StartCoroutine(ie);
+                IEnumerator ie = PopUpAnim(-0.2f);
+                StartCoroutine(ie);
             //iTween.MoveBy(gameObject, iTween.Hash("y", -5, "sin", "easeInOutExpo"));
         }
     }
@@ -195,12 +195,12 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-
+        CardPopUpAnim(0);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-
+        CardPopUpAnim(1);
     }
 
 
