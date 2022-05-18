@@ -126,7 +126,7 @@ public class MedicFunc : Units
 
 		if (temp != null)
 		{
-			temp.healAmount = (int)(unitStatus.dmg / 2f);
+			temp.healAmount = unitStatus.heal;
 			temp.targetObj = healTarget;
 			//temp.targetCenterPos = targetObj.GetComponent<Units>().center.transform.position;
 			temp.medic = this.gameObject;

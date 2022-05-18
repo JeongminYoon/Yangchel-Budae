@@ -19,6 +19,7 @@ public class UnitStatus : ScriptableObject
         curHp = fullHp;
 
         dmg = origin.dmg;
+        heal = origin.heal;
         atkSpd = origin.atkSpd;
         moveSpd = origin.moveSpd;
         atkRange = origin.atkRange;
@@ -43,6 +44,7 @@ public class UnitStatus : ScriptableObject
     public float curHp;
 
     public int    dmg;
+    public int heal;
     public float    atkSpd;
     public float    moveSpd;
     public float    atkRange;

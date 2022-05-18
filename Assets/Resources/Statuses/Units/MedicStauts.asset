@@ -15,12 +15,13 @@ MonoBehaviour:
   unitName: Medic
   unitNum: 5
   unitTier: 2
-  fullHp: 100
+  fullHp: 75
   curHp: 100
-  dmg: 15
+  dmg: 10
+  heal: 20
   atkSpd: 1
   moveSpd: 1
-  atkRange: 4
+  atkRange: 3
   sightRange: 5
   cost: 2
   spawnTime: 0.5

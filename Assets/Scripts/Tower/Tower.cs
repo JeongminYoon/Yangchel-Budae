@@ -35,7 +35,12 @@ public class Tower : Units
 
 	public override void LoadSoundClips()
 	{
-		unitAC[(int)Enums.eUnitFXS.AttackFXS] = Resources.Load("Sounds/Unit/Tower/Tower_Fire") as AudioClip;
+
+		//string enemyStr = "_Enemy";
+		if (IsEnemy)
+		{ unitAC[(int)Enums.eUnitFXS.AttackFXS] = Resources.Load("Sounds/Unit/Tower/Tower_Fire_Enemy") as AudioClip; }
+		else { unitAC[(int)Enums.eUnitFXS.AttackFXS] = Resources.Load("Sounds/Unit/Tower/Tower_Fire") as AudioClip; }
+		
 		unitAC[(int)Enums.eUnitFXS.HitFXS] = Resources.Load("Sounds/Unit/Tower/Tower_Hit") as AudioClip;
 		unitAC[(int)Enums.eUnitFXS.DeathFXS] = Resources.Load("Sounds/Unit/Tower/Tower_Death") as AudioClip;
 
@@ -43,7 +48,6 @@ public class Tower : Units
 		{
 			weaponScript.fireAC = unitAC[(int)Enums.eUnitFXS.AttackFXS];
 		}
-
 	}
 
 	public override bool Attack(GameObject _target)

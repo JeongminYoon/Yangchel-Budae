@@ -4,7 +4,12 @@ using UnityEngine;
 
 public class Nexus : Tower
 {
-
+	public override void LoadSoundClips()
+	{
+		//unitAC[(int)Enums.eUnitFXS.AttackFXS] = Resources.Load("Sounds/Unit/Tower/Tower_Fire") as AudioClip;
+		unitAC[(int)Enums.eUnitFXS.HitFXS] = Resources.Load("Sounds/Unit/Tower/Tower_Hit") as AudioClip;
+		unitAC[(int)Enums.eUnitFXS.DeathFXS] = Resources.Load("Sounds/Unit/Tower/Tower_Death") as AudioClip;
+	}
 	public override void DamagedEventSetting()
 	{
 		base.DamagedEventSetting();
@@ -56,6 +61,7 @@ public class Nexus : Tower
 		ColliderSetting();
 
 		//SettingAus();
+		LoadSoundClips();
 	}
 
 	// Update is called once per frame

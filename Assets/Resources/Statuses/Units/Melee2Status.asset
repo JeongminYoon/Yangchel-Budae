@@ -15,15 +15,16 @@ MonoBehaviour:
   unitName: Melee2
   unitNum: 1
   unitTier: 2
-  fullHp: 100
+  fullHp: 150
   curHp: 100
   dmg: 20
+  heal: 0
   atkSpd: 0.75
-  moveSpd: 1
+  moveSpd: 1.15
   atkRange: 1.5
   sightRange: 5
-  cost: 1
-  spawnTime: 0.25
+  cost: 2
+  spawnTime: 0.15
   unitColScale: {x: 0, y: 0, z: 0}
   isSplashAtk: 0
   isDead: 0

@@ -12,6 +12,7 @@ public class MeleeFunc : Units
 		{
 			animController.SetTrigger("tAttack");
             weaponScript.targetObj = _target;
+			transform.LookAt(targetObj.transform);
             return true;
         }
         return false;

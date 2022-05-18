@@ -15,11 +15,11 @@ MonoBehaviour:
   unitName: Tanker
   unitNum: 4
   unitTier: 2
-  fullHp: 150
+  fullHp: 250
   curHp: 150
   dmg: 10
   atkSpd: 2
-  moveSpd: 1
+  moveSpd: 0.8
   atkRange: 3
   sightRange: 5
   cost: 2

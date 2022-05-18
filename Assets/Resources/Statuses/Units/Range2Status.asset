@@ -17,13 +17,14 @@ MonoBehaviour:
   unitTier: 2
   fullHp: 100
   curHp: 100
-  dmg: 15
+  dmg: 20
+  heal: 0
   atkSpd: 0.5
-  moveSpd: 1
+  moveSpd: 0.9
   atkRange: 4
   sightRange: 5
   cost: 2
-  spawnTime: 0.5
+  spawnTime: 0.4
   unitColScale: {x: 0, y: 0, z: 0}
   isSplashAtk: 0
   isDead: 0
