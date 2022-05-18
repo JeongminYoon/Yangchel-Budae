@@ -17,6 +17,8 @@ public class AudioManager : MonoBehaviour
 
     AudioSource sfxAus;
 
+    public float sfxValue = 0.5f;
+
     public AudioSource unitAus;
 
 
@@ -121,6 +123,11 @@ public class AudioManager : MonoBehaviour
     public void bgmSoundSet(float i)
     {
         bgmAus.volume = i;
+    }
+
+    public void sfxSoundSet(float i)
+    {
+        sfxValue = i;
     }
 
 }

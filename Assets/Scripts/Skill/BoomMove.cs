@@ -22,7 +22,8 @@ public class BoomMove : MonoBehaviour
 
             Vector3 dir = gameObject.transform.position;
 
-            Instantiate(boomPrefab,dir, Quaternion.identity);
+            GameObject boomprefab = Instantiate(boomPrefab,dir, Quaternion.identity);
+            boomprefab.GetComponent<AudioSource>().volume = AudioManager.instance.sfxValue;
             CameraShake.instance.Shake(0.5f,0.5f,0.05f);
         }
 
