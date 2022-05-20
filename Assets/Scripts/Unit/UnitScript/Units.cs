@@ -88,10 +88,16 @@ abstract public class Units : MonoBehaviour
     //필요한 소리들은 각 객체들 마다 넣어주기
 
     public AudioClip[] unitAC = new AudioClip[(int)Enums.eUnitFXS.End];
+    
 
     public virtual void LoadSoundClips()
     {
         unitAC[(int)Enums.eUnitFXS.HitFXS] = Resources.Load("Sounds/Unit/Unit_Hit_0") as AudioClip;
+
+        int deathRandInt = Random.Range(0, 4);
+
+        string deathSoundPath = "Sounds/Unit/Unit_Death_0"+ deathRandInt.ToString();
+        unitAC[(int)Enums.eUnitFXS.DeathFXS] = Resources.Load(deathSoundPath) as AudioClip;
 
 
     }
@@ -224,6 +230,8 @@ abstract public class Units : MonoBehaviour
             int deathAnim = Random.Range(0, 3);
             string deathAnimStr = "tDeath_" + deathAnim.ToString();
             animController.SetTrigger(deathAnimStr);
+
+            AudioManager.instance.unitAus.PlayOneShot(unitAC[(int)Enums.eUnitFXS.DeathFXS]);
         }
         //Destroy(gameObject);
         //이 유닛 참조하고 있는 다른 놈들에 대해서도 예외처리 필요. => 0324 Unit Manager로 처리 완료
