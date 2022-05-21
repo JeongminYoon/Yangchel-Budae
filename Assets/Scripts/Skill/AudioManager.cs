@@ -8,6 +8,22 @@ public class AudioManager : MonoBehaviour
 {
 
     public static AudioManager instance = null;
+    public static AudioManager Instance
+    {
+        get
+        {
+            if (!instance)
+            {
+                instance = GameObject.FindObjectOfType<AudioManager>();
+                if (!instance)
+                {
+                    GameObject obj = new GameObject("AudioManager");
+                    instance = obj.AddComponent<AudioManager>();
+                }
+            }
+            return instance;
+        }
+    }
 
     //public GameObject audioEmpty;
     
@@ -25,8 +41,6 @@ public class AudioManager : MonoBehaviour
 
     public AudioClip winAudio;
     public AudioClip loseAudio;
-
-
 
     //public AudioSource mainMenuBgm;
     //public AudioSource cardSelectBgm;
@@ -98,7 +112,6 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         bgmSound();
         UnitAusVolumeSetting();
         print(bgmAus.volume);
@@ -107,23 +120,15 @@ public class AudioManager : MonoBehaviour
 
     public void bgmSound()
     {
-
-
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             bgmAus.volume += 0.1f;
-
         }
-
 
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             bgmAus.volume -= 0.1f;
-
-   
-
         }
-
 
     }
 

@@ -27,7 +27,6 @@ public class MedicFunc : Units
 		{
 			weaponScript.fireAC = unitAC[(int)Enums.eUnitFXS.AttackFXS];
 		}
-
 	}
 
 	public override bool Attack(GameObject _target)

@@ -4,24 +4,20 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Enums;
+using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
     //GameManager 겸 SceneManager
 
-
     /// <singletone>
     static public GameManager instance = null;
     /// <singletone>
 
-
-
     static public List<UnitStatus> MyHandsList = new List<UnitStatus>();
     //For Selected Cards, from CardSelectScene To InGame
-    
 
     static GameObject Card2;
-
 
     public SceneNum curScene = SceneNum.SceneEnd;
     public SceneNum pastScene = SceneNum.SceneEnd;
@@ -29,6 +25,10 @@ public class GameManager : MonoBehaviour
 
     public bool isGameWin = true;
     public bool isGameEnd = false;
+
+    private float productTime = 10f;
+    public GameObject vtCamPrefab = null;
+    //public GameObject followObjPrefab = null;
     public void InGameSceneSetting()
     { 
         
@@ -52,25 +52,15 @@ public class GameManager : MonoBehaviour
            //Debug.Log(sceneNum + "으로 신 바꾸기 성공");
             SceneManager.LoadScene((int)sceneNum);
 
-
             //sound
             AudioManager.instance.BGMPlay(sceneNum);
-
-            
-
         }
         else
         {
             //Debug.Log(sceneNum + "으로 신 바꾸기 실패");  
             return;
         }
-
-        
-
     }
-
-
-    
 
     public void GameStart()
     {
@@ -92,16 +82,21 @@ public class GameManager : MonoBehaviour
 
         isGameEnd = true;
 
+  
+
         if (isNexusEnemy)
         { //적팀 넥서스가 부서졌을 경우 -> 게임 승리 WIN
-
-            AudioManager.instance.inGameAudios[3] = AudioManager.instance.winAudio;
-
+            if (AudioManager.instance.winAudio)
+            {//0521근희 인게임에서 바로 시작시 오류 때문에 처리
+                AudioManager.instance.inGameAudios[3] = AudioManager.instance.winAudio;
+            }
         }
         else 
         {//우리팀 넥서스가 부서졌을 경우 -> 게임 Defect
+            if(AudioManager.instance.loseAudio)
+            {  //0521근희 인게임에서 바로 시작시 오류 때문에 처리
             AudioManager.instance.inGameAudios[3] = AudioManager.instance.loseAudio;
-
+             }
         }
 
         isGameWin = isNexusEnemy;
@@ -109,13 +104,58 @@ public class GameManager : MonoBehaviour
         UnitManager.instance.GameEnd(isNexusEnemy);
 
         //연출 추가해주기
+        //Camera.main.orthographic = false;
+        GameEndCamMove(isNexusEnemy);
 
+        //CamMove script =  Camera.main.gameObject.AddComponent<CamMove>();
+        //
     }
 
-    public IEnumerator DelayGameEnd()
+    public void GameEndCamMove(bool isNexusEnemy)
+    {
+        Camera.main.orthographic = false;
+
+        CameraShake shakeScript = Camera.main.gameObject.GetComponent<CameraShake>();
+        shakeScript.enabled = false;
+
+        GameObject randObj;
+        List<GameObject> list = UnitManager.instance.GetUnitList_Val(Funcs.B2I(!isNexusEnemy));
+        randObj = list[Random.Range(0, list.Count)];
+
+        GameObject followObj = new GameObject("followObj");
+        followObj.transform.position = Camera.main.transform.position;
+        followObj.transform.rotation = Camera.main.transform.rotation;
+        CamMove script = followObj.AddComponent<CamMove>();
+
+        //GameObject followObj = Instantiate(followObjPrefab, Camera.main.transform.position, Camera.main.transform.rotation);
+        //CamMove script = followObj.GetComponent<CamMove>();
+        script.Desc(productTime, 2f, 10f);
+        script.targetObj = randObj.GetComponent<Units>().center;
+
+        GameObject vtCam = Instantiate(vtCamPrefab, Camera.main.transform.position, Camera.main.transform.rotation);
+        //vtCam.transform.forward = Camera.main.transform.forward;
+
+        CinemachineVirtualCamera cvc = vtCam.GetComponent<CinemachineVirtualCamera>();
+        cvc.Follow = followObj.transform;
+        cvc.LookAt = followObj.transform;
+        //cvc.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z = 0f;
+
+        //StartCoroutine(DelayCinemachinSetting(vtCam));
+    }
+
+    public IEnumerator DelayCinemachinSetting(GameObject _vtCam)
     {
 
-        yield return new WaitForSecondsRealtime(5f);
+        yield return new WaitForSeconds(0.5f);
+
+        CinemachineVirtualCamera cvc = _vtCam.GetComponent<CinemachineVirtualCamera>();
+        cvc.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z = -3.5f;
+    }
+
+	public IEnumerator DelayGameEnd()
+    {
+
+        yield return new WaitForSeconds(productTime);
         SceneChange(Enums.SceneNum.Result);
     }
 
@@ -128,6 +168,25 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         curScene = (SceneNum)SceneManager.GetActiveScene().buildIndex;
+
+        if (curScene == SceneNum.InGame)
+        {
+            Camera.main.transform.rotation = Quaternion.Euler(Defines.camRot);
+            Camera.main.transform.position = Defines.camPos;
+            Camera.main.orthographic = true;
+
+            if (!vtCamPrefab)
+            {
+                vtCamPrefab = Resources.Load("Prefabs/EndingVirtualCam") as GameObject;
+            }
+
+            //if (!followObjPrefab)
+            //{
+            //    followObjPrefab = Resources.Load("Prefabs/followObj") as GameObject;
+            //}
+        }
+
+   
         //AudioManager.instance.BGMPlay(curScene);
     }
 
@@ -135,11 +194,13 @@ public class GameManager : MonoBehaviour
     {
         isGameEnd = false;
 
-        AudioManager.instance.BGMPlay(curScene);
+        AudioManager.Instance.BGMPlay(curScene);
         bgmSlider = setting_Menu.transform.Find("BGM_Slider").GetComponent<Slider>();
         bgmSlider.value = 0.5f;
         sfxSlider = setting_Menu.transform.Find("FX_Slider").GetComponent<Slider>();
         sfxSlider.value = 0.5f;
+
+
     }
 
     // Update is called once per frame

@@ -180,6 +180,11 @@ public static class Defines
 	public const int ally = 0;
 	public const int enemy = 1;
 
+
+	public static Vector3 camPos = new Vector3(0f, 40f, -26f);
+	public static Vector3 camRot = new Vector3(60f, 0f, 0f);
+
+
 	#region towerPos
 	public static Vector3 enemyTower_Rot = new Vector3(0f, 180f, 0f);
 	public static Vector3 enemyTower_RightPos = new Vector3(5f, 0f, 11.5f);

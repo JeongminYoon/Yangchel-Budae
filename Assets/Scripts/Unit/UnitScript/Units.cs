@@ -51,6 +51,7 @@ abstract public class Units : MonoBehaviour
 
     //[SerializeField]
     public GameObject bloodPrefab;
+    public GameObject healFxPrefab = null;
     //private GameObject blood;
     //private ParticleSystem bloodPS;
     //public GameObject fragmentPrefab;
@@ -100,6 +101,15 @@ abstract public class Units : MonoBehaviour
         unitAC[(int)Enums.eUnitFXS.DeathFXS] = Resources.Load(deathSoundPath) as AudioClip;
 
 
+    }
+
+    public virtual void LoadFXEffect()
+    {
+        if (!healFxPrefab)
+        {
+            healFxPrefab = Resources.Load("Prefabs/FX/FX_Heal") as GameObject;
+        }
+    
     }
 
     //public void SettingAus()
@@ -545,7 +555,8 @@ abstract public class Units : MonoBehaviour
 
                 if (hitDir == default(Vector3))
                 {//근접공격
-                    Instantiate(bloodPrefab, hitPosition, transform.rotation);
+                    GameObject tempObj = Instantiate(bloodPrefab, hitPosition, transform.rotation);
+                    tempObj.transform.forward = hitDir;
                 }
                 else
                 {//원거리 공격
@@ -569,11 +580,11 @@ abstract public class Units : MonoBehaviour
             float temp = unitStatus.curHp;
             unitStatus.curHp += _healAmount;
             Debug.Log(_healAmount + "의 힐링을 받아\n" + temp + "에서" + unitStatus.curHp + "가 되었습니다");
+            Instantiate(healFxPrefab, center.transform.position, Quaternion.identity);
 
             if (unitStatus.curHp > unitStatus.fullHp)
             {
-
-                unitStatus.curHp = unitStatus.fullHp;
+               unitStatus.curHp = unitStatus.fullHp;
             }
         }
 
@@ -730,6 +741,8 @@ abstract public class Units : MonoBehaviour
         { transform.LookAt(targetObj.transform); }
 
         ColliderSetting();
+
+        LoadFXEffect();
     }
     protected virtual void Update()
     {//가상함수로 만들면
