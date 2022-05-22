@@ -41,7 +41,7 @@ public class UnitManager : MonoBehaviour
     public void ResearchTarget_AllUnit(GameObject deadUnit)
     {//죽는 유닛 자체를 인자로 넘어옴
         //22 04 27 유닛 죽으면 걔를 타겟으로 잡고 있는 애들한테 null처리 하라고 요청하고
-        //리서치 들어갈 예정.
+        //리서치 들어갈 예rm
         //따로 함수만들면 시간복잡도 ^2 더 늘어 나니까 한 곳에서 처리 ㄱㄱㄱㄱ
 
         for (int i = 0; i < unitList.Length; ++i)

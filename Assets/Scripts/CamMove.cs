@@ -20,6 +20,8 @@ public class CamMove : MonoBehaviour
     float productTime;
     float moveSpd;
     float rotateSpd;
+    int rotateDir;
+
 
     bool isRotate = false;
 
@@ -32,7 +34,21 @@ public class CamMove : MonoBehaviour
 
     public void OrbitRotate()
     {
-        transform.Rotate(targetObj.transform.up, rotateSpd * Time.deltaTime);
+        switch (rotateDir)
+        {
+            case 0:
+                {//반시계방향 회전
+                    transform.Rotate(-targetObj.transform.up, rotateSpd * Time.deltaTime);
+                }
+                break;
+
+            case 1:
+                {//시계방향 회전
+                    transform.Rotate(targetObj.transform.up, rotateSpd * Time.deltaTime);
+                }
+                break;
+        }
+        
     }
 
     public void RotateStart()
@@ -42,6 +58,7 @@ public class CamMove : MonoBehaviour
 
     void Start()
     {
+        rotateDir = Random.Range(0, 2);
         
     }
 

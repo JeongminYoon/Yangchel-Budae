@@ -117,14 +117,15 @@ public class GameManager : MonoBehaviour
         float fadeInDelayTime = 2.5f;
         float fadeInTime = 3f;
 
-        ///StartCoroutine(DelayGameEnd());
-        
-        //UiManager.instance.ShowUI(false);
-        ScreenFadeManager.Instance.PlayFadeOut(fadeOutTime);        
+        StartCoroutine(DelayGameEnd());
+
+        ScreenFadeManager.Instance.showUiDel = UiManager.instance.ShowUI;
+        ScreenFadeManager.Instance.PlayFadeOut(fadeOutTime);
         ScreenFadeManager.Instance.PlayDelayFadeIn(fadeInDelayTime, fadeInTime);
 
         Invoke("GameEndCamMove", fadeOutTime);
         //Invoke("DelayGameEnd", productTime);
+       
     }
 
     public void GameEndCamMove(/*bool isNexusEnemy*/)
@@ -228,7 +229,7 @@ public class GameManager : MonoBehaviour
         sfxSlider = setting_Menu.transform.Find("FX_Slider").GetComponent<Slider>();
         sfxSlider.value = 0.5f;
 
-
+        if (ScreenFadeManager.Instance) { }
 
     }
 

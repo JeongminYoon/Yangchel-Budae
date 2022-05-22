@@ -30,10 +30,12 @@ public class ScreenFadeManager : MonoBehaviour
 
     public bool isPlaying = false;
 
-    public delegate void finishFunc();
-    public finishFunc fadeDelegate;
+    public delegate void finishFunc(bool UiShow);
+    public finishFunc showUiDel;
+    //인자, 반환값에 상관없이 못하나...?
+    //아니면 진짜 그냥 함수포인터만 넘긴다던가 아 씟펄
 
-    public Image fadeImage;
+    public Image fadeImage = null;
 
     public void PlayDelayFadeIn(float delayTime, float fadeTime)
     {
@@ -124,10 +126,10 @@ public class ScreenFadeManager : MonoBehaviour
 
         fadeInCurTime = 0f;
 
-        if (fadeDelegate != null)
+        if (showUiDel != null)
         {
-            fadeDelegate();
-            fadeDelegate = null;
+            showUiDel(true);
+            showUiDel = null;
         }
         fadeImage.gameObject.transform.SetAsLastSibling();
         //fadeImage.gameObject.SetActive(false);
@@ -160,14 +162,51 @@ public class ScreenFadeManager : MonoBehaviour
         isPlaying = false;
         fadeOutCurTime = 0f;
 
-        if (fadeDelegate != null)
+        if (showUiDel != null)
         {
-            fadeDelegate();
-            fadeDelegate = null;
+            showUiDel(false);
+            showUiDel = null;
         }
         fadeImage.gameObject.transform.SetAsLastSibling();
         //fadeImage.gameObject.SetActive(false);
     }
+
+    //public IEnumerator StageEndStartFadeOut(float fadeTime)
+    //{
+    //    startAlpha = 0f;
+    //    endAlpha = 1f;
+
+    //    fadeImage.gameObject.SetActive(true);
+    //    fadeImage.gameObject.transform.SetAsLastSibling();
+
+    //    isPlaying = true;
+
+    //    Color color = fadeImage.color;
+
+    //    color.a = Mathf.Lerp(startAlpha, endAlpha, fadeOutCurTime);
+
+    //    //시간자체를 나눠서 시간에 맞춰 알파값이 1되도록
+    //    while (color.a < 1f)
+    //    {
+    //        //시간동안 재생될 수 있도록
+    //        fadeOutCurTime += Time.deltaTime / fadeTime;
+
+    //        // 알파 값 계산.  
+    //        color.a = Mathf.Lerp(startAlpha, endAlpha, fadeOutCurTime);
+    //        // 계산한 알파 값 다시 설정.  
+    //        fadeImage.color = color;
+
+    //        yield return null;
+    //    }
+
+    //    isPlaying = false;
+    //    fadeOutCurTime = 0f;
+
+    //    //GameManager.instance.SceneChange(Enums.SceneNum.Result);
+    //    UiManager.instance.ShowUI(false);
+    //}
+
+
 
     public IEnumerator StageEndFadeOut(float fadeTime)
     {
@@ -211,7 +250,8 @@ public class ScreenFadeManager : MonoBehaviour
             instance = this;
         }
 
-        fadeImage = GameObject.FindGameObjectWithTag("Fade").GetComponent<Image>();
+        fadeImage = GameObject.FindGameObjectWithTag("Canvas").transform.Find("Fade").gameObject.GetComponent<Image>();
+        //fadeImage = GameObject.FindGameObjectWithTag("Fade").GetComponent<Image>();
         fadeImage.gameObject.SetActive(false);
     }
 
