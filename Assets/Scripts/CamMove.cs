@@ -11,8 +11,7 @@ public class CamMove : MonoBehaviour
         productTime = _productTime;
         moveSpd = _moveSpd;
         rotateSpd = _rotateSpd;
- 
-    }
+     }
 
     public GameObject targetObj = null;
 
@@ -22,6 +21,25 @@ public class CamMove : MonoBehaviour
     float moveSpd;
     float rotateSpd;
 
+    bool isRotate = false;
+
+    public void ZoomIn()
+    {
+        curTime += Time.deltaTime / (productTime / 3f);
+
+        transform.position = Vector3.Lerp(this.gameObject.transform.position, targetObj.transform.position, moveSpd * Time.deltaTime);
+    }
+
+    public void OrbitRotate()
+    {
+        transform.Rotate(targetObj.transform.up, rotateSpd * Time.deltaTime);
+    }
+
+    public void RotateStart()
+    {
+        isRotate = true;
+    }
+
     void Start()
     {
         
@@ -30,18 +48,19 @@ public class CamMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		curTime += Time.deltaTime / 5f;
-
-        transform.position = Vector3.Lerp(this.gameObject.transform.position, targetObj.transform.position, moveSpd * Time.deltaTime);
 
 		if (curTime < 1)
 		{
-
-
+            ZoomIn();
 		}
-		else
+		else 
 		{
-			transform.Rotate(targetObj.transform.up, rotateSpd * Time.deltaTime);
+            Invoke("RotateStart", 1f);
 		}
+
+        if (isRotate)
+        {
+            OrbitRotate();
+        }
 	}
 }

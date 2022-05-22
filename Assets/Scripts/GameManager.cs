@@ -26,7 +26,8 @@ public class GameManager : MonoBehaviour
     public bool isGameWin = true;
     public bool isGameEnd = false;
 
-    private float productTime = 10f;
+    private bool isEndingProduct = false;
+    private float productTime = 15f;
     public GameObject vtCamPrefab = null;
     //public GameObject followObjPrefab = null;
     public void InGameSceneSetting()
@@ -82,8 +83,6 @@ public class GameManager : MonoBehaviour
 
         isGameEnd = true;
 
-  
-
         if (isNexusEnemy)
         { //적팀 넥서스가 부서졌을 경우 -> 게임 승리 WIN
             if (AudioManager.instance.winAudio)
@@ -100,27 +99,44 @@ public class GameManager : MonoBehaviour
         }
 
         isGameWin = isNexusEnemy;
-        StartCoroutine(DelayGameEnd());
+        //StartCoroutine(DelayGameEnd());
         UnitManager.instance.GameEnd(isNexusEnemy);
 
         //연출 추가해주기
+        //1. 1초 기다렸다가 fade In-Out들어가기
+        //2. 카메라 세팅(원근투영+위치)
         //Camera.main.orthographic = false;
-        GameEndCamMove(isNexusEnemy);
+        //3. 카메라 무빙 시작 (줌 인)
+        //4. 줌인되고 대기
+        //5. 공전
+        //6. 페이드 아웃 시작
+        //7. 신 교체하고 
+        //8. 페이드 인
 
-        //CamMove script =  Camera.main.gameObject.AddComponent<CamMove>();
-        //
+        float fadeOutTime = 2f;
+        float fadeInDelayTime = 2.5f;
+        float fadeInTime = 3f;
+
+        ///StartCoroutine(DelayGameEnd());
+        ScreenFadeManager.Instance.PlayFadeOut(fadeOutTime);
+        ScreenFadeManager.Instance.PlayDelayFadeIn(fadeInDelayTime, fadeInTime);
+
+        Invoke("GameEndCamMove", fadeOutTime);
+        //Invoke("DelayGameEnd", productTime);
     }
 
-    public void GameEndCamMove(bool isNexusEnemy)
+    public void GameEndCamMove(/*bool isNexusEnemy*/)
     {
+
         Camera.main.orthographic = false;
 
         CameraShake shakeScript = Camera.main.gameObject.GetComponent<CameraShake>();
         shakeScript.enabled = false;
 
         GameObject randObj;
-        List<GameObject> list = UnitManager.instance.GetUnitList_Val(Funcs.B2I(!isNexusEnemy));
+        List<GameObject> list = UnitManager.instance.GetUnitList_Val(Defines.ally);
         randObj = list[Random.Range(0, list.Count)];
+        //유닛 하나도 없을 떄 에외처리 필요.
 
         GameObject followObj = new GameObject("followObj");
         followObj.transform.position = Camera.main.transform.position;
@@ -129,7 +145,7 @@ public class GameManager : MonoBehaviour
 
         //GameObject followObj = Instantiate(followObjPrefab, Camera.main.transform.position, Camera.main.transform.rotation);
         //CamMove script = followObj.GetComponent<CamMove>();
-        script.Desc(productTime, 2f, 10f);
+        script.Desc(productTime, 1f, 10f);
         script.targetObj = randObj.GetComponent<Units>().center;
 
         GameObject vtCam = Instantiate(vtCamPrefab, Camera.main.transform.position, Camera.main.transform.rotation);
@@ -143,20 +159,14 @@ public class GameManager : MonoBehaviour
         //StartCoroutine(DelayCinemachinSetting(vtCam));
     }
 
-    public IEnumerator DelayCinemachinSetting(GameObject _vtCam)
-    {
-
-        yield return new WaitForSeconds(0.5f);
-
-        CinemachineVirtualCamera cvc = _vtCam.GetComponent<CinemachineVirtualCamera>();
-        cvc.GetCinemachineComponent<CinemachineTransposer>().m_FollowOffset.z = -3.5f;
-    }
-
 	public IEnumerator DelayGameEnd()
     {
-
         yield return new WaitForSeconds(productTime);
-        SceneChange(Enums.SceneNum.Result);
+        
+        StartCoroutine(ScreenFadeManager.Instance.StageEndFadeOut(2f));
+        
+        //ScreenFadeManager.Instance.StageEndFadeOut(2f);
+        //SceneChange(Enums.SceneNum.Result);
     }
 
     private void Awake()
@@ -201,6 +211,7 @@ public class GameManager : MonoBehaviour
         sfxSlider.value = 0.5f;
 
 
+
     }
 
     // Update is called once per frame
@@ -209,6 +220,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetMouseButtonDown(1))   //Save(씬 탈출할때 여기 내용물 실행시킬것)
         {
             print(MyHandsList.Count);
+           
         }
 
         if (bgmSlider != null)
