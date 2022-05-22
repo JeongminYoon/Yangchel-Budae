@@ -118,7 +118,9 @@ public class GameManager : MonoBehaviour
         float fadeInTime = 3f;
 
         ///StartCoroutine(DelayGameEnd());
-        ScreenFadeManager.Instance.PlayFadeOut(fadeOutTime);
+        
+        //UiManager.instance.ShowUI(false);
+        ScreenFadeManager.Instance.PlayFadeOut(fadeOutTime);        
         ScreenFadeManager.Instance.PlayDelayFadeIn(fadeInDelayTime, fadeInTime);
 
         Invoke("GameEndCamMove", fadeOutTime);
@@ -127,15 +129,31 @@ public class GameManager : MonoBehaviour
 
     public void GameEndCamMove(/*bool isNexusEnemy*/)
     {
-
+        //카메라 직교투영 -> 원근 투영
         Camera.main.orthographic = false;
 
+        //카메라 쉐이크에서 카메라 중앙으로 계속 끌고 있어서 꺼주기
         CameraShake shakeScript = Camera.main.gameObject.GetComponent<CameraShake>();
         shakeScript.enabled = false;
 
-        GameObject randObj;
+        //줌인할 오브젝트하나 정하는 거.
+        GameObject randObj = null;
         List<GameObject> list = UnitManager.instance.GetUnitList_Val(Defines.ally);
-        randObj = list[Random.Range(0, list.Count)];
+        if (list.Count != 0)
+        { randObj = list[Random.Range(0, list.Count)]; }
+        else 
+        {
+            list = UnitManager.instance.GetUnitList_Val(Defines.enemy);
+            if (list.Count != 0)
+            { randObj = list[Random.Range(0, list.Count)]; }
+            else 
+            {
+                randObj = new GameObject("Center");
+                randObj.transform.position = new Vector3(0f,1f,0f);
+                //randObj.transform.position.y = 1f;
+            }
+        }
+
         //유닛 하나도 없을 떄 에외처리 필요.
 
         GameObject followObj = new GameObject("followObj");
@@ -148,7 +166,7 @@ public class GameManager : MonoBehaviour
         script.Desc(productTime, 1f, 10f);
         script.targetObj = randObj.GetComponent<Units>().center;
 
-        GameObject vtCam = Instantiate(vtCamPrefab, Camera.main.transform.position, Camera.main.transform.rotation);
+			GameObject vtCam = Instantiate(vtCamPrefab, Camera.main.transform.position, Camera.main.transform.rotation);
         //vtCam.transform.forward = Camera.main.transform.forward;
 
         CinemachineVirtualCamera cvc = vtCam.GetComponent<CinemachineVirtualCamera>();
