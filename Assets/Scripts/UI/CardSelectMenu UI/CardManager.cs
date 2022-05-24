@@ -195,17 +195,17 @@ public class CardManager : MonoBehaviour
                 }
             }
         }
-        Text text = infoText.GetComponent<Text>();
+        //Text text = infoText.GetComponent<Text>();
         if (cardNum < 4)
         {
-            text.text = "<color=#930500>" + "최소 " + (4 - cardNum).ToString() + "명이 더 필요합니다" + "</color>";
-            NextButton.instance.ChangeButtonColor(0);
+            //text.text = "<color=#930500>" + "최소 " + (4 - cardNum).ToString() + "명이 더 필요합니다" + "</color>";
+            //NextButton.instance.ChangeButtonColor(0);
             isReady = false;
         }
         else
         {
-            text.text = "<color=#009304>" + "출동준비 완료!" + "</color>";
-            NextButton.instance.ChangeButtonColor(1);
+            //text.text = "<color=#009304>" + "출동준비 완료!" + "</color>";
+            //NextButton.instance.ChangeButtonColor(1);
             isReady = true;
         }    
     }
