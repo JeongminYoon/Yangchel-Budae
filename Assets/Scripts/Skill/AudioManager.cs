@@ -31,13 +31,14 @@ public class AudioManager : MonoBehaviour
     
     AudioSource bgmAus;
 
-    AudioSource sfxAus;
+   // AudioSource sfxAus;
 
     public float sfxValue = 0.5f;
 
     public AudioSource unitAus;
 
-
+    public AudioSource skillAus;
+   
 
     public AudioClip winAudio;
     public AudioClip loseAudio;
@@ -54,6 +55,14 @@ public class AudioManager : MonoBehaviour
         unitAus.playOnAwake = false;
         unitAus.loop = false;
     }
+
+    public void SkillAusSetting()
+    {
+        skillAus = this.gameObject.AddComponent<AudioSource>();
+        
+
+    }
+
 
     private void UnitAusVolumeSetting()
     {
@@ -85,17 +94,23 @@ public class AudioManager : MonoBehaviour
 
 
 		UnitAusSetting();
+        SkillAusSetting();
+
     }
 
 
-
+    
     public void BGMPlay(Enums.SceneNum sceneNum)
     {
         //bgmList[(int)sceneNum].Play();
         if (inGameAudios.Length <= 0)
         { return; } //오류 수정 : 0518근희
         bgmAus.Stop();
-        bgmAus.PlayOneShot(inGameAudios[(int)sceneNum]);//그냥 Play로 하면 브금 깨지는 경우가 있다고 해서 요걸로 실행.
+        bgmAus.PlayOneShot(inGameAudios[(int)sceneNum]);
+
+     
+        
+        //그냥 Play로 하면 브금 깨지는 경우가 있다고 해서 요걸로 실행.
     }
 
 
@@ -104,9 +119,12 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-      
 
-       //bgmAus.PlayOneShot(inGameAudios[(int)GameManager.instance.curScene]);
+
+        //bgmAus.PlayOneShot(inGameAudios[(int)GameManager.instance.curScene]);
+
+        
+
     }
 
     // Update is called once per frame
@@ -115,7 +133,16 @@ public class AudioManager : MonoBehaviour
         bgmSound();
         UnitAusVolumeSetting();
         print(bgmAus.volume);
+
+
     }
+
+
+   
+
+ 
+
+
 
 
     public void bgmSound()
@@ -129,6 +156,7 @@ public class AudioManager : MonoBehaviour
         {
             bgmAus.volume -= 0.1f;
         }
+
 
     }
 

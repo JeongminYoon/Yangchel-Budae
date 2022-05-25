@@ -110,6 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boomPrefab: {fileID: 1134129239631916, guid: 7e48ba6b1b968764490bbc70b66e3fe1, type: 3}
+  skill1Sound: {fileID: 8300000, guid: 847730bb3eeb245b3a49862fa9ca3633, type: 3}
 --- !u!54 &-6713855867564744090
 Rigidbody:
   m_ObjectHideFlags: 0

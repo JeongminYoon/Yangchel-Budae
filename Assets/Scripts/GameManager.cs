@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviour
         script.Desc(productTime, 1f, 10f);
         script.targetObj = randObj.GetComponent<Units>().center;
 
-			GameObject vtCam = Instantiate(vtCamPrefab, Camera.main.transform.position, Camera.main.transform.rotation);
+		GameObject vtCam = Instantiate(vtCamPrefab, Camera.main.transform.position, Camera.main.transform.rotation);
         //vtCam.transform.forward = Camera.main.transform.forward;
 
         CinemachineVirtualCamera cvc = vtCam.GetComponent<CinemachineVirtualCamera>();
@@ -194,26 +194,24 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
+
+
+
         DontDestroyOnLoad(gameObject);
 
         curScene = (SceneNum)SceneManager.GetActiveScene().buildIndex;
 
-        if (curScene == SceneNum.InGame)
+        if (!vtCamPrefab)
         {
-            Camera.main.transform.rotation = Quaternion.Euler(Defines.camRot);
-            Camera.main.transform.position = Defines.camPos;
-            Camera.main.orthographic = true;
-
-            if (!vtCamPrefab)
-            {
-                vtCamPrefab = Resources.Load("Prefabs/EndingVirtualCam") as GameObject;
-            }
-
-            //if (!followObjPrefab)
-            //{
-            //    followObjPrefab = Resources.Load("Prefabs/followObj") as GameObject;
-            //}
+            vtCamPrefab = Resources.Load("Prefabs/EndingVirtualCam") as GameObject;
         }
+
+        //if (curScene == SceneNum.InGame)
+        //{
+        //    Camera.main.transform.rotation = Quaternion.Euler(Defines.camRot);
+        //    Camera.main.transform.position = Defines.camPos;
+        //    Camera.main.orthographic = true;
+        //}
 
    
         //AudioManager.instance.BGMPlay(curScene);
