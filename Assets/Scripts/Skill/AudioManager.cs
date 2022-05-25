@@ -134,16 +134,7 @@ public class AudioManager : MonoBehaviour
         UnitAusVolumeSetting();
         print(bgmAus.volume);
 
-<<<<<<< Updated upstream
 
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    bgmAus.PlayOneShot(inGameAudios[0]);
-        //}
-=======
-        
-
->>>>>>> Stashed changes
     }
 
 
