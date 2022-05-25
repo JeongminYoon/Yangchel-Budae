@@ -37,7 +37,7 @@ public class CardManager : MonoBehaviour
 
     public GameObject uiCanvas;
     public GameObject costText;
-    public GameObject infoText;
+    public Text infoText;
 
     void Start()
     {
@@ -195,17 +195,20 @@ public class CardManager : MonoBehaviour
                 }
             }
         }
-        //Text text = infoText.GetComponent<Text>();
         if (cardNum < 4)
         {
-            //text.text = "<color=#930500>" + "최소 " + (4 - cardNum).ToString() + "명이 더 필요합니다" + "</color>";
-            //NextButton.instance.ChangeButtonColor(0);
+            infoText.text = "<color=#930500>" + "최소 " + (4 - cardNum).ToString() + "명이 더 필요합니다" + "</color>";
+            MainMenuUiManager.instance.BattleButtonEnable(0);
+            MainMenuUiManager.instance.SetRamp(0);
+            MainMenuUiManager.instance.SetCardAlarm(4 - cardNum, true);
             isReady = false;
         }
         else
         {
-            //text.text = "<color=#009304>" + "출동준비 완료!" + "</color>";
-            //NextButton.instance.ChangeButtonColor(1);
+            infoText.text = "<color=#009304>" + "출동준비 완료!" + "</color>";
+            MainMenuUiManager.instance.BattleButtonEnable(1);
+            MainMenuUiManager.instance.SetRamp(1);
+            MainMenuUiManager.instance.SetCardAlarm(4 - cardNum, false);
             isReady = true;
         }    
     }

@@ -1332,6 +1332,7 @@ MonoBehaviour:
   - {fileID: 0}
   sfxValue: 0
   unitAus: {fileID: 0}
+  skillAus: {fileID: 0}
   winAudio: {fileID: 8300000, guid: 2c5d3a76d358ce74fbdb5b76f4feef29, type: 3}
   loseAudio: {fileID: 8300000, guid: 5f8f52c09cad1524390e979fb03d7375, type: 3}
 --- !u!82 &1923356402
@@ -2225,9 +2226,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1923356399}
+      - m_Target: {fileID: 1923356401}
         m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: sfxSoundSet
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

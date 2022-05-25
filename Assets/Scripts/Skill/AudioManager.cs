@@ -67,13 +67,16 @@ public class AudioManager : MonoBehaviour
     private void UnitAusVolumeSetting()
     {
 
-        float mouseScroll = 0f;
-        if (Input.GetKey(KeyCode.LeftControl))
-        {
-            mouseScroll += Input.GetAxis("Mouse ScrollWheel") * 0.1f;
-        }
-        unitAus.volume += mouseScroll;
-        
+        //float mouseScroll = 0f;
+        //if (Input.GetKey(KeyCode.LeftControl))
+        //{
+        //    mouseScroll += Input.GetAxis("Mouse ScrollWheel") * 0.1f;
+        //}
+        //unitAus.volume += mouseScroll;
+
+        unitAus.volume = sfxValue;
+        skillAus.volume = sfxValue;
+
     }
 
 
