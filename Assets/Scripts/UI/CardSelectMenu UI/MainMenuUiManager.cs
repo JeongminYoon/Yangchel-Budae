@@ -17,6 +17,7 @@ public class MainMenuUiManager : MonoBehaviour
     #endregion
 
     public GameObject BattleMenu;
+    public GameObject BattleButton;
     public GameObject CardSelectMenu;
     public GameObject Menus;
     public GameObject[] LightImages = new GameObject[2];
@@ -124,12 +125,12 @@ public class MainMenuUiManager : MonoBehaviour
     {
         if (i == 0)
         {
-            NextButton.instance.ChangeButtonColor(0);
+            BattleButton.GetComponent<NextButton>().ChangeButtonColor(i);
             BattleButtonInfo.SetActive(true); 
         }
         else
         {
-            NextButton.instance.ChangeButtonColor(1);
+            BattleButton.GetComponent<NextButton>().ChangeButtonColor(i);
             BattleButtonInfo.SetActive(false);
         }
     }
