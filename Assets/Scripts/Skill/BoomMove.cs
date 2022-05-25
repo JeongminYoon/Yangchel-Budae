@@ -11,7 +11,8 @@ public class BoomMove : MonoBehaviour
 
     bool bb = false;
 
-
+    public AudioClip skill1Sound;
+    
 
     private void OnTriggerEnter(Collider other)
     {
@@ -23,11 +24,14 @@ public class BoomMove : MonoBehaviour
             Vector3 dir = gameObject.transform.position;
 
             GameObject boomprefab = Instantiate(boomPrefab,dir, Quaternion.identity);
-            boomprefab.GetComponent<AudioSource>().volume = AudioManager.instance.sfxValue;
+           // boomprefab.GetComponent<AudioSource>().volume = AudioManager.instance.sfxValue;
             CameraShake.instance.Shake(0.5f,0.5f,0.05f);
         }
 
+    
         Destroy(this.gameObject);
+
+        AudioManager.instance.skillAus.PlayOneShot(skill1Sound);
 
     }
 
@@ -37,7 +41,7 @@ public class BoomMove : MonoBehaviour
     {
 
 
-
+      
         
     }
 
