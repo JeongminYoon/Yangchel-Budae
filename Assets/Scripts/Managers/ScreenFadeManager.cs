@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ScreenFadeManager : MonoBehaviour
 {
@@ -250,20 +251,48 @@ public class ScreenFadeManager : MonoBehaviour
             instance = this;
         }
 
-        fadeImage = GameObject.FindGameObjectWithTag("Canvas").transform.Find("Fade").gameObject.GetComponent<Image>();
-        //fadeImage = GameObject.FindGameObjectWithTag("Fade").GetComponent<Image>();
-        fadeImage.gameObject.SetActive(false);
+        DontDestroyOnLoad(this.gameObject);
+               
     }
 
 	// Start is called before the first frame update
 	void Start()
     {
-     
+        SceneManager.sceneLoaded += this.LoadedsceneEvent;
+
+        //fadeImage = GameObject.FindGameObjectWithTag("Canvas").transform.Find("Fade").gameObject.GetComponent<Image>();
+
+        //if (fadeImage)
+        //{
+        //    fadeImage.gameObject.SetActive(false);
+        //}
+    }
+
+    private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
+    {
+        GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
+
+        if (canvas)
+        { 
+            fadeImage = canvas.transform.Find("Fade").gameObject.GetComponent<Image>(); 
+        }
+
+//        fadeImage = GameObject.FindGameObjectWithTag("Canvas").transform.Find("Fade").gameObject.GetComponent<Image>();
+
+        if (fadeImage)
+        {
+            fadeImage.gameObject.SetActive(false);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= this.LoadedsceneEvent;
     }
 }
