@@ -162,8 +162,11 @@ public class CardManager : MonoBehaviour
                     GameManager.MyHandsList.Add(myCard[i].GetComponent<CardPrefab>().status);
                 }
             }
-
             GameManager.instance.SceneChange(Enums.SceneNum.InGame);
+        }
+        else
+        {
+            MainMenuUiManager.instance.ShowBattlePopUp(true);
         }
     }
 

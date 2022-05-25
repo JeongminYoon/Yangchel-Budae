@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,13 +18,14 @@ public class MainMenuUiManager : MonoBehaviour
 
     public GameObject BattleMenu;
     public GameObject BattleButton;
+    public GameObject BattlePopUp;
     public GameObject CardSelectMenu;
     public GameObject Menus;
     public GameObject[] LightImages = new GameObject[2];
     public GameObject ramp;
     public Sprite[] RampImages = new Sprite[2];
     public GameObject BattleButtonInfo;
-    public RectTransform[] MovePos = new RectTransform[2];
+    public RectTransform[] MovePos = new RectTransform[3];
     public GameObject alarm0;
     public GameObject alarm1;
 
@@ -88,7 +89,7 @@ public class MainMenuUiManager : MonoBehaviour
         switch (i)
         {
             case MainMenu.BattleMenu:
-                iTween.MoveTo(Menus, iTween.Hash("x", MovePos[0].position.x, "easeType", "easeOutBounce", "time", 0.7f));
+                iTween.MoveTo(Menus, iTween.Hash("x", MovePos[0].position.x, "easeType", "easeOutBounce", "time", 0.7f)); //itween은 RectTransform 이동기능을 지원하지 않음. 그래서 RectTransform 값을 가진 빈 GameObject의 포지션을 가져와줘야 하는데 별로 좋은방법이 아니다.
                 //BattleMenu.SetActive(true);
                 //CardSelectMenu.SetActive(false);
                 LightImages[0].SetActive(true);
@@ -145,5 +146,19 @@ public class MainMenuUiManager : MonoBehaviour
         alarm0.transform.Find("Text_Alram").gameObject.GetComponent<Text>().text = cardNum.ToString();
         alarm0.SetActive(hide);
         alarm1.SetActive(!hide);
+    }
+    
+    //Vector3 popPos0 = RectTransform.anchoredPosition()
+    public void ShowBattlePopUp(bool value = false)
+    {
+
+        if (value == true)
+        {
+            iTween.MoveTo(BattlePopUp, iTween.Hash("y", MovePos[2].position.y, "easeType", "easeOutBack", "time", 0.45f));
+        }
+        else
+        {
+            iTween.MoveTo(BattlePopUp, iTween.Hash("y", MovePos[3].position.y, "easeType", "easeOutSine", "time", 0.1f));
+        }
     }
 }

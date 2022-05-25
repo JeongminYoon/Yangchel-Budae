@@ -11,6 +11,7 @@ public class SettingButton : MonoBehaviour
     {
         GetComponent<Button>().onClick.AddListener(delegate { GameManager.instance.SetMenuActive(true); });
         // 설정창 자체에 DontDestroyOnLoad 걸어줘서 쓸려고 했는데 안넘어옴. UI라서 그런가?
+        //ㄴ 캔버스 자체에 걸어줘야함.
     }
 
     // Update is called once per frame
