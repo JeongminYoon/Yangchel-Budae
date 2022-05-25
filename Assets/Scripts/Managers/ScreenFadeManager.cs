@@ -59,6 +59,8 @@ public class ScreenFadeManager : MonoBehaviour
         startAlpha = 1f;
         endAlpha = 0f;
 
+
+        FindFadeImage();
         fadeImage.gameObject.SetActive(true);
         fadeImage.gameObject.transform.SetAsLastSibling();
 
@@ -75,9 +77,12 @@ public class ScreenFadeManager : MonoBehaviour
         {
             return;
         }
+
+
         startAlpha = 0f;
         endAlpha = 1f;
 
+        FindFadeImage(); 
         fadeImage.gameObject.SetActive(true);
         fadeImage.gameObject.transform.SetAsLastSibling();
 
@@ -207,13 +212,13 @@ public class ScreenFadeManager : MonoBehaviour
     //    UiManager.instance.ShowUI(false);
     //}
 
-
-
     public IEnumerator StageEndFadeOut(float fadeTime)
     {
         startAlpha = 0f;
         endAlpha = 1f;
 
+
+        FindFadeImage();
         fadeImage.gameObject.SetActive(true);
         fadeImage.gameObject.transform.SetAsLastSibling();
         
@@ -243,6 +248,28 @@ public class ScreenFadeManager : MonoBehaviour
         GameManager.instance.SceneChange(Enums.SceneNum.Result);
     }
 
+    public void FindFadeImage()
+    {
+        if (fadeImage)
+        { return; }
+
+        GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
+
+        if (canvas)
+        {
+            fadeImage = canvas.transform.Find("Fade").gameObject.GetComponent<Image>();
+        }
+
+        if (fadeImage)
+        {
+            fadeImage.gameObject.SetActive(false);
+        }
+
+    }
+    private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
+    {
+        FindFadeImage();
+    }
 
     private void Awake()
 	{
@@ -260,30 +287,15 @@ public class ScreenFadeManager : MonoBehaviour
     {
         SceneManager.sceneLoaded += this.LoadedsceneEvent;
 
-        //fadeImage = GameObject.FindGameObjectWithTag("Canvas").transform.Find("Fade").gameObject.GetComponent<Image>();
 
-        //if (fadeImage)
-        //{
-        //    fadeImage.gameObject.SetActive(false);
-        //}
-    }
-
-    private void LoadedsceneEvent(Scene scene, LoadSceneMode mode)
-    {
-        GameObject canvas = GameObject.FindGameObjectWithTag("Canvas");
-
-        if (canvas)
-        { 
-            fadeImage = canvas.transform.Find("Fade").gameObject.GetComponent<Image>(); 
-        }
-
-//        fadeImage = GameObject.FindGameObjectWithTag("Canvas").transform.Find("Fade").gameObject.GetComponent<Image>();
-
-        if (fadeImage)
-        {
-            fadeImage.gameObject.SetActive(false);
+        if (GameManager.instance.curScene == Enums.SceneNum.InGame)
+        { //중간에서 테스트 하는 경우
+            //LoadedsceneEvent(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+            FindFadeImage();
         }
     }
+
+
 
     // Update is called once per frame
     void Update()
