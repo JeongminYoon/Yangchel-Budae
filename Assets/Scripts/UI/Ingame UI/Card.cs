@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -45,11 +45,11 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     Material unitModelMat;
     
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
-    {//µå·¡±× ½ÃÀÛ ÇßÀ»¶§
-     //Ä«µåÀÇ Ã³À½À§Ä¡ cardPos¸¦ Á¤ÇØÁÜ
+    {//ë“œë˜ê·¸ ì‹œì‘ í–ˆì„ë•Œ
+     //ì¹´ë“œì˜ ì²˜ìŒìœ„ì¹˜ cardPosë¥¼ ì •í•´ì¤Œ
         cardPos = transform.position;
 
-        //Ä«µå ¾Ö´Ï¸ŞÀÌ¼Ç º¯¼ö ¼±¾ğ
+        //ì¹´ë“œ ì• ë‹ˆë©”ì´ì…˜ ë³€ìˆ˜ ì„ ì–¸
         rt1 = GetComponent<RectTransform>();
         rt2 = GetComponent<RectTransform>();
         vec = rt1.anchoredPosition;
@@ -73,10 +73,10 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     }
 
     void IDragHandler.OnDrag(PointerEventData eventData)
-    {//µå·¡±× Áß
+    {//ë“œë˜ê·¸ ì¤‘
         Vector3 currentPos = eventData.position;
         transform.position = currentPos;
-        //Ä«µå ¾Ö´Ï¸ŞÀÌ¼Ç Àç»ı
+        //ì¹´ë“œ ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒ
         CardAnim();
         SpawnRange.instance.ShowSpawnRangeEffect();
 
@@ -104,31 +104,43 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     }
 
     void IEndDragHandler.OnEndDrag(PointerEventData eventData)
-    {//µå·ÓÇÒ¶§
+    {//ë“œë¡­í• ë•Œ
+
+        //0525 ì „ê·¼í¬
+        //ì¹´ë“œ ë‹¤ì‹œ ì œìë¦¬ ëŒë ¤ ë†“ì„ ë•Œ ì†Œí™˜ë˜ëŠ” ë²„ê·¸ ìˆ˜ì • ì‹œì‘
+        // ë“œë˜ê·¸ì•¤ ë“œë¡­ ëë‚¬ì„ë•Œ ë§ˆìš°ìŠ¤ ìœ„ì¹˜ í™•ì¸í•´ì„œ 
+        //1. ë¨¼ì € ì¹´ë“œ ë°ìŠ¤í¬ ìœ„ë©´ ì†Œí™˜xxx ì•„ë‹ˆë©´ ì†Œí™˜ ã„±ã„±
+
+        Vector3 cursorPos = Camera.main.WorldToScreenPoint(Input.mousePosition);
+        
+        
+
+
+
         RayResult temp = Funcs.RayToWorld();
 
-        if (this.status.unitName.Contains("Skill") && cardAnim_h ==1f && float.Parse(unitCost.text) < CostManager.instance.currentCost && temp.isHit == true) //»ç¿ëÇÑ Ä«µå°¡ ½ºÅ³ÀÌ¸é
+        if (this.status.unitName.Contains("Skill") && cardAnim_h ==1f && float.Parse(unitCost.text) < CostManager.instance.currentCost && temp.isHit == true) //ì‚¬ìš©í•œ ì¹´ë“œê°€ ìŠ¤í‚¬ì´ë©´
         {
             SpawnSkill();
             NewCardManager.instance.SpawnCard(this.gameObject, 4);
             NewCardManager.instance.CardUse(this.gameObject);
             CostManager.instance.currentCost -= float.Parse(unitCost.text);
         }
-        else //»ç¿ëÇÑ Ä«µå°¡ À¯´ÖÀÌ¸é
+        else //ì‚¬ìš©í•œ ì¹´ë“œê°€ ìœ ë‹›ì´ë©´
         {
             if (temp.isHit == false)
             {
-                //´êÀÎ°÷ÀÌ ¶¥ÀÌ ¾Æ´Ï¸é Ä«µåÀÇ Ã³À½À§Ä¡(cardPos)·Î Ä«µå¸¦ µÇµ¹·Á³õÀ½
+                //ë‹¿ì¸ê³³ì´ ë•…ì´ ì•„ë‹ˆë©´ ì¹´ë“œì˜ ì²˜ìŒìœ„ì¹˜(cardPos)ë¡œ ì¹´ë“œë¥¼ ë˜ëŒë ¤ë†“ìŒ
                 transform.position = cardPos;
                 Destroy(unitModel);
                 Destroy(unitPlatform);
                 print("not ground");
             }
             else
-            {   //´êÀÎ°÷ÀÌ ¶¥ÀÌ¸é À¯´Ö ¼ÒÈ¯
+            {   //ë‹¿ì¸ê³³ì´ ë•…ì´ë©´ ìœ ë‹› ì†Œí™˜
 
                 if (temp.hitObj.tag == "Tower" || temp.hitObj.tag == "Nexus" || temp.hitObj.tag == "SpawnRange" || float.Parse(unitCost.text) > CostManager.instance.currentCost)
-                { //´êÀÎ°÷ÀÌ Å¸¿ö,³Ø¼­½º¸é ¼ÒÈ¯ Ãë¼Ò
+                { //ë‹¿ì¸ê³³ì´ íƒ€ì›Œ,ë„¥ì„œìŠ¤ë©´ ì†Œí™˜ ì·¨ì†Œ
                     transform.position = cardPos;
                     Destroy(unitModel);
                     Destroy(unitPlatform);
@@ -146,7 +158,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                 }
             }
         }
-        //Ä«µå ¾Ö´Ï¸ŞÀÌ¼Ç ÃÊ±âÈ­
+        //ì¹´ë“œ ì• ë‹ˆë©”ì´ì…˜ ì´ˆê¸°í™”
         transform.localScale = new Vector3(1, 1, 1);
         SpawnRange.instance.HideSpawnRangeEffect();
     }
