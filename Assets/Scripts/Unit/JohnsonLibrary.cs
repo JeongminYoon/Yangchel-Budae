@@ -180,6 +180,8 @@ public static class Defines
 	public const int ally = 0;
 	public const int enemy = 1;
 
+	public const float winCX = 1080f;
+	public const float winCY = 1920f;
 
 	public static Vector3 camPos = new Vector3(0f, 40f, -26f);
 	public static Vector3 camRot = new Vector3(60f, 0f, 0f);

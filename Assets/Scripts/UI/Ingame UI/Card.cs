@@ -15,6 +15,9 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     Vector3 cardPos;
     Color defaltCol;
 
+    Rect deskRect;
+    
+
     public int value;
 
     public bool isenabled;
@@ -33,6 +36,21 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
 
         unitName.text = status.unitName;
         unitCost.text = (status.cost).ToString();
+
+
+        
+        //Deck UI 사이즈 받아오는곳.
+        //=> Unity는 좌하단이 0,0 
+        //그리고 덱 UI는 우측하단 기준 고정임 => 그래서 요렇게
+        GameObject cardDeck = GameObject.Find("CardDesk");
+        float deckWidth = cardDeck.GetComponent<RectTransform>().rect.width;
+        float deckHeight = cardDeck.GetComponent<RectTransform>().rect.height;
+
+        deskRect.xMax = Defines.winCX;
+        deskRect.xMin = Defines.winCX - deckWidth;
+        deskRect.yMin = 0f;
+        deskRect.yMax = deckHeight;
+        
     }
 
 
@@ -111,11 +129,21 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         // 드래그앤 드롭 끝났을때 마우스 위치 확인해서 
         //1. 먼저 카드 데스크 위면 소환xxx 아니면 소환 ㄱㄱ
 
-        Vector3 cursorPos = Camera.main.WorldToScreenPoint(Input.mousePosition);
-        
-        
+        Vector3 mousePos = Input.mousePosition;
+        //Vector3 cursorPos = Camera.main.WorldToScreenPoint(Input.mousePosition);
+        Debug.Log("MousePos : " + mousePos);
 
+        if ((mousePos.x <= deskRect.xMax && mousePos.x >= deskRect.xMin)
+            &&
+            (mousePos.y <= deskRect.yMax && mousePos.y >= deskRect.yMin))
+        {
+            transform.localScale = new Vector3(1f, 1f, 0f);
+            transform.position = cardPos;
+            Destroy(unitModel);
+            Destroy(unitPlatform);
 
+            return;
+        }
 
         RayResult temp = Funcs.RayToWorld();
 
@@ -138,7 +166,6 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
             }
             else
             {   //닿인곳이 땅이면 유닛 소환
-
                 if (temp.hitObj.tag == "Tower" || temp.hitObj.tag == "Nexus" || temp.hitObj.tag == "SpawnRange" || float.Parse(unitCost.text) > CostManager.instance.currentCost)
                 { //닿인곳이 타워,넥서스면 소환 취소
                     transform.position = cardPos;
@@ -162,6 +189,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         transform.localScale = new Vector3(1, 1, 1);
         SpawnRange.instance.HideSpawnRangeEffect();
     }
+
 
     float cardAnim_h;
     void CardAnim()
