@@ -16,13 +16,14 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     Color defaltCol;
 
     Rect deskRect;
-    
+
 
     public int value;
 
     public bool isenabled;
 
-    private void Awake()
+
+	private void Awake()
     {
         
     }
@@ -50,11 +51,22 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         deskRect.xMin = Defines.winCX - deckWidth;
         deskRect.yMin = 0f;
         deskRect.yMax = deckHeight;
-        
+
     }
 
+	public void Update()
+	{
+        //if (animState == eCardAnimState.PopEnd)
+        //{
+        //    if (!EventSystem.current.IsPointerOverGameObject())
+        //    {
+        //        //
+        //        CardPopDownAnim();
+        //    }
+        //}
+    }
 
-    RectTransform rt1;
+	RectTransform rt1;
     RectTransform rt2;
     Vector3 vec;
     GameObject unitModel;
@@ -208,33 +220,39 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     }
 
     bool isAnim_PopUp_Played = false;
-    void CardPopUpAnim(int i)
+    public void CardPopUpAnim(int i)
     {
         if (i == 0)
         {
-            IEnumerator ie = PopUpAnim(0.2f);
+            IEnumerator ie = PopUpAnim(1.5f);
             StartCoroutine(ie);
             //iTween.MoveBy(gameObject, iTween.Hash("y", 5, "sin", "easeInOutExpo"));
         }
         else
         {
-                IEnumerator ie = PopUpAnim(-0.2f);
-                StartCoroutine(ie);
-            //iTween.MoveBy(gameObject, iTween.Hash("y", -5, "sin", "easeInOutExpo"));
-        }
+			IEnumerator ie = PopUpAnim(-1.5f);
+			StartCoroutine(ie);
+			//iTween.MoveBy(gameObject, iTween.Hash("y", -5, "sin", "easeInOutExpo"));
+		}
     }
+
+    //test
+
 
     IEnumerator PopUpAnim(float power)
     {
         for (int i = 0; i <= 10; i++)
         {
             this.gameObject.GetComponent<RectTransform>().position += new Vector3(0f, power, 0f);
+            
             yield return new WaitForSeconds(0.02f);
         }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        //카드위에 마우스 올렸을 때
+        
         CardPopUpAnim(0);
     }
 
