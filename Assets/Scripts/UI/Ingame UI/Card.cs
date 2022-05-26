@@ -219,7 +219,6 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         print(cardAnim_h);
     }
 
-    bool isAnim_PopUp_Played = false;
     public void CardPopUpAnim(int i)
     {
         if (i == 0)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class MainMenuUiManager : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class MainMenuUiManager : MonoBehaviour
     public RectTransform[] MovePos = new RectTransform[3];
     public GameObject alarm0;
     public GameObject alarm1;
+    public List<GameObject> BottomBts;
 
     public enum MainMenu
     {
@@ -38,14 +40,17 @@ public class MainMenuUiManager : MonoBehaviour
 
     [SerializeField]
     MainMenu menu = MainMenu.BattleMenu;
-
+    Vector2 battleIconVec;
     // Start is called before the first frame update
     void Start()
     {
         ChangeMenu(MainMenu.BattleMenu);
+        StartCoroutine(IE_Display(0.05f, 0.2f));
+
+        battleIcon = BattleButton.transform.Find("Icon").gameObject;
+        battleIconVec = battleIcon.transform.localScale;
     }
 
-    bool triger = false;
     // Update is called once per frame
     void Update()
     {
@@ -97,7 +102,6 @@ public class MainMenuUiManager : MonoBehaviour
                 break;
             case MainMenu.CardSelectMenu:
                 iTween.MoveTo(Menus, iTween.Hash("x", MovePos[1].position.x, "easeType", "easeOutBounce", "time", 0.7f));
-                triger = true;
                     //BattleMenu.SetActive(false);
                     //CardSelectMenu.SetActive(true);
                     LightImages[0].SetActive(false);
@@ -121,18 +125,25 @@ public class MainMenuUiManager : MonoBehaviour
         ChangeMenu(MainMenu.CardSelectMenu);
     }
 
-
     public void BattleButtonEnable(int i)
     {
         if (i == 0)
         {
             BattleButton.GetComponent<NextButton>().ChangeButtonColor(i);
             BattleButtonInfo.SetActive(true); 
+            iTween.Stop(battleIcon);
+            battleIcon.transform.localScale = battleIconVec;
+            isSizeAnimPlay = false;
         }
         else
         {
             BattleButton.GetComponent<NextButton>().ChangeButtonColor(i);
             BattleButtonInfo.SetActive(false);
+            if (isSizeAnimPlay == false)
+            {
+                isSizeAnimPlay = true;
+                StartCoroutine(IE_SizeAnim());
+            }
         }
     }
 
@@ -160,5 +171,23 @@ public class MainMenuUiManager : MonoBehaviour
         {
             iTween.MoveTo(BattlePopUp, iTween.Hash("y", MovePos[3].position.y, "easeType", "easeOutSine", "time", 0.1f));
         }
+    }
+
+    IEnumerator IE_Display(float delayStart, float delayDisplay)
+    {
+        yield return new WaitForSeconds(delayStart);
+            for (int i=0; i< BottomBts.Count; i++)
+        {
+            iTween.MoveTo(BottomBts[i], iTween.Hash("y", MovePos[4].position.y, "easeType", "easeOutSine", "time", 0.3f));
+            yield return new WaitForSeconds(delayDisplay);
+        }
+    }
+
+    GameObject battleIcon;
+    bool isSizeAnimPlay = false;
+    IEnumerator IE_SizeAnim()
+    {
+        iTween.ScaleTo(battleIcon, iTween.Hash("scale", battleIcon.transform.localScale * 1.2f, "easeType", "easeOutBack", "time", 0.5f, "looptype", iTween.LoopType.pingPong , "delay", 0.7f));
+        yield return null;
     }
 }

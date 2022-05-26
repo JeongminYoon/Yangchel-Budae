@@ -44,8 +44,8 @@ public class CardManager : MonoBehaviour
         for (int i = 0; i < unitStatusList.Count; i++) // 유닛리스트만큼 카드를 추가해주고 정렬함
         {
             AllCard.Add(Instantiate(cardPrefab, uiCanvas.transform));
-            AllCard[i].GetComponent<CardPrefab>().status = ScriptableObject.CreateInstance<UnitStatus>();
-            AllCard[i].GetComponent<CardPrefab>().status.DeepCopy(unitStatusList[i]);
+            AllCard[i].GetComponent<MainMenu_Card>().status = ScriptableObject.CreateInstance<UnitStatus>();
+            AllCard[i].GetComponent<MainMenu_Card>().status.DeepCopy(unitStatusList[i]);
             SortCard(AllCard[i], allCardPos, i, 4);
         }
         SetCostText();
@@ -58,9 +58,9 @@ public class CardManager : MonoBehaviour
         {
             if (AllCard[i] != null)
             {
-                if (AllCard[i].GetComponent<CardPrefab>().isSelect == true)
+                if (AllCard[i].GetComponent<MainMenu_Card>().isSelect == true)
                 {
-                    AllCard[i].GetComponent<CardPrefab>().isSelect = false;
+                    AllCard[i].GetComponent<MainMenu_Card>().isSelect = false;
                     if (AllCard.Count > (unitStatusList.Count - myCard.Length))
                     { 
                         AllCardToMyCard(i);
@@ -74,10 +74,10 @@ public class CardManager : MonoBehaviour
         {
             if (myCard[i] != null)
             {
-                if (myCard[i].GetComponent<CardPrefab>().isSelect == true)
+                if (myCard[i].GetComponent<MainMenu_Card>().isSelect == true)
                 {
-                    print("선택카드 : " + myCard[i].GetComponent<CardPrefab>().unitName.text);
-                    myCard[i].GetComponent<CardPrefab>().isSelect = false;
+                    print("선택카드 : " + myCard[i].GetComponent<MainMenu_Card>().unitName.text);
+                    myCard[i].GetComponent<MainMenu_Card>().isSelect = false;
                     MyCardToAllCard(i);
                     SetCostText();
                     SetInfoMessage();
@@ -159,7 +159,7 @@ public class CardManager : MonoBehaviour
             {
                 if (myCard[i] != null)
                 {
-                    GameManager.MyHandsList.Add(myCard[i].GetComponent<CardPrefab>().status);
+                    GameManager.MyHandsList.Add(myCard[i].GetComponent<MainMenu_Card>().status);
                 }
             }
             GameManager.instance.SceneChange(Enums.SceneNum.InGame);
@@ -177,8 +177,8 @@ public class CardManager : MonoBehaviour
         {
             if (myCard[i] != null)
             {
-                totalCost += myCard[i].GetComponent<CardPrefab>().status.cost;
-                print(myCard[i].GetComponent<CardPrefab>().status.cost);
+                totalCost += myCard[i].GetComponent<MainMenu_Card>().status.cost;
+                print(myCard[i].GetComponent<MainMenu_Card>().status.cost);
             }
         }
         Text text = costText.GetComponent<Text>();
@@ -201,17 +201,17 @@ public class CardManager : MonoBehaviour
         if (cardNum < 4)
         {
             infoText.text = "<color=#930500>" + "최소 " + (4 - cardNum).ToString() + "명이 더 필요합니다" + "</color>";
-            MainMenuUiManager.instance.BattleButtonEnable(0);
             MainMenuUiManager.instance.SetRamp(0);
             MainMenuUiManager.instance.SetCardAlarm(4 - cardNum, true);
+            MainMenuUiManager.instance.BattleButtonEnable(0);
             isReady = false;
         }
         else
         {
             infoText.text = "<color=#009304>" + "출동준비 완료!" + "</color>";
-            MainMenuUiManager.instance.BattleButtonEnable(1);
             MainMenuUiManager.instance.SetRamp(1);
             MainMenuUiManager.instance.SetCardAlarm(4 - cardNum, false);
+            MainMenuUiManager.instance.BattleButtonEnable(1);
             isReady = true;
         }    
     }
