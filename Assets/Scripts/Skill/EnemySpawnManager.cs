@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Enums;
 
 public class EnemySpawnManager : MonoBehaviour
 {
@@ -154,16 +155,16 @@ public class EnemySpawnManager : MonoBehaviour
             if(nexusRandom == 0)
             {
 
-
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+                SpawnEnemyPrefab(rand, nexTower1);
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
 
 
             }
             if(nexusRandom == 1)
             {
 
-
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                SpawnEnemyPrefab(rand, nexTower2);
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
 
 
 
@@ -179,8 +180,8 @@ public class EnemySpawnManager : MonoBehaviour
 
             if (randomSpawn == 0)
             {
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
-
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+                SpawnEnemyPrefab(rand, rightTowerPos);
 
             }
             else if (randomSpawn == 1)
@@ -190,15 +191,15 @@ public class EnemySpawnManager : MonoBehaviour
                 if(nexusRandom == 0)
                 {
 
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
-
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+                    SpawnEnemyPrefab(rand, nexTower1);
 
                 }
                 if(nexusRandom == 1)
                 {
 
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
-
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                    SpawnEnemyPrefab(rand, nexTower2);
 
 
                 }
@@ -215,8 +216,8 @@ public class EnemySpawnManager : MonoBehaviour
             randomSpawn = Random.Range(0, 2);
             if (randomSpawn == 0)
             {
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
-
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+                SpawnEnemyPrefab(rand, leftTowerPos);
 
             }
             else if (randomSpawn == 1)
@@ -226,15 +227,15 @@ public class EnemySpawnManager : MonoBehaviour
                 {
 
 
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
-
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+                    SpawnEnemyPrefab(rand, nexTower1);
                 }
                 if(nexusRandom == 1)
                 {
 
 
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                    SpawnEnemyPrefab(rand, nexTower2);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
                 }
                 
               
@@ -253,13 +254,15 @@ public class EnemySpawnManager : MonoBehaviour
             if (randomSpawn == 0)
             {
 
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+                SpawnEnemyPrefab(rand, leftTowerPos);
 
             }
             else if (randomSpawn == 1)
             {
 
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+                SpawnEnemyPrefab(rand, rightTowerPos);
             }
             else if (randomSpawn == 2)
             {
@@ -270,7 +273,8 @@ public class EnemySpawnManager : MonoBehaviour
 
 
 
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+                    SpawnEnemyPrefab(rand, nexTower1);
 
                 }
 
@@ -278,7 +282,8 @@ public class EnemySpawnManager : MonoBehaviour
                 {
 
 
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                    SpawnEnemyPrefab(rand, nexTower2);
 
 
                 }
@@ -308,20 +313,20 @@ public class EnemySpawnManager : MonoBehaviour
             if(randomSpawn2 == 0)
             {
 
-
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+                SpawnEnemyPrefab(rand, rightTowerPos);
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
 
               
                 if(nexusRandom == 0)
                 {
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+                    SpawnEnemyPrefab(rand, nexTower1);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
 
                 }
                 if(nexusRandom == 1)
                 {
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                    SpawnEnemyPrefab(rand, nexTower2);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
                 }
                
 
@@ -330,10 +335,10 @@ public class EnemySpawnManager : MonoBehaviour
             }
             if(randomSpawn2 == 1)
             {
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
-
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
-
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+                SpawnEnemyPrefab(rand, rightTowerPos);
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+                SpawnEnemyPrefab(rand, rightTowerPos);
 
             }
             if(randomSpawn2 == 2)
@@ -341,29 +346,29 @@ public class EnemySpawnManager : MonoBehaviour
                 if (nexusRandom == 0)
                 {
 
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+                    //SpawnEnemyPrefab(rand, nexTower1);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
 
 
                 }
                 if(nexusRandom == 1)
                 {
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                    SpawnEnemyPrefab(rand, nexTower2);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
 
 
                 }
                 if(nexusRandom == 0)
                 {
 
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+                    SpawnEnemyPrefab(rand, nexTower1);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
                 }
                 if(nexusRandom == 1)
                 {
 
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                    SpawnEnemyPrefab(rand, nexTower2);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
                 }
                
             }
@@ -388,20 +393,20 @@ public class EnemySpawnManager : MonoBehaviour
           
             if(randomSpawn2 == 0)
             {
-
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+                SpawnEnemyPrefab(rand, leftTowerPos);
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
                 
                 if(nexusRandom ==0)
                 {
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+                    SpawnEnemyPrefab(rand, nexTower1);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
 
 
                 }
                 if(nexusRandom == 1)
                 {
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                    SpawnEnemyPrefab(rand, nexTower2);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
                 }
                 
                 
@@ -412,10 +417,10 @@ public class EnemySpawnManager : MonoBehaviour
             }
             if(randomSpawn2 == 1)
             {
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
-
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
-
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+                SpawnEnemyPrefab(rand, leftTowerPos);
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+                SpawnEnemyPrefab(rand, leftTowerPos);
 
             }
             
@@ -423,28 +428,28 @@ public class EnemySpawnManager : MonoBehaviour
             {
                 if (nexusRandom == 0)
                 {
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+                    SpawnEnemyPrefab(rand, nexTower1);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
 
 
                 }
                 if (nexusRandom == 1)
                 {
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                    SpawnEnemyPrefab(rand, nexTower2);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
                 }
 
                 if (nexusRandom == 0)
                 {
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+                    SpawnEnemyPrefab(rand, nexTower1);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
 
 
                 }
                 if (nexusRandom == 1)
                 {
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                    SpawnEnemyPrefab(rand, nexTower2);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
                 }
 
 
@@ -467,27 +472,28 @@ public class EnemySpawnManager : MonoBehaviour
 
             if (randomSpawn == 0)
             {
-
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+                SpawnEnemyPrefab(rand, leftTowerPos); 
+                SpawnEnemyPrefab(rand, rightTowerPos);
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
             }
             else if (randomSpawn == 1)
             {
 
 
-
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+                SpawnEnemyPrefab(rand, rightTowerPos);
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
                 if (nexusRandom == 0)
                 {
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+                    SpawnEnemyPrefab(rand, nexTower1);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
 
 
                 }
                 if (nexusRandom == 1)
                 {
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                    SpawnEnemyPrefab(rand, nexTower2);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
                 }
 
 
@@ -497,35 +503,37 @@ public class EnemySpawnManager : MonoBehaviour
 
                 if (nexusRandom == 0)
                 {
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+                    SpawnEnemyPrefab(rand, nexTower1);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
 
 
                 }
                 if (nexusRandom == 1)
                 {
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                    SpawnEnemyPrefab(rand, nexTower2);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
                 }
 
-
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+                SpawnEnemyPrefab(rand, leftTowerPos);
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
 
 
 
             }
             else if (randomSpawn == 3)
             {
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
-
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, leftTowerPos, true);
+                SpawnEnemyPrefab(rand, leftTowerPos); 
+                SpawnEnemyPrefab(rand, leftTowerPos);
 
             }
             else if (randomSpawn == 4)
             {
-
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
-                UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+                SpawnEnemyPrefab(rand, rightTowerPos);
+                SpawnEnemyPrefab(rand, rightTowerPos);
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
+                //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, rightTowerPos, true);
 
             }
             else if(randomSpawn == 5)
@@ -533,28 +541,28 @@ public class EnemySpawnManager : MonoBehaviour
 
                 if (nexusRandom == 0)
                 {
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+                    SpawnEnemyPrefab(rand, nexTower1);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
 
 
                 }
                 if (nexusRandom == 1)
                 {
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                    SpawnEnemyPrefab(rand, nexTower2);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
                 }
 
                 if (nexusRandom == 0)
                 {
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
+                    SpawnEnemyPrefab(rand, nexTower1);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower1, true);
 
 
                 }
                 if (nexusRandom == 1)
                 {
-
-                    UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
+                    SpawnEnemyPrefab(rand, nexTower2);
+                    //UnitFactory.instance.SpawnUnit((Enums.UnitClass)rand, nexTower2, true);
                 }
 
 
@@ -642,12 +650,31 @@ public class EnemySpawnManager : MonoBehaviour
 
     }
 
+    public GameObject spawnEffect;
+    public GameObject fxEffect;
+
+    void SpawnEnemyPrefab(int unitNum, Vector3 pos)
+    {
+        GameObject effect = Instantiate(spawnEffect, pos, Quaternion.identity);
+        effect.GetComponent<EnemyUnitSpawnEffect>().EnemyUnitSpawnEftSetting((Enums.UnitClass)unitNum, pos);
+
+        StartCoroutine(SpawnEnemyUnit(unitNum, pos));
+    }
 
 
-        
-        
+    IEnumerator SpawnEnemyUnit(int unitNum, Vector3 pos)
+    {
+        yield return new WaitForSeconds(1f);
+        UnitFactory.instance.SpawnUnit((Enums.UnitClass)unitNum, pos, true);
+    }
+
+    void CostEffectSetting()
+    {
 
     }
+
+
+}
     
          
           
