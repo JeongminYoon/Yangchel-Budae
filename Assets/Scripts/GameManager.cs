@@ -125,7 +125,8 @@ public class GameManager : MonoBehaviour
 
         Invoke("GameEndCamMove", fadeOutTime);
         //Invoke("DelayGameEnd", productTime);
-       
+
+        StopInGameTimer(); // 정민 인게임 시간체크함수 22-05-27
     }
 
     public void GameEndCamMove(/*bool isNexusEnemy*/)
@@ -248,6 +249,12 @@ public class GameManager : MonoBehaviour
         {
             AudioManager.instance.sfxSoundSet(sfxSlider.value);
         }
+
+        // 정민 인게임 시간체크 코드  22-05-27
+        if (curScene == SceneNum.InGame && isGameEnd == false)
+        {
+            inGameTimer += Time.deltaTime;
+        }
     }
 
 
@@ -270,5 +277,19 @@ public class GameManager : MonoBehaviour
         }    
     }
 
+    #endregion
+    #region 인게임씬 시간 체크 변수/함수들 feat.Yoon 22-05-27
+    float inGameTimer = 0f;
+    public float inGamePlayTime = 0f;
+    public void ResetInGameTimer()
+    {
+        inGamePlayTime = 0f;
+        inGameTimer = 0f;
+    }
+
+    void StopInGameTimer()
+    {
+        inGamePlayTime = inGameTimer;
+    }
     #endregion
 }

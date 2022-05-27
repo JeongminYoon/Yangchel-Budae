@@ -2,13 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ResultSceneManager : MonoBehaviour
 {
     public static ResultSceneManager instance = null;
 
-
-    public Text resultText;
+    float clearTime;
+    public TextMeshProUGUI resultText;
+    public Image titleLabel;
+    public Sprite[] labelSprites = new Sprite[2];
+    public GameObject[] Stars = new GameObject[3];
 
     public void GotoCardSelectScene()
     {
@@ -38,6 +42,7 @@ public class ResultSceneManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
+
         Funcs.GameManagerHasNotExist();
 
         if (resultText != null)
@@ -45,11 +50,13 @@ public class ResultSceneManager : MonoBehaviour
              string resultStr = "";
             if (GameManager.instance.isGameWin)
             {
-                resultStr = "WIN";
+                resultStr = "½Â¸®!";
+                titleLabel.sprite = labelSprites[0];
             }
             else 
             {
-                resultStr = "DEFEAT";
+                resultStr = "ÆÐ¹è";
+                titleLabel.sprite = labelSprites[1];
             }
 
             //bool temp = GameManager.instance.isGameWin;
@@ -58,6 +65,10 @@ public class ResultSceneManager : MonoBehaviour
 
             resultText.text = resultStr;
         }
+        clearTime = GameManager.instance.inGamePlayTime;
+        GameManager.instance.ResetInGameTimer();
+        ClearScoreCheck();
+
     }
 
     // Update is called once per frame
@@ -65,4 +76,27 @@ public class ResultSceneManager : MonoBehaviour
     {
         
     }
+
+    void ClearScoreCheck()
+    {
+        if (clearTime >= 120f)
+        {
+            Stars[0].SetActive(true);
+            Stars[1].SetActive(false);
+            Stars[2].SetActive(false);
+        }
+        else if (clearTime >= 90f)
+        {
+            Stars[0].SetActive(true);
+            Stars[1].SetActive(true);
+            Stars[2].SetActive(false);
+        }
+        else
+        {
+            Stars[0].SetActive(true);
+            Stars[1].SetActive(true);
+            Stars[2].SetActive(true);
+        }
+
+    }    
 }

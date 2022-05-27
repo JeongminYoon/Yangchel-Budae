@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class CostManager : MonoBehaviour
 {
@@ -18,8 +19,7 @@ public class CostManager : MonoBehaviour
     }
 
     public GameObject CostBar;
-    public GameObject costText;
-    Text costTextValue;
+    public TextMeshProUGUI costText;
     Image costBar;
     public float currentCost;
 
@@ -29,14 +29,14 @@ public class CostManager : MonoBehaviour
         
         //CostBar.transform.SetAsLastSibling(); //코스트바 draw 위치 맨위로 초기화
         costBar = CostBar.GetComponent<Image>();
-        costTextValue = costText.gameObject.GetComponent<Text>();
+        costText.text = 0.ToString();
     }
 
     void Update()
     {
         CostController();
 
-        costTextValue.text = (Mathf.Floor(currentCost)).ToString();
+        costText.text = (Mathf.Floor(currentCost)).ToString();
         costBar.fillAmount = currentCost / 10f;
     }
 

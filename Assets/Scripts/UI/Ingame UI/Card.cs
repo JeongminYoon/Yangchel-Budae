@@ -4,23 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using Structs;
+using TMPro;
 
 public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public UnitStatus status;
     public GameObject spawnEffect;
-    public Text unitName;
-    public Text unitCost;
+    public TextMeshProUGUI unitName;
+    public TextMeshProUGUI unitCost;
+    public TextMeshProUGUI unitHp;
+    public Image charaImage;
+    public Image frameImage;
+    public Image glowImage;
+    public Image typeImage;
     public int cardDeskPos;
     Vector3 cardPos;
     Color defaltCol;
 
+    public Sprite[] UnitSprites = new Sprite[6];
+    public Sprite[] unitTypeSprites = new Sprite[4]; //melee, range, utility, skill
+    public Sprite[] cardFrames = new Sprite[2];
+
     Rect deskRect;
-
-
-    public int value;
-
-    public bool isenabled;
 
 
 	private void Awake()
@@ -31,15 +36,41 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
     // Start is called before the first frame update
     void Start()
     {
-        unitName = this.gameObject.transform.Find("Name").gameObject.GetComponent<Text>();
-        unitCost = this.gameObject.transform.Find("Cost").gameObject.GetComponent<Text>();
+        if (status.unitName.Contains("Skill"))
+        {
+            frameImage.sprite = cardFrames[1];
+            glowImage.color = new Color(0.73f, 0.26f, 0.77f);
+        }
+        else
+        {
+            frameImage.sprite = cardFrames[0];
+            glowImage.color = new Color(0f, 0.69f, 0.44f);
+        }
 
+        if (status.unitName.Contains("Melee"))
+        {
+            typeImage.sprite = unitTypeSprites[0];
+        }
+        else if (status.unitName.Contains("Range"))
+        {
+            typeImage.sprite = unitTypeSprites[1];
+        }
+        else if (status.unitName.Contains("Skill"))
+        {
+            typeImage.sprite = unitTypeSprites[3];
+        }
+        else
+        {
+            typeImage.sprite = unitTypeSprites[2];
+        }
 
         unitName.text = status.unitName;
         unitCost.text = (status.cost).ToString();
+        unitHp.text = status.fullHp.ToString();
+        charaImage.sprite = UnitSprites[status.unitNum];
 
 
-        
+
         //Deck UI 사이즈 받아오는곳.
         //=> Unity는 좌하단이 0,0 
         //그리고 덱 UI는 우측하단 기준 고정임 => 그래서 요렇게
@@ -149,7 +180,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
             &&
             (mousePos.y <= deskRect.yMax && mousePos.y >= deskRect.yMin))
         {
-            transform.localScale = new Vector3(1f, 1f, 0f);
+            transform.localScale = new Vector3(0.38f, 0.38f, 0f);
             transform.position = cardPos;
             Destroy(unitModel);
             Destroy(unitPlatform);
@@ -198,7 +229,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
             }
         }
         //카드 애니메이션 초기화
-        transform.localScale = new Vector3(1, 1, 1);
+        transform.localScale = new Vector3(0.38f, 0.38f, 0.38f);
         SpawnRange.instance.HideSpawnRangeEffect();
     }
 
@@ -215,7 +246,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         {
             cardAnim_h = 0;
         }
-        transform.localScale = new Vector3(1 - cardAnim_h, 1 - cardAnim_h, 1);
+        transform.localScale = new Vector3((1 - cardAnim_h) * 0.38f, (1 - cardAnim_h) * 0.38f, 1);
         print(cardAnim_h);
     }
 

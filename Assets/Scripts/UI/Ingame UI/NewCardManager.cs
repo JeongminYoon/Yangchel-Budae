@@ -134,10 +134,12 @@ public class NewCardManager : MonoBehaviour
     {
         if (unitDataList.Count > 4)
         {
-            nextUnitName = nextCard.gameObject.transform.Find("Name").gameObject.GetComponent<Text>();
-            nextUnitCost = nextCard.gameObject.transform.Find("Cost").gameObject.GetComponent<Text>();
-            nextUnitName.text = grave[0].GetComponent<Card>().status.unitName.ToString();
-            nextUnitCost.text = grave[0].GetComponent<Card>().status.cost.ToString();
+            nextCard.gameObject.GetComponent<NextCard_InGame>().status = grave[0].GetComponent<Card>().status;
+            nextCard.gameObject.GetComponent<NextCard_InGame>().UpdateNextCardStatus();
+            //nextUnitName = nextCard.gameObject.transform.Find("Name").gameObject.GetComponent<Text>();
+            //nextUnitCost = nextCard.gameObject.transform.Find("Cost").gameObject.GetComponent<Text>();
+            //nextUnitName.text = grave[0].GetComponent<Card>().status.unitName.ToString();
+            //nextUnitCost.text = grave[0].GetComponent<Card>().status.cost.ToString();
         }
     }
 

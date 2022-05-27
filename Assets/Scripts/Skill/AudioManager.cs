@@ -135,7 +135,6 @@ public class AudioManager : MonoBehaviour
     {
         bgmSound();
         UnitAusVolumeSetting();
-        print(bgmAus.volume);
 
 
     }
