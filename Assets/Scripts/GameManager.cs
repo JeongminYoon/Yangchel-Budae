@@ -50,8 +50,9 @@ public class GameManager : MonoBehaviour
             pastScene = curScene;
             curScene = sceneNum;
             nextScene = SceneNum.SceneEnd;
-           //Debug.Log(sceneNum + "으로 신 바꾸기 성공");
-            SceneManager.LoadScene((int)sceneNum);
+            //Debug.Log(sceneNum + "으로 신 바꾸기 성공");
+            //SceneManager.LoadScene((int)sceneNum);
+            LoadingSceneController.Instance.LoadScene((int)sceneNum);
 
             //sound
             AudioManager.instance.BGMPlay(sceneNum);
