@@ -209,7 +209,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
             }
             else
             {   //닿인곳이 땅이면 유닛 소환
-                if (temp.hitObj.tag == "Tower" || temp.hitObj.tag == "Nexus" || temp.hitObj.tag == "SpawnRange" || float.Parse(unitCost.text) > CostManager.instance.currentCost)
+                if (temp.hitObj.tag == "Tower" || temp.hitObj.tag == "Nexus" || temp.hitObj.tag == "SpawnRange" || float.Parse(unitCost.text) > CostManager.instance.currentCost ||  temp.hitObj.tag != "MapData")
                 { //닿인곳이 타워,넥서스면 소환 취소
                     transform.position = cardPos;
                     Destroy(unitModel);
@@ -217,6 +217,7 @@ public class Card : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
                 }
                 else
                 {
+                    print(temp.hitObj.tag);
                     //UnitFactory.instance.SpawnUnit((Enums.UnitClass)status.unitNum, temp.hitPosition);
                     GameObject spawnEft = Instantiate(spawnEffect);
                     spawnEft.GetComponent<UnitSpawnEffect>().UnitSpawnEftSetting((Enums.UnitClass)status.unitNum, temp.hitPosition, status.cost, unitModel);
