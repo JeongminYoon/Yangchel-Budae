@@ -12,7 +12,7 @@ public class CameraResolution : MonoBehaviour
         float scaleheight = ((float)Screen.width / Screen.height) / ((float)9 / 16); // 비율계산 (화면가로 / 화면세로) / (9 / 16 비율)
         float scalewidth = 1f / scaleheight; // 
         if (scaleheight < 1) // 9:16 비율보다 값이 작을때, 즉 화면이 날씬한 경우
-            {
+        {
             rect.height = scaleheight; //레터박스를 높이를 기준으로 생성
             rect.y = (1f - scaleheight) / 2f; //중앙 정렬
         }
@@ -22,6 +22,7 @@ public class CameraResolution : MonoBehaviour
             rect.x = (1f - scalewidth) / 2f;  //중앙 정렬
         }
         camera.rect = rect;
-    }
 
+    }
+    void OnPreCull() => GL.Clear(true, true, Color.black);
 }
