@@ -79,23 +79,32 @@ public class ResultSceneManager : MonoBehaviour
 
     void ClearScoreCheck()
     {
-        if (clearTime >= 120f)
+        if (GameManager.instance.isGameWin)
         {
-            Stars[0].SetActive(true);
-            Stars[1].SetActive(false);
-            Stars[2].SetActive(false);
-        }
-        else if (clearTime >= 90f)
-        {
-            Stars[0].SetActive(true);
-            Stars[1].SetActive(true);
-            Stars[2].SetActive(false);
+            if (clearTime >= 120f)
+            {
+                Stars[0].SetActive(true);
+                Stars[1].SetActive(false);
+                Stars[2].SetActive(false);
+            }
+            else if (clearTime >= 90f)
+            {
+                Stars[0].SetActive(true);
+                Stars[1].SetActive(true);
+                Stars[2].SetActive(false);
+            }
+            else
+            {
+                Stars[0].SetActive(true);
+                Stars[1].SetActive(true);
+                Stars[2].SetActive(true);
+            }
         }
         else
         {
-            Stars[0].SetActive(true);
-            Stars[1].SetActive(true);
-            Stars[2].SetActive(true);
+            Stars[0].SetActive(false);
+            Stars[1].SetActive(false);
+            Stars[2].SetActive(false);
         }
 
     }    

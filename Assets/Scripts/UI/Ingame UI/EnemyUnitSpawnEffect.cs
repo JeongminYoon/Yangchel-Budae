@@ -64,7 +64,6 @@ public class EnemyUnitSpawnEffect : MonoBehaviour
         unitModel.transform.eulerAngles = new Vector3(0, 180f, 0);
         iTween.MoveTo(unitModel, iTween.Hash("islocal", true, "y", pos.y + 0.6f, "time", 0.95f, "easetype", "easeOutBounce", "oncompletetarget", this.gameObject));
         StartCoroutine("PlayFx");
-        print("»õ¾ù¤·");
     }
 
     IEnumerator PlayFx()
